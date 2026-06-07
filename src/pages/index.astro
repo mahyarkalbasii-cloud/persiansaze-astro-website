@@ -177,7 +177,7 @@ const schemaGraph = [
     <main>
       <section id="hero" class="hero">
         <div class="container hero-grid">
-          <div>
+          <div class="hero-copy">
             <h1>
               <span>{hero.titleLines[0]}</span>
               <br />
@@ -189,26 +189,40 @@ const schemaGraph = [
               <a class="button button-secondary" href="#solution">{hero.secondaryCta}</a>
             </div>
           </div>
-          <div class="placeholder" aria-label="جایگاه تصویر هیرو">
-            {hero.placeholder}
+          <div class="placeholder hero-visual" aria-label="جایگاه تصویر هیرو">
+            <div class="visual-shell">
+              <div class="visual-topline">
+                <span>نقشه پروژه‌ها</span>
+                <span>{solution.dashboardMarket}</span>
+              </div>
+              <div class="visual-map" aria-hidden="true">
+                <span class="map-line map-line-a"></span>
+                <span class="map-line map-line-b"></span>
+                <span class="map-line map-line-c"></span>
+                <span class="project-pin pin-a"></span>
+                <span class="project-pin pin-b"></span>
+                <span class="project-pin pin-c"></span>
+              </div>
+              <p>{hero.placeholder}</p>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="problem" class="section">
-        <div class="container">
+        <div class="container problem-layout">
           <div class="section-heading">
             <h2>{problem.title}</h2>
             <p>{problem.body}</p>
             <a class="button button-secondary" href="#solution">{problem.cta}</a>
           </div>
-          <div class="grid-4">
-            {problem.points.map((item) => (
-              <article class="card">
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
+          <div class="placeholder problem-visual" aria-label="جایگاه تصویر مسئله بازار">
+            <div class="problem-frame">
+              <span></span>
+              <span></span>
+              <span></span>
+              <p>{problem.placeholder}</p>
+            </div>
           </div>
         </div>
       </section>
@@ -220,60 +234,32 @@ const schemaGraph = [
             <p>{solution.body}</p>
           </div>
 
-          <div class="card">
-            <p class="mini-label">{solution.dashboardTitle}</p>
-            <p>{solution.dashboardMarket}</p>
-            <div class="dashboard">
-              <section class="card" aria-labelledby="solution-map-title">
-                <h3 id="solution-map-title">{solution.mapTitle}</h3>
-                <p><a href="#solution">{solution.mapLink}</a></p>
-                <div class="placeholder">{solution.mapPlaceholder}</div>
-              </section>
-
-              <aside class="card" aria-label={solution.projectCard.ariaLabel}>
-                <p class="mini-label">{solution.projectCard.ariaLabel}</p>
-                <div class="placeholder">جایگاه تصویر/داشبورد کارت پروژه</div>
-                <p>{solution.projectCard.location}</p>
-                <dl class="facts">
-                  {solution.projectCard.specs.map(([label, value]) => (
-                    <div>
-                      <dt>{label}</dt>
-                      <dd>{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <div class="grid-2" aria-label="بخش‌های کارت پروژه">
-                  {solution.projectCard.tabs.map((tab) => (
-                    <span class="card mini-label">{tab}</span>
-                  ))}
+          <div class="solution-showcase">
+            <div class="placeholder dashboard-placeholder" aria-label={solution.dashboardTitle}>
+              <div class="dashboard-frame">
+                <div>
+                  <p class="mini-label">{solution.dashboardTitle}</p>
+                  <h3>{solution.dashboardMarket}</h3>
                 </div>
-                {solution.projectCard.tabSummaries.map((item) => (
-                  <p>{item}</p>
-                ))}
-              </aside>
+                <div class="dashboard-grid" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <p>{solution.dashboardPlaceholder}</p>
+              </div>
             </div>
 
-            <div class="grid-2" style="margin-top: 1rem;">
-              <section class="card" aria-labelledby="solution-flow-title">
-                <h3 id="solution-flow-title">{solution.flowTitle}</h3>
-                {solution.dataToOpportunitySteps.map((step) => (
-                  <article>
-                    <h4>{step.title}</h4>
-                    <p>{step.body}</p>
-                  </article>
-                ))}
-              </section>
-
-              <section class="card" aria-labelledby="solution-action-title">
-                <h3 id="solution-action-title">{solution.actionTitle}</h3>
-                {solution.features.map((feature) => (
-                  <article>
-                    <p class="mini-label">{feature.label}</p>
-                    <h4>{feature.title}</h4>
-                    <p>{feature.body}</p>
-                  </article>
-                ))}
-              </section>
+            <div class="solution-features">
+              {solution.features.map((feature) => (
+                <article class="feature-panel">
+                  <p class="mini-label">{feature.label}</p>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.body}</p>
+                </article>
+              ))}
             </div>
           </div>
         </div>
@@ -286,7 +272,7 @@ const schemaGraph = [
             <p>{audiences.body}</p>
           </div>
 
-          <div class="grid-2">
+          <div class="grid-2 audience-cards">
             {audiences.saleTypes.map((item) => (
               <article class="card">
                 <h3>{item.title} - {item.countLine}</h3>
@@ -300,55 +286,36 @@ const schemaGraph = [
             ))}
           </div>
 
-          <div class="grid-3" style="margin-top: 1rem;">
-            {audiences.stages.map((stage) => (
-              <article class="card">
-                <h3>{stage.title}</h3>
-                <p>{stage.fieldsCount}</p>
-                <dl class="facts">
-                  {stage.facts.map(([label, value]) => (
-                    <div>
-                      <dt>{label}</dt>
-                      <dd>{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <div class="hero-actions">
-                  <a class="button button-secondary" href="#audiences">{audiences.relatedFieldsLabel}</a>
-                  <a class="button button-secondary" href="#audiences">{audiences.stagePageLabel}</a>
-                </div>
-              </article>
-            ))}
+          <div class="placeholder construction-placeholder" aria-label={audiences.stagesPlaceholderTitle}>
+            <div>
+              <p class="mini-label">{audiences.stagesPlaceholderTitle}</p>
+              <h3>{audiences.stagesPlaceholderBody}</h3>
+            </div>
+            <div class="construction-steps" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
         </div>
       </section>
 
       <section id="sales-flow" class="section">
         <div class="container">
-          <div class="section-heading">
+          <div class="section-heading sales-heading">
             <h2>{salesFlow.title}</h2>
-          </div>
-          <div class="flow-list" role="list" aria-label={salesFlow.ariaLabel}>
-            {salesFlow.stages.map((stage) => (
-              <article class="card flow-item" role="listitem">
-                <p class="mini-label">{stage.number}</p>
-                <h3>{stage.title}</h3>
-                <p>{stage.body}</p>
-                <p><strong>نتیجه:</strong> {stage.outcome}</p>
-                <p><strong>{stage.question}</strong></p>
-                <div class="grid-2">
-                  <p class="card"><strong>بلی</strong><br />{stage.yes}</p>
-                  <p class="card"><strong>خیر</strong><br />{stage.no}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div class="hero-actions">
             <a class="button button-primary" href="#demo">{salesFlow.cta}</a>
           </div>
-          <div class="grid-2" style="margin-top: 1rem;">
-            <p class="card">{salesFlow.endSuccess}</p>
-            <p class="card">{salesFlow.endStop}</p>
+          <div class="sales-path" role="list" aria-label={salesFlow.ariaLabel}>
+            {salesFlow.stages.map((stage, index) => (
+              <article class={`sales-step sales-step-${index + 1}`} role="listitem">
+                <span class="step-number">{stage.number}</span>
+                <h3>{stage.title}</h3>
+                <p>{stage.body}</p>
+                <p class="step-outcome">{stage.outcome}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -361,7 +328,7 @@ const schemaGraph = [
             <p>{pricing.description}</p>
           </div>
 
-          <div class="card">
+          <div class="plans-shell">
             <h3>{pricing.axisLabel}</h3>
             <p>{pricing.sliderPrompt}</p>
             <div class="grid-4">
