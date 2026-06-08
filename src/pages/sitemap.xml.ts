@@ -8,6 +8,11 @@ export function GET() {
   const lastModified = new Date().toISOString();
   const urls = [
     { path: "/", changefreq: "weekly", priority: "1.0" },
+    { path: "/product/", changefreq: "monthly", priority: "0.9" },
+    { path: "/education/", changefreq: "monthly", priority: "0.8" },
+    { path: "/about-us/", changefreq: "monthly", priority: "0.7" },
+    { path: "/contact-us/", changefreq: "monthly", priority: "0.7" },
+    { path: "/rules/", changefreq: "monthly", priority: "0.5" },
     { path: "/work-fields/", changefreq: "weekly", priority: "0.9" },
     ...workFields.map((field) => ({
       path: `/work-fields/${field.slug}/`,

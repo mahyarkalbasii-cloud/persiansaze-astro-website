@@ -1,0 +1,118 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { aboutStats, aboutValues, assets } from "@/content/company";
+
+const title = "درباره پرشین‌سازه | منبع واحد حقیقت فروش پروژه‌محور";
+const description =
+  "پرشین‌سازه از سال ۱۳۸۶ برای کمک به فروش تأمین‌کنندگان صنعت ساختمان شکل گرفت و امروز داده زنده، ابزار فروش، آموزش و پشتیبانی را در یک زیرساخت پروژه‌محور ترکیب می‌کند.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: title,
+  description,
+  url: absoluteUrl("/about-us/"),
+  inLanguage: "fa-IR",
+  isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/about-us/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero media-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">درباره ما</p>
+          <h1>ما راهکار فروش پروژه‌محور برای بازار ساختمان می‌سازیم.</h1>
+          <p>
+            پرشین‌سازه از کار میدانی برای پیدا کردن پروژه‌های در حال ساخت شروع شد و امروز روی یک مسئله روشن متمرکز است:
+            کمک به تأمین‌کنندگان برای دیدن پروژه مناسب، در زمان مناسب و پیگیری منظم‌تر فرصت فروش.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/contact-us/">تماس با ما</a>
+          </div>
+        </div>
+        <figure class="image-panel hero-image-panel">
+          <img src={assets.aboutHero.src} alt={assets.aboutHero.alt} loading="eager" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="metric-strip">
+          {aboutStats.map((item) => (
+            <article>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split">
+        <figure class="image-panel tall-image-panel">
+          <img src={assets.homeOffice.src} alt={assets.homeOffice.alt} loading="lazy" decoding="async" />
+        </figure>
+        <div class="section-copy">
+          <h2>از کجا و چرا شروع شد؟</h2>
+          <p>
+            در بازار ساختمان، پروژه‌ها آگهی نمی‌دهند و تصمیم‌گیرنده‌ها همیشه در دسترس نیستند. سال‌ها فروش در این بازار به
+            جست‌وجوی خیابانی، شماره‌های پراکنده و شانس وابسته بود. پرشین‌سازه برای ساختن یک مسیر قابل اتکاتر شکل گرفت.
+          </p>
+          <p>
+            مسیر امروز ما روشن‌تر است: داده پروژه باید زنده، قابل تصمیم و قابل پیگیری باشد؛ نه فقط یک شماره تماس در یک فایل.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split">
+        <div class="section-copy">
+          <h2>یک راهکار همه‌جانبه برای تیم فروش</h2>
+          <p>
+            پرشین‌سازه داده، نقشه، فیلتر، CRM، پیامک، آموزش و پشتیبانی را کنار هم می‌گذارد تا فروشنده فقط پروژه را نبیند؛
+            بتواند آن را ارزیابی کند، ارتباط بگیرد و پیگیری را ادامه دهد.
+          </p>
+          <ul class="check-list">
+            <li>داده زنده و قابل به‌روزرسانی پروژه‌های در حال ساخت</li>
+            <li>ابزارهای اجرایی برای تبدیل داده به اقدام فروش</li>
+            <li>آموزش و پشتیبانی برای استفاده درست و سالم از محصول</li>
+          </ul>
+        </div>
+        <figure class="image-panel tall-image-panel">
+          <img src={assets.aboutTeam.src} alt={assets.aboutTeam.alt} loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>ارزش‌هایی که مسیرمان را کنترل می‌کنند</h2>
+          <p>این ارزش‌ها برای شعار نیستند؛ مستقیماً روی کیفیت داده، پشتیبانی، آموزش و رفتار تیم با مشتری اثر می‌گذارند.</p>
+        </div>
+        <div class="value-grid">
+          {aboutValues.map((item) => (
+            <article class="value-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <figure class="wide-image-panel">
+          <img src={assets.homeTeam.src} alt={assets.homeTeam.alt} loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,98 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { assets, educationStats, educationTracks } from "@/content/company";
+
+const title = "آموزش فروش پروژه‌محور | آکادمی پرشین‌سازه";
+const description =
+  "آموزش‌های پرشین‌سازه برای استفاده درست از داده، فیلتر، CRM، پیامک و مهارت‌های فروش پروژه‌محور در صنعت ساختمان.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  name: "آکادمی پرشین‌سازه",
+  url: absoluteUrl("/education/"),
+  inLanguage: "fa-IR",
+  parentOrganization: { "@type": "Organization", name: site.name, url: site.url },
+  description,
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/education/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero media-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">آموزش</p>
+          <h1>اطلاعات و ابزار به تنهایی کافی نیستند؛ تیم فروش باید بلد باشد درست استفاده کند.</h1>
+          <p>
+            آکادمی پرشین‌سازه کمک می‌کند تیم فروش بداند کدام پروژه را انتخاب کند، چه زمانی تماس بگیرد، چطور مذاکره کند و
+            چطور پیگیری را تا نتیجه ادامه دهد.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="#tracks">محورهای آموزشی</a>
+          </div>
+        </div>
+        <figure class="image-panel hero-image-panel">
+          <img src={assets.academyHero.src} alt={assets.academyHero.alt} loading="eager" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split">
+        <figure class="image-panel">
+          <img src={assets.academyCover.src} alt={assets.academyCover.alt} loading="lazy" decoding="async" />
+        </figure>
+        <div class="section-copy">
+          <h2>آموزش بخشی از محصول است</h2>
+          <p>
+            اگر کاربر نداند مرحله مناسب محصولش چیست، چطور از فیلتر استفاده کند، چه پیامی بفرستد و چطور فرصت را پیگیری
+            کند، داده زنده هم به فروش تبدیل نمی‌شود. برای همین آموزش و موفقیت مشتری در پرشین‌سازه مکمل محصول‌اند.
+          </p>
+          <div class="metric-strip compact">
+            {educationStats.map((item) => (
+              <article>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tracks" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>محورهای آموزشی آکادمی</h2>
+          <p>آموزش‌ها فقط درباره نرم‌افزار نیستند؛ درباره فروش، مذاکره، تیم، بازاریابی و استفاده عملی از داده در بازار ساختمان‌اند.</p>
+        </div>
+        <div class="education-grid">
+          {educationTracks.map((item) => (
+            <article class="education-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading centered">
+          <h2>از آموزش تا استفاده سالم از محصول</h2>
+          <p>
+            خروجی آموزش باید در رفتار محصول دیده شود: انتخاب مرحله مناسب، فیلتر درست، ذخیره پروژه، ثبت فعالیت و پیگیری
+            منظم فرصت‌ها.
+          </p>
+          <div class="action-row centered-actions">
+            <a class="button button-primary" href="/#demo">درخواست جلسه معرفی</a>
+            <a class="button button-secondary" href="/product/#features">ویژگی‌های پنل</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

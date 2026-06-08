@@ -1,0 +1,180 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import {
+  assets,
+  dataOperations,
+  featureCards,
+  productBoundaries,
+  productLayers,
+  productMetrics,
+  productWorkflow,
+} from "@/content/company";
+
+const title = "محصول و ویژگی‌های پرشین‌سازه | زیرساخت فروش پروژه‌محور ساختمان";
+const description =
+  "پرشین‌سازه داده زنده پروژه‌های ساختمانی، نقشه، فیلتر، CRM، پیامک، آموزش و مسیر پیگیری فروش را برای تامین‌کنندگان بازار ساختمان در یک محصول واحد ترکیب می‌کند.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "پرشین‌سازه",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  url: absoluteUrl("/product/"),
+  inLanguage: "fa-IR",
+  description,
+  publisher: { "@type": "Organization", name: site.name, url: site.url },
+  featureList: featureCards.map((item) => item.title),
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/product/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero media-hero product-page-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">محصول و ویژگی‌ها</p>
+          <h1>پرشین‌سازه پروژه ساختمانی را به فرصت فروش قابل پیگیری تبدیل می‌کند.</h1>
+          <p>
+            محصول برای تیم‌هایی ساخته شده که باید پروژه درست را در زمان درست ببینند، ارزیابی کنند، تماس بگیرند و مسیر
+            پیگیری را از حالت پراکنده خارج کنند.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="#features">مشاهده قابلیت‌ها</a>
+          </div>
+        </div>
+        <figure class="image-panel hero-image-panel">
+          <img src={assets.homeOffice.src} alt={assets.homeOffice.alt} loading="eager" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>معماری محصول</h2>
+          <p>
+            ارزش پرشین‌سازه از کنار هم قرار گرفتن داده، ابزار، آموزش و تصمیم‌یار می‌آید؛ نه از یک فهرست شماره تماس یا
+            یک CRM عمومی.
+          </p>
+        </div>
+        <div class="pillar-grid">
+          {productLayers.map((item) => (
+            <article class="pillar-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section product-features-section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>قابلیت‌هایی که داده پروژه را به اقدام فروش تبدیل می‌کنند</h2>
+          <p>
+            هر قابلیت باید به تصمیم بهتر کمک کند: پیدا کردن پروژه، دیدن روی نقشه، فیلتر کردن، ذخیره فرصت، تماس، پیامک،
+            یادداشت و پیگیری بعدی.
+          </p>
+        </div>
+        <div class="feature-card-grid">
+          {featureCards.map((item) => (
+            <article class="feature-detail-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split product-workflow-split">
+        <div class="section-copy">
+          <h2>جریان عملیاتی محصول</h2>
+          <p>
+            پرشین‌سازه تیم فروش را از جست‌وجوی پراکنده به مسیر منظم کشف، ارزیابی، ارتباط و پیگیری می‌برد.
+          </p>
+          <ol class="page-flow compact-flow">
+            {productWorkflow.map((item) => (
+              <li>
+                <p>{item}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <figure class="image-panel tall-image-panel">
+          <img src={assets.homeTeam.src} alt={assets.homeTeam.alt} loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>کیفیت داده قبل از ابزار مهم است</h2>
+          <p>
+            ابزار زمانی ارزش می‌سازد که روی داده قابل اتکا سوار شود. چرخه عملیاتی پرشین‌سازه از گردآوری میدانی تا
+            به‌روزرسانی پیوسته، پایه قابلیت‌های محصول است.
+          </p>
+        </div>
+        <div class="process-grid">
+          {dataOperations.map((item) => (
+            <article class="process-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split">
+        <figure class="image-panel tall-image-panel">
+          <img src={assets.academyCover.src} alt={assets.academyCover.alt} loading="lazy" decoding="async" />
+        </figure>
+        <div class="section-copy">
+          <h2>مرز محصول روشن است</h2>
+          <p>
+            پرشین‌سازه نباید به عنوان فایل شماره، ابزار پیامک یا CRM عمومی فروخته شود. هسته محصول، تبدیل پروژه فعال به
+            فرصت فروش قابل تصمیم و قابل پیگیری است.
+          </p>
+          <ul class="check-list">
+            {productBoundaries.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="metric-strip">
+          {productMetrics.map((item) => (
+            <article>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading centered">
+          <h2>محصول را در مسیر واقعی فروش ببینید</h2>
+          <p>
+            در دمو، مسیر پیدا کردن پروژه، بررسی مرحله ساخت، ذخیره فرصت و پیگیری فروش را روی یک نمونه عملی مرور می‌کنیم.
+          </p>
+          <div class="action-row centered-actions">
+            <a class="button button-primary" href="/#demo">ثبت درخواست دمو</a>
+            <a class="button button-secondary" href="/education/">نقش آموزش در محصول</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
