@@ -167,7 +167,7 @@ const schemaGraph = [
     <meta name="twitter:description" content={metadata.description} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
   </head>
-  <body class="home-color-anthropic">
+  <body class="theme-dark">
     <SiteHeader home />
 
     <main class="home-page">
@@ -482,7 +482,7 @@ const schemaGraph = [
 
           <div class="pricing-grid">
             {pricing.plans.map((plan) => (
-              <article class="pricing-card">
+              <article class={plan.id === "taban" ? "pricing-card is-featured" : "pricing-card"}>
                 <header class="plan-card-head">
                   <div class="plan-icon-shell">
                     <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />

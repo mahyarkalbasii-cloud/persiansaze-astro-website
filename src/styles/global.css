@@ -86,7 +86,7 @@
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --ps-ink-950: #0f1315;
   --ps-ink-900: #26353b;
   --ps-ink-800: #3b4f57;
@@ -107,6 +107,7 @@
   --surface: var(--ps-white);
   --surface-muted: var(--ps-ink-100);
   --surface-subtle: var(--ps-ink-50);
+  --surface-elevated: var(--ps-white);
   --foreground: var(--ps-ink-950);
   --muted-foreground: var(--ps-ink-700);
   --faint-foreground: var(--ps-ink-600);
@@ -115,6 +116,9 @@
   --primary: var(--ps-ink-900);
   --primary-hover: var(--ps-ink-800);
   --primary-foreground: var(--ps-ink-50);
+  --accent-brand: var(--ps-ink-900);
+  --accent-brand-hover: var(--ps-ink-800);
+  --accent-brand-soft: var(--ps-ink-100);
   --secondary: var(--ps-ink-200);
   --secondary-foreground: var(--ps-ink-900);
   --accent: var(--ps-ink-100);
@@ -189,43 +193,39 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body.home-color-anthropic {
-  --ps-ink-950: #141413;
-  --ps-ink-900: #24211e;
-  --ps-ink-800: #3e3933;
-  --ps-ink-700: #5e574f;
-  --ps-ink-600: #756d63;
-  --ps-ink-500: #908677;
-  --ps-ink-400: #b9ad9b;
-  --ps-ink-300: #d2c7b8;
-  --ps-ink-250: #ded3c3;
-  --ps-ink-200: #e8dfd2;
-  --ps-ink-100: #f1ece3;
-  --ps-ink-50: #faf9f5;
-  --background: #faf9f5;
-  --surface: #e8dfd2;
-  --surface-muted: #e3d8c8;
-  --surface-subtle: #f1ece3;
-  --foreground: #141413;
-  --muted-foreground: #3f3c38;
-  --faint-foreground: #756d63;
-  --border: #ded3c3;
-  --border-strong: #cdbfae;
-  --primary: #141413;
-  --primary-hover: #2b2925;
-  --primary-foreground: #faf9f5;
-  --secondary: #e8dfd2;
-  --secondary-foreground: #141413;
-  --accent: #d8ccba;
-  --accent-foreground: #141413;
-  --ring: #908677;
-  --inverted: #141413;
-  --inverted-foreground: #faf9f5;
-  --shadow-xs: 0 1px 2px 0 rgb(20 20 19 / 7%);
-  --shadow-sm: 0 1px 3px 0 rgb(20 20 19 / 9%), 0 1px 2px -1px rgb(20 20 19 / 7%);
-  --shadow-md: 0 4px 12px -2px rgb(20 20 19 / 13%), 0 2px 6px -2px rgb(20 20 19 / 8%);
-  --shadow-lg: 0 12px 28px -6px rgb(20 20 19 / 16%), 0 6px 12px -6px rgb(20 20 19 / 9%);
-  --shadow-ring: 0 0 0 3px rgb(144 134 119 / 35%);
+body.theme-dark {
+  color-scheme: dark;
+  --background: #15130f;
+  --surface: #1d1a15;
+  --surface-muted: #24201a;
+  --surface-subtle: #1a1712;
+  --surface-elevated: #2a261f;
+  --foreground: #ece7dd;
+  --muted-foreground: #b0a692;
+  --faint-foreground: #8a8170;
+  --border: #322d26;
+  --border-strong: #463f35;
+  --primary: #b06a43;
+  --primary-hover: #c27a50;
+  --primary-foreground: #faf7f2;
+  --accent-brand: #b06a43;
+  --accent-brand-hover: #c27a50;
+  --accent-brand-soft: #3a2b20;
+  --secondary: #24201a;
+  --secondary-foreground: #ece7dd;
+  --accent: #2a261f;
+  --accent-foreground: #ece7dd;
+  --ring: #b06a43;
+  --inverted: #ece7dd;
+  --inverted-foreground: #15130f;
+  --ps-success: #5bbf9f;
+  --ps-warning: #d7a24f;
+  --ps-danger: #e06a5a;
+  --shadow-xs: 0 0 0 0 transparent;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 40%);
+  --shadow-md: 0 8px 24px -8px rgb(0 0 0 / 55%);
+  --shadow-lg: 0 16px 40px -12px rgb(0 0 0 / 60%);
+  --shadow-ring: 0 0 0 3px rgb(176 106 67 / 40%);
 }
 
 a {
@@ -348,8 +348,8 @@ li + li {
 }
 
 .button-primary {
-  border-color: var(--primary);
-  background: var(--primary);
+  border-color: var(--accent-brand);
+  background: var(--accent-brand);
   color: var(--primary-foreground);
 }
 
@@ -426,9 +426,9 @@ li + li {
   width: 2.4rem;
   height: 2.4rem;
   place-items: center;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--accent-brand);
   border-radius: var(--radius-md);
-  background: var(--primary);
+  background: var(--accent-brand);
   color: var(--primary-foreground);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -548,27 +548,28 @@ li + li {
     linear-gradient(180deg, var(--surface) 0%, var(--surface-subtle) 100%);
 }
 
-body.home-color-anthropic .home-page {
+body.theme-dark .home-page {
   background: var(--background);
 }
 
-body.home-color-anthropic .home-page .hero,
-body.home-color-anthropic .home-page .section,
-body.home-color-anthropic .home-page .demo-section {
+body.theme-dark .home-page .hero,
+body.theme-dark .home-page .section,
+body.theme-dark .home-page .demo-section {
   background: var(--background);
 }
 
-body.home-color-anthropic .site-header {
-  background: color-mix(in srgb, var(--background) 96%, white);
+body.theme-dark .site-header {
+  background: color-mix(in srgb, var(--background) 92%, var(--surface-elevated));
 }
 
-body.home-color-anthropic .hero-placeholder {
-  border-color: var(--primary);
-  background: var(--primary);
-  color: var(--primary-foreground);
+body.theme-dark .hero-placeholder {
+  border-color: transparent;
+  background: transparent;
+  color: var(--foreground);
+  box-shadow: none;
 }
 
-body.home-color-anthropic .hero-placeholder .placeholder-label {
+body.theme-dark .hero-placeholder .placeholder-label {
   color: var(--ps-ink-300);
 }
 
@@ -1268,16 +1269,16 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   text-align: right;
 }
 
-body.home-color-anthropic .market-friction,
-body.home-color-anthropic .dashboard-main {
+body.theme-dark .market-friction,
+body.theme-dark .dashboard-main {
   background:
-    linear-gradient(180deg, rgb(250 249 245 / 94%), rgb(241 236 227 / 92%)),
-    var(--surface-muted);
+    linear-gradient(180deg, rgb(255 255 255 / 5%), transparent 68%),
+    var(--surface-elevated);
 }
 
-body.home-color-anthropic .friction-window-card,
-body.home-color-anthropic .map-floating-card {
-  background: rgb(250 249 245 / 94%);
+body.theme-dark .friction-window-card,
+body.theme-dark .map-floating-card {
+  background: var(--surface);
 }
 
 .friction-head {
@@ -1505,137 +1506,138 @@ body.home-color-anthropic .map-floating-card {
   fill: rgb(35 55 61 / 5%);
 }
 
-body.home-color-anthropic .map-zone {
+body.theme-dark .map-zone {
   fill: rgb(20 20 19 / 8%);
   stroke: rgb(20 20 19 / 16%);
 }
 
-body.home-color-anthropic .map-zone.secondary {
+body.theme-dark .map-zone.secondary {
   fill: rgb(20 20 19 / 5%);
 }
 
-body.home-color-anthropic .home-page h1,
-body.home-color-anthropic .home-page h2,
-body.home-color-anthropic .home-page h3 {
+body.theme-dark .home-page h1,
+body.theme-dark .home-page h2,
+body.theme-dark .home-page h3 {
   color: var(--foreground);
   font-weight: 800;
 }
 
-body.home-color-anthropic .hero h1 {
+body.theme-dark .hero h1 {
   max-width: 52rem;
 }
 
-body.home-color-anthropic .hero p {
+body.theme-dark .hero p {
   max-width: 48rem;
   color: var(--muted-foreground);
 }
 
-body.home-color-anthropic .home-page .section-heading p,
-body.home-color-anthropic .section-copy p,
-body.home-color-anthropic .demo-copy p {
+body.theme-dark .home-page .section-heading p,
+body.theme-dark .section-copy p,
+body.theme-dark .demo-copy p {
   color: var(--muted-foreground);
 }
 
-body.home-color-anthropic .button {
+body.theme-dark .button {
   min-height: 2.9rem;
   border-color: var(--border-strong);
   border-radius: var(--radius-md);
   box-shadow: none;
 }
 
-body.home-color-anthropic .button-primary {
-  border-color: var(--primary);
-  background: var(--primary);
+body.theme-dark .button-primary {
+  border-color: var(--accent-brand);
+  background: var(--accent-brand);
   color: var(--primary-foreground);
 }
 
-body.home-color-anthropic .button-secondary {
+body.theme-dark .button-secondary {
+  border-color: var(--border-strong);
   background: var(--secondary);
   color: var(--secondary-foreground);
 }
 
-body.home-color-anthropic .media-placeholder,
-body.home-color-anthropic .audience-card,
-body.home-color-anthropic .flow-step,
-body.home-color-anthropic .pricing-card,
-body.home-color-anthropic .demo-path,
-body.home-color-anthropic .demo-form,
-body.home-color-anthropic details,
-body.home-color-anthropic .feature-strip article,
-body.home-color-anthropic .project-card-wire,
-body.home-color-anthropic .stage-info-card,
-body.home-color-anthropic .stage-tile,
-body.home-color-anthropic .duration-tabs button,
-body.home-color-anthropic .friction-metrics article,
-body.home-color-anthropic .followup-note,
-body.home-color-anthropic .dashboard-status {
+body.theme-dark .media-placeholder,
+body.theme-dark .audience-card,
+body.theme-dark .flow-step,
+body.theme-dark .pricing-card,
+body.theme-dark .demo-path,
+body.theme-dark .demo-form,
+body.theme-dark details,
+body.theme-dark .feature-strip article,
+body.theme-dark .project-card-wire,
+body.theme-dark .stage-info-card,
+body.theme-dark .stage-tile,
+body.theme-dark .duration-tabs button,
+body.theme-dark .friction-metrics article,
+body.theme-dark .followup-note,
+body.theme-dark .dashboard-status {
   border-color: var(--border);
   box-shadow: none;
 }
 
-body.home-color-anthropic .feature-strip article::before,
-body.home-color-anthropic .flow-step::before {
+body.theme-dark .feature-strip article::before,
+body.theme-dark .flow-step::before {
   height: 2px;
   background: var(--primary);
 }
 
-body.home-color-anthropic .placeholder-label,
-body.home-color-anthropic .flow-kicker,
-body.home-color-anthropic .friction-head span,
-body.home-color-anthropic .friction-metrics span,
-body.home-color-anthropic .friction-window-card span,
-body.home-color-anthropic .map-floating-card span,
-body.home-color-anthropic .followup-note span,
-body.home-color-anthropic .feature-strip span,
-body.home-color-anthropic .stage-info-side span,
-body.home-color-anthropic .decision-box span {
+body.theme-dark .placeholder-label,
+body.theme-dark .flow-kicker,
+body.theme-dark .friction-head span,
+body.theme-dark .friction-metrics span,
+body.theme-dark .friction-window-card span,
+body.theme-dark .map-floating-card span,
+body.theme-dark .followup-note span,
+body.theme-dark .feature-strip span,
+body.theme-dark .stage-info-side span,
+body.theme-dark .decision-box span {
   color: var(--faint-foreground);
   letter-spacing: 0;
 }
 
-body.home-color-anthropic .flow-kicker {
+body.theme-dark .flow-kicker {
   border-color: var(--border);
   background: color-mix(in srgb, var(--surface) 55%, var(--background));
 }
 
-body.home-color-anthropic .duration-tabs button.active,
-body.home-color-anthropic .stage-tile.active {
+body.theme-dark .duration-tabs button.active,
+body.theme-dark .stage-tile.active {
   border-color: var(--primary);
   background: var(--primary);
   color: var(--primary-foreground);
   box-shadow: none;
 }
 
-body.home-color-anthropic .duration-tabs button.active .duration-number {
+body.theme-dark .duration-tabs button.active .duration-number {
   border-color: var(--primary-foreground);
   background: var(--primary-foreground);
   color: var(--primary);
 }
 
-body.home-color-anthropic .duration-tabs button.active .duration-number .persian-number {
+body.theme-dark .duration-tabs button.active .duration-number .persian-number {
   color: var(--primary);
 }
 
-body.home-color-anthropic .coverage-meter i.filled,
-body.home-color-anthropic .map-signal-row span {
+body.theme-dark .coverage-meter i.filled,
+body.theme-dark .map-signal-row span {
   border-color: var(--primary);
   background: var(--primary);
 }
 
-body.home-color-anthropic .demo-shell {
-  border-color: var(--primary);
-  background: var(--primary);
-  box-shadow: none;
+body.theme-dark .demo-shell {
+  border-color: var(--border-strong);
+  background: var(--surface-elevated);
+  box-shadow: var(--shadow-md);
 }
 
-body.home-color-anthropic .demo-copy h2,
-body.home-color-anthropic .demo-copy p {
-  color: var(--primary-foreground);
+body.theme-dark .demo-copy h2,
+body.theme-dark .demo-copy p {
+  color: var(--foreground);
 }
 
-body.home-color-anthropic .demo-path,
-body.home-color-anthropic .demo-form {
-  background: var(--background);
+body.theme-dark .demo-path,
+body.theme-dark .demo-form {
+  background: var(--surface);
 }
 
 .map-pin circle:first-child {
@@ -1822,10 +1824,10 @@ body.home-color-anthropic .demo-form {
   justify-self: start;
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-xl);
-  background: var(--primary);
-  box-shadow: var(--shadow-sm);
+  background: transparent;
+  box-shadow: none;
 }
 
 .solution-neon-image {
@@ -2079,10 +2081,10 @@ details {
   justify-self: end;
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-xl);
-  background: var(--primary);
-  box-shadow: var(--shadow-sm);
+  background: transparent;
+  box-shadow: none;
 }
 
 .flow-visual-image {
@@ -2243,10 +2245,9 @@ details {
 
 .pricing-card {
   position: relative;
-  display: grid;
-  grid-template-rows: 9.35rem 2.5rem 2rem 13rem 5.25rem 3.2rem auto;
-  align-content: start;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: var(--space-5);
   min-height: 100%;
   overflow: hidden;
@@ -2268,7 +2269,7 @@ details {
 
 .plan-card-head {
   display: grid;
-  height: 9.35rem;
+  min-height: 0;
   justify-items: center;
   align-content: center;
   gap: var(--space-3);
@@ -2282,19 +2283,21 @@ details {
 .plan-icon-shell {
   display: grid;
   width: 100%;
-  height: 6.3rem;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   place-items: center;
-  border-bottom: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #f3efe6;
 }
 
 .plan-icon-shell img {
   display: block;
-  width: 6.1rem;
-  height: 6.1rem;
+  width: 64%;
+  height: auto;
   object-fit: contain;
-  filter: grayscale(1) contrast(1.12);
-  mix-blend-mode: multiply;
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 .price {
@@ -2338,10 +2341,11 @@ details {
 
 .plan-highlights {
   display: grid;
+  flex: 1 1 auto;
   align-content: start;
   gap: var(--space-3);
   width: 100%;
-  min-height: 13rem;
+  min-height: 0;
   margin: 0;
   border-block: 1px solid var(--border);
   padding: var(--space-4) 0;
@@ -2358,7 +2362,7 @@ details {
 .market-coverage {
   display: grid;
   width: 100%;
-  min-height: 5.25rem;
+  min-height: 0;
   gap: var(--space-2);
   justify-items: center;
   align-content: center;
@@ -2392,7 +2396,7 @@ details {
 
 .plan-addon {
   display: grid;
-  min-height: 2.75rem;
+  min-height: 0;
   align-content: center;
   justify-items: center;
   gap: 0.2rem;
@@ -2483,10 +2487,10 @@ details p {
   justify-self: center;
   margin: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-xl);
-  background: var(--primary);
-  box-shadow: var(--shadow-sm);
+  background: transparent;
+  box-shadow: none;
 }
 
 .demo-visual-image {
@@ -3608,11 +3612,16 @@ details p {
 .subscription-detail-card img,
 .related-plan-icon {
   display: block;
-  width: 5.8rem;
-  height: 5.8rem;
+  width: min(100%, 11rem);
+  aspect-ratio: 16 / 10;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #f3efe6;
+  padding: var(--space-4);
   object-fit: contain;
-  filter: grayscale(1) contrast(1.12);
-  mix-blend-mode: multiply;
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 .subscription-plan-mini h2 {
@@ -3808,8 +3817,7 @@ details p {
 }
 
 .related-card .related-plan-icon {
-  width: 4.4rem;
-  height: 4.4rem;
+  width: min(100%, 8.5rem);
 }
 
 .numbered-list {
@@ -3844,9 +3852,9 @@ details p {
   width: 3rem;
   height: 3rem;
   place-items: center;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--accent-brand);
   border-radius: var(--radius-md);
-  background: var(--primary);
+  background: var(--accent-brand);
   color: var(--primary-foreground);
   font-family: var(--font-mono);
   font-weight: 800;
@@ -4243,32 +4251,45 @@ body .persian-number {
 }
 
 /* Home polish pass: keep the page background and footer unchanged. */
-body.home-color-anthropic {
+body.theme-dark {
   --home-visual-size: 29rem;
   --home-visual-size-mobile: 18.75rem;
   --home-brass: #b98b5f;
-  --home-brass-soft: #eadbc7;
+  --home-brass-soft: #3a2b20;
   --home-rust: #8f583b;
   --home-blue: #4d83a5;
-  --home-blue-soft: #dbe7ec;
+  --home-blue-soft: #1d2a30;
   --home-violet: #8067a8;
-  --home-violet-soft: #e5def0;
-  --home-charcoal: #171613;
-  --home-panel: #fffdf8;
-  --home-panel-warm: #f3ebe0;
-  --home-line: #cfc0ad;
+  --home-violet-soft: #2a2433;
+  --home-charcoal: #15130f;
+  --home-panel: var(--surface);
+  --home-panel-warm: var(--surface-elevated);
+  --home-line: var(--border-strong);
 }
 
-body.home-color-anthropic .home-page {
+body.theme-dark .home-page {
   color: var(--foreground);
 }
 
-body.home-color-anthropic .home-page > .section {
+body.theme-dark .image-panel,
+body.theme-dark .wide-image-panel {
+  border-color: var(--border);
+  background: var(--surface-elevated);
+  box-shadow: var(--shadow-sm);
+}
+
+body.theme-dark .image-panel img,
+body.theme-dark .wide-image-panel img {
+  border-radius: inherit;
+  filter: contrast(1.03);
+}
+
+body.theme-dark .home-page > .section {
   position: relative;
   border-top-color: color-mix(in srgb, var(--border) 74%, transparent);
 }
 
-body.home-color-anthropic .home-page > .section::before {
+body.theme-dark .home-page > .section::before {
   position: absolute;
   inset-block-start: 0;
   inset-inline: max(1rem, calc((100% - var(--container)) / 2));
@@ -4278,31 +4299,31 @@ body.home-color-anthropic .home-page > .section::before {
   opacity: 0.65;
 }
 
-body.home-color-anthropic .section-heading,
-body.home-color-anthropic .section-copy {
+body.theme-dark .section-heading,
+body.theme-dark .section-copy {
   gap: var(--space-4);
 }
 
-body.home-color-anthropic #solution .section-heading,
-body.home-color-anthropic #sales-flow .section-heading {
+body.theme-dark #solution .section-heading,
+body.theme-dark #sales-flow .section-heading {
   justify-items: start;
   margin-inline: 0 auto;
   text-align: right;
 }
 
-body.home-color-anthropic #plans .section-heading,
-body.home-color-anthropic #faq .section-heading {
+body.theme-dark #plans .section-heading,
+body.theme-dark #faq .section-heading {
   max-width: 56rem;
 }
 
-body.home-color-anthropic .section-heading h2,
-body.home-color-anthropic .section-copy h2,
-body.home-color-anthropic .demo-copy h2 {
+body.theme-dark .section-heading h2,
+body.theme-dark .section-copy h2,
+body.theme-dark .demo-copy h2 {
   letter-spacing: 0;
 }
 
-body.home-color-anthropic .section-heading h2::after,
-body.home-color-anthropic .section-copy h2::after {
+body.theme-dark .section-heading h2::after,
+body.theme-dark .section-copy h2::after {
   display: block;
   width: 3.25rem;
   height: 0.22rem;
@@ -4312,16 +4333,16 @@ body.home-color-anthropic .section-copy h2::after {
   content: "";
 }
 
-body.home-color-anthropic .home-page .section-heading h2::after {
+body.theme-dark .home-page .section-heading h2::after {
   margin-inline: auto;
 }
 
-body.home-color-anthropic #solution .section-heading h2::after,
-body.home-color-anthropic #sales-flow .section-heading h2::after {
+body.theme-dark #solution .section-heading h2::after,
+body.theme-dark #sales-flow .section-heading h2::after {
   margin-inline: 0;
 }
 
-body.home-color-anthropic .button {
+body.theme-dark .button {
   position: relative;
   min-height: 3.05rem;
   overflow: hidden;
@@ -4335,7 +4356,7 @@ body.home-color-anthropic .button {
     transform 180ms ease;
 }
 
-body.home-color-anthropic .button::before {
+body.theme-dark .button::before {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgb(255 255 255 / 14%), transparent 48%);
@@ -4344,57 +4365,55 @@ body.home-color-anthropic .button::before {
   transition: opacity 180ms ease;
 }
 
-body.home-color-anthropic .button:hover {
+body.theme-dark .button:hover {
   transform: translateY(-1px);
 }
 
-body.home-color-anthropic .button:active {
+body.theme-dark .button:active {
   transform: translateY(0) scale(0.985);
 }
 
-body.home-color-anthropic .button:hover::before {
+body.theme-dark .button:hover::before {
   opacity: 1;
 }
 
-body.home-color-anthropic .button-primary {
-  border-color: color-mix(in srgb, var(--primary) 84%, var(--home-brass));
+body.theme-dark .button-primary {
+  border-color: var(--accent-brand);
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--primary) 94%, var(--home-brass)), var(--primary));
+    linear-gradient(180deg, color-mix(in srgb, var(--accent-brand-hover) 32%, var(--accent-brand)), var(--accent-brand));
+  color: var(--primary-foreground);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 12%),
-    0 0.9rem 1.8rem -1.25rem rgb(20 20 19 / 65%);
+    inset 0 1px 0 rgb(255 255 255 / 10%),
+    0 0.9rem 1.8rem -1.35rem rgb(0 0 0 / 70%);
 }
 
-body.home-color-anthropic .button-secondary {
-  border-color: color-mix(in srgb, var(--border-strong) 72%, var(--home-brass));
+body.theme-dark .button-secondary {
+  border-color: var(--border-strong);
+  background: var(--surface);
+  color: var(--foreground);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+
+body.theme-dark .button-primary:hover {
+  border-color: var(--accent-brand-hover);
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--secondary) 86%, white), var(--secondary));
-  color: var(--secondary-foreground);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 48%),
-    0 0.75rem 1.55rem -1.3rem rgb(66 60 52 / 38%);
+    linear-gradient(180deg, color-mix(in srgb, var(--accent-brand-hover) 70%, var(--accent-brand)), var(--accent-brand-hover));
 }
 
-body.home-color-anthropic .button-primary:hover {
-  border-color: var(--home-brass);
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--primary-hover) 88%, var(--home-brass)), var(--primary-hover));
-}
-
-body.home-color-anthropic .button-secondary:hover {
+body.theme-dark .button-secondary:hover {
   border-color: color-mix(in srgb, var(--home-brass) 72%, var(--border-strong));
-  background: linear-gradient(180deg, #f5ede3, #e6d8c7);
+  background: var(--accent);
 }
 
-body.home-color-anthropic .hero {
+body.theme-dark .hero {
   border-bottom: 1px solid color-mix(in srgb, var(--border) 64%, transparent);
 }
 
-body.home-color-anthropic .hero-copy {
+body.theme-dark .hero-copy {
   position: relative;
 }
 
-body.home-color-anthropic .hero-copy::before {
+body.theme-dark .hero-copy::before {
   position: absolute;
   inset-block-start: -1.8rem;
   inset-inline-start: 0;
@@ -4405,31 +4424,31 @@ body.home-color-anthropic .hero-copy::before {
   content: "";
 }
 
-body.home-color-anthropic .hero-neon-image {
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+body.theme-dark .hero-neon-image {
+  box-shadow: none;
 }
 
-body.home-color-anthropic .hero-bento {
+body.theme-dark .hero-bento {
   width: min(100%, var(--home-visual-size));
   min-height: 0;
   aspect-ratio: 1;
   justify-self: center;
   padding: 0;
-  border-color: color-mix(in srgb, var(--primary) 82%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 5%),
-    0 1.5rem 3rem -2.2rem rgb(20 20 19 / 70%);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
-body.home-color-anthropic .hero-bento-scene {
+body.theme-dark .hero-bento::before {
+  background: radial-gradient(circle at 50% 45%, rgb(176 106 67 / 12%), transparent 60%);
+}
+
+body.theme-dark .hero-bento-scene {
   width: 100%;
   height: 100%;
 }
 
-body.home-color-anthropic .market-friction {
+body.theme-dark .market-friction {
   border-color: color-mix(in srgb, var(--home-charcoal) 76%, var(--home-blue));
   background:
     linear-gradient(135deg, rgb(77 131 165 / 16%), transparent 44%),
@@ -4440,20 +4459,24 @@ body.home-color-anthropic .market-friction {
     0 1.35rem 2.8rem -2.1rem rgb(20 20 19 / 72%);
 }
 
-body.home-color-anthropic .problem-image-card {
+body.theme-dark .problem-image-card {
   display: block;
   width: min(100%, var(--home-visual-size));
   min-height: 0;
   aspect-ratio: 1;
   justify-self: center;
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: transparent;
   padding: 0;
+  box-shadow: none;
 }
 
-body.home-color-anthropic .problem-image-card > :not(.problem-image-frame) {
+body.theme-dark .problem-image-card > :not(.problem-image-frame) {
   display: none;
 }
 
-body.home-color-anthropic .problem-image-frame {
+body.theme-dark .problem-image-frame {
   position: relative;
   width: 100%;
   height: 100%;
@@ -4466,11 +4489,11 @@ body.home-color-anthropic .problem-image-frame {
   isolation: isolate;
 }
 
-body.home-color-anthropic .problem-image-frame::after {
+body.theme-dark .problem-image-frame::after {
   display: none;
 }
 
-body.home-color-anthropic .problem-neon-image {
+body.theme-dark .problem-neon-image {
   display: block;
   width: 100%;
   height: 100%;
@@ -4484,200 +4507,199 @@ body.home-color-anthropic .problem-neon-image {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  body.home-color-anthropic .problem-image-card:hover .problem-neon-image {
+  body.theme-dark .problem-image-card:hover .problem-neon-image {
     transform: translate3d(-0.18rem, 0.12rem, 0) scale(1.018);
   }
 }
 
-body.home-color-anthropic .market-friction .friction-head strong,
-body.home-color-anthropic .market-friction .friction-metrics strong {
+body.theme-dark .market-friction .friction-head strong,
+body.theme-dark .market-friction .friction-metrics strong {
   color: var(--primary-foreground);
 }
 
-body.home-color-anthropic .market-friction .friction-head span,
-body.home-color-anthropic .market-friction .friction-metrics span,
-body.home-color-anthropic .market-friction .friction-window-card span {
+body.theme-dark .market-friction .friction-head span,
+body.theme-dark .market-friction .friction-metrics span,
+body.theme-dark .market-friction .friction-window-card span {
   color: color-mix(in srgb, var(--primary-foreground) 58%, var(--home-blue));
 }
 
-body.home-color-anthropic .friction-canvas {
+body.theme-dark .friction-canvas {
   border-color: rgb(255 255 255 / 8%);
   background: rgb(255 255 255 / 3%);
   color: color-mix(in srgb, var(--home-blue) 68%, white);
 }
 
-body.home-color-anthropic .friction-window-card {
+body.theme-dark .friction-window-card {
   border-color: rgb(255 255 255 / 9%);
   background: rgb(20 20 19 / 76%);
   color: var(--primary-foreground);
   box-shadow: 0 1rem 2rem -1.6rem rgb(0 0 0 / 75%);
 }
 
-body.home-color-anthropic .friction-window-card strong {
+body.theme-dark .friction-window-card strong {
   color: var(--primary-foreground);
 }
 
-body.home-color-anthropic .friction-metrics article {
+body.theme-dark .friction-metrics article {
   border-color: rgb(255 255 255 / 8%);
   background: rgb(255 255 255 / 4%);
 }
 
-body.home-color-anthropic #problem .section-copy {
+body.theme-dark #problem .section-copy {
   align-self: center;
 }
 
-body.home-color-anthropic #problem .section-copy .button-secondary {
+body.theme-dark #problem .section-copy .button-secondary {
   width: fit-content;
 }
 
-body.home-color-anthropic .dashboard-main {
+body.theme-dark .dashboard-main {
   border-color: color-mix(in srgb, var(--border) 80%, var(--home-brass));
   background:
-    linear-gradient(135deg, rgb(185 139 95 / 9%), transparent 42%),
+    linear-gradient(135deg, rgb(185 139 95 / 12%), transparent 42%),
     linear-gradient(180deg, var(--home-panel), var(--home-panel-warm));
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 56%),
-    0 1.2rem 2.6rem -2rem rgb(75 65 52 / 38%);
+    inset 0 1px 0 rgb(255 255 255 / 6%),
+    var(--shadow-md);
 }
 
-body.home-color-anthropic .dashboard-head {
+body.theme-dark .dashboard-head {
   border-bottom-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
 }
 
-body.home-color-anthropic .dashboard-status {
+body.theme-dark .dashboard-status {
   border-color: color-mix(in srgb, var(--home-blue) 42%, var(--border));
-  background: color-mix(in srgb, var(--home-blue-soft) 46%, white);
+  background: color-mix(in srgb, var(--home-blue-soft) 70%, var(--surface));
 }
 
-body.home-color-anthropic .dashboard-status strong {
+body.theme-dark .dashboard-status strong {
   background: var(--home-blue);
-  color: white;
+  color: var(--primary-foreground);
 }
 
-body.home-color-anthropic .product-map {
+body.theme-dark .product-map {
   border-color: color-mix(in srgb, var(--home-blue) 36%, var(--border));
   background:
-    radial-gradient(circle at 28% 24%, rgb(77 131 165 / 13%), transparent 34%),
-    linear-gradient(180deg, #f9f4eb, #efe4d5);
-  color: color-mix(in srgb, var(--home-blue) 70%, var(--primary));
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 55%);
+    radial-gradient(circle at 28% 24%, rgb(77 131 165 / 16%), transparent 34%),
+    linear-gradient(180deg, var(--surface-elevated), var(--surface));
+  color: color-mix(in srgb, var(--home-blue) 76%, var(--foreground));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 5%);
 }
 
-body.home-color-anthropic .map-route {
+body.theme-dark .map-route {
   stroke: color-mix(in srgb, var(--home-rust) 82%, var(--primary));
 }
 
-body.home-color-anthropic .map-pin circle:first-child {
+body.theme-dark .map-pin circle:first-child {
   stroke: color-mix(in srgb, var(--home-rust) 72%, var(--primary));
 }
 
-body.home-color-anthropic .map-pin.active circle:first-child {
+body.theme-dark .map-pin.active circle:first-child {
   fill: var(--home-rust);
 }
 
-body.home-color-anthropic .map-signal-row span {
+body.theme-dark .map-signal-row span {
   background: var(--home-rust);
 }
 
-body.home-color-anthropic .map-floating-card {
-  border-color: rgb(255 255 255 / 62%);
-  background: rgb(255 253 248 / 92%);
-  box-shadow: 0 1.2rem 2rem -1.45rem rgb(65 50 35 / 45%);
+body.theme-dark .map-floating-card {
+  border-color: color-mix(in srgb, var(--border) 72%, var(--home-brass));
+  background: color-mix(in srgb, var(--surface-elevated) 88%, var(--home-brass));
+  box-shadow: var(--shadow-sm);
 }
 
-body.home-color-anthropic .project-card-wire {
+body.theme-dark .project-card-wire {
   border-color: color-mix(in srgb, var(--home-brass) 42%, var(--border));
   background:
-    linear-gradient(180deg, rgb(255 255 255 / 52%), transparent),
-    color-mix(in srgb, var(--home-panel-warm) 78%, white);
+    linear-gradient(180deg, rgb(255 255 255 / 5%), transparent),
+    color-mix(in srgb, var(--home-panel-warm) 88%, var(--home-brass-soft));
 }
 
-body.home-color-anthropic .followup-note {
+body.theme-dark .followup-note {
   border-color: color-mix(in srgb, var(--home-brass) 36%, var(--border));
-  background: color-mix(in srgb, var(--home-brass-soft) 52%, white);
+  background: color-mix(in srgb, var(--home-brass-soft) 72%, var(--surface));
 }
 
-body.home-color-anthropic .feature-strip {
+body.theme-dark .feature-strip {
   grid-template-columns: 1.18fr 0.92fr 0.9fr;
 }
 
-body.home-color-anthropic .feature-strip article,
-body.home-color-anthropic .audience-card {
+body.theme-dark .feature-strip article,
+body.theme-dark .audience-card {
   border-color: color-mix(in srgb, var(--border) 84%, var(--home-brass));
   background:
-    linear-gradient(180deg, rgb(255 255 255 / 58%), transparent 62%),
+    linear-gradient(180deg, rgb(255 255 255 / 5%), transparent 62%),
     var(--home-panel);
-  box-shadow: 0 0.85rem 1.8rem -1.55rem rgb(65 57 48 / 38%);
+  box-shadow: var(--shadow-sm);
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
 }
 
-body.home-color-anthropic .feature-strip article:hover,
-body.home-color-anthropic .audience-card:hover,
-body.home-color-anthropic .pricing-card:hover,
-body.home-color-anthropic details:hover {
+body.theme-dark .feature-strip article:hover,
+body.theme-dark .audience-card:hover,
+body.theme-dark .pricing-card:hover,
+body.theme-dark details:hover {
   transform: translateY(-2px);
-  box-shadow: 0 1.25rem 2.3rem -1.75rem rgb(65 57 48 / 42%);
+  box-shadow: var(--shadow-md);
 }
 
-body.home-color-anthropic .feature-strip article:nth-child(1)::before {
+body.theme-dark .feature-strip article:nth-child(1)::before {
   background: var(--home-brass);
 }
 
-body.home-color-anthropic .feature-strip article:nth-child(2)::before {
+body.theme-dark .feature-strip article:nth-child(2)::before {
   background: var(--home-blue);
 }
 
-body.home-color-anthropic .feature-strip article:nth-child(3)::before {
+body.theme-dark .feature-strip article:nth-child(3)::before {
   background: var(--home-rust);
 }
 
-body.home-color-anthropic .solution-showcase {
+body.theme-dark .solution-showcase {
   gap: clamp(2rem, 4vw, 3.25rem);
 }
 
-body.home-color-anthropic .solution-main-row {
+body.theme-dark .solution-main-row {
   grid-template-columns: minmax(0, var(--home-visual-size)) minmax(0, 1fr);
   align-items: center;
   column-gap: clamp(2rem, 4.2vw, 4rem);
   row-gap: var(--space-8);
 }
 
-body.home-color-anthropic .solution-visual-card {
+body.theme-dark .solution-visual-card {
   width: min(100%, var(--home-visual-size));
   align-self: center;
-  border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: transparent;
+  box-shadow: none;
 }
 
-body.home-color-anthropic .solution-neon-image {
+body.theme-dark .solution-neon-image {
   filter: none;
 }
 
-body.home-color-anthropic .solution-data-panel,
-body.home-color-anthropic .solution-stack-panel {
+body.theme-dark .solution-data-panel,
+body.theme-dark .solution-stack-panel {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
   border-radius: calc(var(--radius-lg) + 0.25rem);
   background:
-    linear-gradient(180deg, rgb(255 255 255 / 56%), transparent 64%),
-    var(--home-panel);
+    linear-gradient(180deg, rgb(255 255 255 / 5%), transparent 64%),
+    var(--surface-elevated);
   padding: clamp(1.4rem, 2.5vw, 2rem);
-  box-shadow: 0 1rem 2rem -1.65rem rgb(65 57 48 / 36%);
+  box-shadow: var(--shadow-sm);
 }
 
-body.home-color-anthropic .solution-data-panel {
+body.theme-dark .solution-data-panel {
   position: relative;
   overflow: hidden;
   align-self: stretch;
   padding-inline-start: clamp(2.6rem, 3.8vw, 3.4rem);
 }
 
-body.home-color-anthropic .solution-data-panel::before {
+body.theme-dark .solution-data-panel::before {
   position: absolute;
   inset-block: clamp(1.6rem, 2.8vw, 2.15rem);
   inset-inline-start: clamp(1.05rem, 1.9vw, 1.45rem);
@@ -4687,12 +4709,12 @@ body.home-color-anthropic .solution-data-panel::before {
   content: "";
 }
 
-body.home-color-anthropic .solution-data-panel h3 {
+body.theme-dark .solution-data-panel h3 {
   text-align: right;
 }
 
-body.home-color-anthropic .solution-data-grid,
-body.home-color-anthropic .solution-feature-strip {
+body.theme-dark .solution-data-grid,
+body.theme-dark .solution-feature-strip {
   gap: var(--space-4);
   overflow: visible;
   border: 0;
@@ -4700,59 +4722,59 @@ body.home-color-anthropic .solution-feature-strip {
   background: transparent;
 }
 
-body.home-color-anthropic .solution-data-grid article,
-body.home-color-anthropic .solution-feature-strip article {
+body.theme-dark .solution-data-grid article,
+body.theme-dark .solution-feature-strip article {
   position: relative;
   border: 1px solid color-mix(in srgb, var(--border) 80%, var(--home-brass));
   border-radius: var(--radius-md);
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 253 248 / 62%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
+  background: color-mix(in srgb, var(--surface) 88%, var(--surface-elevated));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%);
   transition:
     background 180ms ease,
     transform 180ms ease;
 }
 
-body.home-color-anthropic .solution-data-grid article {
+body.theme-dark .solution-data-grid article {
   padding-block: var(--space-5);
   padding-inline: var(--space-5);
   padding-inline-start: clamp(2.75rem, 3.2vw, 3.25rem);
 }
 
-body.home-color-anthropic .solution-data-grid article::before {
+body.theme-dark .solution-data-grid article::before {
   position: absolute;
   inset-block-start: var(--space-5);
   inset-inline-start: var(--space-5);
   width: 0.72rem;
   height: 0.72rem;
-  border: 2px solid var(--home-panel);
+  border: 2px solid var(--surface-elevated);
   border-radius: 50%;
   background: var(--home-rust);
   content: "";
   box-shadow: 0 0 0 3px rgb(185 139 95 / 18%);
 }
 
-body.home-color-anthropic .solution-data-grid article:nth-child(2)::before {
+body.theme-dark .solution-data-grid article:nth-child(2)::before {
   background: var(--home-blue);
   box-shadow: 0 0 0 3px rgb(77 131 165 / 18%);
 }
 
-body.home-color-anthropic .solution-data-grid article:hover,
-body.home-color-anthropic .solution-feature-strip article:hover {
-  background: color-mix(in srgb, var(--home-brass-soft) 32%, white);
+body.theme-dark .solution-data-grid article:hover,
+body.theme-dark .solution-feature-strip article:hover {
+  background: color-mix(in srgb, var(--accent-brand-soft) 40%, var(--surface));
   box-shadow: none;
   transform: none;
 }
 
-body.home-color-anthropic .solution-feature-strip article::before {
+body.theme-dark .solution-feature-strip article::before {
   display: none;
 }
 
-body.home-color-anthropic .solution-stack-panel {
+body.theme-dark .solution-stack-panel {
   position: relative;
 }
 
-body.home-color-anthropic .solution-stack-panel::before {
+body.theme-dark .solution-stack-panel::before {
   position: absolute;
   inset-block-start: 0;
   inset-inline: clamp(1.4rem, 3vw, 2rem);
@@ -4762,36 +4784,36 @@ body.home-color-anthropic .solution-stack-panel::before {
   content: "";
 }
 
-body.home-color-anthropic .solution-feature-strip article {
+body.theme-dark .solution-feature-strip article {
   min-height: 11.5rem;
 }
 
-body.home-color-anthropic .solution-feature-strip span {
+body.theme-dark .solution-feature-strip span {
   color: var(--home-rust);
 }
 
-body.home-color-anthropic .solution-feature-strip article:nth-child(2) span {
+body.theme-dark .solution-feature-strip article:nth-child(2) span {
   color: var(--home-blue);
 }
 
-body.home-color-anthropic .solution-feature-strip article:nth-child(3) span {
+body.theme-dark .solution-feature-strip article:nth-child(3) span {
   color: var(--home-brass);
 }
 
-body.home-color-anthropic #audiences {
+body.theme-dark #audiences {
   border-top-color: transparent;
 }
 
-body.home-color-anthropic .audience-grid {
+body.theme-dark .audience-grid {
   grid-template-columns: 1.04fr 0.96fr;
 }
 
-body.home-color-anthropic .audience-card {
+body.theme-dark .audience-card {
   position: relative;
   overflow: hidden;
 }
 
-body.home-color-anthropic .audience-card::before {
+body.theme-dark .audience-card::before {
   width: 2.55rem;
   height: 0.24rem;
   border-radius: var(--radius-full);
@@ -4799,42 +4821,42 @@ body.home-color-anthropic .audience-card::before {
   content: "";
 }
 
-body.home-color-anthropic .audience-card:nth-child(2n)::before {
+body.theme-dark .audience-card:nth-child(2n)::before {
   background: var(--home-blue);
 }
 
-body.home-color-anthropic .audience-card:nth-child(3n)::before {
+body.theme-dark .audience-card:nth-child(3n)::before {
   background: var(--home-violet);
 }
 
-body.home-color-anthropic .text-link {
+body.theme-dark .text-link {
   border-bottom-color: color-mix(in srgb, var(--home-brass) 72%, var(--primary));
   transition: color 160ms ease, border-color 160ms ease;
 }
 
-body.home-color-anthropic .text-link:hover {
+body.theme-dark .text-link:hover {
   border-bottom-color: var(--home-blue);
   color: color-mix(in srgb, var(--primary) 72%, var(--home-blue));
 }
 
-body.home-color-anthropic #stages {
+body.theme-dark #stages {
   padding-block: var(--space-12);
 }
 
-body.home-color-anthropic #sales-flow {
+body.theme-dark #sales-flow {
   padding-block: var(--space-12);
 }
 
-body.home-color-anthropic .stage-rail {
+body.theme-dark .stage-rail {
   gap: var(--space-2);
 }
 
-body.home-color-anthropic .stage-tile {
+body.theme-dark .stage-tile {
   min-height: 4.85rem;
   border-color: color-mix(in srgb, var(--border) 80%, transparent);
   border-radius: 0.9rem;
-  background: rgb(255 253 248 / 58%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 58%);
+  background: var(--surface);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%);
   transition:
     border-color 180ms ease,
     background 180ms ease,
@@ -4842,12 +4864,12 @@ body.home-color-anthropic .stage-tile {
     transform 180ms ease;
 }
 
-body.home-color-anthropic .stage-tile:hover {
+body.theme-dark .stage-tile:hover {
   transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--home-brass) 58%, var(--border));
 }
 
-body.home-color-anthropic .stage-tile.active {
+body.theme-dark .stage-tile.active {
   border-color: color-mix(in srgb, var(--primary) 82%, var(--home-brass));
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--primary) 92%, var(--home-brass)), var(--primary));
@@ -4856,49 +4878,48 @@ body.home-color-anthropic .stage-tile.active {
     0 1rem 1.85rem -1.35rem rgb(20 20 19 / 56%);
 }
 
-body.home-color-anthropic .stage-info-card {
+body.theme-dark .stage-info-card {
   border-color: color-mix(in srgb, var(--home-brass) 38%, var(--border));
   background:
     linear-gradient(90deg, rgb(185 139 95 / 11%), transparent 42%),
-    var(--home-panel);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
+    var(--surface-elevated);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%);
 }
 
-body.home-color-anthropic .stage-info-side {
+body.theme-dark .stage-info-side {
   border-inline-start-color: color-mix(in srgb, var(--border) 76%, var(--home-brass));
 }
 
-body.home-color-anthropic .flow-layout {
+body.theme-dark .flow-layout {
   grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.5fr);
   gap: clamp(1.25rem, 3vw, 2.5rem);
 }
 
-body.home-color-anthropic .flow-board {
+body.theme-dark .flow-board {
   gap: var(--space-3);
 }
 
-body.home-color-anthropic .flow-visual-card {
+body.theme-dark .flow-visual-card {
   width: min(100%, 21.5rem);
-  border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: transparent;
+  box-shadow: none;
 }
 
-body.home-color-anthropic .flow-visual-image {
+body.theme-dark .flow-visual-image {
   filter: none;
 }
 
-body.home-color-anthropic .flow-step {
+body.theme-dark .flow-step {
   min-height: 0;
   gap: var(--space-2);
   border-color: color-mix(in srgb, var(--border) 84%, var(--home-brass));
-  background: rgb(255 253 248 / 78%);
-  box-shadow: 0 0.9rem 1.9rem -1.65rem rgb(65 57 48 / 36%);
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
 }
 
-body.home-color-anthropic .flow-step::before {
+body.theme-dark .flow-step::before {
   inset-block: var(--space-3);
   inset-inline-start: auto;
   inset-inline-end: 0;
@@ -4907,54 +4928,54 @@ body.home-color-anthropic .flow-step::before {
   background: var(--home-brass);
 }
 
-body.home-color-anthropic .flow-step::after {
+body.theme-dark .flow-step::after {
   display: none;
   content: none;
 }
 
-body.home-color-anthropic .flow-step:nth-child(2)::before,
-body.home-color-anthropic .flow-step:nth-child(5)::before {
+body.theme-dark .flow-step:nth-child(2)::before,
+body.theme-dark .flow-step:nth-child(5)::before {
   background: var(--home-blue);
 }
 
-body.home-color-anthropic .flow-step:nth-child(3)::before,
-body.home-color-anthropic .flow-step:nth-child(6)::before {
+body.theme-dark .flow-step:nth-child(3)::before,
+body.theme-dark .flow-step:nth-child(6)::before {
   background: var(--home-rust);
 }
 
-body.home-color-anthropic .flow-kicker {
+body.theme-dark .flow-kicker {
   border-color: color-mix(in srgb, var(--home-brass) 38%, var(--border));
-  background: color-mix(in srgb, var(--home-brass-soft) 54%, white);
-  color: color-mix(in srgb, var(--home-rust) 82%, var(--primary));
+  background: color-mix(in srgb, var(--accent-brand-soft) 72%, var(--surface));
+  color: color-mix(in srgb, var(--primary) 78%, var(--foreground));
 }
 
-body.home-color-anthropic .flow-outcome {
+body.theme-dark .flow-outcome {
   border-inline-start-color: var(--home-brass);
 }
 
-body.home-color-anthropic .flow-step-summary strong {
+body.theme-dark .flow-step-summary strong {
   font-size: var(--text-base);
 }
 
-body.home-color-anthropic .flow-footer {
+body.theme-dark .flow-footer {
   margin-top: var(--space-5);
 }
 
-body.home-color-anthropic .decision-box {
+body.theme-dark .decision-box {
   border-top-color: color-mix(in srgb, var(--border) 80%, var(--home-brass));
 }
 
-body.home-color-anthropic .duration-tabs {
+body.theme-dark .duration-tabs {
   width: min(100%, 27rem);
   gap: 0;
   border: 1px solid color-mix(in srgb, var(--border) 76%, var(--home-brass));
   border-radius: 1rem;
-  background: rgb(255 253 248 / 72%);
+  background: var(--surface);
   padding: 0.28rem;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%);
 }
 
-body.home-color-anthropic .duration-tabs button {
+body.theme-dark .duration-tabs button {
   min-height: 3.05rem;
   border: 0;
   border-radius: 0.76rem;
@@ -4966,89 +4987,104 @@ body.home-color-anthropic .duration-tabs button {
     transform 180ms ease;
 }
 
-body.home-color-anthropic .duration-tabs button:hover {
+body.theme-dark .duration-tabs button:hover {
   background: color-mix(in srgb, var(--home-brass-soft) 46%, transparent);
 }
 
-body.home-color-anthropic .duration-tabs button.active {
+body.theme-dark .duration-tabs button.active {
   background: var(--primary);
   color: var(--primary-foreground);
   box-shadow: 0 0.8rem 1.6rem -1.2rem rgb(20 20 19 / 56%);
 }
 
-body.home-color-anthropic .duration-tabs button.active .duration-unit {
+body.theme-dark .duration-tabs button.active .duration-unit {
   color: var(--primary-foreground);
 }
 
-body.home-color-anthropic .pricing-grid {
+body.theme-dark .pricing-grid {
   gap: var(--space-5);
 }
 
-body.home-color-anthropic .pricing-card {
+body.theme-dark .pricing-card {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
   background:
-    linear-gradient(180deg, rgb(255 255 255 / 62%), transparent 45%),
-    var(--home-panel);
-  box-shadow: 0 1rem 2rem -1.7rem rgb(65 57 48 / 36%);
+    linear-gradient(180deg, rgb(255 255 255 / 5%), transparent 45%),
+    var(--surface);
+  box-shadow: var(--shadow-xs);
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
 }
 
-body.home-color-anthropic .pricing-card:nth-child(2) {
-  border-color: color-mix(in srgb, var(--home-brass) 52%, var(--primary));
+body.theme-dark .pricing-card:nth-child(2) {
+  border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--home-brass-soft) 62%, white), var(--home-panel));
+    linear-gradient(180deg, rgb(255 255 255 / 5%), transparent 45%),
+    var(--surface);
 }
 
-body.home-color-anthropic .pricing-card:nth-child(3) {
+body.theme-dark .pricing-card:nth-child(3) {
   border-color: color-mix(in srgb, var(--home-blue) 42%, var(--border));
 }
 
-body.home-color-anthropic .pricing-card:nth-child(4) {
+body.theme-dark .pricing-card:nth-child(4) {
   border-color: color-mix(in srgb, var(--home-violet) 32%, var(--border));
 }
 
-body.home-color-anthropic .pricing-card::before {
+body.theme-dark .pricing-card::before {
   background: var(--home-brass);
 }
 
-body.home-color-anthropic .pricing-card:nth-child(3)::before {
+body.theme-dark .pricing-card:nth-child(3)::before {
   background: var(--home-blue);
 }
 
-body.home-color-anthropic .pricing-card:nth-child(4)::before {
+body.theme-dark .pricing-card:nth-child(4)::before {
   background: var(--home-violet);
 }
 
-body.home-color-anthropic .plan-icon-shell {
-  border-bottom-color: color-mix(in srgb, var(--border) 72%, var(--home-brass));
+body.theme-dark .pricing-card.is-featured {
+  border-color: var(--accent-brand);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent-brand-soft) 42%, var(--surface)), var(--surface));
+  box-shadow: var(--shadow-md);
 }
 
-body.home-color-anthropic .plan-icon-shell img {
-  filter: grayscale(0.28) contrast(1.08) saturate(0.9);
+body.theme-dark .pricing-card.is-featured::before {
+  height: 4px;
+  background: var(--accent-brand);
 }
 
-body.home-color-anthropic .coverage-meter i.filled {
+body.theme-dark .plan-icon-shell {
+  border-color: color-mix(in srgb, var(--border) 72%, var(--home-brass));
+  background: #f3efe6;
+}
+
+body.theme-dark .plan-icon-shell img {
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+body.theme-dark .coverage-meter i.filled {
   border-color: color-mix(in srgb, var(--home-brass) 72%, var(--primary));
   background: linear-gradient(90deg, var(--primary), var(--home-brass));
 }
 
-body.home-color-anthropic .pricing-card .button {
-  border-color: color-mix(in srgb, var(--border-strong) 68%, var(--home-brass));
-  background: color-mix(in srgb, var(--home-brass-soft) 50%, white);
+body.theme-dark .pricing-card .button {
+  border-color: var(--border-strong);
+  background: var(--surface-elevated);
 }
 
-body.home-color-anthropic .faq-list {
+body.theme-dark .faq-list {
   width: min(100%, 62rem);
   margin-inline: auto;
 }
 
-body.home-color-anthropic details {
+body.theme-dark details {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 253 248 / 66%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 58%);
+  background: var(--surface);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 5%);
   transition:
     border-color 180ms ease,
     background 180ms ease,
@@ -5056,12 +5092,12 @@ body.home-color-anthropic details {
     transform 180ms ease;
 }
 
-body.home-color-anthropic details[open] {
+body.theme-dark details[open] {
   border-color: color-mix(in srgb, var(--home-brass) 42%, var(--border));
-  background: var(--home-panel);
+  background: var(--surface-elevated);
 }
 
-body.home-color-anthropic summary {
+body.theme-dark summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
@@ -5069,31 +5105,31 @@ body.home-color-anthropic summary {
   list-style: none;
 }
 
-body.home-color-anthropic summary::-webkit-details-marker {
+body.theme-dark summary::-webkit-details-marker {
   display: none;
 }
 
-body.home-color-anthropic summary::after {
+body.theme-dark summary::after {
   display: grid;
   width: 2rem;
   height: 2rem;
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--border) 76%, var(--home-brass));
   border-radius: 50%;
-  background: color-mix(in srgb, var(--home-brass-soft) 42%, white);
+  background: color-mix(in srgb, var(--accent-brand-soft) 70%, var(--surface));
   color: var(--primary);
   content: "+";
   direction: ltr;
   font-weight: 800;
 }
 
-body.home-color-anthropic details[open] summary::after {
+body.theme-dark details[open] summary::after {
   background: var(--primary);
   color: var(--primary-foreground);
   content: "-";
 }
 
-body.home-color-anthropic .demo-shell {
+body.theme-dark .demo-shell {
   position: relative;
   overflow: hidden;
   border-color: color-mix(in srgb, var(--primary) 72%, var(--home-brass));
@@ -5106,7 +5142,7 @@ body.home-color-anthropic .demo-shell {
     0 1.7rem 3rem -2.25rem rgb(20 20 19 / 72%);
 }
 
-body.home-color-anthropic .demo-shell::before {
+body.theme-dark .demo-shell::before {
   position: absolute;
   inset-block-start: 0;
   inset-inline: var(--space-8);
@@ -5116,153 +5152,153 @@ body.home-color-anthropic .demo-shell::before {
   content: "";
 }
 
-body.home-color-anthropic .demo-copy,
-body.home-color-anthropic .demo-cards {
+body.theme-dark .demo-copy,
+body.theme-dark .demo-cards {
   position: relative;
   z-index: 1;
 }
 
-body.home-color-anthropic .demo-cards {
+body.theme-dark .demo-cards {
   grid-template-columns: minmax(0, var(--home-visual-size)) minmax(0, 1fr);
   align-items: center;
 }
 
-body.home-color-anthropic .demo-copy h2,
-body.home-color-anthropic .demo-copy p {
-  color: var(--primary-foreground);
+body.theme-dark .demo-copy h2,
+body.theme-dark .demo-copy p {
+  color: var(--foreground);
 }
 
-body.home-color-anthropic .demo-visual-card {
+body.theme-dark .demo-visual-card {
   width: min(100%, var(--home-visual-size));
-  border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+  border: 0;
+  border-radius: var(--radius-xl);
+  background: transparent;
+  box-shadow: none;
 }
 
-body.home-color-anthropic .demo-visual-image {
+body.theme-dark .demo-visual-image {
   filter: none;
 }
 
-body.home-color-anthropic .demo-path,
-body.home-color-anthropic .demo-form {
+body.theme-dark .demo-path,
+body.theme-dark .demo-form {
   border-color: rgb(255 255 255 / 10%);
-  background: rgb(250 249 245 / 94%);
-  box-shadow: 0 1.1rem 2.1rem -1.7rem rgb(0 0 0 / 72%);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 
-body.home-color-anthropic .field input,
-body.home-color-anthropic .field select {
+body.theme-dark .field input,
+body.theme-dark .field select {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 253 248 / 86%);
+  background: var(--surface-muted);
+  color: var(--foreground);
   transition:
     border-color 160ms ease,
     box-shadow 160ms ease,
     background 160ms ease;
 }
 
-body.home-color-anthropic .field input:focus,
-body.home-color-anthropic .field select:focus {
+body.theme-dark .field input:focus,
+body.theme-dark .field select:focus {
   border-color: var(--home-brass);
-  background: white;
+  background: var(--surface-elevated);
   outline: 0;
   box-shadow: 0 0 0 3px rgb(185 139 95 / 18%);
 }
 
 @media (max-width: 1100px) {
-  body.home-color-anthropic .hero-bento,
-  body.home-color-anthropic .problem-image-card {
+  body.theme-dark .hero-bento,
+  body.theme-dark .problem-image-card {
     width: min(100%, var(--home-visual-size-mobile));
   }
 
-  body.home-color-anthropic #problem .section-copy {
+  body.theme-dark #problem .section-copy {
     order: 1;
   }
 
-  body.home-color-anthropic #problem .problem-image-card {
+  body.theme-dark #problem .problem-image-card {
     order: 2;
   }
 
-  body.home-color-anthropic .feature-strip,
-  body.home-color-anthropic .audience-grid {
+  body.theme-dark .feature-strip,
+  body.theme-dark .audience-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 720px) {
-  body.home-color-anthropic .home-page > .section::before {
+  body.theme-dark .home-page > .section::before {
     inset-inline: 1rem;
   }
 
-  body.home-color-anthropic #solution .section-heading,
-  body.home-color-anthropic #sales-flow .section-heading {
+  body.theme-dark #solution .section-heading,
+  body.theme-dark #sales-flow .section-heading {
     justify-items: center;
     margin-inline: auto;
     text-align: center;
   }
 
-  body.home-color-anthropic #solution .section-heading h2::after,
-  body.home-color-anthropic #sales-flow .section-heading h2::after {
+  body.theme-dark #solution .section-heading h2::after,
+  body.theme-dark #sales-flow .section-heading h2::after {
     margin-inline: auto;
   }
 
-  body.home-color-anthropic .solution-visual-card {
+  body.theme-dark .solution-visual-card {
     width: min(100%, var(--home-visual-size-mobile));
     justify-self: center;
   }
 
-  body.home-color-anthropic .solution-main-row {
+  body.theme-dark .solution-main-row {
     grid-template-columns: 1fr;
     justify-items: center;
     direction: rtl;
   }
 
-  body.home-color-anthropic .solution-data-panel,
-  body.home-color-anthropic .solution-stack-panel {
+  body.theme-dark .solution-data-panel,
+  body.theme-dark .solution-stack-panel {
     width: 100%;
     padding: var(--space-5);
   }
 
-  body.home-color-anthropic .solution-data-panel {
+  body.theme-dark .solution-data-panel {
     padding-inline-start: var(--space-6);
   }
 
-  body.home-color-anthropic .solution-data-grid,
-  body.home-color-anthropic .solution-feature-strip {
+  body.theme-dark .solution-data-grid,
+  body.theme-dark .solution-feature-strip {
     grid-template-columns: 1fr;
   }
 
-  body.home-color-anthropic .solution-data-grid article + article,
-  body.home-color-anthropic .solution-feature-strip article + article {
+  body.theme-dark .solution-data-grid article + article,
+  body.theme-dark .solution-feature-strip article + article {
     border-block-start: 1px solid color-mix(in srgb, var(--border) 82%, var(--home-brass));
     border-inline-start: 0;
   }
 
-  body.home-color-anthropic .demo-cards {
+  body.theme-dark .demo-cards {
     grid-template-columns: 1fr;
     justify-items: center;
   }
 
-  body.home-color-anthropic .demo-visual-card {
+  body.theme-dark .demo-visual-card {
     width: min(100%, var(--home-visual-size-mobile));
   }
 
-  body.home-color-anthropic .hero-copy::before {
+  body.theme-dark .hero-copy::before {
     inset-block-start: -1rem;
     width: 3.5rem;
   }
 
-  body.home-color-anthropic #problem .section-copy .button-secondary {
+  body.theme-dark #problem .section-copy .button-secondary {
     width: 100%;
   }
 
-  body.home-color-anthropic .feature-strip,
-  body.home-color-anthropic .audience-grid {
+  body.theme-dark .feature-strip,
+  body.theme-dark .audience-grid {
     grid-template-columns: 1fr;
   }
 
-  body.home-color-anthropic .flow-layout {
+  body.theme-dark .flow-layout {
     grid-template-areas:
       "visual"
       "steps";
@@ -5270,46 +5306,46 @@ body.home-color-anthropic .field select:focus {
     justify-items: center;
   }
 
-  body.home-color-anthropic .flow-board {
+  body.theme-dark .flow-board {
     width: 100%;
   }
 
-  body.home-color-anthropic .flow-visual-card {
+  body.theme-dark .flow-visual-card {
     width: min(100%, var(--home-visual-size-mobile));
     justify-self: center;
   }
 
-  body.home-color-anthropic .duration-tabs {
+  body.theme-dark .duration-tabs {
     width: 100%;
   }
 
-  body.home-color-anthropic .stage-info-side {
+  body.theme-dark .stage-info-side {
     border-inline-start: 0;
   }
 
-  body.home-color-anthropic .button:hover,
-  body.home-color-anthropic .feature-strip article:hover,
-  body.home-color-anthropic .audience-card:hover,
-  body.home-color-anthropic .pricing-card:hover,
-  body.home-color-anthropic details:hover {
+  body.theme-dark .button:hover,
+  body.theme-dark .feature-strip article:hover,
+  body.theme-dark .audience-card:hover,
+  body.theme-dark .pricing-card:hover,
+  body.theme-dark details:hover {
     transform: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body.home-color-anthropic .button,
-  body.home-color-anthropic .feature-strip article,
-  body.home-color-anthropic .audience-card,
-  body.home-color-anthropic .pricing-card,
-  body.home-color-anthropic details,
-  body.home-color-anthropic .stage-tile,
-  body.home-color-anthropic .problem-neon-image,
-  body.home-color-anthropic .field input,
-  body.home-color-anthropic .field select {
+  body.theme-dark .button,
+  body.theme-dark .feature-strip article,
+  body.theme-dark .audience-card,
+  body.theme-dark .pricing-card,
+  body.theme-dark details,
+  body.theme-dark .stage-tile,
+  body.theme-dark .problem-neon-image,
+  body.theme-dark .field input,
+  body.theme-dark .field select {
     transition: none;
   }
 
-  body.home-color-anthropic .problem-neon-image {
+  body.theme-dark .problem-neon-image {
     transform: none;
   }
 }
