@@ -1,0 +1,128 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { assets, productBoundaries, productLayers, productMetrics, productWorkflow } from "@/content/company";
+
+const title = "محصول پرشین‌سازه | زیرساخت فروش پروژه‌محور ساختمان";
+const description =
+  "پرشین‌سازه داده زنده پروژه‌های ساختمانی، نقشه، فیلتر، CRM، پیامک، آموزش و AI تصمیم‌یار را برای فروش پروژه‌محور تأمین‌کنندگان صنعت ساختمان ترکیب می‌کند.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "پرشین‌سازه",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  url: absoluteUrl("/product/"),
+  inLanguage: "fa-IR",
+  description,
+  publisher: { "@type": "Organization", name: site.name, url: site.url },
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/product/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero product-page-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">محصول</p>
+          <h1>پرشین‌سازه فقط پروژه نمایش نمی‌دهد؛ پروژه را به فرصت فروش قابل پیگیری تبدیل می‌کند.</h1>
+          <p>
+            محصول پرشین‌سازه برای تأمین‌کنندگانی ساخته شده که باید پروژه درست را در زمان درست ببینند، ارزیابی کنند،
+            ارتباط بگیرند و مسیر پیگیری فروش را از حالت پراکنده خارج کنند.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/features/">مشاهده ویژگی‌ها</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>۴</strong>
+          <span>لایه محصول</span>
+          <p>داده زنده، ابزار اجرایی، آموزش فروش و لایه هوشمند روی یک جریان فروش پروژه‌محور قرار می‌گیرند.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>معماری محصول پرشین‌سازه</h2>
+          <p>
+            ارزش محصول از یک قابلیت تنها نمی‌آید. داده باید زنده باشد، ابزار باید به اقدام فروش وصل شود، و آموزش باید کمک
+            کند کاربر بداند از این داده و ابزار چطور استفاده کند.
+          </p>
+        </div>
+        <div class="pillar-grid">
+          {productLayers.map((item) => (
+            <article class="pillar-card">
+              {item.image && <img src={item.image.src} alt={item.image.alt} loading="lazy" decoding="async" />}
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>جریان عملیاتی محصول</h2>
+          <p>پرشین‌سازه باید تیم فروش را از جست‌وجوی پراکنده به مسیر منظم کشف، ارزیابی، ارتباط و پیگیری ببرد.</p>
+        </div>
+        <ol class="page-flow">
+          {productWorkflow.map((item, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <p>{item}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split">
+        <figure class="image-panel">
+          <img src={assets.companyVideo.src} alt={assets.companyVideo.alt} loading="lazy" decoding="async" />
+        </figure>
+        <div class="section-copy">
+          <h2>پرشین‌سازه چه چیزی نیست؟</h2>
+          <p>
+            مرز محصول مهم است. پرشین‌سازه نباید به عنوان فایل شماره، ابزار پیامک یا CRM عمومی فروخته شود؛ هسته آن تبدیل
+            پروژه فعال به فرصت فروش قابل تصمیم و قابل پیگیری است.
+          </p>
+          <ul class="check-list">
+            {productBoundaries.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="metric-strip">
+          {productMetrics.map((item) => (
+            <article>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading centered">
+          <h2>محصول را در مسیر واقعی فروش ببینید</h2>
+          <p>در دمو، مسیر پیدا کردن پروژه، بررسی مرحله ساخت، ذخیره فرصت و پیگیری فروش را روی یک نمونه عملی مرور می‌کنیم.</p>
+          <div class="action-row centered-actions">
+            <a class="button button-primary" href="/#demo">ثبت درخواست دمو</a>
+            <a class="button button-secondary" href="/education/">نقش آموزش در محصول</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

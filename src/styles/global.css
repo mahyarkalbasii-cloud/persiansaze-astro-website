@@ -1963,6 +1963,284 @@ details p {
   content: "";
 }
 
+.media-hero .content-hero-grid {
+  align-items: center;
+}
+
+.product-page-hero h1,
+.media-hero h1 {
+  max-width: 56rem;
+}
+
+.page-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.page-split > .section-copy {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.page-split > .section-copy p {
+  margin: 0;
+}
+
+.image-panel,
+.wide-image-panel {
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.image-panel img,
+.wide-image-panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-panel {
+  aspect-ratio: 2 / 1;
+}
+
+.hero-image-panel {
+  min-height: 20rem;
+}
+
+.contained-image {
+  display: grid;
+  min-height: 16rem;
+  place-items: center;
+  padding: var(--space-8);
+}
+
+.contained-image img {
+  width: min(100%, 26rem);
+  height: auto;
+  object-fit: contain;
+}
+
+.wide-image-panel {
+  aspect-ratio: 2 / 1;
+}
+
+.pillar-grid,
+.feature-principles,
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.pillar-card,
+.feature-detail-card,
+.process-card,
+.education-card,
+.value-card,
+.contact-card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+  box-shadow: var(--shadow-xs);
+}
+
+.pillar-card img,
+.feature-detail-card img,
+.process-card img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+}
+
+.pillar-card h3,
+.feature-detail-card h2,
+.process-card h3,
+.education-card h3,
+.value-card h3,
+.contact-card h2 {
+  font-size: var(--text-lg);
+}
+
+.feature-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.education-card {
+  overflow: hidden;
+  padding: 0;
+}
+
+.education-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.education-card h3,
+.education-card p {
+  margin-inline: var(--card-padding-compact);
+}
+
+.education-card h3 {
+  margin-top: var(--space-1);
+}
+
+.education-card p {
+  margin-bottom: var(--card-padding-compact);
+}
+
+.metric-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.metric-strip.compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.metric-strip article,
+.feature-principles article {
+  display: grid;
+  gap: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+  box-shadow: var(--shadow-xs);
+}
+
+.metric-strip strong {
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: var(--text-3xl);
+  line-height: 1;
+}
+
+.metric-strip span,
+.feature-principles span {
+  color: var(--muted-foreground);
+  font-weight: 700;
+}
+
+.page-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-flow li {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  margin: 0;
+  border-top: 0.25rem solid var(--primary);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+  box-shadow: var(--shadow-xs);
+}
+
+.page-flow span {
+  color: var(--faint-foreground);
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.check-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.check-list li {
+  position: relative;
+  color: var(--muted-foreground);
+  font-weight: 600;
+  line-height: var(--leading-normal);
+  padding-inline-start: var(--space-6);
+}
+
+.check-list li::before {
+  position: absolute;
+  inset-block-start: 0.58rem;
+  inset-inline-start: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-full);
+  content: "";
+}
+
+.contact-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.contact-card a {
+  color: var(--muted-foreground);
+  font-weight: 700;
+  line-height: var(--leading-normal);
+  overflow-wrap: anywhere;
+}
+
+.contact-card a:hover {
+  color: var(--foreground);
+}
+
+.contact-form {
+  max-width: none;
+}
+
+.home-page #faq .faq-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.faq-list details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+  box-shadow: var(--shadow-xs);
+}
+
+.faq-list summary {
+  color: var(--foreground);
+  line-height: var(--leading-normal);
+}
+
 .stage-page-hero {
   background: var(--surface);
   padding-block: var(--space-12);
@@ -2516,7 +2794,8 @@ body .persian-number {
   .dashboard-body,
   .content-hero-grid,
   .detail-layout,
-  .rules-layout {
+  .rules-layout,
+  .page-split {
     grid-template-columns: 1fr;
   }
 
@@ -2546,7 +2825,11 @@ body .persian-number {
   .content-card-grid,
   .subscription-plan-strip,
   .subcategory-grid,
-  .related-grid {
+  .related-grid,
+  .feature-card-grid,
+  .process-grid,
+  .contact-card-grid,
+  .page-flow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2560,6 +2843,13 @@ body .persian-number {
 
   .stage-rail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pillar-grid,
+  .education-grid,
+  .feature-principles,
+  .value-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -2608,7 +2898,15 @@ body .persian-number {
   .subscription-plan-strip,
   .subscription-price-panel,
   .subcategory-grid,
-  .related-grid {
+  .related-grid,
+  .feature-card-grid,
+  .process-grid,
+  .education-grid,
+  .contact-card-grid,
+  .page-flow,
+  .metric-strip,
+  .metric-strip.compact,
+  .home-page #faq .faq-list {
     grid-template-columns: 1fr;
   }
 
@@ -2636,6 +2934,20 @@ body .persian-number {
 
   .flow-step {
     min-height: auto;
+  }
+
+  .image-panel,
+  .wide-image-panel {
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-image-panel {
+    min-height: 14rem;
+  }
+
+  .contained-image {
+    min-height: 12rem;
+    padding: var(--space-5);
   }
 
   .rules-toc {

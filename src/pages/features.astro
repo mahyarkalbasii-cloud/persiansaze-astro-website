@@ -1,0 +1,106 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { dataOperations, featureCards } from "@/content/company";
+
+const title = "ویژگی‌های پرشین‌سازه | نقشه، فیلتر، CRM و پیامک فروش ساختمانی";
+const description =
+  "ویژگی‌های پرشین‌سازه برای فروش پروژه‌محور: فیلتر و دسته‌بندی اطلاعات، نقشه پروژه‌ها، CRM متصل به داده، پیامک هدفمند، گزارش، یادآور و مدیریت تیم فروش.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: title,
+  description,
+  url: absoluteUrl("/features/"),
+  inLanguage: "fa-IR",
+  isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+  about: featureCards.map((item) => ({ "@type": "Thing", name: item.title })),
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/features/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">ویژگی‌ها</p>
+          <h1>قابلیت‌هایی که داده پروژه را به اقدام فروش تبدیل می‌کنند</h1>
+          <p>
+            ویژگی‌های پرشین‌سازه برای یک جریان واقعی فروش طراحی شده‌اند: پیدا کردن پروژه، دیدن روی نقشه، فیلتر کردن،
+            ذخیره فرصت، تماس، پیامک، یادداشت و پیگیری بعدی.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/product/">معماری محصول</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{featureCards.length}</strong>
+          <span>قابلیت اجرایی</span>
+          <p>هر قابلیت باید به کاهش اصطکاک فروش کمک کند؛ نه صرفاً به نمایش بیشتر داده.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="feature-card-grid">
+          {featureCards.map((item) => (
+            <article class="feature-detail-card">
+              {item.image && <img src={item.image.src} alt={item.image.alt} loading="lazy" decoding="async" />}
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>قبل از ابزار، کیفیت داده مهم است</h2>
+          <p>
+            ابزار زمانی ارزش می‌سازد که روی داده قابل اتکا سوار شود. چرخه عملیاتی پرشین‌سازه از گردآوری میدانی تا
+            به‌روزرسانی پیوسته، پایه ویژگی‌های محصول است.
+          </p>
+        </div>
+        <div class="process-grid">
+          {dataOperations.map((item) => (
+            <article class="process-card">
+              {item.image && <img src={item.image.src} alt={item.image.alt} loading="lazy" decoding="async" />}
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split">
+        <div class="section-copy">
+          <h2>ویژگی خوب یعنی تصمیم بهتر، نه فقط صفحه شلوغ‌تر</h2>
+          <p>
+            نقشه، فیلتر، CRM و پیامک باید به فروشنده کمک کنند بفهمد کدام پروژه ارزش تماس دارد، چه زمانی باید پیگیری شود و
+            چه اقدامی بعد از تماس لازم است.
+          </p>
+        </div>
+        <div class="feature-principles">
+          <article>
+            <strong>کاهش زمان جست‌وجو</strong>
+            <span>رسیدن سریع‌تر به پروژه‌های مرتبط‌تر</span>
+          </article>
+          <article>
+            <strong>کاهش تماس نامرتبط</strong>
+            <span>تشخیص مرحله، منطقه و تناسب قبل از ارتباط</span>
+          </article>
+          <article>
+            <strong>افزایش نظم پیگیری</strong>
+            <span>ثبت فعالیت و اقدام بعدی در کنار پروژه</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

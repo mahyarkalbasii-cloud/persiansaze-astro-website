@@ -1,0 +1,111 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, demo, site } from "@/content/home";
+import { assets, contactCards } from "@/content/company";
+import { workFields } from "@/content/construction";
+
+const title = "تماس با پرشین‌سازه | درخواست دمو و پشتیبانی";
+const description =
+  "راه‌های تماس با پرشین‌سازه برای درخواست دمو، فروش، پشتیبانی و مراجعه حضوری: تلفن، ایمیل، آدرس و فرم ثبت درخواست.";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: title,
+  description,
+  url: absoluteUrl("/contact-us/"),
+  inLanguage: "fa-IR",
+  isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+};
+const demoWorkFieldOptions = workFields.map((field) => field.title);
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/contact-us/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero media-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">تماس با ما</p>
+          <h1>برای دیدن مسیر فروش پروژه‌محور، با تیم پرشین‌سازه صحبت کنید.</h1>
+          <p>
+            اگر می‌خواهید بدانید پرشین‌سازه برای بازار، محصول و تیم فروش شما مناسب است یا نه، دمو بگیرید یا مستقیم با
+            تیم فروش و پشتیبانی تماس بگیرید.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="#contact-form">ثبت درخواست دمو</a>
+            <a class="button button-secondary" href={`tel:${site.contacts[0].telephone}`}>{site.contacts[0].phone}</a>
+          </div>
+        </div>
+        <figure class="image-panel hero-image-panel">
+          <img src={assets.contactHero.src} alt={assets.contactHero.alt} loading="eager" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-card-grid">
+          {contactCards.map((item) => (
+            <article class="contact-card">
+              <h2>{item.title}</h2>
+              <a href={item.href}>{item.body}</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container page-split">
+        <figure class="image-panel contained-image">
+          <img src={assets.contactConsultation.src} alt={assets.contactConsultation.alt} loading="lazy" decoding="async" />
+        </figure>
+        <div class="section-copy">
+          <h2>مشاوره قبل از خرید</h2>
+          <p>
+            چه مشتری پرشین‌سازه باشید و چه هنوز در حال بررسی، کارشناسان ما می‌توانند مسیر انتخاب اشتراک، مرحله ساخت مناسب
+            محصول شما و شیوه استفاده از داده و ابزار فروش را توضیح دهند.
+          </p>
+          <p><strong>ساعت پاسخگویی:</strong> {site.openingHoursText}</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact-form" class="section demo-section">
+      <div class="container">
+        <div class="demo-shell">
+          <div class="demo-copy">
+            <h2>درخواست دمو یا تماس فروش</h2>
+            <p>اطلاعات اولیه را ثبت کنید تا مسیر مناسب بررسی محصول و اشتراک با شما هماهنگ شود.</p>
+          </div>
+
+          <form class="demo-form contact-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+            <div class="form-grid">
+              <label class="field">
+                <span>{demo.form.name}</span>
+                <input name="name" autocomplete="name" />
+              </label>
+              <label class="field">
+                <span>{demo.form.phone}</span>
+                <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
+              </label>
+              <label class="field">
+                <span>{demo.form.company}</span>
+                <input name="company" autocomplete="organization" />
+              </label>
+              <label class="field">
+                <span>{demo.form.supplier}</span>
+                <select name="supplier">
+                  <option value="">{demo.form.choose}</option>
+                  {demoWorkFieldOptions.map((option) => (
+                    <option value={option}>{option}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <button class="button button-primary" type="submit">ثبت درخواست تماس</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
