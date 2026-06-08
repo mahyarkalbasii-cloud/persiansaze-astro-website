@@ -22,6 +22,16 @@ export type PricingPlan = {
   featured?: boolean;
 };
 
+export type ConstructionAdviceGroup = {
+  title: string;
+  items: string[];
+};
+
+export type FooterLinkGroup = {
+  title: string;
+  links: LinkItem[];
+};
+
 export const site = {
   name: "پرشین‌سازه",
   legalName: "پرشین‌سازه",
@@ -101,7 +111,7 @@ export const metadata = {
 export const navigation: LinkItem[] = [
   { label: "محصول", href: "#solution" },
   { label: "زمینه‌های کاری", href: "#audiences" },
-  { label: "مراحل ساخت", href: "#audiences" },
+  { label: "مراحل ساخت", href: "#stages" },
   { label: "اشتراک‌ها", href: "#plans" },
   { label: "آموزش", href: "#sales-flow" },
   { label: "درباره ما", href: "#problem" },
@@ -158,19 +168,76 @@ export const audiences = {
   saleTypes: [
     {
       title: "فروش سریع و تراکنشی",
-      countLine: "زیرگروه مرتبط",
+      countLine: "۱۴۴ زیرگروه مرتبط",
       description:
         "فروش سریع برای محصولاتی مناسب است که سازنده معمولاً در فاصله کوتاهی بین نیاز و خرید تصمیم می‌گیرد.",
-      sampleFields: ["مصالح پایه", "ابزار مصرفی", "رنگ", "پوشش نما"],
+      sampleFields: ["آب صنعتی و کارگاهی", "آجر سفال (تیغه‌ای)", "آجر سنگفرش", "آجر فشاری و گری"],
     },
     {
       title: "فروش مشاوره‌ای",
-      countLine: "زیرگروه مرتبط",
+      countLine: "۱۵۵ زیرگروه مرتبط",
       description:
         "فروش مشاوره‌ای زمانی لازم است که تصمیم خرید سازنده قبل از لحظه اجرا و طی چند گفت‌وگو شکل می‌گیرد.",
-      sampleFields: ["تأسیسات", "نما", "آسانسور", "خدمات مهندسی"],
+      sampleFields: [
+        "آجر نسوز و دکوراتیو نما",
+        "آزمایشگاه‌های کنترل کیفیت",
+        "آنتن و ماهواره مرکزی",
+        "آیفون تصویری و اکسس کنترل",
+      ],
     },
   ],
+};
+
+export const constructionSection = {
+  title: "مراحل ساخت و زمان درست فروش",
+  body: "هر مرحله ساخت، فرصت‌ها و ریسک‌های فروش متفاوتی دارد. در نسخه وایرفریم، تصاویر مرحله‌ها با جایگاه‌های ساده جایگزین شده‌اند تا ساختار محتوا حفظ شود.",
+  stageLabel: "نازک کاری و نما - ۹۷ زمینه مرتبط از ۲۷۰ زمینه کاری",
+  stageCta: "مشاهده ۹۷ زمینه مرتبط",
+  pageCta: "مشاهده صفحه کامل مرحله",
+  stages: [
+    "تخریب و گودبرداری",
+    "فونداسیون",
+    "اسکلت بندی",
+    "دیوارچینی و سفت کاری",
+    "گچ و خاک و تاسیسات",
+    "ابتدای نازک کاری",
+    "نازک کاری و نما",
+    "ظریف کاری و پایان کار",
+  ],
+  adviceGroups: [
+    {
+      title: "مذاکره",
+      items: [
+        "کیفیت سطح نهایی، تعداد دست رنگ و محدوده ترمیم را شفاف کن.",
+        "برای نما، مسئولیت داربست، ایمنی و آب‌بندی را جدا ببند.",
+        "زمان تحویل فضاها را به جای کل پروژه، فاز به فاز توافق کن.",
+      ],
+    },
+    {
+      title: "خرید",
+      items: [
+        "رنگ، پوشش نما و متریال نمایان را با کد دقیق و نمونه تاییدشده بخر.",
+        "ابزار نصب، چسب، پیچ و نوار آب‌بندی را همراه متریال اصلی تامین کن.",
+        "برای نما و کف، کسری احتمالی را از همان بچ اولیه رزرو کن.",
+      ],
+    },
+    {
+      title: "اجرا",
+      items: [
+        "سطح زیرکار را قبل از پوشش نهایی از نظر رطوبت و ترک کنترل کن.",
+        "کارهای پرگردوغبار را قبل از رنگ و نصب قطعات حساس تمام کن.",
+        "کیفیت نور، کنج‌ها و درزها را در پایان هر فضا بازبینی کن.",
+      ],
+    },
+    {
+      title: "کنترل ریسک",
+      items: [
+        "تغییر رنگ یا متریال را بدون تایید کارفرما وارد اجرا نکن.",
+        "از برخورد اکیپ‌های بعدی با سطوح تمام‌شده محافظت کن.",
+        "تحویل هر فضا را با عکس و لیست نقص مستقل ثبت کن.",
+      ],
+    },
+  ] satisfies ConstructionAdviceGroup[],
 };
 
 export const salesFlow = {
@@ -183,24 +250,36 @@ export const salesFlow = {
       title: "شناسایی فرصت",
       body: "پروژه‌های هم‌خوان با موقعیت، مرحله ساخت و نیاز شما را پیدا کنید.",
       outcome: "لیست کوتاه پروژه‌های هم‌خوان",
+      question: "پروژه هم‌خوان پیدا شد؟",
+      yes: "ادامه به ارزیابی",
+      no: "اصلاح فیلتر و جست‌وجوی دوباره",
     },
     {
       number: "۰۲",
       title: "ارزیابی و اولویت‌بندی",
       body: "تشخیص دهید کدام پروژه زنده‌تر و به زمان اقدام نزدیک‌تر است.",
       outcome: "اولویت‌بندی بر اساس آمادگی",
+      question: "پروژه در اولویت است؟",
+      yes: "ادامه به مذاکره",
+      no: "نگه‌داری برای پایش بعدی",
     },
     {
       number: "۰۳",
       title: "ارتباط و مذاکره",
       body: "در زمان درست و با زمینه‌ روشن تماس بگیرید و مذاکره کنید.",
       outcome: "تماس و مذاکره با زمینه روشن",
+      question: "مذاکره به نتیجه رسید؟",
+      yes: "ادامه به پیگیری",
+      no: "پیگیری زمان‌بندی‌شده",
     },
     {
       number: "۰۴",
       title: "پیگیری و تبدیل",
       body: "با پیگیری منظم، فرصت را به قرارداد نزدیک کنید.",
       outcome: "قرارداد و رابطه پایدار",
+      question: "پیگیری موفق بود؟",
+      yes: "قرارداد و رابطه پایدار",
+      no: "پایان فرآیند بدون قرارداد",
     },
   ],
 };
@@ -379,7 +458,93 @@ export const footer = {
   contactTitle: "تماس با پرشین سازه",
   mainPagesTitle: "صفحات اصلی",
   socialTitle: "شبکه‌های اجتماعی",
+  trustPlaceholder: "جایگاه نماد اعتماد و مجوزها",
 };
+
+export const socialLinks: LinkItem[] = [
+  { label: "اینستاگرام", href: "https://instagram.com/persiansaze" },
+  { label: "لینکدین", href: "https://ir.linkedin.com/company/persiansaze" },
+  { label: "یوتیوب", href: "https://www.youtube.com/channel/UCpOEQfUAF-xA04c_NmRVg9Q" },
+  { label: "فیسبوک", href: "https://www.facebook.com/persiansazeco/" },
+  { label: "فلیپ‌بورد", href: "https://flipboard.com/@persiansaze" },
+  { label: "ساب‌استک", href: "https://substack.com/@persiansaze" },
+  { label: "مدیوم", href: "https://persiansaze.medium.com/" },
+];
+
+export const footerLinkGroups: FooterLinkGroup[] = [
+  {
+    title: "صفحات اصلی",
+    links: [
+      { label: "ویژگی‌ها", href: "#solution" },
+      { label: "اشتراک‌ها", href: "#plans" },
+      { label: "زمینه‌های کاری", href: "#audiences" },
+      { label: "مراحل ساخت", href: "#stages" },
+      { label: "نوع فروش", href: "#audiences" },
+      { label: "راهنماها", href: "#sales-flow" },
+      { label: "درباره ما", href: "#problem" },
+      { label: "تماس با ما", href: "#demo" },
+      { label: "سوالات متداول", href: "#faq" },
+      { label: "آموزش", href: "#sales-flow" },
+      { label: "درخواست دمو", href: "#demo" },
+    ],
+  },
+  {
+    title: "نوع فروش",
+    links: [
+      { label: "فروش سریع و تراکنشی", href: "#audiences" },
+      { label: "فروش مشاوره‌ای", href: "#audiences" },
+      { label: "تهاتر مصالح و خدمات", href: "#audiences" },
+      { label: "فروش ترکیبی", href: "#audiences" },
+    ],
+  },
+  {
+    title: "شهرها",
+    links: [
+      { label: "پروژه‌های تهران", href: "#solution" },
+      { label: "پروژه‌های کرج", href: "#solution" },
+      { label: "پروژه‌های لواسان", href: "#solution" },
+      { label: "همه شهرها ←", href: "#solution" },
+    ],
+  },
+  {
+    title: "زمینه‌های کاری",
+    links: [
+      { label: "مصالح پایه، سیمانی و سنگدانه‌ها", href: "#audiences" },
+      { label: "مقاطع فولادی، فلزات و آرماتور", href: "#audiences" },
+      { label: "مصالح بلوک، دیوارچینی و سیستم‌های سقف", href: "#audiences" },
+      { label: "مواد شیمیایی، چسب‌ها و درزگیرهای صنعتی", href: "#audiences" },
+      { label: "سیستم‌های عایق‌بندی حرارتی، رطوبتی و صوتی", href: "#audiences" },
+      { label: "تاسیسات مکانیکی: لوله‌کشی آب و فاضلاب", href: "#audiences" },
+      { label: "تاسیسات مکانیکی: تهویه مطبوع و HVAC", href: "#audiences" },
+      { label: "همه زمینه‌های کاری ←", href: "#audiences" },
+    ],
+  },
+  {
+    title: "مراحل ساخت",
+    links: [
+      { label: "طراحی و اخذ جواز", href: "#stages" },
+      { label: "تخریب و گودبرداری", href: "#stages" },
+      { label: "فونداسیون", href: "#stages" },
+      { label: "اسکلت بندی", href: "#stages" },
+      { label: "دیوارچینی و سفت کاری", href: "#stages" },
+      { label: "گچ و خاک و تاسیسات", href: "#stages" },
+      { label: "ابتدای نازک کاری", href: "#stages" },
+      { label: "نازک کاری و نما", href: "#stages" },
+      { label: "ظریف کاری و پایان کار", href: "#stages" },
+    ],
+  },
+];
+
+export const utilityLinks: LinkItem[] = [
+  { label: "قوانین و مقررات", href: "#" },
+  { label: "نقشه پروژه‌ها", href: "#solution" },
+  { label: "فیلتر مرحله ساخت", href: "#stages" },
+  { label: "CRM سبک فروش پروژه‌ای", href: "#solution" },
+  { label: "AI تصمیم‌یار", href: "#solution" },
+  { label: "تماس", href: "#demo" },
+  { label: "ثبت‌نام", href: "#demo" },
+  { label: "ورود", href: "#demo" },
+];
 
 export function absoluteUrl(path = "") {
   return `${site.url}${path}`;
