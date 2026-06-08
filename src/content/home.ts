@@ -421,6 +421,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
       { label: "اشتراک‌ها", href: "#plans" },
       { label: "زمینه‌های کاری", href: "/work-fields/" },
       { label: "مراحل ساخت", href: "/construction-stages/" },
+      { label: "شهرها", href: "/cities/" },
       { label: "نوع فروش", href: "#audiences" },
       { label: "راهنماها", href: "#sales-flow" },
       { label: "درباره ما", href: "#problem" },
@@ -442,10 +443,10 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     title: "شهرها",
     links: [
-      { label: "پروژه‌های تهران", href: "#solution" },
-      { label: "پروژه‌های کرج", href: "#solution" },
-      { label: "پروژه‌های لواسان", href: "#solution" },
-      { label: "همه شهرها ←", href: "#solution" },
+      { label: "ساخت‌وساز تهران", href: "/cities/tehran/" },
+      { label: "ساخت‌وساز کرج", href: "/cities/karaj/" },
+      { label: "ساخت‌وساز لواسان", href: "/cities/lavasan/" },
+      { label: "همه شهرها ←", href: "/cities/" },
     ],
   },
   {
@@ -478,7 +479,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 
 export const utilityLinks: LinkItem[] = [
   { label: "قوانین و مقررات", href: "#" },
-  { label: "نقشه پروژه‌ها", href: "#solution" },
+  { label: "نقشه پروژه‌ها", href: "/cities/" },
   { label: "فیلتر مرحله ساخت", href: "/construction-stages/" },
   { label: "CRM سبک فروش پروژه‌ای", href: "#solution" },
   { label: "AI تصمیم‌یار", href: "#solution" },

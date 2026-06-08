@@ -1029,6 +1029,42 @@ details p {
   font-weight: 800;
 }
 
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.data-table {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  background: var(--surface);
+  text-align: right;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-4);
+  vertical-align: top;
+}
+
+.data-table th {
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 800;
+}
+
+.data-table td {
+  color: var(--muted-foreground);
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
 .numbered-list {
   display: grid;
   gap: var(--space-3);
