@@ -9,7 +9,6 @@ export function GET() {
   const urls = [
     { path: "/", changefreq: "weekly", priority: "1.0" },
     { path: "/product/", changefreq: "monthly", priority: "0.9" },
-    { path: "/features/", changefreq: "monthly", priority: "0.9" },
     { path: "/education/", changefreq: "monthly", priority: "0.8" },
     { path: "/about-us/", changefreq: "monthly", priority: "0.7" },
     { path: "/contact-us/", changefreq: "monthly", priority: "0.7" },

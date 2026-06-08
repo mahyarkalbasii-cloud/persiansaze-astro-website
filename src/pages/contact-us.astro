@@ -4,9 +4,9 @@ import { absoluteUrl, demo, site } from "@/content/home";
 import { assets, contactCards } from "@/content/company";
 import { workFields } from "@/content/construction";
 
-const title = "تماس با پرشین‌سازه | درخواست دمو و پشتیبانی";
+const title = "تماس با ما | پرشین‌سازه";
 const description =
-  "راه‌های تماس با پرشین‌سازه برای درخواست دمو، فروش، پشتیبانی و مراجعه حضوری: تلفن، ایمیل، آدرس و فرم ثبت درخواست.";
+  "راه‌های ارتباط با پرشین‌سازه: شماره‌های تماس، ایمیل، آدرس دفتر تهران، ساعت کاری و فرم درخواست دمو یا مشاوره.";
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
@@ -17,22 +17,24 @@ const structuredData = {
   isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
 };
 const demoWorkFieldOptions = workFields.map((field) => field.title);
+const mapUrl =
+  "https://www.google.com/maps/place/%D9%BE%D8%B1%D8%B4%DB%8C%D9%86+%D8%B3%D8%A7%D8%B2%D9%87%E2%80%AD/@35.7791964,51.3759454,18.94z/data=!4m6!3m5!1s0x3f8e07a2fa35dbff:0xa2adc10f4130c19e!8m2!3d35.7790528!4d51.3756886!16s%2Fg%2F11tmkkmrxh";
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/contact-us/" structuredData={structuredData}>
   <main>
-    <section class="content-hero media-hero">
+    <section class="content-hero media-hero contact-page-hero">
       <div class="container content-hero-grid">
         <div>
           <p class="content-eyebrow">تماس با ما</p>
-          <h1>برای دیدن مسیر فروش پروژه‌محور، با تیم پرشین‌سازه صحبت کنید.</h1>
+          <h1>برای دمو، مشاوره یا پشتیبانی با تیم پرشین‌سازه صحبت کنید.</h1>
           <p>
-            اگر می‌خواهید بدانید پرشین‌سازه برای بازار، محصول و تیم فروش شما مناسب است یا نه، دمو بگیرید یا مستقیم با
-            تیم فروش و پشتیبانی تماس بگیرید.
+            اگر می‌خواهید بدانید پرشین‌سازه برای بازار، محصول و تیم فروش شما مناسب است یا نه، از همین مسیر با تیم ما
+            تماس بگیرید یا درخواست دمو ثبت کنید.
           </p>
           <div class="action-row">
             <a class="button button-primary" href="#contact-form">ثبت درخواست دمو</a>
-            <a class="button button-secondary" href={`tel:${site.contacts[0].telephone}`}>{site.contacts[0].phone}</a>
+            <a class="button button-secondary" href={site.contacts[0].href}>{site.contacts[0].phone}</a>
           </div>
         </div>
         <figure class="image-panel hero-image-panel">
@@ -41,41 +43,48 @@ const demoWorkFieldOptions = workFields.map((field) => field.title);
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="contact-card-grid">
-          {contactCards.map((item) => (
-            <article class="contact-card">
-              <h2>{item.title}</h2>
-              <a href={item.href}>{item.body}</a>
-            </article>
-          ))}
+    <section class="section contact-details-section">
+      <div class="container contact-layout">
+        <div class="contact-main-panel">
+          <div class="section-heading">
+            <h2>راه‌های ارتباط با پرشین‌سازه</h2>
+            <p>ما در روزهای کاری پاسخگوی شما هستیم. شماره‌ها، ایمیل و آدرس دفتر از سایت اصلی پرشین‌سازه اصلاح شده‌اند.</p>
+          </div>
+          <div class="contact-card-grid">
+            {contactCards.map((item) => (
+              <article class="contact-card">
+                <h3>{item.title}</h3>
+                <a href={item.href}>{item.body}</a>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="container page-split">
-        <figure class="image-panel contained-image">
-          <img src={assets.contactConsultation.src} alt={assets.contactConsultation.alt} loading="lazy" decoding="async" />
-        </figure>
-        <div class="section-copy">
-          <h2>مشاوره قبل از خرید</h2>
-          <p>
-            چه مشتری پرشین‌سازه باشید و چه هنوز در حال بررسی، کارشناسان ما می‌توانند مسیر انتخاب اشتراک، مرحله ساخت مناسب
-            محصول شما و شیوه استفاده از داده و ابزار فروش را توضیح دهند.
-          </p>
-          <p><strong>ساعت پاسخگویی:</strong> {site.openingHoursText}</p>
-        </div>
+        <aside class="contact-info-panel">
+          <figure class="image-panel contact-office-image">
+            <img src={assets.homeOffice.src} alt={assets.homeOffice.alt} loading="lazy" decoding="async" />
+          </figure>
+          <div class="contact-info-block">
+            <h2>دفتر تهران</h2>
+            <p>{site.address}</p>
+            <a href={mapUrl} target="_blank" rel="noreferrer">مشاهده روی نقشه</a>
+          </div>
+          <div class="contact-info-block">
+            <h2>ساعت پاسخگویی</h2>
+            <p>{site.openingHoursText}</p>
+          </div>
+        </aside>
       </div>
     </section>
 
     <section id="contact-form" class="section demo-section">
       <div class="container">
-        <div class="demo-shell">
+        <div class="demo-shell contact-demo-shell">
           <div class="demo-copy">
-            <h2>درخواست دمو یا تماس فروش</h2>
-            <p>اطلاعات اولیه را ثبت کنید تا مسیر مناسب بررسی محصول و اشتراک با شما هماهنگ شود.</p>
+            <h2>درخواست دمو یا مشاوره فروش</h2>
+            <p>
+              اطلاعات اولیه را ثبت کنید تا مسیر مناسب بررسی محصول، اشتراک و استفاده از داده پروژه‌ها با شما هماهنگ شود.
+            </p>
           </div>
 
           <form class="demo-form contact-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">

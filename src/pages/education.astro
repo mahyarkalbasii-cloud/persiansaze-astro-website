@@ -71,7 +71,6 @@ const structuredData = {
         <div class="education-grid">
           {educationTracks.map((item) => (
             <article class="education-card">
-              {item.image && <img src={item.image.src} alt={item.image.alt} loading="lazy" decoding="async" />}
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </article>
@@ -90,7 +89,7 @@ const structuredData = {
           </p>
           <div class="action-row centered-actions">
             <a class="button button-primary" href="/#demo">درخواست جلسه معرفی</a>
-            <a class="button button-secondary" href="/features/">ویژگی‌های پنل</a>
+            <a class="button button-secondary" href="/product/#features">ویژگی‌های پنل</a>
           </div>
         </div>
       </div>

@@ -61,6 +61,13 @@ export const site = {
       telephone: "+98-21-72897000",
       contactType: "customer support",
     },
+    {
+      label: "مشاوره",
+      phone: "۰۲۱-۹۱۳۰۳۸۳۹",
+      href: "tel:+982191303839",
+      telephone: "+98-21-91303839",
+      contactType: "customer service",
+    },
   ],
   sameAs: [
     "https://instagram.com/persiansaze",
@@ -93,13 +100,12 @@ export const metadata = {
 
 export const navigation: LinkItem[] = [
   { label: "محصول", href: "/product/" },
-  { label: "ویژگی‌ها", href: "/features/" },
   { label: "زمینه‌های کاری", href: "/work-fields/" },
   { label: "مراحل ساخت", href: "/construction-stages/" },
   { label: "اشتراک‌ها", href: "/subscriptions/" },
   { label: "آموزش", href: "/education/" },
   { label: "درباره ما", href: "/about-us/" },
-  { label: "تماس", href: "/contact-us/" },
+  { label: "تماس با ما", href: "/contact-us/" },
 ];
 
 export const hero = {
@@ -336,7 +342,6 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     title: "صفحات اصلی",
     links: [
       { label: "محصول", href: "/product/" },
-      { label: "ویژگی‌ها", href: "/features/" },
       { label: "اشتراک‌ها", href: "/subscriptions/" },
       { label: "درباره ما", href: "/about-us/" },
       { label: "تماس با ما", href: "/contact-us/" },
@@ -371,9 +376,9 @@ export const utilityLinks: LinkItem[] = [
   { label: "قوانین و مقررات", href: "/rules/" },
   { label: "نقشه پروژه‌ها", href: "/cities/" },
   { label: "فیلتر مرحله ساخت", href: "/construction-stages/" },
-  { label: "CRM سبک فروش پروژه‌ای", href: "/features/" },
+  { label: "CRM سبک فروش پروژه‌ای", href: "/product/#features" },
   { label: "AI تصمیم‌یار", href: "/product/" },
-  { label: "تماس", href: "/contact-us/" },
+  { label: "تماس با ما", href: "/contact-us/" },
   { label: "ثبت‌نام", href: "/#demo" },
   { label: "ورود", href: "/#demo" },
 ];

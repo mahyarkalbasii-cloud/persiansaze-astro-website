@@ -1789,7 +1789,8 @@ details p {
 
 .content-hero h1 {
   max-width: 48rem;
-  font-size: var(--text-4xl);
+  font-size: clamp(1.85rem, 2.4vw, 2.6rem);
+  line-height: 1.25;
 }
 
 .content-hero p {
@@ -1965,6 +1966,7 @@ details p {
 
 .media-hero .content-hero-grid {
   align-items: center;
+  grid-template-columns: minmax(0, 0.92fr) minmax(24rem, 1.08fr);
 }
 
 .product-page-hero h1,
@@ -2007,11 +2009,16 @@ details p {
 }
 
 .image-panel {
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 16 / 9;
 }
 
 .hero-image-panel {
-  min-height: 20rem;
+  min-height: 26rem;
+}
+
+.tall-image-panel {
+  aspect-ratio: 4 / 3;
+  min-height: 24rem;
 }
 
 .contained-image {
@@ -2031,7 +2038,12 @@ details p {
   aspect-ratio: 2 / 1;
 }
 
-.pillar-grid,
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
 .feature-principles,
 .value-grid {
   display: grid;
@@ -2055,26 +2067,20 @@ details p {
   box-shadow: var(--shadow-xs);
 }
 
-.pillar-card img,
-.feature-detail-card img,
-.process-card img {
-  width: 3.5rem;
-  height: 3.5rem;
-  object-fit: contain;
-}
-
 .pillar-card h3,
 .feature-detail-card h2,
+.feature-detail-card h3,
 .process-card h3,
 .education-card h3,
 .value-card h3,
-.contact-card h2 {
+.contact-card h2,
+.contact-card h3 {
   font-size: var(--text-lg);
 }
 
 .feature-card-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-4);
 }
 
@@ -2091,27 +2097,7 @@ details p {
 }
 
 .education-card {
-  overflow: hidden;
-  padding: 0;
-}
-
-.education-card img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-.education-card h3,
-.education-card p {
-  margin-inline: var(--card-padding-compact);
-}
-
-.education-card h3 {
-  margin-top: var(--space-1);
-}
-
-.education-card p {
-  margin-bottom: var(--card-padding-compact);
+  min-height: 100%;
 }
 
 .metric-strip {
@@ -2176,6 +2162,10 @@ details p {
   font-weight: 800;
 }
 
+.compact-flow {
+  grid-template-columns: 1fr;
+}
+
 .check-list {
   display: grid;
   gap: var(--space-3);
@@ -2207,6 +2197,71 @@ details p {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-4);
+}
+
+.contact-main-panel .contact-card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(22rem, 0.9fr);
+  align-items: start;
+  gap: var(--space-6);
+}
+
+.contact-main-panel,
+.contact-info-panel {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.contact-main-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-xs);
+}
+
+.contact-info-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-xs);
+}
+
+.contact-office-image {
+  min-height: 18rem;
+}
+
+.contact-info-block {
+  display: grid;
+  gap: var(--space-2);
+  padding-inline: var(--space-2);
+}
+
+.contact-info-block h2 {
+  font-size: var(--text-lg);
+}
+
+.contact-info-block p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-weight: 600;
+  line-height: var(--leading-relaxed);
+}
+
+.contact-info-block a {
+  color: var(--foreground);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.contact-demo-shell {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
 }
 
 .contact-card a {
@@ -2795,12 +2850,18 @@ body .persian-number {
   .content-hero-grid,
   .detail-layout,
   .rules-layout,
-  .page-split {
+  .page-split,
+  .contact-layout,
+  .contact-demo-shell {
     grid-template-columns: 1fr;
   }
 
   .site-header-inner {
     grid-template-columns: 1fr auto;
+  }
+
+  .media-hero .content-hero-grid {
+    grid-template-columns: 1fr;
   }
 
   .nav,
@@ -2826,10 +2887,11 @@ body .persian-number {
   .subscription-plan-strip,
   .subcategory-grid,
   .related-grid,
-  .feature-card-grid,
   .process-grid,
   .contact-card-grid,
-  .page-flow {
+  .page-flow,
+  .pillar-grid,
+  .feature-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2845,7 +2907,6 @@ body .persian-number {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .pillar-grid,
   .education-grid,
   .feature-principles,
   .value-grid {
@@ -2915,6 +2976,10 @@ body .persian-number {
     gap: var(--space-2);
   }
 
+  .contact-main-panel .contact-card-grid {
+    grid-template-columns: 1fr;
+  }
+
   .stage-tile {
     min-height: 4.75rem;
     padding: var(--space-4);
@@ -2942,7 +3007,12 @@ body .persian-number {
   }
 
   .hero-image-panel {
-    min-height: 14rem;
+    min-height: 18rem;
+  }
+
+  .tall-image-panel,
+  .contact-office-image {
+    min-height: 16rem;
   }
 
   .contained-image {
