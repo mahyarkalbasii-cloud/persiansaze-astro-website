@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import {
   constructionStages,
   getWorkFieldsForStage,
+  getWorkSubcategoriesForStage,
   type ConstructionStage,
 } from "@/content/construction";
 
@@ -15,8 +16,9 @@ export function getStaticPaths() {
 
 const { stage } = Astro.props as { stage: ConstructionStage };
 const relatedFields = getWorkFieldsForStage(stage.id);
+const relatedSubcategories = getWorkSubcategoriesForStage(stage.id);
 const title = `${stage.title} | مرحله ساخت ساختمان | پرشین‌سازه`;
-const description = `${stage.title} در چرخه ساخت ساختمان، تصمیم‌های فروش، محصولات و خدمات مرتبط و زمان مناسب اقدام برای تیم فروش پروژه‌محور.`;
+const description = `${stage.title} در چرخه ساخت ساختمان: تعریف مرحله، نکات مهم برای سازنده، دسته‌های کاری و زیر‌دسته‌های محصول یا خدمت مرتبط.`;
 ---
 
 <BaseLayout title={title} description={description} canonicalPath={`/construction-stages/${stage.slug}/`}>
@@ -26,7 +28,7 @@ const description = `${stage.title} در چرخه ساخت ساختمان، تص
         <div>
           <p class="content-eyebrow">مرحله ساخت</p>
           <h1>{stage.title}</h1>
-          <p>{stage.summary}</p>
+          <p>{stage.definition}</p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
             <a class="button button-secondary" href="/construction-stages/">همه مراحل ساخت</a>
@@ -35,7 +37,7 @@ const description = `${stage.title} در چرخه ساخت ساختمان، تص
         <aside class="content-summary-card">
           <strong>{relatedFields.length}</strong>
           <span>زمینه کاری مرتبط</span>
-          <p>{stage.sourcePhase}</p>
+          <p>{relatedSubcategories.length} زیر‌دسته محصول و خدمت</p>
         </aside>
       </div>
     </section>
@@ -45,9 +47,19 @@ const description = `${stage.title} در چرخه ساخت ساختمان، تص
         <aside class="detail-sidebar">
           <h2>زمان اقدام فروش</h2>
           <p>{stage.buyerTiming}</p>
+
+          <h2>نکات مهم برای سازنده</h2>
+          <ul class="numbered-list">
+            {stage.builderNotes.map((note) => <li>{note}</li>)}
+          </ul>
         </aside>
 
         <article class="detail-main">
+          <section>
+            <h2>تعریف مرحله ساخت</h2>
+            <p>{stage.definition}</p>
+          </section>
+
           <section>
             <h2>زمینه‌های کاری مرتبط با این مرحله</h2>
             <div class="related-grid">
@@ -55,7 +67,30 @@ const description = `${stage.title} در چرخه ساخت ساختمان، تص
                 <article class="related-card">
                   <h3>{field.title}</h3>
                   <p>{field.definition}</p>
+                  <ul class="tag-list">
+                    {field.subcategories
+                      .filter((subcategory) => subcategory.stageIds.includes(stage.id))
+                      .map((subcategory) => (
+                        <li>
+                          <a href={`/work-fields/${field.slug}/${subcategory.slug}/`}>{subcategory.title}</a>
+                        </li>
+                      ))}
+                  </ul>
                   <a class="text-link" href={`/work-fields/${field.slug}/`}>جزئیات زمینه کاری ←</a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2>زیر‌دسته‌های محصول و خدمت در این مرحله</h2>
+            <div class="subcategory-grid">
+              {relatedSubcategories.map((subcategory) => (
+                <article class="related-card">
+                  <h3>{subcategory.title}</h3>
+                  <p>{subcategory.parentTitle}</p>
+                  <p>{subcategory.definition}</p>
+                  <a class="text-link" href={`/work-fields/${subcategory.parentSlug}/${subcategory.slug}/`}>صفحه زیر‌دسته ←</a>
                 </article>
               ))}
             </div>

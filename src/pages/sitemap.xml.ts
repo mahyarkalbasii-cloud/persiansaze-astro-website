@@ -11,6 +11,13 @@ export function GET() {
       changefreq: "monthly",
       priority: "0.8",
     })),
+    ...workFields.flatMap((field) =>
+      field.subcategories.map((subcategory) => ({
+        path: `/work-fields/${field.slug}/${subcategory.slug}/`,
+        changefreq: "monthly",
+        priority: "0.7",
+      }))
+    ),
     { path: "/construction-stages/", changefreq: "weekly", priority: "0.9" },
     ...constructionStages.map((stage) => ({
       path: `/construction-stages/${stage.slug}/`,

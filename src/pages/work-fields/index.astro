@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { constructionStages, stageTitleById, workFields } from "@/content/construction";
+import { constructionStages, stageTitleById, workFields, workSubcategories } from "@/content/construction";
 
 const title = "زمینه‌های کاری ساختمان | پرشین‌سازه";
 const description =
-  "دسته‌بندی زمینه‌های کاری، محصولات و خدمات ساختمانی بر اساس چرخه ساخت، مرحله استفاده و زمان مناسب فروش پروژه‌محور.";
+  "دسته‌بندی کامل زمینه‌های کاری، زیر‌دسته‌های محصول و خدمات ساختمانی، معادل مرحله ساخت، تعریف فنی و نکات مهم برای سازنده.";
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/work-fields/">
@@ -15,8 +15,8 @@ const description =
           <p class="content-eyebrow">زمینه‌های کاری</p>
           <h1>زمینه‌های کاری را بر اساس مرحله ساخت ببینید</h1>
           <p>
-            این صفحه از منابع جدید مراحل و محصولات ساخت ساختمان ساخته شده و هر گروه محصول یا خدمت را به مرحله‌های مرتبط
-            در چرخه پروژه وصل می‌کند.
+            هر زمینه کاری یک دسته محتوایی مستقل دارد و زیر‌دسته‌های محصول یا خدمت آن هم صفحه جداگانه دارند. معادل مرحله
+            ساخت، تعریف فنی منبع و نکات مهم برای سازنده در همین ساختار حفظ شده‌اند.
           </p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
@@ -26,7 +26,7 @@ const description =
         <aside class="content-summary-card">
           <strong>{workFields.length}</strong>
           <span>گروه کاری ساختاریافته</span>
-          <p>{constructionStages.length} مرحله ساخت برای زمان‌بندی فروش پروژه‌محور</p>
+          <p>{workSubcategories.length} زیر‌دسته محصول و خدمت در {constructionStages.length} مرحله ساخت</p>
         </aside>
       </div>
     </section>
@@ -41,14 +41,24 @@ const description =
               <p>{field.definition}</p>
               <dl class="compact-facts">
                 <div>
-                  <dt>محصولات و خدمات</dt>
-                  <dd>{field.products}</dd>
+                  <dt>معادل مرحله ساخت</dt>
+                  <dd>{field.equivalent}</dd>
                 </div>
                 <div>
-                  <dt>زمان استفاده</dt>
-                  <dd>{field.lifecycle}</dd>
+                  <dt>مرحله منبع</dt>
+                  <dd>{field.sourceLifecycle}</dd>
                 </div>
               </dl>
+              <div>
+                <p class="content-eyebrow">زیر‌دسته‌ها</p>
+                <ul class="tag-list">
+                  {field.subcategories.map((subcategory) => (
+                    <li>
+                      <a href={`/work-fields/${field.slug}/${subcategory.slug}/`}>{subcategory.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <a class="text-link" href={`/work-fields/${field.slug}/`}>مشاهده جزئیات ←</a>
             </article>
           ))}
