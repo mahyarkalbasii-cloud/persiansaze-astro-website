@@ -1,0 +1,142 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  constructionStages,
+  getSiblingSubcategories,
+  getWorkFieldsForStage,
+  workFields,
+  type WorkField,
+  type WorkSubcategory,
+} from "@/content/construction";
+
+export function getStaticPaths() {
+  return workFields.flatMap((field) =>
+    field.subcategories.map((subcategory) => ({
+      params: { fieldSlug: field.slug, itemSlug: subcategory.slug },
+      props: { field, subcategory },
+    }))
+  );
+}
+
+const { field, subcategory } = Astro.props as { field: WorkField; subcategory: WorkSubcategory };
+const stages = constructionStages.filter((stage) => subcategory.stageIds.includes(stage.id));
+const siblings = getSiblingSubcategories(field.slug, subcategory.slug);
+const relatedFields = [
+  ...new Map(
+    stages
+      .flatMap((stage) => getWorkFieldsForStage(stage.id))
+      .filter((item) => item.slug !== field.slug)
+      .map((item) => [item.slug, item])
+  ).values(),
+].slice(0, 6);
+const title = `${subcategory.title} | ${field.title} | پرشین‌سازه`;
+const description = `${subcategory.title} در دسته ${field.title}: معادل مرحله ساخت، تعریف فنی محصول یا خدمت، نکات مهم برای سازنده و صفحات مرتبط.`;
+---
+
+<BaseLayout title={title} description={description} canonicalPath={`/work-fields/${field.slug}/${subcategory.slug}/`}>
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="مسیر صفحه">
+            <a href="/work-fields/">زمینه‌های کاری</a>
+            <span>/</span>
+            <a href={`/work-fields/${field.slug}/`}>{field.title}</a>
+          </nav>
+          <p class="content-eyebrow">زیر‌دسته محصول یا خدمت</p>
+          <h1>{subcategory.title}</h1>
+          <p>{subcategory.definition}</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href={`/work-fields/${field.slug}/`}>بازگشت به دسته</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{stages.length}</strong>
+          <span>معادل مرحله ساخت</span>
+          <p>{subcategory.equivalent}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container detail-layout">
+        <aside class="detail-sidebar">
+          <h2>شناسه زیر‌دسته</h2>
+          <dl class="compact-facts">
+            <div>
+              <dt>نام زیر‌دسته</dt>
+              <dd>{subcategory.title}</dd>
+            </div>
+            <div>
+              <dt>دسته مادر</dt>
+              <dd><a class="text-link" href={`/work-fields/${field.slug}/`}>{field.title}</a></dd>
+            </div>
+            <div>
+              <dt>مرحله منبع</dt>
+              <dd>{subcategory.sourceLifecycle}</dd>
+            </div>
+            <div>
+              <dt>معادل مرحله ساخت</dt>
+              <dd>{subcategory.equivalent}</dd>
+            </div>
+          </dl>
+
+          <h2>هم‌خانواده‌ها</h2>
+          <ul class="link-list">
+            {siblings.map((item) => (
+              <li><a href={`/work-fields/${field.slug}/${item.slug}/`}>{item.title}</a></li>
+            ))}
+          </ul>
+        </aside>
+
+        <article class="detail-main">
+          <section>
+            <h2>تعریف محصول یا خدمت</h2>
+            <p>{subcategory.definition}</p>
+            <p>
+              این زیر‌دسته در دسته «{field.title}» قرار دارد. فهرست کامل محصولات و خدمات این دسته در سند منبع شامل
+              این موارد است: {field.products}.
+            </p>
+          </section>
+
+          <section>
+            <h2>نکات مهم برای سازنده</h2>
+            <ul class="numbered-list">
+              {subcategory.builderNotes.map((note) => <li>{note}</li>)}
+            </ul>
+          </section>
+
+          <section>
+            <h2>تعریف مرحله‌های ساخت مرتبط</h2>
+            <div class="related-grid">
+              {stages.map((stage) => (
+                <article class="related-card">
+                  <h3>{stage.title}</h3>
+                  <p>{stage.definition}</p>
+                  <p><strong>زمان اقدام:</strong> {stage.buyerTiming}</p>
+                  <a class="text-link" href={`/construction-stages/${stage.slug}/`}>صفحه مرحله ←</a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          {relatedFields.length > 0 && (
+            <section>
+              <h2>دسته‌های مرتبط در همین مرحله</h2>
+              <div class="related-grid">
+                {relatedFields.map((item) => (
+                  <article class="related-card">
+                    <h3>{item.title}</h3>
+                    <p>{item.equivalent}</p>
+                    <a class="text-link" href={`/work-fields/${item.slug}/`}>مشاهده دسته ←</a>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

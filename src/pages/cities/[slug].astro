@@ -1,0 +1,166 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { cityProfiles, type CityProfile } from "@/content/cities";
+import { constructionStages, workFields } from "@/content/construction";
+import { site } from "@/content/home";
+
+export function getStaticPaths() {
+  return cityProfiles.map((city) => ({
+    params: { slug: city.slug },
+    props: { city },
+  }));
+}
+
+const { city } = Astro.props as { city: CityProfile };
+const relatedStages = constructionStages.filter((stage) => city.relatedStageIds.includes(stage.id));
+const relatedFields = workFields.filter((field) => city.relatedWorkFieldSlugs.includes(field.slug));
+const title = `ساخت‌وساز ${city.title} | آمار، پروانه ساخت و فرصت فروش | پرشین‌سازه`;
+const description = `${city.title}: تحلیل ساخت‌وساز، جمعیت، مسکن، پروانه‌های ساختمانی، ریسک زیرساختی، نکات فروش پروژه‌محور و لینک به مراحل ساخت و زمینه‌های کاری.`;
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: city.faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  name: city.title,
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: city.province,
+    addressCountry: "IR",
+  },
+  description: city.summary,
+  url: `${site.url}/cities/${city.slug}/`,
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath={`/cities/${city.slug}/`}>
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="مسیر صفحه">
+            <a href="/cities/">شهرها</a>
+            <span>/</span>
+            <span>{city.title}</span>
+          </nav>
+          <p class="content-eyebrow">{city.province}</p>
+          <h1>ساخت‌وساز {city.title}</h1>
+          <p>{city.summary}</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/cities/">همه شهرها</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{city.keyMetrics.length}</strong>
+          <span>شاخص شهری</span>
+          <p>{city.headline}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container detail-layout">
+        <aside class="detail-sidebar">
+          <h2>شاخص‌های سریع {city.title}</h2>
+          <dl class="compact-facts">
+            {city.keyMetrics.map((metric) => (
+              <div>
+                <dt>{metric.label}</dt>
+                <dd><strong>{metric.value}</strong> - {metric.note}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <h2>مراحل ساخت مرتبط</h2>
+          <ul class="link-list">
+            {relatedStages.map((stage) => (
+              <li><a href={`/construction-stages/${stage.slug}/`}>{stage.title}</a></li>
+            ))}
+          </ul>
+        </aside>
+
+        <article class="detail-main">
+          <section>
+            <h2>نقش {city.title} در فروش پروژه‌محور</h2>
+            <p>{city.role}</p>
+          </section>
+
+          {city.sections.map((section) => (
+            <section>
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+            </section>
+          ))}
+
+          <section>
+            <h2>روند پروانه ساخت و سیگنال بازار</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>بازه زمانی</th>
+                    <th>وضعیت</th>
+                    <th>تفسیر فروش پروژه‌محور</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {city.permitTimeline.map((item) => (
+                    <tr>
+                      <td>{item.period}</td>
+                      <td>{item.status}</td>
+                      <td>{item.interpretation}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section>
+            <h2>نکات مهم برای سازنده و تأمین‌کننده</h2>
+            <ul class="numbered-list">
+              {city.builderNotes.map((note) => <li>{note}</li>)}
+            </ul>
+          </section>
+
+          <section>
+            <h2>زمینه‌های کاری مرتبط با {city.title}</h2>
+            <div class="related-grid">
+              {relatedFields.map((field) => (
+                <article class="related-card">
+                  <h3>{field.title}</h3>
+                  <p>{field.definition}</p>
+                  <a class="text-link" href={`/work-fields/${field.slug}/`}>صفحه زمینه کاری ←</a>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2>پرسش‌های رایج درباره ساخت‌وساز {city.title}</h2>
+            <div class="faq-list">
+              {city.faqs.map((faq) => (
+                <details>
+                  <summary>{faq.question}</summary>
+                  <p>{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</BaseLayout>

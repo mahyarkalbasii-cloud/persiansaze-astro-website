@@ -1,0 +1,70 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import {
+  constructionStages,
+  getWorkFieldsForStage,
+  getWorkSubcategoriesForStage,
+  workSubcategories,
+} from "@/content/construction";
+
+const title = "مراحل ساخت ساختمان | پرشین‌سازه";
+const description =
+  "مراحل ساخت ساختمان از طراحی و اخذ جواز تا ظریف‌کاری و پایان کار، همراه با زمینه‌های کاری، زیر‌دسته‌های محصول و خدمت و نکات مهم برای سازنده.";
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/construction-stages/">
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">مراحل ساخت</p>
+          <h1>چرخه ساخت را به زبان فروش پروژه‌محور بخوانید</h1>
+          <p>
+            هر مرحله ساخت تعریف مستقل، نکات مهم برای سازنده، دسته‌های کاری مرتبط و زیر‌دسته‌های محصول یا خدمت خودش را
+            دارد تا هم کاربر و هم موتور پاسخ بتوانند رابطه مرحله و محصول را دقیق بخوانند.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/work-fields/">مشاهده زمینه‌های کاری</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{constructionStages.length}</strong>
+          <span>مرحله ساخت</span>
+          <p>{workSubcategories.length} زیر‌دسته محصول و خدمت به این مراحل وصل شده‌اند</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container stage-list">
+        {constructionStages.map((stage, index) => {
+          const relatedFields = getWorkFieldsForStage(stage.id);
+          const relatedSubcategories = getWorkSubcategoriesForStage(stage.id);
+          return (
+            <article class="stage-row">
+              <span class="stage-index">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <p class="content-eyebrow">{stage.sourcePhase}</p>
+                <h2>{stage.title}</h2>
+                <p>{stage.definition}</p>
+                <p><strong>زمان فروش:</strong> {stage.buyerTiming}</p>
+                <p><strong>پوشش محتوایی:</strong> {relatedFields.length} دسته و {relatedSubcategories.length} زیر‌دسته مرتبط</p>
+                <ul class="tag-list">
+                  {relatedSubcategories.map((subcategory) => (
+                    <li>
+                      <a href={`/work-fields/${subcategory.parentSlug}/${subcategory.slug}/`}>{subcategory.title}</a>
+                    </li>
+                  ))}
+                </ul>
+                <a class="text-link" href={`/construction-stages/${stage.slug}/`}>
+                  مشاهده صفحه کامل مرحله ←
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

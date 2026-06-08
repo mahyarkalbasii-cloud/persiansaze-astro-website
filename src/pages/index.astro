@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import SiteFooter from "@/components/SiteFooter.astro";
 import {
   audiences,
   demo,
@@ -16,9 +17,13 @@ import {
   site,
   solution,
 } from "@/content/home";
+import { constructionStages, getWorkFieldsForStage } from "@/content/construction";
+import { saleTypes } from "@/content/sales";
 
 const primaryContact = site.contacts[0];
-const reversedContacts = [...site.contacts].reverse();
+const defaultDuration = "12" as const;
+const featuredStage = constructionStages.find((stage) => stage.id === "finishing-facade") ?? constructionStages[0];
+const featuredStageFields = getWorkFieldsForStage(featuredStage.id).slice(0, 4);
 const schemaGraph = [
   {
     "@context": "https://schema.org",
@@ -157,8 +162,11 @@ const schemaGraph = [
     <header class="site-header">
       <div class="container site-header-inner">
         <a class="brand" href="/">
-          <strong>{site.name}</strong>
-          <span>{footer.tagline}</span>
+          <span class="brand-mark" aria-hidden="true">PS</span>
+          <span class="brand-copy">
+            <strong>{site.name}</strong>
+            <span>{footer.tagline}</span>
+          </span>
         </a>
 
         <nav class="nav" aria-label="ناوبری اصلی">
@@ -168,7 +176,8 @@ const schemaGraph = [
         </nav>
 
         <div class="header-actions">
-          <a class="button button-secondary" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+          <a class="header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+          <a class="button button-secondary" href="#demo">ورود</a>
           <a class="button button-primary" href="#demo">درخواست دمو</a>
         </div>
       </div>
@@ -177,38 +186,42 @@ const schemaGraph = [
     <main>
       <section id="hero" class="hero">
         <div class="container hero-grid">
-          <div>
+          <div class="hero-copy">
             <h1>
               <span>{hero.titleLines[0]}</span>
-              <br />
               <span>{hero.titleLines[1]}</span>
             </h1>
             <p>{hero.body}</p>
-            <div class="hero-actions">
+            <div class="action-row">
               <a class="button button-primary" href="#demo">{hero.primaryCta}</a>
-              <a class="button button-secondary" href="#solution">{hero.secondaryCta}</a>
+              <a class="button button-secondary" href="#problem">{hero.secondaryCta}</a>
             </div>
           </div>
-          <div class="placeholder" aria-label="جایگاه تصویر هیرو">
-            {hero.placeholder}
+
+          <div class="media-placeholder hero-placeholder" aria-label={hero.placeholder}>
+            <span class="placeholder-label">جایگاه تصویر هیرو</span>
+            <strong>{hero.placeholder}</strong>
+            <div class="wire-map" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="problem" class="section">
-        <div class="container">
-          <div class="section-heading">
+      <section id="problem" class="section problem-section">
+        <div class="container two-column">
+          <div class="media-placeholder problem-placeholder" aria-label={problem.placeholder}>
+            <span class="placeholder-label">جایگاه روایت مسئله</span>
+            <strong>{problem.placeholder}</strong>
+          </div>
+          <div class="section-copy">
             <h2>{problem.title}</h2>
             <p>{problem.body}</p>
             <a class="button button-secondary" href="#solution">{problem.cta}</a>
-          </div>
-          <div class="grid-4">
-            {problem.points.map((item) => (
-              <article class="card">
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
           </div>
         </div>
       </section>
@@ -220,60 +233,39 @@ const schemaGraph = [
             <p>{solution.body}</p>
           </div>
 
-          <div class="card">
-            <p class="mini-label">{solution.dashboardTitle}</p>
-            <p>{solution.dashboardMarket}</p>
-            <div class="dashboard">
-              <section class="card" aria-labelledby="solution-map-title">
-                <h3 id="solution-map-title">{solution.mapTitle}</h3>
-                <p><a href="#solution">{solution.mapLink}</a></p>
-                <div class="placeholder">{solution.mapPlaceholder}</div>
-              </section>
-
-              <aside class="card" aria-label={solution.projectCard.ariaLabel}>
-                <p class="mini-label">{solution.projectCard.ariaLabel}</p>
-                <div class="placeholder">جایگاه تصویر/داشبورد کارت پروژه</div>
-                <p>{solution.projectCard.location}</p>
-                <dl class="facts">
-                  {solution.projectCard.specs.map(([label, value]) => (
-                    <div>
-                      <dt>{label}</dt>
-                      <dd>{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <div class="grid-2" aria-label="بخش‌های کارت پروژه">
-                  {solution.projectCard.tabs.map((tab) => (
-                    <span class="card mini-label">{tab}</span>
-                  ))}
+          <div class="dashboard-wireframe">
+            <div class="dashboard-main">
+              <div class="dashboard-head">
+                <span>{solution.dashboardTitle}</span>
+                <strong>{solution.dashboardMarket}</strong>
+              </div>
+              <div class="dashboard-body">
+                <div class="map-placeholder media-placeholder">
+                  <span class="placeholder-label">جایگاه نقشه و لوکیشن پروژه‌ها</span>
                 </div>
-                {solution.projectCard.tabSummaries.map((item) => (
-                  <p>{item}</p>
-                ))}
-              </aside>
+                <div class="project-card-wire">
+                  <p class="placeholder-label">اطلاعات / تصاویر / لوکیشن / پیگیری‌ها</p>
+                  <dl class="facts">
+                    <div><dt>تهران / منطقه ۲ / سعادت‌آباد</dt><dd>موقعیت</dd></div>
+                    <div><dt>پرشین‌سازه</dt><dd>کارفرما</dd></div>
+                    <div><dt>نازک‌کاری</dt><dd>مرحله</dd></div>
+                    <div><dt>کمتر از یک ماه</dt><dd>آخرین تغییر مرحله</dd></div>
+                    <div><dt>۱۰ طبقه / ۲۴ واحد</dt><dd>طبقه / واحد</dd></div>
+                    <div><dt>متراژ ۱۰۶۰م / زیربنا ۶۳۸۵م</dt><dd>متراژ / زیربنا</dd></div>
+                  </dl>
+                </div>
+              </div>
+              <p>{solution.dashboardPlaceholder}</p>
             </div>
 
-            <div class="grid-2" style="margin-top: 1rem;">
-              <section class="card" aria-labelledby="solution-flow-title">
-                <h3 id="solution-flow-title">{solution.flowTitle}</h3>
-                {solution.dataToOpportunitySteps.map((step) => (
-                  <article>
-                    <h4>{step.title}</h4>
-                    <p>{step.body}</p>
-                  </article>
-                ))}
-              </section>
-
-              <section class="card" aria-labelledby="solution-action-title">
-                <h3 id="solution-action-title">{solution.actionTitle}</h3>
-                {solution.features.map((feature) => (
-                  <article>
-                    <p class="mini-label">{feature.label}</p>
-                    <h4>{feature.title}</h4>
-                    <p>{feature.body}</p>
-                  </article>
-                ))}
-              </section>
+            <div class="feature-strip">
+              {solution.features.map((feature) => (
+                <article>
+                  <span>{feature.label}</span>
+                  <h3>{feature.title}</h3>
+                  <p>{feature.body}</p>
+                </article>
+              ))}
             </div>
           </div>
         </div>
@@ -286,39 +278,51 @@ const schemaGraph = [
             <p>{audiences.body}</p>
           </div>
 
-          <div class="grid-2">
-            {audiences.saleTypes.map((item) => (
-              <article class="card">
-                <h3>{item.title} - {item.countLine}</h3>
-                <p>{item.description}</p>
-                <p class="mini-label">{audiences.saleTypeSampleTitle}</p>
-                <ul>
-                  {item.sampleFields.map((field) => <li>{field}</li>)}
-                </ul>
-                <a class="button button-secondary" href="#audiences">{audiences.moreDetails}</a>
+          <div class="audience-grid">
+            {saleTypes.map((item) => (
+              <article class="audience-card">
+                <span class="content-eyebrow">{item.englishTitle}</span>
+                <h3>{item.title}</h3>
+                <p>{item.summary}</p>
+                <a class="text-link" href={`/sale-types/${item.slug}/`}>مطالعه مدل فروش ←</a>
               </article>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div class="grid-3" style="margin-top: 1rem;">
-            {audiences.stages.map((stage) => (
-              <article class="card">
-                <h3>{stage.title}</h3>
-                <p>{stage.fieldsCount}</p>
-                <dl class="facts">
-                  {stage.facts.map(([label, value]) => (
-                    <div>
-                      <dt>{label}</dt>
-                      <dd>{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <div class="hero-actions">
-                  <a class="button button-secondary" href="#audiences">{audiences.relatedFieldsLabel}</a>
-                  <a class="button button-secondary" href="#audiences">{audiences.stagePageLabel}</a>
+      <section id="stages" class="section" aria-label="مراحل ساخت">
+        <div class="container">
+          <div class="stage-rail" aria-label="مراحل ساخت">
+            {constructionStages.map((stage) => (
+              <div class="stage-tile">
+                <div class="stage-media media-placeholder" aria-hidden="true">
+                  <span class="placeholder-label">جایگاه تصویر مرحله</span>
                 </div>
-              </article>
+                <strong>{stage.title}</strong>
+              </div>
             ))}
+          </div>
+
+          <div class="stage-detail">
+            <div>
+              <p class="placeholder-label">مرحله منتخب</p>
+              <h3>{featuredStage.title}</h3>
+              <p>{featuredStage.summary}</p>
+            </div>
+            <div class="advice-grid">
+              {featuredStageFields.map((field) => (
+                <article>
+                  <h4>{field.title}</h4>
+                  <p>{field.definition}</p>
+                  <a class="text-link" href={`/work-fields/${field.slug}/`}>جزئیات زمینه کاری ←</a>
+                </article>
+              ))}
+            </div>
+            <div class="action-row">
+              <a class="button button-secondary" href="/work-fields/">مشاهده زمینه‌های کاری</a>
+              <a class="button button-secondary" href={`/construction-stages/${featuredStage.slug}/`}>مشاهده صفحه کامل مرحله</a>
+            </div>
           </div>
         </div>
       </section>
@@ -328,108 +332,106 @@ const schemaGraph = [
           <div class="section-heading">
             <h2>{salesFlow.title}</h2>
           </div>
-          <div class="flow-list" role="list" aria-label={salesFlow.ariaLabel}>
+
+          <div class="flow-board" role="list" aria-label={salesFlow.ariaLabel}>
             {salesFlow.stages.map((stage) => (
-              <article class="card flow-item" role="listitem">
-                <p class="mini-label">{stage.number}</p>
+              <article class="flow-step" role="listitem">
+                <span class="step-number">{stage.number}</span>
                 <h3>{stage.title}</h3>
                 <p>{stage.body}</p>
                 <p><strong>نتیجه:</strong> {stage.outcome}</p>
-                <p><strong>{stage.question}</strong></p>
-                <div class="grid-2">
-                  <p class="card"><strong>بلی</strong><br />{stage.yes}</p>
-                  <p class="card"><strong>خیر</strong><br />{stage.no}</p>
+                <div class="decision-box">
+                  <span>؟</span>
+                  <strong>{stage.question}</strong>
+                  <p>بلی: {stage.yes}</p>
+                  <p>خیر: {stage.no}</p>
                 </div>
               </article>
             ))}
           </div>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#demo">{salesFlow.cta}</a>
-          </div>
-          <div class="grid-2" style="margin-top: 1rem;">
-            <p class="card">{salesFlow.endSuccess}</p>
-            <p class="card">{salesFlow.endStop}</p>
+
+          <div class="flow-footer">
+            <span>قرارداد و رابطه پایدار</span>
+            <span>پایان فرآیند</span>
+            <a class="button button-primary" href="#demo">{salesFlow.cta} ←</a>
           </div>
         </div>
       </section>
 
       <section id="plans" class="section">
         <div class="container">
-          <div class="section-heading">
-            <span class="eyebrow">پلن‌ها</span>
+          <div class="section-heading centered">
             <h2>{pricing.title}</h2>
             <p>{pricing.description}</p>
           </div>
 
-          <div class="card">
-            <h3>{pricing.axisLabel}</h3>
-            <p>{pricing.sliderPrompt}</p>
-            <div class="grid-4">
+          <div class="pricing-axis">
+            <p class="placeholder-label">{pricing.axisLabel}</p>
+            <div class="meter-grid">
               {pricing.plans.map((plan) => (
-                <article class="card pricing-card">
-                  {plan.featured && <p class="mini-label">{pricing.recommended}</p>}
-                  <h3>{plan.name}</h3>
-                  <p>{plan.landLine} - {pricing.stagesIncluded}</p>
-                  <p>{plan.sliderInsight}</p>
-                  <p>{plan.selectorMotto}</p>
-                  <p><strong>{pricing.coverage}:</strong> {plan.coverage}</p>
-                  <ul>
-                    {plan.highlights.map((item) => <li>{item}</li>)}
-                  </ul>
-                  <p class="mini-label">{plan.addon}</p>
-                  <a class="button button-secondary" href="#plans">{plan.cta}</a>
-                </article>
+                <a class={plan.featured ? "meter-chip active" : "meter-chip"} href="#plans">
+                  <strong>{plan.name}</strong>
+                  <span>{plan.landLine}</span>
+                </a>
               ))}
             </div>
           </div>
 
-          <div class="table-wrap" style="margin-top: 1rem;">
-            <table>
-              <caption class="mini-label" style="display: block; padding: 0.85rem; text-align: right;">قیمت اشتراک‌ها</caption>
-              <thead>
-                <tr>
-                  <th>پلن</th>
-                  {pricing.durations.map((duration) => <th>{duration.label}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {pricing.plans.map((plan) => (
-                  <tr>
-                    <td><strong>{plan.name}</strong></td>
-                    {pricing.durations.map((duration) => (
-                      <td>{plan.prices[duration.id as "3" | "6" | "12"]} {pricing.currency}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div class="duration-tabs" aria-label="مدت اشتراک">
+            {pricing.durations.map((duration) => (
+              <span class={duration.id === defaultDuration ? "active" : ""}>{duration.label}</span>
+            ))}
+          </div>
+
+          <div class="pricing-grid">
+            {pricing.plans.map((plan) => (
+              <article class={plan.featured ? "pricing-card featured" : "pricing-card"}>
+                <div class="plan-media media-placeholder" aria-hidden="true">
+                  <span class="placeholder-label">جایگاه آیکن پلن</span>
+                </div>
+                <div class="plan-title-row">
+                  <h3>{plan.name}</h3>
+                  {plan.featured && <span>{pricing.recommended}</span>}
+                </div>
+                <strong class="price">{plan.prices[defaultDuration]} {pricing.currency}</strong>
+                <p>{plan.landLine} - {pricing.stagesIncluded}</p>
+                <ul>
+                  {plan.highlights.map((item) => <li>{item}</li>)}
+                </ul>
+                <p><strong>{pricing.coverage}</strong> {plan.coverage}</p>
+                <p>{plan.addon}</p>
+                <a class="button button-secondary" href="#demo">{plan.cta}</a>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
       <section id="faq" class="section">
         <div class="container">
-          <div class="section-heading">
-            <span class="eyebrow">{faqSection.eyebrow}</span>
+          <div class="section-heading centered">
+            <span class="placeholder-label">{faqSection.eyebrow}</span>
             <h2>{faqSection.title}</h2>
             <p>{faqSection.description}</p>
           </div>
-          {faqs.map((item) => (
-            <details>
-              <summary>{item.question}</summary>
-              <p>{item.answer}</p>
-            </details>
-          ))}
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section id="demo" class="section">
-        <div class="container grid-2">
-          <div>
+      <section id="demo" class="section demo-section">
+        <div class="container two-column">
+          <div class="demo-copy">
             <h2>{demo.title}</h2>
             <p>{demo.body}</p>
-            <div class="card">
-              <p class="mini-label">{demo.pathLabel}</p>
+            <div class="demo-path">
+              <p class="placeholder-label">{demo.pathLabel}</p>
               <h3>{demo.pathTitle}</h3>
               <ol>
                 {demo.steps.map((step) => <li>{step}</li>)}
@@ -437,8 +439,8 @@ const schemaGraph = [
             </div>
           </div>
 
-          <form class="card demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
-            <div class="grid-2">
+          <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+            <div class="form-grid">
               <label class="field">
                 <span>{demo.form.name}</span>
                 <input name="name" autocomplete="name" />
@@ -447,8 +449,6 @@ const schemaGraph = [
                 <span>{demo.form.phone}</span>
                 <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
               </label>
-            </div>
-            <div class="grid-2">
               <label class="field">
                 <span>{demo.form.company}</span>
                 <input name="company" autocomplete="organization" />
@@ -473,49 +473,18 @@ const schemaGraph = [
               </select>
             </label>
             <button class="button button-primary" type="submit">{demo.form.submit}</button>
-            <p class="mini-label">{demo.form.success}</p>
-            <p class="mini-label">{demo.form.error}</p>
+            <p>{demo.form.success}</p>
+            <p>{demo.form.error}</p>
             <p>{demo.form.submitError}</p>
-            <a class="button button-secondary" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-            <a class="button button-secondary" href={`mailto:${site.email}`}>{site.email}</a>
+            <div class="contact-actions">
+              <a class="button button-secondary" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+              <a class="button button-secondary" href={`mailto:${site.email}`}>{site.email}</a>
+            </div>
           </form>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer section">
-      <div class="container grid-2">
-        <section>
-          <h2>{footer.contactTitle}</h2>
-          <p>{footer.description}</p>
-          <ul>
-            {reversedContacts.map((contact) => (
-              <li>
-                <a href={contact.href} dir="ltr">{contact.phone}</a> - {contact.label}
-              </li>
-            ))}
-            <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-            <li>{site.address}</li>
-            <li>{site.openingHoursText}</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>{footer.mainPagesTitle}</h2>
-          <ul>
-            {navigation.map((item) => (
-              <li><a href={item.href}>{item.label}</a></li>
-            ))}
-          </ul>
-          <h3>{footer.socialTitle}</h3>
-          <ul>
-            {site.sameAs.map((href) => (
-              <li><a href={href} rel="noreferrer">{href}</a></li>
-            ))}
-          </ul>
-          <p>© {new Date().getFullYear()} {site.name}</p>
-        </section>
-      </div>
-    </footer>
+    <SiteFooter />
   </body>
 </html>

@@ -1,0 +1,58 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { cityProfiles } from "@/content/cities";
+
+const title = "شهرهای پوشش پرشین‌سازه | تهران، کرج و لواسان";
+const description =
+  "صفحات شهری پرشین‌سازه برای تحلیل ساخت‌وساز تهران، کرج و لواسان: جمعیت، مسکن، پروانه ساخت، زیرساخت، ریسک شهری و فرصت فروش پروژه‌محور.";
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/cities/">
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">شهرها</p>
+          <h1>ساخت‌وساز را شهر به شهر بخوانید</h1>
+          <p>
+            تهران، کرج و لواسان یک شبکه واحد اما سه بازار متفاوت‌اند. این صفحات برای SEO و AEO، داده‌های جمعیتی،
+            مسکن، پروانه ساخت، ریسک زیرساختی و فرصت فروش پروژه‌محور هر شهر را جدا می‌کنند.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/construction-stages/">مشاهده مراحل ساخت</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{cityProfiles.length}</strong>
+          <span>بازار شهری تحلیل‌شده</span>
+          <p>تهران، کرج و لواسان با ساختار جمعیتی و کالبدی متفاوت</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="content-card-grid">
+          {cityProfiles.map((city) => (
+            <article class="content-card">
+              <p class="content-eyebrow">{city.province}</p>
+              <h2>{city.title}</h2>
+              <p><strong>{city.headline}</strong></p>
+              <p>{city.summary}</p>
+              <dl class="compact-facts">
+                {city.keyMetrics.slice(0, 3).map((metric) => (
+                  <div>
+                    <dt>{metric.label}</dt>
+                    <dd>{metric.value} - {metric.note}</dd>
+                  </div>
+                ))}
+              </dl>
+              <a class="text-link" href={`/cities/${city.slug}/`}>مشاهده صفحه شهر ←</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
