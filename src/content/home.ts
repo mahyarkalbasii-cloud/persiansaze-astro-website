@@ -331,7 +331,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 ];
 
 export const utilityLinks: LinkItem[] = [
-  { label: "قوانین و مقررات", href: "#" },
+  { label: "قوانین و مقررات", href: "/rules/" },
   { label: "نقشه پروژه‌ها", href: "/cities/" },
   { label: "فیلتر مرحله ساخت", href: "/construction-stages/" },
   { label: "CRM سبک فروش پروژه‌ای", href: "#solution" },

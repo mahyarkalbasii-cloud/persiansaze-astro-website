@@ -1845,6 +1845,124 @@ details p {
   font-size: var(--text-sm);
 }
 
+.rules-hero h1 {
+  max-width: 54rem;
+}
+
+.rules-section {
+  background: var(--surface-subtle);
+}
+
+.rules-layout {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.28fr) minmax(0, 0.72fr);
+  align-items: start;
+  gap: var(--space-6);
+}
+
+.rules-toc,
+.rule-section-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
+}
+
+.rules-toc {
+  position: sticky;
+  top: var(--space-6);
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--card-padding-compact);
+}
+
+.rules-toc h2 {
+  font-size: var(--text-lg);
+}
+
+.rules-toc nav {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.rules-toc a {
+  border-radius: var(--radius-md);
+  color: var(--muted-foreground);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: var(--leading-normal);
+  padding: 0.55rem 0.7rem;
+}
+
+.rules-toc a:hover {
+  background: var(--accent);
+  color: var(--foreground);
+}
+
+.rules-article {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.rule-section-card {
+  display: grid;
+  gap: var(--space-5);
+  scroll-margin-top: var(--space-8);
+  padding: var(--card-padding);
+}
+
+.rule-section-card h2 {
+  border-bottom: 1px solid var(--border);
+  font-size: var(--text-2xl);
+  padding-bottom: var(--space-4);
+}
+
+.rule-terms {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.rule-term {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.rule-term h3 {
+  color: var(--foreground);
+  font-size: var(--text-lg);
+}
+
+.rule-term p,
+.rule-list li {
+  color: var(--muted-foreground);
+  font-weight: 500;
+  line-height: var(--leading-relaxed);
+}
+
+.rule-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rule-list li {
+  position: relative;
+  padding-inline-start: var(--space-5);
+}
+
+.rule-list li::before {
+  position: absolute;
+  inset-block-start: 0.85rem;
+  inset-inline-start: 0;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: var(--radius-full);
+  background: var(--ps-ink-700);
+  content: "";
+}
+
 .stage-page-hero {
   background: var(--surface);
   padding-block: var(--space-12);
@@ -2397,7 +2515,8 @@ body .persian-number {
   .problem-section .two-column,
   .dashboard-body,
   .content-hero-grid,
-  .detail-layout {
+  .detail-layout,
+  .rules-layout {
     grid-template-columns: 1fr;
   }
 
@@ -2517,6 +2636,10 @@ body .persian-number {
 
   .flow-step {
     min-height: auto;
+  }
+
+  .rules-toc {
+    position: static;
   }
 
   .footer-main {
