@@ -157,8 +157,11 @@ const schemaGraph = [
     <header class="site-header">
       <div class="container site-header-inner">
         <a class="brand" href="/">
-          <strong>{site.name}</strong>
-          <span>{footer.tagline}</span>
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-copy">
+            <strong>{site.name}</strong>
+            <span>{footer.tagline}</span>
+          </span>
         </a>
 
         <nav class="nav" aria-label="ناوبری اصلی">
@@ -168,7 +171,8 @@ const schemaGraph = [
         </nav>
 
         <div class="header-actions">
-          <a class="button button-secondary" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+          <a class="button button-secondary phone-button" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+          <a class="button button-secondary" href="#demo">ورود</a>
           <a class="button button-primary" href="#demo">درخواست دمو</a>
         </div>
       </div>
@@ -189,7 +193,7 @@ const schemaGraph = [
               <a class="button button-secondary" href="#solution">{hero.secondaryCta}</a>
             </div>
           </div>
-          <div class="placeholder hero-visual" aria-label="جایگاه تصویر هیرو">
+          <div class="hero-visual" aria-label="جایگاه تصویر هیرو">
             <div class="visual-shell">
               <div class="visual-topline">
                 <span>نقشه پروژه‌ها</span>
@@ -211,12 +215,7 @@ const schemaGraph = [
 
       <section id="problem" class="section">
         <div class="container problem-layout">
-          <div class="section-heading">
-            <h2>{problem.title}</h2>
-            <p>{problem.body}</p>
-            <a class="button button-secondary" href="#solution">{problem.cta}</a>
-          </div>
-          <div class="placeholder problem-visual" aria-label="جایگاه تصویر مسئله بازار">
+          <div class="problem-visual" aria-label="جایگاه تصویر مسئله بازار">
             <div class="problem-frame">
               <span></span>
               <span></span>
@@ -224,18 +223,29 @@ const schemaGraph = [
               <p>{problem.placeholder}</p>
             </div>
           </div>
+          <div class="section-heading">
+            <h2>{problem.title}</h2>
+            <p>{problem.body}</p>
+            <a class="button button-secondary" href="#solution">{problem.cta}</a>
+          </div>
         </div>
       </section>
 
       <section id="solution" class="section">
         <div class="container">
-          <div class="section-heading">
+          <div class="section-heading center-heading">
             <h2>{solution.title}</h2>
             <p>{solution.body}</p>
           </div>
 
           <div class="solution-showcase">
-            <div class="placeholder dashboard-placeholder" aria-label={solution.dashboardTitle}>
+            <div class="dashboard-placeholder" aria-label={solution.dashboardTitle}>
+              <div class="browser-bar">
+                <span></span>
+                <span></span>
+                <span></span>
+                <strong>{solution.dashboardTitle}</strong>
+              </div>
               <div class="dashboard-frame">
                 <div>
                   <p class="mini-label">{solution.dashboardTitle}</p>
@@ -267,7 +277,7 @@ const schemaGraph = [
 
       <section id="audiences" class="section">
         <div class="container">
-          <div class="section-heading">
+          <div class="section-heading center-heading">
             <h2>{audiences.title}</h2>
             <p>{audiences.body}</p>
           </div>
@@ -303,7 +313,7 @@ const schemaGraph = [
 
       <section id="sales-flow" class="section">
         <div class="container">
-          <div class="section-heading sales-heading">
+          <div class="section-heading center-heading sales-heading">
             <h2>{salesFlow.title}</h2>
             <a class="button button-primary" href="#demo">{salesFlow.cta}</a>
           </div>
@@ -322,7 +332,7 @@ const schemaGraph = [
 
       <section id="plans" class="section">
         <div class="container">
-          <div class="section-heading">
+          <div class="section-heading center-heading">
             <span class="eyebrow">پلن‌ها</span>
             <h2>{pricing.title}</h2>
             <p>{pricing.description}</p>
@@ -376,7 +386,7 @@ const schemaGraph = [
 
       <section id="faq" class="section">
         <div class="container">
-          <div class="section-heading">
+          <div class="section-heading center-heading">
             <span class="eyebrow">{faqSection.eyebrow}</span>
             <h2>{faqSection.title}</h2>
             <p>{faqSection.description}</p>
@@ -390,9 +400,9 @@ const schemaGraph = [
         </div>
       </section>
 
-      <section id="demo" class="section">
+      <section id="demo" class="section demo-section">
         <div class="container grid-2">
-          <div>
+          <div class="demo-copy">
             <h2>{demo.title}</h2>
             <p>{demo.body}</p>
             <div class="card">

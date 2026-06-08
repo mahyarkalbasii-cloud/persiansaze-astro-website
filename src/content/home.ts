@@ -99,13 +99,13 @@ export const metadata = {
 };
 
 export const navigation: LinkItem[] = [
-  { label: "مسئله بازار", href: "#problem" },
-  { label: "راه‌حل", href: "#solution" },
-  { label: "مخاطبان", href: "#audiences" },
-  { label: "مسیر فروش", href: "#sales-flow" },
-  { label: "پلن‌ها", href: "#plans" },
-  { label: "سوالات رایج", href: "#faq" },
-  { label: "درخواست دمو", href: "#demo" },
+  { label: "محصول", href: "#solution" },
+  { label: "زمینه‌های کاری", href: "#audiences" },
+  { label: "مراحل ساخت", href: "#audiences" },
+  { label: "اشتراک‌ها", href: "#plans" },
+  { label: "آموزش", href: "#sales-flow" },
+  { label: "درباره ما", href: "#problem" },
+  { label: "تماس با ما", href: "#demo" },
 ];
 
 export const hero = {
