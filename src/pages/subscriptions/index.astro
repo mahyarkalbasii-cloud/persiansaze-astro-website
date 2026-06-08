@@ -1,0 +1,148 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
+
+const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
+const description =
+  "مقایسه اشتراک‌های پرشین‌سازه برای دسترسی به پروژه‌های ساختمانی: بنیان، رویان، تابان و تابان پلاس با قیمت، پوشش بازار و ویژگی‌های هر پلن.";
+const defaultDuration = "3" as const;
+const coverageDots = Array.from({ length: 4 }, (_, index) => index);
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: title,
+    description,
+    url: absoluteUrl("/subscriptions/"),
+    inLanguage: "fa-IR",
+    isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+    about: subscriptionPlans.map((plan) => ({
+      "@type": "Service",
+      name: `اشتراک ${plan.name}`,
+      description: plan.metaDescription,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "فهرست اشتراک‌های پرشین‌سازه",
+    itemListElement: subscriptionPlans.map((plan, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: plan.name,
+      url: absoluteUrl(`/subscriptions/${plan.slug}/`),
+      description: plan.subtitle,
+    })),
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/subscriptions/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero subscription-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">اشتراک‌ها</p>
+          <h1>اشتراک‌های پرشین‌سازه</h1>
+          <p>
+            چهار مسیر دسترسی به پروژه‌های ساختمانی را کنار هم ببینید؛ از شروع اقتصادی تا پوشش کامل‌تر بازار برای تیم‌های فروش پروژه‌محور.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="#comparison">مقایسه ویژگی‌ها</a>
+          </div>
+        </div>
+        <aside class="content-summary-card subscription-summary-card">
+          <strong>{subscriptionPlans.length}</strong>
+          <span>مسیر دسترسی به بازار پروژه‌ها</span>
+          <p>قیمت‌ها بر اساس اشتراک سه‌ماهه نمایش داده شده‌اند و هر پلن به صفحه جزئیات خودش وصل است.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="subscription-plan-strip">
+          {subscriptionPlans.map((plan) => (
+            <article class="subscription-plan-mini">
+              <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+              <h2>{plan.name}</h2>
+              <p>{plan.subtitle}</p>
+              <strong class="subscription-mini-price">
+                <span>{plan.prices[defaultDuration]}</span>
+                <span>{pricing.currency}</span>
+              </strong>
+              <span class="subscription-mini-scope">{plan.landLine} · {pricing.stagesIncluded}</span>
+              <div class="coverage-meter" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
+                {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
+              </div>
+              <a class="text-link" href={`/subscriptions/${plan.slug}/`}>{plan.cta} ←</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="comparison" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>مقایسه اشتراک‌های پرشین‌سازه</h2>
+          <p>این جدول تفاوت عملی چهار اشتراک را نشان می‌دهد: حجم پروژه‌ها، سطح پوشش، امکانات پیامک و آموزش فروش.</p>
+        </div>
+        <div class="table-wrap subscription-table-wrap">
+          <table class="data-table subscription-comparison-table">
+            <thead>
+              <tr>
+                <th>قابلیت</th>
+                {subscriptionPlans.map((plan) => (
+                  <th>
+                    <a href={`/subscriptions/${plan.slug}/`}>
+                      <span>{plan.name}</span>
+                      <small>{plan.subtitle}</small>
+                    </a>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>قیمت سه‌ماهه</strong></td>
+                {subscriptionPlans.map((plan) => (
+                  <td>
+                    <strong class="comparison-price">{plan.prices[defaultDuration]} {pricing.currency}</strong>
+                  </td>
+                ))}
+              </tr>
+              {subscriptionComparisonRows.map((row) => (
+                <tr>
+                  <td><strong>{row.label}</strong></td>
+                  {subscriptionPlans.map((plan) => <td>{row.values[plan.id]}</td>)}
+                </tr>
+              ))}
+              <tr>
+                <td><strong>صفحه اختصاصی</strong></td>
+                {subscriptionPlans.map((plan) => (
+                  <td><a class="text-link" href={`/subscriptions/${plan.slug}/`}>جزئیات ←</a></td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading centered">
+          <h2>برای انتخاب دقیق‌تر، دمو بگیرید</h2>
+          <p>اگر هنوز نمی‌دانید کدام پوشش برای بازار شما منطقی‌تر است، در دمو مسیر پروژه‌ها و محدودیت هر اشتراک را کنار نیاز تیم فروش‌تان بررسی می‌کنیم.</p>
+          <div class="action-row centered-actions">
+            <a class="button button-primary" href="/#demo">ثبت درخواست دمو</a>
+            <a class="button button-secondary" href="/#plans">مشاهده قیمت‌ها در صفحه اصلی</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
