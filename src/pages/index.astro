@@ -167,7 +167,7 @@ const schemaGraph = [
     <meta name="twitter:description" content={metadata.description} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
   </head>
-  <body>
+  <body class="home-color-anthropic">
     <SiteHeader home />
 
     <main class="home-page">
@@ -185,15 +185,18 @@ const schemaGraph = [
             </div>
           </div>
 
-          <div class="media-placeholder hero-placeholder" aria-label={hero.placeholder}>
-            <span class="placeholder-label">جایگاه تصویر هیرو</span>
-            <strong>{hero.placeholder}</strong>
-            <div class="wire-map" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
+          <div class="media-placeholder hero-placeholder hero-bento" aria-label={hero.placeholder}>
+            <div class="hero-bento-scene" aria-hidden="true">
+              <img
+                class="hero-neon-image"
+                src="/assets/company/home-hero-neon.webp"
+                alt=""
+                width="1254"
+                height="1254"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
             </div>
           </div>
         </div>
@@ -201,7 +204,19 @@ const schemaGraph = [
 
       <section id="problem" class="section problem-section">
         <div class="container two-column">
-          <div class="media-placeholder problem-placeholder market-friction" aria-label={problem.placeholder}>
+          <div class="media-placeholder problem-placeholder market-friction problem-image-card" aria-label={problem.placeholder}>
+            <figure class="problem-image-frame" aria-hidden="true">
+              <img
+                class="problem-neon-image"
+                src="/assets/company/home-problem-map.webp"
+                alt=""
+                width="1254"
+                height="1254"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+
             <div class="friction-head">
               <span>روایت مسئله بازار</span>
               <strong>فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
@@ -262,90 +277,45 @@ const schemaGraph = [
             <p>{solution.body}</p>
           </div>
 
-          <div class="dashboard-wireframe">
-            <div class="dashboard-main">
-              <div class="dashboard-head">
-                <div>
-                  <span>{solution.dashboardTitle}</span>
-                  <strong>{solution.dashboardMarket}</strong>
-                </div>
-                <div class="dashboard-status">
-                  <span>فرصت فعال</span>
-                  <strong>۲۴ پروژه</strong>
-                </div>
-              </div>
-              <div class="dashboard-body">
-                <div class="map-placeholder product-map" aria-label="نقشه نمونه پروژه‌ها">
-                  <svg class="project-map-art" viewBox="0 0 640 380" role="img" aria-label="پراکندگی پروژه‌های ساختمانی روی نقشه">
-                    <defs>
-                      <pattern id="solution-map-grid" width="48" height="48" patternUnits="userSpaceOnUse">
-                        <path d="M48 0H0V48" fill="none" stroke="currentColor" stroke-width="1" />
-                      </pattern>
-                    </defs>
-                    <rect width="640" height="380" rx="24" fill="currentColor" opacity="0.04" />
-                    <rect width="640" height="380" rx="24" fill="url(#solution-map-grid)" opacity="0.32" />
-                    <path class="map-route" d="M82 286C152 218 205 238 272 188C348 131 408 140 487 89C526 64 564 54 606 43" />
-                    <path class="map-zone" d="M115 86C163 50 231 56 265 108C303 166 258 239 189 244C120 249 66 185 79 134C83 116 94 98 115 86Z" />
-                    <path class="map-zone secondary" d="M398 211C438 179 498 186 528 229C562 279 525 336 459 331C404 327 360 281 373 243C377 231 386 219 398 211Z" />
-                    <g class="map-pin active" transform="translate(306 171)">
-                      <circle r="20" />
-                      <circle r="6" />
-                    </g>
-                    <g class="map-pin" transform="translate(164 132)">
-                      <circle r="14" />
-                      <circle r="4" />
-                    </g>
-                    <g class="map-pin" transform="translate(462 246)">
-                      <circle r="14" />
-                      <circle r="4" />
-                    </g>
-                    <g class="map-pin" transform="translate(534 76)">
-                      <circle r="14" />
-                      <circle r="4" />
-                    </g>
-                  </svg>
+          <div class="solution-showcase">
+            <div class="solution-main-row">
+              <figure class="solution-visual-card" aria-label={solution.visualAlt}>
+                <img
+                  class="solution-neon-image"
+                  src="/assets/company/home-solution-map.webp"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
 
-                  <div class="map-floating-card">
-                    <span>پروژه منتخب</span>
-                    <strong>سعادت‌آباد / نازک‌کاری</strong>
-                    <p>آخرین تغییر مرحله: کمتر از یک ماه</p>
-                  </div>
-
-                  <div class="map-signal-row" aria-hidden="true">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
+              <section class="solution-data-panel" aria-labelledby="solution-data-title">
+                <h3 id="solution-data-title">{solution.dataTitle}</h3>
+                <div class="solution-data-grid">
+                  {solution.dataCards.map((card) => (
+                    <article>
+                      <h4>{card.title}</h4>
+                      <p>{card.body}</p>
+                    </article>
+                  ))}
                 </div>
-                <div class="project-card-wire">
-                  <p class="placeholder-label">پرونده فروش</p>
-                  <h3>فرصت آماده پیگیری</h3>
-                  <dl class="facts">
-                    <div><dt>تهران / منطقه ۲ / سعادت‌آباد</dt><dd>موقعیت</dd></div>
-                    <div><dt>پرشین‌سازه</dt><dd>کارفرما</dd></div>
-                    <div><dt>نازک‌کاری</dt><dd>مرحله</dd></div>
-                    <div><dt>کمتر از یک ماه</dt><dd>آخرین تغییر مرحله</dd></div>
-                    <div><dt>۱۰ طبقه / ۲۴ واحد</dt><dd>طبقه / واحد</dd></div>
-                    <div><dt>متراژ ۱۰۶۰م / زیربنا ۶۳۸۵م</dt><dd>متراژ / زیربنا</dd></div>
-                  </dl>
-                  <div class="followup-note">
-                    <span>اقدام بعدی</span>
-                    <strong>تماس با زمینه مرحله ساخت و زمان تغییر</strong>
-                  </div>
-                </div>
-              </div>
-              <p class="dashboard-caption">{solution.dashboardPlaceholder}</p>
+              </section>
             </div>
 
-            <div class="feature-strip">
-              {solution.features.map((feature) => (
-                <article>
-                  <span>{feature.label}</span>
-                  <h3>{feature.title}</h3>
-                  <p>{feature.body}</p>
-                </article>
-              ))}
-            </div>
+            <section class="solution-stack-panel" aria-labelledby="solution-stack-title">
+              <h3 id="solution-stack-title">{solution.stackTitle}</h3>
+              <div class="feature-strip solution-feature-strip">
+                {solution.features.map((feature) => (
+                  <article>
+                    <span>{feature.label}</span>
+                    <h4>{feature.title}</h4>
+                    <p>{feature.body}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
       </section>
@@ -458,27 +428,27 @@ const schemaGraph = [
             <h2>{salesFlow.title}</h2>
           </div>
 
-          <div class="flow-board" role="list" aria-label={salesFlow.ariaLabel}>
-            {salesFlow.stages.map((stage) => (
-              <article class="flow-step" role="listitem">
-                <div class="flow-step-main">
-                  <span class="flow-kicker">مرحله فروش</span>
-                  <h3>{stage.title}</h3>
-                  <p>{stage.body}</p>
-                </div>
+          <div class="flow-layout">
+            <figure class="flow-visual-card" aria-label="نمای تصویری چهار گام فروش پروژه‌محور">
+              <img
+                class="flow-visual-image"
+                src="/assets/company/home-sales-flow.webp"
+                alt=""
+                width="1122"
+                height="1402"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
 
-                <p class="flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
-
-                <div class="decision-box">
-                  <span>پرسش تصمیم</span>
-                  <strong>{stage.question}</strong>
-                  <div>
-                    <p><strong>بلی:</strong> {stage.yes}</p>
-                    <p><strong>خیر:</strong> {stage.no}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
+            <div class="flow-board" role="list" aria-label={salesFlow.ariaLabel}>
+              {salesFlow.stages.map((stage) => (
+                <article class="flow-step" role="listitem">
+                  <p class="flow-step-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
+                  <p class="flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
+                </article>
+              ))}
+            </div>
           </div>
 
           <div class="flow-footer">
@@ -620,12 +590,17 @@ const schemaGraph = [
             </div>
 
             <div class="demo-cards">
-              <div class="demo-path">
-                <h3>{demo.pathTitle}</h3>
-                <ol>
-                  {demo.steps.map((step) => <li>{step}</li>)}
-                </ol>
-              </div>
+              <figure class="demo-visual-card" aria-label="نمای تصویری نقشه پروژه‌ها و پیگیری فروش">
+                <img
+                  class="demo-visual-image"
+                  src="/assets/company/home-demo-map.webp"
+                  alt=""
+                  width="1254"
+                  height="1254"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
 
               <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
                 <h3>{demo.form.submit}</h3>
