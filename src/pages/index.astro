@@ -19,6 +19,13 @@ import {
 
 const primaryContact = site.contacts[0];
 const reversedContacts = [...site.contacts].reverse();
+const featuredPlan = pricing.plans.find((plan) => plan.featured) ?? pricing.plans[0];
+const socialLinks = [
+  { label: "اینستاگرام", href: "https://instagram.com/persiansaze" },
+  { label: "لینکدین", href: "https://ir.linkedin.com/company/persiansaze" },
+  { label: "یوتیوب", href: "https://www.youtube.com/channel/UCpOEQfUAF-xA04c_NmRVg9Q" },
+  { label: "مدیوم", href: "https://persiansaze.medium.com/" },
+];
 const schemaGraph = [
   {
     "@context": "https://schema.org",
@@ -339,47 +346,73 @@ const schemaGraph = [
           </div>
 
           <div class="plans-shell">
-            <h3>{pricing.axisLabel}</h3>
-            <p>{pricing.sliderPrompt}</p>
-            <div class="grid-4">
+            <div class="plan-selector" aria-label={pricing.axisLabel}>
               {pricing.plans.map((plan) => (
-                <article class="card pricing-card">
-                  {plan.featured && <p class="mini-label">{pricing.recommended}</p>}
-                  <h3>{plan.name}</h3>
-                  <p>{plan.landLine} - {pricing.stagesIncluded}</p>
-                  <p>{plan.sliderInsight}</p>
-                  <p>{plan.selectorMotto}</p>
-                  <p><strong>{pricing.coverage}:</strong> {plan.coverage}</p>
-                  <ul>
-                    {plan.highlights.map((item) => <li>{item}</li>)}
-                  </ul>
-                  <p class="mini-label">{plan.addon}</p>
-                  <a class="button button-secondary" href="#plans">{plan.cta}</a>
-                </article>
+                <a class={`plan-chip ${plan.featured ? "plan-chip-active" : ""}`} href="#plans">
+                  <span>{plan.name}</span>
+                  <small>{plan.landLine}</small>
+                </a>
               ))}
             </div>
-          </div>
 
-          <div class="table-wrap" style="margin-top: 1rem;">
-            <table>
-              <caption class="mini-label" style="display: block; padding: 0.85rem; text-align: right;">قیمت اشتراک‌ها</caption>
-              <thead>
-                <tr>
-                  <th>پلن</th>
-                  {pricing.durations.map((duration) => <th>{duration.label}</th>)}
-                </tr>
-              </thead>
-              <tbody>
-                {pricing.plans.map((plan) => (
-                  <tr>
-                    <td><strong>{plan.name}</strong></td>
+            <div class="plan-board">
+              <div class="plan-board-head">
+                <div>
+                  <p class="mini-label">{pricing.axisLabel}</p>
+                  <h3>{featuredPlan.name}</h3>
+                  <p>{featuredPlan.selectorMotto}</p>
+                </div>
+                <div class="coverage-meter" aria-label={`${pricing.coverage}: ${featuredPlan.coverage}`}>
+                  <span>{pricing.coverage}</span>
+                  <strong>{featuredPlan.coverage}</strong>
+                </div>
+              </div>
+
+              <div class="plan-board-grid">
+                <article class="plan-primary-card">
+                  <p class="mini-label">{pricing.recommended}</p>
+                  <h3>{featuredPlan.landLine}</h3>
+                  <p>{featuredPlan.sliderInsight}</p>
+                  <ul>
+                    {featuredPlan.highlights.map((item) => <li>{item}</li>)}
+                  </ul>
+                  <div class="plan-price-row">
                     {pricing.durations.map((duration) => (
-                      <td>{plan.prices[duration.id as "3" | "6" | "12"]} {pricing.currency}</td>
+                      <div>
+                        <span>{duration.label}</span>
+                        <strong>{featuredPlan.prices[duration.id as "3" | "6" | "12"]}</strong>
+                        <small>{pricing.currency}</small>
+                      </div>
                     ))}
-                  </tr>
+                  </div>
+                  <p class="mini-label">{featuredPlan.addon}</p>
+                  <a class="button button-primary" href="#demo">{featuredPlan.cta}</a>
+                </article>
+
+                <aside class="plan-side-list" aria-label="سایر اشتراک‌ها">
+                  {pricing.plans.filter((plan) => plan.id !== featuredPlan.id).map((plan) => (
+                    <article>
+                      <div>
+                        <h4>{plan.name}</h4>
+                        <p>{plan.landLine}</p>
+                      </div>
+                      <span>{plan.coverage}</span>
+                    </article>
+                  ))}
+                </aside>
+              </div>
+
+              <div class="plan-table">
+                {pricing.plans.map((plan) => (
+                  <article>
+                    <strong>{plan.name}</strong>
+                    {pricing.durations.map((duration) => (
+                      <span>{duration.label}: {plan.prices[duration.id as "3" | "6" | "12"]} {pricing.currency}</span>
+                    ))}
+                  </article>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -460,38 +493,51 @@ const schemaGraph = [
       </section>
     </main>
 
-    <footer class="site-footer section">
-      <div class="container grid-2">
-        <section>
-          <h2>{footer.contactTitle}</h2>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <section class="footer-brand">
+          <a class="brand footer-logo" href="/">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-copy">
+              <strong>{site.name}</strong>
+              <span>{footer.tagline}</span>
+            </span>
+          </a>
           <p>{footer.description}</p>
-          <ul>
-            {reversedContacts.map((contact) => (
-              <li>
-                <a href={contact.href} dir="ltr">{contact.phone}</a> - {contact.label}
-              </li>
-            ))}
-            <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-            <li>{site.address}</li>
-            <li>{site.openingHoursText}</li>
-          </ul>
         </section>
 
-        <section>
+        <section class="footer-col">
           <h2>{footer.mainPagesTitle}</h2>
           <ul>
             {navigation.map((item) => (
               <li><a href={item.href}>{item.label}</a></li>
             ))}
           </ul>
-          <h3>{footer.socialTitle}</h3>
+        </section>
+
+        <section class="footer-col">
+          <h2>{footer.contactTitle}</h2>
           <ul>
-            {site.sameAs.map((href) => (
-              <li><a href={href} rel="noreferrer">{href}</a></li>
+            {reversedContacts.map((contact) => (
+              <li><a href={contact.href} dir="ltr">{contact.phone}</a> <span>{contact.label}</span></li>
+            ))}
+            <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+            <li>{site.openingHoursText}</li>
+          </ul>
+        </section>
+
+        <section class="footer-col">
+          <h2>{footer.socialTitle}</h2>
+          <ul>
+            {socialLinks.map((item) => (
+              <li><a href={item.href} rel="noreferrer">{item.label}</a></li>
             ))}
           </ul>
-          <p>© {new Date().getFullYear()} {site.name}</p>
         </section>
+      </div>
+      <div class="container footer-bottom">
+        <p>© {new Date().getFullYear()} {site.name}</p>
+        <p>{site.address}</p>
       </div>
     </footer>
   </body>
