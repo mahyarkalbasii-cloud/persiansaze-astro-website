@@ -1992,7 +1992,11 @@ details p {
 
 .image-panel,
 .wide-image-panel {
+  box-sizing: border-box;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   margin: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -2013,12 +2017,15 @@ details p {
 }
 
 .hero-image-panel {
-  min-height: 26rem;
+  height: clamp(20rem, 31vw, 26rem);
+  min-height: 0;
+  aspect-ratio: auto;
 }
 
 .tall-image-panel {
-  aspect-ratio: 4 / 3;
-  min-height: 24rem;
+  height: clamp(20rem, 32vw, 24rem);
+  min-height: 0;
+  aspect-ratio: auto;
 }
 
 .contained-image {
@@ -2233,7 +2240,9 @@ details p {
 }
 
 .contact-office-image {
-  min-height: 18rem;
+  height: clamp(16rem, 28vw, 22rem);
+  min-height: 0;
+  aspect-ratio: auto;
 }
 
 .contact-info-block {
@@ -2864,6 +2873,11 @@ body .persian-number {
     grid-template-columns: 1fr;
   }
 
+  .hero-image-panel {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
   .nav,
   .header-phone,
   .header-actions .button-secondary {
@@ -3004,15 +3018,17 @@ body .persian-number {
   .image-panel,
   .wide-image-panel {
     aspect-ratio: 4 / 3;
+    height: auto;
   }
 
   .hero-image-panel {
-    min-height: 18rem;
+    min-height: 0;
   }
 
   .tall-image-panel,
   .contact-office-image {
-    min-height: 16rem;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
   }
 
   .contained-image {
