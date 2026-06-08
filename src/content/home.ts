@@ -22,11 +22,6 @@ export type PricingPlan = {
   featured?: boolean;
 };
 
-export type ConstructionAdviceGroup = {
-  title: string;
-  items: string[];
-};
-
 export type FooterLinkGroup = {
   title: string;
   links: LinkItem[];
@@ -110,8 +105,8 @@ export const metadata = {
 
 export const navigation: LinkItem[] = [
   { label: "محصول", href: "#solution" },
-  { label: "زمینه‌های کاری", href: "#audiences" },
-  { label: "مراحل ساخت", href: "#stages" },
+  { label: "زمینه‌های کاری", href: "/work-fields/" },
+  { label: "مراحل ساخت", href: "/construction-stages/" },
   { label: "اشتراک‌ها", href: "#plans" },
   { label: "آموزش", href: "#sales-flow" },
   { label: "درباره ما", href: "#problem" },
@@ -159,85 +154,32 @@ export const solution = {
 };
 
 export const audiences = {
-  title: "چه کسانی از پرشین‌سازه استفاده می‌کنند",
-  body: "اگر محصول یا خدمتی دارید که به پروژه‌های ساختمانی در حال ساخت فروخته می‌شود، پرشین‌سازه می‌تواند برای شما کاربردی باشد.",
-  saleTypeSampleTitle: "برخی از محصولات و خدمات این دسته",
-  moreDetails: "توضیحات بیشتر",
+  title: "انواع فروش پروژه‌محور در بازار ساختمان",
+  body: "پرشین‌سازه فروش ساختمانی را بر اساس جنس تصمیم خرید دسته‌بندی می‌کند؛ مهم نیست محصول چیست، مهم این است که تصمیم سازنده در چه زمان و با چه نوع مذاکره‌ای شکل می‌گیرد.",
   stagesPlaceholderTitle: "جایگاه خلاصه مراحل ساخت",
   stagesPlaceholderBody: "این بخش فعلاً به‌صورت خلاصه و تصویری بازطراحی می‌شود تا بعداً با دسته‌بندی نهایی مراحل ساخت جایگزین شود.",
   saleTypes: [
     {
       title: "فروش سریع و تراکنشی",
-      countLine: "۱۴۴ زیرگروه مرتبط",
       description:
         "فروش سریع برای محصولاتی مناسب است که سازنده معمولاً در فاصله کوتاهی بین نیاز و خرید تصمیم می‌گیرد.",
-      sampleFields: ["آب صنعتی و کارگاهی", "آجر سفال (تیغه‌ای)", "آجر سنگفرش", "آجر فشاری و گری"],
     },
     {
       title: "فروش مشاوره‌ای",
-      countLine: "۱۵۵ زیرگروه مرتبط",
       description:
         "فروش مشاوره‌ای زمانی لازم است که تصمیم خرید سازنده قبل از لحظه اجرا و طی چند گفت‌وگو شکل می‌گیرد.",
-      sampleFields: [
-        "آجر نسوز و دکوراتیو نما",
-        "آزمایشگاه‌های کنترل کیفیت",
-        "آنتن و ماهواره مرکزی",
-        "آیفون تصویری و اکسس کنترل",
-      ],
+    },
+    {
+      title: "فروش ترکیبی",
+      description:
+        "فروش ترکیبی زمانی رخ می‌دهد که بخشی از تصمیم سریع و بخشی از آن وابسته به مشاوره، تایید فنی، زمان اجرا یا هماهنگی چند ذی‌نفع است.",
+    },
+    {
+      title: "تهاتر مصالح و خدمات",
+      description:
+        "تهاتر زمانی معنا دارد که فروشنده بخشی از ارزش معامله را با ملک، واحد، خدمات یا بدهی پروژه تسویه می‌کند و باید زمان‌بندی، ریسک و ارزش واقعی معامله را دقیق‌تر بسنجد.",
     },
   ],
-};
-
-export const constructionSection = {
-  title: "مراحل ساخت و زمان درست فروش",
-  body: "هر مرحله ساخت، فرصت‌ها و ریسک‌های فروش متفاوتی دارد. در نسخه وایرفریم، تصاویر مرحله‌ها با جایگاه‌های ساده جایگزین شده‌اند تا ساختار محتوا حفظ شود.",
-  stageLabel: "نازک کاری و نما - ۹۷ زمینه مرتبط از ۲۷۰ زمینه کاری",
-  stageCta: "مشاهده ۹۷ زمینه مرتبط",
-  pageCta: "مشاهده صفحه کامل مرحله",
-  stages: [
-    "تخریب و گودبرداری",
-    "فونداسیون",
-    "اسکلت بندی",
-    "دیوارچینی و سفت کاری",
-    "گچ و خاک و تاسیسات",
-    "ابتدای نازک کاری",
-    "نازک کاری و نما",
-    "ظریف کاری و پایان کار",
-  ],
-  adviceGroups: [
-    {
-      title: "مذاکره",
-      items: [
-        "کیفیت سطح نهایی، تعداد دست رنگ و محدوده ترمیم را شفاف کن.",
-        "برای نما، مسئولیت داربست، ایمنی و آب‌بندی را جدا ببند.",
-        "زمان تحویل فضاها را به جای کل پروژه، فاز به فاز توافق کن.",
-      ],
-    },
-    {
-      title: "خرید",
-      items: [
-        "رنگ، پوشش نما و متریال نمایان را با کد دقیق و نمونه تاییدشده بخر.",
-        "ابزار نصب، چسب، پیچ و نوار آب‌بندی را همراه متریال اصلی تامین کن.",
-        "برای نما و کف، کسری احتمالی را از همان بچ اولیه رزرو کن.",
-      ],
-    },
-    {
-      title: "اجرا",
-      items: [
-        "سطح زیرکار را قبل از پوشش نهایی از نظر رطوبت و ترک کنترل کن.",
-        "کارهای پرگردوغبار را قبل از رنگ و نصب قطعات حساس تمام کن.",
-        "کیفیت نور، کنج‌ها و درزها را در پایان هر فضا بازبینی کن.",
-      ],
-    },
-    {
-      title: "کنترل ریسک",
-      items: [
-        "تغییر رنگ یا متریال را بدون تایید کارفرما وارد اجرا نکن.",
-        "از برخورد اکیپ‌های بعدی با سطوح تمام‌شده محافظت کن.",
-        "تحویل هر فضا را با عکس و لیست نقص مستقل ثبت کن.",
-      ],
-    },
-  ] satisfies ConstructionAdviceGroup[],
 };
 
 export const salesFlow = {
@@ -477,8 +419,8 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     links: [
       { label: "ویژگی‌ها", href: "#solution" },
       { label: "اشتراک‌ها", href: "#plans" },
-      { label: "زمینه‌های کاری", href: "#audiences" },
-      { label: "مراحل ساخت", href: "#stages" },
+      { label: "زمینه‌های کاری", href: "/work-fields/" },
+      { label: "مراحل ساخت", href: "/construction-stages/" },
       { label: "نوع فروش", href: "#audiences" },
       { label: "راهنماها", href: "#sales-flow" },
       { label: "درباره ما", href: "#problem" },
@@ -509,28 +451,27 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     title: "زمینه‌های کاری",
     links: [
-      { label: "مصالح پایه، سیمانی و سنگدانه‌ها", href: "#audiences" },
-      { label: "مقاطع فولادی، فلزات و آرماتور", href: "#audiences" },
-      { label: "مصالح بلوک، دیوارچینی و سیستم‌های سقف", href: "#audiences" },
-      { label: "مواد شیمیایی، چسب‌ها و درزگیرهای صنعتی", href: "#audiences" },
-      { label: "سیستم‌های عایق‌بندی حرارتی، رطوبتی و صوتی", href: "#audiences" },
-      { label: "تاسیسات مکانیکی: لوله‌کشی آب و فاضلاب", href: "#audiences" },
-      { label: "تاسیسات مکانیکی: تهویه مطبوع و HVAC", href: "#audiences" },
-      { label: "همه زمینه‌های کاری ←", href: "#audiences" },
+      { label: "آهن‌آلات و مقاطع فولادی", href: "/work-fields/structural-steel/" },
+      { label: "دیوارچینی و مصالح بنایی", href: "/work-fields/masonry-elements/" },
+      { label: "تاسیسات مکانیکی آب و فاضلاب", href: "/work-fields/mechanical-piping/" },
+      { label: "تهویه مطبوع و HVAC", href: "/work-fields/hvac-equipment/" },
+      { label: "توزیع برق و کابل‌کشی", href: "/work-fields/electrical-distribution/" },
+      { label: "پوشش‌های کف و نما", href: "/work-fields/flooring-facade-finishes/" },
+      { label: "همه زمینه‌های کاری ←", href: "/work-fields/" },
     ],
   },
   {
     title: "مراحل ساخت",
     links: [
-      { label: "طراحی و اخذ جواز", href: "#stages" },
-      { label: "تخریب و گودبرداری", href: "#stages" },
-      { label: "فونداسیون", href: "#stages" },
-      { label: "اسکلت بندی", href: "#stages" },
-      { label: "دیوارچینی و سفت کاری", href: "#stages" },
-      { label: "گچ و خاک و تاسیسات", href: "#stages" },
-      { label: "ابتدای نازک کاری", href: "#stages" },
-      { label: "نازک کاری و نما", href: "#stages" },
-      { label: "ظریف کاری و پایان کار", href: "#stages" },
+      { label: "طراحی و اخذ جواز", href: "/construction-stages/permit-design/" },
+      { label: "تخریب و گودبرداری", href: "/construction-stages/demolition-excavation/" },
+      { label: "فونداسیون", href: "/construction-stages/foundation/" },
+      { label: "اسکلت بندی", href: "/construction-stages/structure/" },
+      { label: "دیوارچینی و سفت کاری", href: "/construction-stages/masonry-shell/" },
+      { label: "گچ و خاک و تاسیسات", href: "/construction-stages/mep-rough-in/" },
+      { label: "ابتدای نازک کاری", href: "/construction-stages/plaster-base/" },
+      { label: "نازک کاری و نما", href: "/construction-stages/finishing-facade/" },
+      { label: "ظریف کاری و پایان کار", href: "/construction-stages/final-handover/" },
     ],
   },
 ];
@@ -538,7 +479,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 export const utilityLinks: LinkItem[] = [
   { label: "قوانین و مقررات", href: "#" },
   { label: "نقشه پروژه‌ها", href: "#solution" },
-  { label: "فیلتر مرحله ساخت", href: "#stages" },
+  { label: "فیلتر مرحله ساخت", href: "/construction-stages/" },
   { label: "CRM سبک فروش پروژه‌ای", href: "#solution" },
   { label: "AI تصمیم‌یار", href: "#solution" },
   { label: "تماس", href: "#demo" },

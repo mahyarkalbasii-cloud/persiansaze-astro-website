@@ -1,0 +1,65 @@
+---
+import { footer, footerLinkGroups, site, socialLinks, utilityLinks } from "@/content/home";
+
+const reversedContacts = [...site.contacts].reverse();
+const hrefFor = (href: string) => (href.startsWith("#") ? `/${href}` : href);
+---
+
+<footer class="site-footer">
+  <div class="container footer-top">
+    <section class="footer-brand">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">PS</span>
+        <span class="brand-copy">
+          <strong>{site.name}</strong>
+          <span>{footer.tagline}</span>
+        </span>
+      </a>
+      <p>{footer.description}</p>
+    </section>
+
+    <section class="footer-contact">
+      <h2>{footer.contactTitle}</h2>
+      <ul>
+        {reversedContacts.map((contact) => (
+          <li><a href={contact.href} dir="ltr">{contact.phone}</a> | {contact.label}</li>
+        ))}
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li>{site.address}</li>
+        <li>{site.openingHoursText}</li>
+      </ul>
+    </section>
+
+    <section class="footer-social">
+      <h2>{footer.socialTitle}</h2>
+      <div class="social-grid">
+        {socialLinks.map((item) => (
+          <a href={item.href} rel="noreferrer">{item.label}</a>
+        ))}
+      </div>
+      <div class="trust-placeholder media-placeholder">{footer.trustPlaceholder}</div>
+    </section>
+  </div>
+
+  <div class="container footer-links">
+    {footerLinkGroups.map((group) => (
+      <section>
+        <h2>{group.title}</h2>
+        <ul>
+          {group.links.map((item) => (
+            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© {new Date().getFullYear()} {site.name}</p>
+    <nav aria-label="لینک‌های کمکی فوتر">
+      {utilityLinks.map((item) => (
+        <a href={hrefFor(item.href)}>{item.label}</a>
+      ))}
+    </nav>
+  </div>
+</footer>

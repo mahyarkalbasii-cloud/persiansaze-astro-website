@@ -1,0 +1,74 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { constructionStages, workFields, type WorkField } from "@/content/construction";
+
+export function getStaticPaths() {
+  return workFields.map((field) => ({
+    params: { slug: field.slug },
+    props: { field },
+  }));
+}
+
+const { field } = Astro.props as { field: WorkField };
+const stages = constructionStages.filter((stage) => field.stageIds.includes(stage.id));
+const title = `${field.title} | زمینه کاری ساختمان | پرشین‌سازه`;
+const description = `${field.title} در چرخه ساخت ساختمان: محصولات مرتبط، مرحله استفاده، تعریف فنی و ارزش آن برای فروش پروژه‌محور.`;
+---
+
+<BaseLayout title={title} description={description} canonicalPath={`/work-fields/${field.slug}/`}>
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">زمینه کاری ساختمان</p>
+          <h1>{field.title}</h1>
+          <p>{field.definition}</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/work-fields/">همه زمینه‌های کاری</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{stages.length}</strong>
+          <span>مرحله مرتبط</span>
+          <p>{field.lifecycle}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container detail-layout">
+        <aside class="detail-sidebar">
+          <h2>مرحله‌های مرتبط</h2>
+          <ul class="link-list">
+            {stages.map((stage) => (
+              <li><a href={`/construction-stages/${stage.slug}/`}>{stage.title}</a></li>
+            ))}
+          </ul>
+        </aside>
+
+        <article class="detail-main">
+          <section>
+            <h2>محصولات و خدمات مرتبط</h2>
+            <p>{field.products}</p>
+          </section>
+
+          <section>
+            <h2>چرا برای سازنده مهم است؟</h2>
+            <ul class="numbered-list">
+              {field.benefits.map((benefit) => <li>{benefit}</li>)}
+            </ul>
+          </section>
+
+          <section>
+            <h2>جایگاه در فروش پروژه‌محور</h2>
+            <p>
+              این زمینه کاری زمانی ارزش بیشتری دارد که تیم فروش بداند پروژه در کدام مرحله ساخت قرار دارد، چه تصمیم‌هایی
+              هنوز باز است و چه خریدهایی باید پیش از ورود اکیپ اجرایی قطعی شوند.
+            </p>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

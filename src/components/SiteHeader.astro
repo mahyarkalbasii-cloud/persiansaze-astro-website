@@ -1,0 +1,31 @@
+---
+import { footer, navigation, site } from "@/content/home";
+
+const { home = false } = Astro.props;
+const primaryContact = site.contacts[0];
+const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${href}`);
+---
+
+<header class="site-header">
+  <div class="container site-header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">PS</span>
+      <span class="brand-copy">
+        <strong>{site.name}</strong>
+        <span>{footer.tagline}</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="ناوبری اصلی">
+      {navigation.map((item) => (
+        <a href={hrefFor(item.href)}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <a class="header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+      <a class="button button-secondary" href={home ? "#demo" : "/#demo"}>ورود</a>
+      <a class="button button-primary" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
+    </div>
+  </div>
+</header>
