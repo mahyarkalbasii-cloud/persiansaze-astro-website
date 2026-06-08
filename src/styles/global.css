@@ -195,6 +195,10 @@ li + li {
   gap: var(--space-3);
 }
 
+.centered-actions {
+  justify-content: center;
+}
+
 .media-placeholder {
   display: grid;
   min-height: 12rem;
@@ -900,6 +904,7 @@ details p {
 
 .footer-primary-column {
   grid-area: primary;
+  gap: var(--space-10);
 }
 
 .footer-work-city-column {
@@ -935,6 +940,7 @@ details p {
 
 .footer-legal-section {
   border-top: 1px solid var(--border);
+  margin-top: var(--space-3);
   padding-top: var(--space-5);
 }
 

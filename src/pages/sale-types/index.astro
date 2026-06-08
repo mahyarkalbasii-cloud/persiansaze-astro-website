@@ -1,0 +1,134 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { saleTypeComparison, saleTypes, saleTypesIntro } from "@/content/sales";
+
+const title = "انواع فروش در صنعت ساختمان | پرشین‌سازه";
+const description =
+  "راهنمای انواع فروش در صنعت ساختمان: فروش سریع و تراکنشی، فروش مشاوره‌ای، فروش ترکیبی و تهاتر مصالح و خدمات با تعریف، کاربرد، ریسک و چرخه تصمیم‌گیری.";
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: title,
+    description,
+    url: absoluteUrl("/sale-types/"),
+    inLanguage: "fa-IR",
+    isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+    about: saleTypes.map((item) => ({
+      "@type": "Thing",
+      name: item.title,
+      alternateName: item.englishTitle,
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "فهرست انواع فروش ساختمانی",
+    itemListElement: saleTypes.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.title,
+      url: absoluteUrl(`/sale-types/${item.slug}/`),
+      description: item.summary,
+    })),
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/sale-types/" structuredData={structuredData}>
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">{saleTypesIntro.eyebrow}</p>
+          <h1>{saleTypesIntro.title}</h1>
+          <p>{saleTypesIntro.description}</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/construction-stages/">مشاهده مراحل ساخت</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{saleTypes.length}</strong>
+          <span>مدل اصلی فروش ساختمانی</span>
+          <p>{saleTypesIntro.summary}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="content-card-grid">
+          {saleTypes.map((saleType) => (
+            <article class="content-card">
+              <p class="content-eyebrow">{saleType.englishTitle}</p>
+              <h2>{saleType.title}</h2>
+              <p>{saleType.summary}</p>
+              <dl class="compact-facts">
+                <div>
+                  <dt>چرخه فروش</dt>
+                  <dd>{saleType.cycle}</dd>
+                </div>
+                <div>
+                  <dt>تمرکز فروشنده</dt>
+                  <dd>{saleType.sellerFocus}</dd>
+                </div>
+              </dl>
+              <a class="text-link" href={`/sale-types/${saleType.slug}/`}>مطالعه صفحه کامل ←</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>مقایسه مدل‌های فروش ساختمانی</h2>
+          <p>
+            این جدول برای تصمیم‌گیری سریع طراحی شده است: اگر مسئله فروش، زمان تصمیم، سطح مشاوره و ریسک قرارداد را بشناسید،
+            مسیر فروش درست‌تر انتخاب می‌شود.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>پارامتر</th>
+                <th>فروش تراکنشی</th>
+                <th>فروش مشاوره‌ای</th>
+                <th>فروش ترکیبی</th>
+              </tr>
+            </thead>
+            <tbody>
+              {saleTypeComparison.map((row) => (
+                <tr>
+                  <td><strong>{row.factor}</strong></td>
+                  <td>{row.transactional}</td>
+                  <td>{row.consultative}</td>
+                  <td>{row.hybrid}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading centered">
+          <h2>از نوع فروش به پروژه مناسب برسید</h2>
+          <p>
+            پرشین‌سازه کمک می‌کند فروشنده بداند کدام پروژه، در کدام مرحله ساخت و با چه منطق تصمیم‌گیری به او نزدیک‌تر است.
+          </p>
+          <div class="action-row centered-actions">
+            <a class="button button-primary" href="/#demo">ثبت درخواست دمو</a>
+            <a class="button button-secondary" href="/work-fields/">مشاهده زمینه‌های کاری</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

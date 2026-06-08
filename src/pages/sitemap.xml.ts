@@ -1,6 +1,7 @@
 import { absoluteUrl } from "@/content/home";
 import { constructionStages, workFields } from "@/content/construction";
 import { cityProfiles } from "@/content/cities";
+import { saleTypes } from "@/content/sales";
 
 export function GET() {
   const lastModified = new Date().toISOString();
@@ -28,6 +29,12 @@ export function GET() {
     { path: "/construction-stages/", changefreq: "weekly", priority: "0.9" },
     ...constructionStages.map((stage) => ({
       path: `/construction-stages/${stage.slug}/`,
+      changefreq: "monthly",
+      priority: "0.8",
+    })),
+    { path: "/sale-types/", changefreq: "weekly", priority: "0.9" },
+    ...saleTypes.map((saleType) => ({
+      path: `/sale-types/${saleType.slug}/`,
       changefreq: "monthly",
       priority: "0.8",
     })),

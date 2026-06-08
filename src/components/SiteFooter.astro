@@ -1,8 +1,9 @@
 ---
 import { footer, footerLinkGroups, site, socialLinks, utilityLinks } from "@/content/home";
-import { workFields as constructionWorkFields } from "@/content/construction";
+import { constructionStages, workFields as constructionWorkFields } from "@/content/construction";
+import { saleTypes as saleTypeContent } from "@/content/sales";
 
-const [primaryPages, saleTypes, cityLinks, workFields, stageLinks] = footerLinkGroups;
+const [primaryPages, footerSaleTypes, cityLinks, workFields, stageLinks] = footerLinkGroups;
 const reversedContacts = [...site.contacts].reverse();
 const legalLink = utilityLinks[0];
 const bottomUtilityLinks = utilityLinks.slice(1, 5);
@@ -12,6 +13,20 @@ const footerWorkFieldLinks = [
     href: `/work-fields/${field.slug}/`,
   })),
   ...workFields.links,
+];
+const footerStageLinks = [
+  ...constructionStages.map((stage) => ({
+    label: stage.title,
+    href: `/construction-stages/${stage.slug}/`,
+  })),
+  ...stageLinks.links,
+];
+const footerSaleTypeLinks = [
+  ...saleTypeContent.map((saleType) => ({
+    label: saleType.title,
+    href: `/sale-types/${saleType.slug}/`,
+  })),
+  ...footerSaleTypes.links,
 ];
 const isHome = Astro.url.pathname === "/";
 const hrefFor = (href: string) => (href.startsWith("#") && !isHome ? `/${href}` : href);
@@ -94,15 +109,15 @@ const hrefFor = (href: string) => (href.startsWith("#") && !isHome ? `/${href}` 
         <section class="footer-link-section footer-stage-section">
           <h2>{stageLinks.title}</h2>
           <ul>
-            {stageLinks.links.map((item) => (
+            {footerStageLinks.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
             ))}
           </ul>
         </section>
         <section class="footer-link-section footer-sale-section">
-          <h2>{saleTypes.title}</h2>
+          <h2>{footerSaleTypes.title}</h2>
           <ul>
-            {saleTypes.links.map((item) => (
+            {footerSaleTypeLinks.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
             ))}
           </ul>

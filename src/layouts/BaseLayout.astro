@@ -8,10 +8,12 @@ type Props = {
   title: string;
   description: string;
   canonicalPath?: string;
+  structuredData?: unknown | unknown[];
 };
 
-const { title, description, canonicalPath = "/" } = Astro.props;
+const { title, description, canonicalPath = "/", structuredData } = Astro.props;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
+const schemaItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
 ---
 
 <!doctype html>
@@ -33,6 +35,9 @@ const canonicalUrl = new URL(canonicalPath, site.url).toString();
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {schemaItems.map((schema) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
   </head>
   <body>
     <SiteHeader />

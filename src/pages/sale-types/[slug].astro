@@ -1,0 +1,185 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { barterRiskRows, saleTypes, type SaleType } from "@/content/sales";
+
+export function getStaticPaths() {
+  return saleTypes.map((saleType) => ({
+    params: { slug: saleType.slug },
+    props: { saleType },
+  }));
+}
+
+const { saleType } = Astro.props as { saleType: SaleType };
+const relatedSaleTypes = saleTypes.filter((item) => item.slug !== saleType.slug);
+const isBarter = saleType.slug === "barter-materials-services";
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: saleType.metaTitle,
+    name: saleType.title,
+    description: saleType.metaDescription,
+    url: absoluteUrl(`/sale-types/${saleType.slug}/`),
+    inLanguage: "fa-IR",
+    author: { "@type": "Organization", name: site.name, url: site.url },
+    publisher: { "@type": "Organization", name: site.name, url: site.url },
+    about: [
+      { "@type": "Thing", name: saleType.title, alternateName: saleType.englishTitle },
+      { "@type": "Thing", name: "فروش پروژه‌محور ساختمان" },
+      { "@type": "Thing", name: "فروش B2B ساختمانی" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: saleType.faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={saleType.metaTitle}
+  description={saleType.metaDescription}
+  canonicalPath={`/sale-types/${saleType.slug}/`}
+  structuredData={structuredData}
+>
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="مسیر صفحه">
+            <a href="/sale-types/">انواع فروش</a>
+            <span>/</span>
+            <span>{saleType.title}</span>
+          </nav>
+          <p class="content-eyebrow">{saleType.englishTitle}</p>
+          <h1>{saleType.headline}</h1>
+          <p>{saleType.summary}</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/sale-types/">همه انواع فروش</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{String(saleTypes.findIndex((item) => item.slug === saleType.slug) + 1).padStart(2, "0")}</strong>
+          <span>{saleType.title}</span>
+          <p>{saleType.definition}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container detail-layout">
+        <aside class="detail-sidebar">
+          <h2>خلاصه تصمیم</h2>
+          <dl class="compact-facts">
+            <div>
+              <dt>چرخه فروش</dt>
+              <dd>{saleType.cycle}</dd>
+            </div>
+            <div>
+              <dt>تمرکز فروشنده</dt>
+              <dd>{saleType.sellerFocus}</dd>
+            </div>
+            <div>
+              <dt>ریسک اصلی</dt>
+              <dd>{saleType.risk}</dd>
+            </div>
+          </dl>
+          <h2>مدل‌های مرتبط</h2>
+          <ul class="link-list">
+            {relatedSaleTypes.map((item) => (
+              <li><a href={`/sale-types/${item.slug}/`}>{item.title}</a></li>
+            ))}
+          </ul>
+        </aside>
+
+        <article class="detail-main">
+          <section>
+            <p class="content-eyebrow">تعریف</p>
+            <h2>{saleType.title} چیست؟</h2>
+            <p>{saleType.definition}</p>
+          </section>
+
+          <section>
+            <p class="content-eyebrow">کاربرد</p>
+            <h2>چه زمانی این مدل فروش مناسب است؟</h2>
+            <p>{saleType.decisionContext}</p>
+          </section>
+
+          {saleType.sections.map((section) => (
+            <section>
+              <h2>{section.title}</h2>
+              <p>{section.body}</p>
+            </section>
+          ))}
+
+          <section>
+            <h2>نکات کلیدی برای تیم فروش</h2>
+            <ul class="numbered-list">
+              {saleType.keyTakeaways.map((item) => <li>{item}</li>)}
+            </ul>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    {isBarter && (
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <h2>ریسک‌های کلیدی تهاتر و ابزار کنترل</h2>
+            <p>
+              تهاتر و معاوضه بدون کنترل حقوقی، مالی و فنی می‌تواند به اختلاف جدی تبدیل شود؛ این جدول، ریسک‌های اصلی را
+              به زبان اجرایی خلاصه می‌کند.
+            </p>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>ریسک</th>
+                  <th>منشأ ایجاد ریسک</th>
+                  <th>ابزار کنترل</th>
+                </tr>
+              </thead>
+              <tbody>
+                {barterRiskRows.map((row) => (
+                  <tr>
+                    <td><strong>{row.risk}</strong></td>
+                    <td>{row.source}</td>
+                    <td>{row.control}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>پرسش‌های متداول درباره {saleType.title}</h2>
+        </div>
+        <div class="faq-list">
+          {saleType.faqs.map((item) => (
+            <details>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

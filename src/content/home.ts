@@ -427,12 +427,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   },
   {
     title: "نوع فروش",
-    links: [
-      { label: "فروش سریع و تراکنشی", href: "#audiences" },
-      { label: "فروش مشاوره‌ای", href: "#audiences" },
-      { label: "تهاتر مصالح و خدمات", href: "#audiences" },
-      { label: "فروش ترکیبی", href: "#audiences" },
-    ],
+    links: [{ label: "همه انواع فروش ←", href: "/sale-types/" }],
   },
   {
     title: "شهرها",
@@ -449,15 +444,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   },
   {
     title: "مراحل ساخت",
-    links: [
-      { label: "طراحی و اخذ جواز", href: "/construction-stages/permit-design/" },
-      { label: "تخریب و گودبرداری", href: "/construction-stages/demolition-excavation/" },
-      { label: "فونداسیون", href: "/construction-stages/foundation/" },
-      { label: "اسکلت بندی", href: "/construction-stages/structure/" },
-      { label: "گچ و خاک و تاسیسات", href: "/construction-stages/mep-rough-in/" },
-      { label: "نازک کاری و نما", href: "/construction-stages/finishing-facade/" },
-      { label: "همه مراحل ساخت ←", href: "/construction-stages/" },
-    ],
+    links: [{ label: "همه مراحل ساخت ←", href: "/construction-stages/" }],
   },
 ];
 
