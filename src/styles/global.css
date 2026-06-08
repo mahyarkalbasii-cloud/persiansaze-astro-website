@@ -778,11 +778,11 @@ details p {
 .footer-main {
   display: grid;
   grid-template-areas: "brand links";
-  grid-template-columns: minmax(22rem, 0.95fr) minmax(42rem, 1.55fr);
+  grid-template-columns: minmax(18rem, 0.72fr) minmax(48rem, 1.85fr);
   align-items: start;
-  gap: clamp(2.5rem, 7vw, 7.5rem);
+  gap: clamp(2rem, 5vw, 5rem);
   direction: ltr;
-  padding-block: var(--space-16);
+  padding-block: var(--space-12);
 }
 
 .footer-main > * {
@@ -791,6 +791,7 @@ details p {
 
 .footer-brand-panel,
 .footer-links-panel,
+.footer-link-column,
 .footer-link-section {
   display: grid;
   align-content: start;
@@ -799,7 +800,7 @@ details p {
 .footer-brand-panel {
   grid-area: brand;
   justify-items: center;
-  gap: var(--space-8);
+  gap: var(--space-5);
   text-align: center;
 }
 
@@ -821,7 +822,7 @@ details p {
 .footer-contact-list,
 .footer-link-section ul {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -832,6 +833,7 @@ details p {
   margin: 0;
   color: var(--muted-foreground);
   font-weight: 700;
+  line-height: 1.65;
 }
 
 .footer-phone-row {
@@ -842,8 +844,8 @@ details p {
 }
 
 .trust-placeholder {
-  width: min(100%, 9.5rem);
-  min-height: 8.5rem;
+  width: min(100%, 8.5rem);
+  min-height: 7.25rem;
   padding: var(--space-4);
 }
 
@@ -851,13 +853,13 @@ details p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .social-row a {
   display: inline-grid;
-  width: 2.65rem;
-  height: 2.65rem;
+  width: 2.35rem;
+  height: 2.35rem;
   place-items: center;
   border: 1px solid var(--border-strong);
   border-radius: 50%;
@@ -873,23 +875,39 @@ details p {
 
 .footer-links-panel {
   grid-area: links;
-  grid-template-areas:
-    "sale primary"
-    "cities legal"
-    "stages work";
-  grid-template-columns: minmax(15rem, 0.76fr) minmax(22rem, 1fr);
+  grid-template-areas: "primary work stages";
+  grid-template-columns: minmax(13rem, 0.78fr) minmax(20rem, 1fr) minmax(14rem, 0.8fr);
   align-items: start;
-  column-gap: clamp(2.5rem, 6vw, 6rem);
+  column-gap: clamp(1.5rem, 3vw, 3.5rem);
   direction: ltr;
-  row-gap: var(--space-10);
+  row-gap: var(--space-8);
 }
 
 .footer-links-panel > * {
   direction: rtl;
 }
 
+.footer-link-column,
 .footer-link-section {
+  display: grid;
+  align-content: start;
   gap: var(--space-4);
+}
+
+.footer-link-column {
+  gap: var(--space-8);
+}
+
+.footer-primary-column {
+  grid-area: primary;
+}
+
+.footer-work-city-column {
+  grid-area: work;
+}
+
+.footer-stage-sale-column {
+  grid-area: stages;
 }
 
 .footer-link-section h2,
@@ -901,23 +919,13 @@ details p {
 }
 
 .footer-sale-section {
-  grid-area: sale;
-}
-
-.footer-pages-section {
-  grid-area: primary;
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-5);
 }
 
 .footer-city-section {
-  grid-area: cities;
-}
-
-.footer-stage-section {
-  grid-area: stages;
-}
-
-.footer-work-section {
-  grid-area: work;
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-5);
 }
 
 .footer-link-section a {
@@ -926,27 +934,12 @@ details p {
 }
 
 .footer-legal-section {
-  grid-area: legal;
   border-top: 1px solid var(--border);
-  padding-top: var(--space-6);
+  padding-top: var(--space-5);
 }
 
 .footer-work-section {
   gap: var(--space-6);
-}
-
-.footer-demo-pill {
-  display: inline-flex;
-  width: min(100%, 12rem);
-  min-height: 3rem;
-  align-items: center;
-  justify-content: center;
-  justify-self: center;
-  border: 1px solid var(--foreground);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--foreground);
-  font-weight: 800;
 }
 
 .footer-bottom {
@@ -1351,12 +1344,9 @@ details p {
 
   .footer-links-panel {
     grid-template-areas:
-      "primary"
-      "sale"
-      "cities"
       "stages"
       "work"
-      "legal";
+      "primary";
     grid-template-columns: 1fr;
     row-gap: var(--space-8);
   }

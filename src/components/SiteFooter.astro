@@ -1,10 +1,18 @@
 ---
 import { footer, footerLinkGroups, site, socialLinks, utilityLinks } from "@/content/home";
+import { workFields as constructionWorkFields } from "@/content/construction";
 
 const [primaryPages, saleTypes, cityLinks, workFields, stageLinks] = footerLinkGroups;
 const reversedContacts = [...site.contacts].reverse();
 const legalLink = utilityLinks[0];
 const bottomUtilityLinks = utilityLinks.slice(1, 5);
+const footerWorkFieldLinks = [
+  ...constructionWorkFields.slice(0, 6).map((field) => ({
+    label: field.title,
+    href: `/work-fields/${field.slug}/`,
+  })),
+  ...workFields.links,
+];
 const isHome = Astro.url.pathname === "/";
 const hrefFor = (href: string) => (href.startsWith("#") && !isHome ? `/${href}` : href);
 ---
@@ -49,55 +57,57 @@ const hrefFor = (href: string) => (href.startsWith("#") && !isHome ? `/${href}` 
     </section>
 
     <div class="footer-links-panel">
-      <section class="footer-link-section footer-sale-section">
-        <h2>{saleTypes.title}</h2>
-        <ul>
-          {saleTypes.links.map((item) => (
-            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
-          ))}
-        </ul>
-      </section>
+      <div class="footer-link-column footer-primary-column">
+        <section class="footer-link-section footer-pages-section">
+          <h2>{primaryPages.title}</h2>
+          <ul>
+            {primaryPages.links.map((item) => (
+              <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+            ))}
+          </ul>
+        </section>
+        <section class="footer-legal-section">
+          <h2><a href={hrefFor(legalLink.href)}>{legalLink.label}</a></h2>
+        </section>
+      </div>
 
-      <section class="footer-link-section footer-pages-section">
-        <h2>{primaryPages.title}</h2>
-        <ul>
-          {primaryPages.links.map((item) => (
-            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
-          ))}
-        </ul>
-      </section>
+      <div class="footer-link-column footer-work-city-column">
+        <section class="footer-link-section footer-work-section">
+          <h2>{workFields.title}</h2>
+          <ul>
+            {footerWorkFieldLinks.map((item) => (
+              <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+            ))}
+          </ul>
+        </section>
+        <section class="footer-link-section footer-city-section">
+          <h2>{cityLinks.title}</h2>
+          <ul>
+            {cityLinks.links.map((item) => (
+              <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+            ))}
+          </ul>
+        </section>
+      </div>
 
-      <section class="footer-link-section footer-city-section">
-        <h2>{cityLinks.title}</h2>
-        <ul>
-          {cityLinks.links.map((item) => (
-            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
-          ))}
-        </ul>
-      </section>
-
-      <section class="footer-legal-section">
-        <h2><a href={hrefFor(legalLink.href)}>{legalLink.label}</a></h2>
-      </section>
-
-      <section class="footer-link-section footer-stage-section">
-        <h2>{stageLinks.title}</h2>
-        <ul>
-          {stageLinks.links.map((item) => (
-            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
-          ))}
-        </ul>
-      </section>
-
-      <section class="footer-link-section footer-work-section">
-        <h2>{workFields.title}</h2>
-        <ul>
-          {workFields.links.map((item) => (
-            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
-          ))}
-        </ul>
-        <a class="footer-demo-pill" href={hrefFor("#demo")}>درخواست دمو</a>
-      </section>
+      <div class="footer-link-column footer-stage-sale-column">
+        <section class="footer-link-section footer-stage-section">
+          <h2>{stageLinks.title}</h2>
+          <ul>
+            {stageLinks.links.map((item) => (
+              <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+            ))}
+          </ul>
+        </section>
+        <section class="footer-link-section footer-sale-section">
+          <h2>{saleTypes.title}</h2>
+          <ul>
+            {saleTypes.links.map((item) => (
+              <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </div>
   </div>
 

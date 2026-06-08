@@ -445,15 +445,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   },
   {
     title: "زمینه‌های کاری",
-    links: [
-      { label: "آهن‌آلات و مقاطع فولادی", href: "/work-fields/structural-steel/" },
-      { label: "دیوارچینی و مصالح بنایی", href: "/work-fields/masonry-elements/" },
-      { label: "تاسیسات مکانیکی آب و فاضلاب", href: "/work-fields/mechanical-piping/" },
-      { label: "تهویه مطبوع و HVAC", href: "/work-fields/hvac-equipment/" },
-      { label: "توزیع برق و کابل‌کشی", href: "/work-fields/electrical-distribution/" },
-      { label: "پوشش‌های کف و نما", href: "/work-fields/flooring-facade-finishes/" },
-      { label: "همه زمینه‌های کاری ←", href: "/work-fields/" },
-    ],
+    links: [{ label: "همه زمینه‌های کاری ←", href: "/work-fields/" }],
   },
   {
     title: "مراحل ساخت",
@@ -462,11 +454,9 @@ export const footerLinkGroups: FooterLinkGroup[] = [
       { label: "تخریب و گودبرداری", href: "/construction-stages/demolition-excavation/" },
       { label: "فونداسیون", href: "/construction-stages/foundation/" },
       { label: "اسکلت بندی", href: "/construction-stages/structure/" },
-      { label: "دیوارچینی و سفت کاری", href: "/construction-stages/masonry-shell/" },
       { label: "گچ و خاک و تاسیسات", href: "/construction-stages/mep-rough-in/" },
-      { label: "ابتدای نازک کاری", href: "/construction-stages/plaster-base/" },
       { label: "نازک کاری و نما", href: "/construction-stages/finishing-facade/" },
-      { label: "ظریف کاری و پایان کار", href: "/construction-stages/final-handover/" },
+      { label: "همه مراحل ساخت ←", href: "/construction-stages/" },
     ],
   },
 ];
