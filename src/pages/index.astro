@@ -482,7 +482,7 @@ const schemaGraph = [
 
           <div class="pricing-grid">
             {pricing.plans.map((plan) => (
-              <article class="pricing-card">
+              <article class={plan.id === "taban" ? "pricing-card is-featured" : "pricing-card"}>
                 <header class="plan-card-head">
                   <div class="plan-icon-shell">
                     <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
@@ -520,7 +520,7 @@ const schemaGraph = [
                     <span>{pricing.currency}</span>
                   </span>
                 </p>
-                <a class="button button-secondary" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
+                <a class={plan.id === "taban" ? "button button-primary" : "button button-secondary"} href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
               </article>
             ))}
           </div>
