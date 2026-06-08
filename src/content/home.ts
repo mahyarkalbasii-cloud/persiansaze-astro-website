@@ -419,16 +419,10 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     links: [
       { label: "ویژگی‌ها", href: "#solution" },
       { label: "اشتراک‌ها", href: "#plans" },
-      { label: "زمینه‌های کاری", href: "/work-fields/" },
-      { label: "مراحل ساخت", href: "/construction-stages/" },
-      { label: "شهرها", href: "/cities/" },
-      { label: "نوع فروش", href: "#audiences" },
-      { label: "راهنماها", href: "#sales-flow" },
       { label: "درباره ما", href: "#problem" },
       { label: "تماس با ما", href: "#demo" },
       { label: "سوالات متداول", href: "#faq" },
       { label: "آموزش", href: "#sales-flow" },
-      { label: "درخواست دمو", href: "#demo" },
     ],
   },
   {

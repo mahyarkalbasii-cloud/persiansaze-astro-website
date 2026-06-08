@@ -777,8 +777,8 @@ details p {
 
 .footer-main {
   display: grid;
-  grid-template-areas: "brand middle primary";
-  grid-template-columns: minmax(22rem, 1.15fr) minmax(15rem, 0.72fr) minmax(22rem, 1fr);
+  grid-template-areas: "brand links";
+  grid-template-columns: minmax(22rem, 0.95fr) minmax(42rem, 1.55fr);
   align-items: start;
   gap: clamp(2.5rem, 7vw, 7.5rem);
   direction: ltr;
@@ -790,8 +790,7 @@ details p {
 }
 
 .footer-brand-panel,
-.footer-middle-panel,
-.footer-primary-panel,
+.footer-links-panel,
 .footer-link-section {
   display: grid;
   align-content: start;
@@ -872,18 +871,53 @@ details p {
   border-radius: 50%;
 }
 
-.footer-middle-panel {
-  grid-area: middle;
-  gap: var(--space-16);
+.footer-links-panel {
+  grid-area: links;
+  grid-template-areas:
+    "sale primary"
+    "cities legal"
+    "stages work";
+  grid-template-columns: minmax(15rem, 0.76fr) minmax(22rem, 1fr);
+  align-items: start;
+  column-gap: clamp(2.5rem, 6vw, 6rem);
+  direction: ltr;
+  row-gap: var(--space-10);
 }
 
-.footer-primary-panel {
-  grid-area: primary;
-  gap: var(--space-8);
+.footer-links-panel > * {
+  direction: rtl;
 }
 
 .footer-link-section {
   gap: var(--space-4);
+}
+
+.footer-link-section h2,
+.footer-legal-section h2 {
+  color: var(--foreground);
+  font-size: var(--text-base);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+}
+
+.footer-sale-section {
+  grid-area: sale;
+}
+
+.footer-pages-section {
+  grid-area: primary;
+}
+
+.footer-city-section {
+  grid-area: cities;
+}
+
+.footer-stage-section {
+  grid-area: stages;
+}
+
+.footer-work-section {
+  grid-area: work;
 }
 
 .footer-link-section a {
@@ -892,17 +926,13 @@ details p {
 }
 
 .footer-legal-section {
+  grid-area: legal;
   border-top: 1px solid var(--border);
   padding-top: var(--space-6);
 }
 
-.footer-legal-section h2 {
-  font-size: var(--text-base);
-}
-
 .footer-work-section {
   gap: var(--space-6);
-  margin-top: var(--space-8);
 }
 
 .footer-demo-pill {
@@ -1264,9 +1294,10 @@ details p {
 
   .footer-main {
     grid-template-areas:
-      "middle primary"
-      "brand brand";
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+      "links"
+      "brand";
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
   }
 
   .meter-grid,
@@ -1311,12 +1342,23 @@ details p {
 
   .footer-main {
     grid-template-areas:
-      "primary"
-      "middle"
+      "links"
       "brand";
     grid-template-columns: 1fr;
     gap: var(--space-12);
     padding-block: var(--space-12);
+  }
+
+  .footer-links-panel {
+    grid-template-areas:
+      "primary"
+      "sale"
+      "cities"
+      "stages"
+      "work"
+      "legal";
+    grid-template-columns: 1fr;
+    row-gap: var(--space-8);
   }
 
   .footer-brand-panel {
