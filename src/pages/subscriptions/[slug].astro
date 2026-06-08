@@ -1,0 +1,166 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { pricing, subscriptionPlans, type SubscriptionPlan } from "@/content/subscriptions";
+
+export function getStaticPaths() {
+  return subscriptionPlans.map((plan) => ({
+    params: { slug: plan.slug },
+    props: { plan },
+  }));
+}
+
+const { plan } = Astro.props as { plan: SubscriptionPlan };
+const relatedPlans = subscriptionPlans.filter((item) => item.slug !== plan.slug);
+const defaultDuration = "3" as const;
+const coverageDots = Array.from({ length: 4 }, (_, index) => index);
+const toLatinNumber = (value: string) =>
+  value.replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit))).replace(/,/g, "");
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `اشتراک ${plan.name}`,
+    description: plan.metaDescription,
+    url: absoluteUrl(`/subscriptions/${plan.slug}/`),
+    inLanguage: "fa-IR",
+    provider: { "@type": "Organization", name: site.name, url: site.url },
+    offers: {
+      "@type": "Offer",
+      price: toLatinNumber(plan.prices[defaultDuration]),
+      priceCurrency: "IRR",
+      availability: "https://schema.org/InStock",
+      url: absoluteUrl(`/subscriptions/${plan.slug}/`),
+    },
+  },
+];
+---
+
+<BaseLayout
+  title={plan.metaTitle}
+  description={plan.metaDescription}
+  canonicalPath={`/subscriptions/${plan.slug}/`}
+  structuredData={structuredData}
+>
+  <main>
+    <section class="content-hero subscription-detail-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <nav class="breadcrumb" aria-label="مسیر صفحه">
+            <a href="/subscriptions/">اشتراک‌ها</a>
+            <span>/</span>
+            <span>{plan.name}</span>
+          </nav>
+          <p class="content-eyebrow">اشتراک {plan.name}</p>
+          <h1>{plan.headline}</h1>
+          <p>{plan.description}</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو و مشاوره</a>
+            <a class="button button-secondary" href="/subscriptions/#comparison">مقایسه اشتراک‌ها</a>
+          </div>
+        </div>
+        <aside class="subscription-detail-card">
+          <img src={plan.iconSrc} alt={plan.iconAlt} loading="eager" decoding="async" />
+          <strong>{plan.name}</strong>
+          <span>{plan.subtitle}</span>
+          <div class="subscription-detail-price">
+            <span>شروع از</span>
+            <b>{plan.prices[defaultDuration]} {pricing.currency}</b>
+            <small>اشتراک سه‌ماهه</small>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container detail-layout">
+        <aside class="detail-sidebar">
+          <h2>خلاصه اشتراک</h2>
+          <dl class="compact-facts">
+            <div>
+              <dt>پروژه‌های فعال</dt>
+              <dd>{plan.activeProjects}</dd>
+            </div>
+            <div>
+              <dt>پروژه‌های انحصاری</dt>
+              <dd>{plan.exclusiveProjects}</dd>
+            </div>
+            <div>
+              <dt>متراژ پایه</dt>
+              <dd>{plan.landLine}</dd>
+            </div>
+            <div>
+              <dt>هر مرحله اضافه</dt>
+              <dd>{plan.addonPrice} {pricing.currency}</dd>
+            </div>
+          </dl>
+          <h2>{pricing.coverage}</h2>
+          <div class="market-coverage sidebar-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
+            <strong>{plan.coverageLabel}</strong>
+            <div class="coverage-meter" aria-hidden="true">
+              {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
+            </div>
+          </div>
+        </aside>
+
+        <article class="detail-main subscription-detail-main">
+          <section>
+            <p class="content-eyebrow">مناسب چه کسی است</p>
+            <h2>این اشتراک برای چه تیمی منطقی است؟</h2>
+            <p>{plan.idealFor}</p>
+          </section>
+
+          <section>
+            <p class="content-eyebrow">ویژگی‌ها</p>
+            <h2>در اشتراک {plan.name} چه چیزی می‌گیرید؟</h2>
+            <div class="subscription-feature-list">
+              {plan.detailFeatures.map((feature) => (
+                <div class={feature.available ? "subscription-feature-row available" : "subscription-feature-row unavailable"}>
+                  <span aria-hidden="true"></span>
+                  <div>
+                    <strong>{feature.label}</strong>
+                    <p>{feature.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <p class="content-eyebrow">قیمت</p>
+            <h2>قیمت شروع و مرحله اضافه</h2>
+            <div class="subscription-price-panel">
+              <div>
+                <span>اشتراک سه‌ماهه</span>
+                <strong>{plan.prices[defaultDuration]} {pricing.currency}</strong>
+              </div>
+              <div>
+                <span>هر مرحله ساخت اضافه</span>
+                <strong>{plan.addonPrice} {pricing.currency}</strong>
+              </div>
+            </div>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>اشتراک‌های دیگر</h2>
+          <p>اگر پوشش این پلن با بازار شما یکی نیست، سه گزینه دیگر را سریع مقایسه کنید.</p>
+        </div>
+        <div class="related-grid">
+          {relatedPlans.map((item) => (
+            <a class="related-card" href={`/subscriptions/${item.slug}/`}>
+              <img class="related-plan-icon" src={item.iconSrc} alt={item.iconAlt} loading="lazy" decoding="async" />
+              <h3>{item.name}</h3>
+              <p>{item.subtitle}</p>
+              <span class="text-link">جزئیات ←</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -6,5 +6,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "exclude": ["Saze Design System", "dist", "node_modules"]
+  "exclude": ["PersianSaze Cold — Design System", "dist", "node_modules"]
 }

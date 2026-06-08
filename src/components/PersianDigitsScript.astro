@@ -1,0 +1,120 @@
+<script is:inline>
+  (() => {
+    const persianDigits = ["\u06F0", "\u06F1", "\u06F2", "\u06F3", "\u06F4", "\u06F5", "\u06F6", "\u06F7", "\u06F8", "\u06F9"];
+    const normalizablePattern = /[0-9\u0660-\u0669\u06F0-\u06F9]|[\u06F0-\u06F9][\u2010-\u2015\u2212][\u06F0-\u06F9]/;
+    const numberRunPattern = /[\u06F0-\u06F9]+(?:[.,\u066B\u066C:/-][\u06F0-\u06F9]+)*/g;
+
+    const normalizeDigits = (value) =>
+      value
+        .replace(/[0-9]/g, (digit) => persianDigits[Number(digit)])
+        .replace(/[\u0660-\u0669]/g, (digit) => persianDigits[digit.charCodeAt(0) - 0x0660])
+        .replace(/([\u06F0-\u06F9])[\u2010-\u2015\u2212]([\u06F0-\u06F9])/g, "$1-$2");
+
+    const shouldKeepUngroupedYear = (value) => /^[\u06F0-\u06F9]{4}$/.test(value) && /^(1[2-5]|2[0-1])/.test(value.replace(/[\u06F0-\u06F9]/g, (digit) => persianDigits.indexOf(digit)));
+
+    const groupDigits = (value, forceGrouping = false) => {
+      if (value.length < 4 || (!forceGrouping && shouldKeepUngroupedYear(value))) return value;
+      return value.replace(/\B(?=(?:[\u06F0-\u06F9]{3})+(?![\u06F0-\u06F9]))/g, ",");
+    };
+
+    const formatNumberRun = (value) => {
+      const normalized = value.replace(/\u066C/g, ",").replace(/\u066B/g, ".");
+
+      if (/[-/:]/.test(normalized)) return normalized;
+
+      const [integerPart, decimalPart] = normalized.split(".");
+      const hadGrouping = integerPart.includes(",");
+      const groupedInteger = groupDigits(integerPart.replace(/,/g, ""), hadGrouping);
+
+      return decimalPart ? `${groupedInteger}.${decimalPart}` : groupedInteger;
+    };
+
+    const shouldSkip = (node) => {
+      const parent = node.parentElement || (node.parentNode?.nodeType === 1 ? node.parentNode : null);
+      return !parent || Boolean(parent.closest("script, style, noscript, textarea, code, pre, kbd, samp, .persian-number, [data-preserve-digits]"));
+    };
+
+    const normalizeTextNode = (node) => {
+      if (shouldSkip(node) || !node.nodeValue || !normalizablePattern.test(node.nodeValue)) return;
+
+      const normalizedValue = normalizeDigits(node.nodeValue);
+      numberRunPattern.lastIndex = 0;
+
+      if (!numberRunPattern.test(normalizedValue)) {
+        node.nodeValue = normalizedValue;
+        return;
+      }
+
+      numberRunPattern.lastIndex = 0;
+      const fragment = document.createDocumentFragment();
+      let lastIndex = 0;
+
+      normalizedValue.replace(numberRunPattern, (rawMatch, offset) => {
+        const match = formatNumberRun(rawMatch);
+        if (offset > lastIndex) {
+          fragment.append(document.createTextNode(normalizedValue.slice(lastIndex, offset)));
+        }
+
+        const numberSpan = document.createElement("span");
+        numberSpan.className = "persian-number";
+        numberSpan.dir = "ltr";
+        numberSpan.textContent = match;
+        fragment.append(numberSpan);
+        lastIndex = offset + rawMatch.length;
+        return match;
+      });
+
+      if (lastIndex < normalizedValue.length) {
+        fragment.append(document.createTextNode(normalizedValue.slice(lastIndex)));
+      }
+
+      node.parentNode?.replaceChild(fragment, node);
+    };
+
+    const normalizeTree = (root = document.body) => {
+      if (!root) return;
+      if (root.nodeType === Node.TEXT_NODE) {
+        normalizeTextNode(root);
+        return;
+      }
+
+      const walker = document.createTreeWalker(root, 4);
+      const textNodes = [];
+      let node = walker.nextNode();
+      while (node) {
+        textNodes.push(node);
+        node = walker.nextNode();
+      }
+
+      textNodes.forEach((textNode) => normalizeTextNode(textNode));
+    };
+
+    const start = () => {
+      document.title = normalizeDigits(document.title);
+      normalizeTree();
+
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === "characterData") {
+            normalizeTextNode(mutation.target);
+            return;
+          }
+
+          mutation.addedNodes.forEach((node) => normalizeTree(node));
+        });
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        characterData: true,
+        subtree: true,
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", start, { once: true });
+    } else {
+      start();
+    }
+  })();
+</script>

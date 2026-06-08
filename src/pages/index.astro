@@ -1,29 +1,40 @@
 ---
 import "../styles/global.css";
 import SiteFooter from "@/components/SiteFooter.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import PersianDigitsScript from "@/components/PersianDigitsScript.astro";
 import {
   audiences,
   demo,
   faqSection,
   faqs,
-  footer,
   hero,
   ids,
   metadata,
-  navigation,
   pricing,
   problem,
   salesFlow,
   site,
   solution,
 } from "@/content/home";
-import { constructionStages, getWorkFieldsForStage } from "@/content/construction";
+import { constructionStages, workFields } from "@/content/construction";
 import { saleTypes } from "@/content/sales";
 
 const primaryContact = site.contacts[0];
-const defaultDuration = "12" as const;
-const featuredStage = constructionStages.find((stage) => stage.id === "finishing-facade") ?? constructionStages[0];
-const featuredStageFields = getWorkFieldsForStage(featuredStage.id).slice(0, 4);
+const defaultDuration = "3" as const;
+const homeConstructionStages = constructionStages.filter((stage) => stage.id !== "permit-design");
+const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
+const homeStageCards = homeConstructionStages.map((stage, index) => ({
+  title: stage.title,
+  sourcePhase: toPersianDigits(stage.sourcePhase),
+  summary: toPersianDigits(stage.summary),
+  href: `/construction-stages/${stage.slug}/`,
+  position: toPersianDigits(index + 1),
+}));
+const initialHomeStage = homeStageCards[0];
+const homeStageCount = toPersianDigits(homeStageCards.length);
+const demoWorkFieldOptions = workFields.map((field) => field.title);
+const coverageDots = Array.from({ length: 4 }, (_, index) => index);
 const schemaGraph = [
   {
     "@context": "https://schema.org",
@@ -118,7 +129,7 @@ const schemaGraph = [
       "@type": "Offer",
       priceCurrency: "IRR",
       availability: "https://schema.org/InStock",
-      url: `${site.url}/#plans`,
+      url: `${site.url}/subscriptions/`,
     },
   },
   {
@@ -159,29 +170,7 @@ const schemaGraph = [
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
   </head>
   <body>
-    <header class="site-header">
-      <div class="container site-header-inner">
-        <a class="brand" href="/">
-          <span class="brand-mark" aria-hidden="true">PS</span>
-          <span class="brand-copy">
-            <strong>{site.name}</strong>
-            <span>{footer.tagline}</span>
-          </span>
-        </a>
-
-        <nav class="nav" aria-label="ناوبری اصلی">
-          {navigation.map((item) => (
-            <a href={item.href}>{item.label}</a>
-          ))}
-        </nav>
-
-        <div class="header-actions">
-          <a class="header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-          <a class="button button-secondary" href="#demo">ورود</a>
-          <a class="button button-primary" href="#demo">درخواست دمو</a>
-        </div>
-      </div>
-    </header>
+    <SiteHeader home />
 
     <main>
       <section id="hero" class="hero">
@@ -281,50 +270,101 @@ const schemaGraph = [
           <div class="audience-grid">
             {saleTypes.map((item) => (
               <article class="audience-card">
-                <span class="content-eyebrow">{item.englishTitle}</span>
                 <h3>{item.title}</h3>
                 <p>{item.summary}</p>
-                <a class="text-link" href={`/sale-types/${item.slug}/`}>مطالعه مدل فروش ←</a>
+                <a class="text-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="stages" class="section" aria-label="مراحل ساخت">
+      <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation>
         <div class="container">
-          <div class="stage-rail" aria-label="مراحل ساخت">
-            {constructionStages.map((stage) => (
-              <div class="stage-tile">
-                <div class="stage-media media-placeholder" aria-hidden="true">
-                  <span class="placeholder-label">جایگاه تصویر مرحله</span>
-                </div>
+          <div class="stage-rail" role="tablist" aria-label="مراحل ساخت">
+            {homeStageCards.map((stage, index) => (
+              <button
+                class={index === 0 ? "stage-tile active" : "stage-tile"}
+                type="button"
+                role="tab"
+                aria-selected={index === 0 ? "true" : "false"}
+                aria-controls="stage-info-panel"
+                data-stage-index={index}
+              >
                 <strong>{stage.title}</strong>
-              </div>
+              </button>
             ))}
           </div>
 
-          <div class="stage-detail">
-            <div>
-              <p class="placeholder-label">مرحله منتخب</p>
-              <h3>{featuredStage.title}</h3>
-              <p>{featuredStage.summary}</p>
+          <article class="stage-info-card" id="stage-info-panel" aria-live="polite">
+            <div class="stage-info-copy">
+              <p class="content-eyebrow" data-stage-position>مرحله {initialHomeStage.position} از {homeStageCount}</p>
+              <h3 data-stage-title>{initialHomeStage.title}</h3>
+              <p data-stage-summary>{initialHomeStage.summary}</p>
             </div>
-            <div class="advice-grid">
-              {featuredStageFields.map((field) => (
-                <article>
-                  <h4>{field.title}</h4>
-                  <p>{field.definition}</p>
-                  <a class="text-link" href={`/work-fields/${field.slug}/`}>جزئیات زمینه کاری ←</a>
-                </article>
-              ))}
+            <div class="stage-info-side">
+              <span>زمان تصمیم‌گیری سازنده</span>
+              <p data-stage-source>{initialHomeStage.sourcePhase}</p>
+              <a class="button button-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
             </div>
-            <div class="action-row">
-              <a class="button button-secondary" href="/work-fields/">مشاهده زمینه‌های کاری</a>
-              <a class="button button-secondary" href={`/construction-stages/${featuredStage.slug}/`}>مشاهده صفحه کامل مرحله</a>
-            </div>
-          </div>
+          </article>
         </div>
+        <script is:inline type="application/json" id="home-stage-data" set:html={JSON.stringify(homeStageCards)} />
+        <script is:inline>
+          (() => {
+            const root = document.querySelector("[data-stage-rotation]");
+            const dataNode = document.getElementById("home-stage-data");
+            if (!root || !dataNode) return;
+
+            const stages = JSON.parse(dataNode.textContent || "[]");
+            const buttons = [...root.querySelectorAll("[data-stage-index]")];
+            const position = root.querySelector("[data-stage-position]");
+            const title = root.querySelector("[data-stage-title]");
+            const summary = root.querySelector("[data-stage-summary]");
+            const source = root.querySelector("[data-stage-source]");
+            const link = root.querySelector("[data-stage-link]");
+            const digits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+            const toPersianDigits = (value) => String(value).replace(/\d/g, (digit) => digits[Number(digit)]);
+            let activeIndex = 0;
+            let userLocked = false;
+            let timerId = null;
+
+            const selectStage = (index, lock = false) => {
+              const stage = stages[index];
+              if (!stage) return;
+
+              activeIndex = index;
+              buttons.forEach((button, buttonIndex) => {
+                const isActive = buttonIndex === index;
+                button.classList.toggle("active", isActive);
+                button.setAttribute("aria-selected", isActive ? "true" : "false");
+              });
+
+              if (position) position.textContent = `مرحله ${toPersianDigits(index + 1)} از ${toPersianDigits(stages.length)}`;
+              if (title) title.textContent = stage.title;
+              if (summary) summary.textContent = stage.summary;
+              if (source) source.textContent = stage.sourcePhase;
+              if (link) link.setAttribute("href", stage.href);
+
+              if (lock && !userLocked) {
+                userLocked = true;
+                if (timerId) window.clearInterval(timerId);
+              }
+            };
+
+            buttons.forEach((button) => {
+              button.addEventListener("click", () => {
+                selectStage(Number(button.dataset.stageIndex), true);
+              });
+            });
+
+            if (stages.length > 1) {
+              timerId = window.setInterval(() => {
+                if (!userLocked) selectStage((activeIndex + 1) % stages.length);
+              }, 10000);
+            }
+          })();
+        </script>
       </section>
 
       <section id="sales-flow" class="section">
@@ -365,47 +405,104 @@ const schemaGraph = [
             <p>{pricing.description}</p>
           </div>
 
-          <div class="pricing-axis">
-            <p class="placeholder-label">{pricing.axisLabel}</p>
-            <div class="meter-grid">
-              {pricing.plans.map((plan) => (
-                <a class={plan.featured ? "meter-chip active" : "meter-chip"} href="#plans">
-                  <strong>{plan.name}</strong>
-                  <span>{plan.landLine}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div class="duration-tabs" aria-label="مدت اشتراک">
+          <div class="duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
             {pricing.durations.map((duration) => (
-              <span class={duration.id === defaultDuration ? "active" : ""}>{duration.label}</span>
+              <button
+                class={duration.id === defaultDuration ? "active" : ""}
+                type="button"
+                role="tab"
+                aria-selected={duration.id === defaultDuration ? "true" : "false"}
+                aria-pressed={duration.id === defaultDuration ? "true" : "false"}
+                data-plan-duration={duration.id}
+              >
+                <span class="duration-number">{duration.id}</span>
+                <span class="duration-unit">ماهه</span>
+              </button>
             ))}
           </div>
 
           <div class="pricing-grid">
             {pricing.plans.map((plan) => (
-              <article class={plan.featured ? "pricing-card featured" : "pricing-card"}>
-                <div class="plan-media media-placeholder" aria-hidden="true">
-                  <span class="placeholder-label">جایگاه آیکن پلن</span>
-                </div>
-                <div class="plan-title-row">
+              <article class="pricing-card">
+                <header class="plan-card-head">
+                  <div class="plan-icon-shell">
+                    <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+                  </div>
                   <h3>{plan.name}</h3>
-                  {plan.featured && <span>{pricing.recommended}</span>}
-                </div>
-                <strong class="price">{plan.prices[defaultDuration]} {pricing.currency}</strong>
-                <p>{plan.landLine} - {pricing.stagesIncluded}</p>
-                <ul>
+                </header>
+                <strong class="price">
+                  <span
+                    class="price-number"
+                    data-plan-price
+                    data-prices={JSON.stringify(plan.prices)}
+                  >
+                    {plan.prices[defaultDuration]}
+                  </span>
+                  <span class="price-currency">{pricing.currency}</span>
+                </strong>
+                <p class="plan-scope">
+                  <span>{plan.landLine}</span>
+                  <span class="plan-scope-separator" aria-hidden="true">-</span>
+                  <span>{pricing.stagesIncluded}</span>
+                </p>
+                <ul class="plan-highlights">
                   {plan.highlights.map((item) => <li>{item}</li>)}
                 </ul>
-                <p><strong>{pricing.coverage}</strong> {plan.coverage}</p>
-                <p>{plan.addon}</p>
-                <a class="button button-secondary" href="#demo">{plan.cta}</a>
+                <div class="market-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
+                  <strong>{pricing.coverage}</strong>
+                  <div class="coverage-meter" aria-hidden="true">
+                    {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
+                  </div>
+                </div>
+                <p class="plan-addon">
+                  <span>هر مرحله اضافه:</span>
+                  <span class="addon-price">
+                    <span>{plan.addonPrice}</span>
+                    <span>{pricing.currency}</span>
+                  </span>
+                </p>
+                <a class="button button-secondary" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
               </article>
             ))}
           </div>
         </div>
       </section>
+
+      <script is:inline>
+        (() => {
+          const plansSection = document.getElementById("plans");
+          if (!plansSection) return;
+
+          const durationTabs = plansSection.querySelector(".duration-tabs");
+          const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
+          const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
+
+          const setDuration = (duration) => {
+            durationTabs?.setAttribute("data-active-duration", duration);
+
+            buttons.forEach((button) => {
+              const isActive = button.getAttribute("data-plan-duration") === duration;
+              button.classList.toggle("active", isActive);
+              button.setAttribute("aria-selected", String(isActive));
+              button.setAttribute("aria-pressed", String(isActive));
+            });
+
+            priceNodes.forEach((node) => {
+              const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
+              if (prices[duration]) {
+                node.textContent = prices[duration];
+              }
+            });
+          };
+
+          buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              const duration = button.getAttribute("data-plan-duration");
+              if (duration) setDuration(duration);
+            });
+          });
+        })();
+      </script>
 
       <section id="faq" class="section">
         <div class="container">
@@ -426,65 +523,64 @@ const schemaGraph = [
       </section>
 
       <section id="demo" class="section demo-section">
-        <div class="container two-column">
-          <div class="demo-copy">
-            <h2>{demo.title}</h2>
-            <p>{demo.body}</p>
-            <div class="demo-path">
-              <p class="placeholder-label">{demo.pathLabel}</p>
-              <h3>{demo.pathTitle}</h3>
-              <ol>
-                {demo.steps.map((step) => <li>{step}</li>)}
-              </ol>
+        <div class="container">
+          <div class="demo-shell">
+            <div class="demo-copy">
+              <h2>{demo.title}</h2>
+              <p>{demo.body}</p>
+            </div>
+
+            <div class="demo-cards">
+              <div class="demo-path">
+                <h3>{demo.pathTitle}</h3>
+                <ol>
+                  {demo.steps.map((step) => <li>{step}</li>)}
+                </ol>
+              </div>
+
+              <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+                <h3>{demo.form.submit}</h3>
+                <div class="form-grid">
+                  <label class="field">
+                    <span>{demo.form.name}</span>
+                    <input name="name" autocomplete="name" />
+                  </label>
+                  <label class="field">
+                    <span>{demo.form.phone}</span>
+                    <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
+                  </label>
+                  <label class="field">
+                    <span>{demo.form.company}</span>
+                    <input name="company" autocomplete="organization" />
+                  </label>
+                  <label class="field">
+                    <span>{demo.form.referralSource}</span>
+                    <select name="referralSource">
+                      <option value="">{demo.form.choose}</option>
+                      {demo.form.referralSourceOptions.map((option) => (
+                        <option value={option}>{option}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                <label class="field">
+                  <span>{demo.form.supplier}</span>
+                  <select name="supplier">
+                    <option value="">{demo.form.choose}</option>
+                    {demoWorkFieldOptions.map((option) => (
+                      <option value={option}>{option}</option>
+                    ))}
+                  </select>
+                </label>
+                <button class="button button-primary" type="submit">{demo.form.submit}</button>
+              </form>
             </div>
           </div>
-
-          <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
-            <div class="form-grid">
-              <label class="field">
-                <span>{demo.form.name}</span>
-                <input name="name" autocomplete="name" />
-              </label>
-              <label class="field">
-                <span>{demo.form.phone}</span>
-                <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
-              </label>
-              <label class="field">
-                <span>{demo.form.company}</span>
-                <input name="company" autocomplete="organization" />
-              </label>
-              <label class="field">
-                <span>{demo.form.referralSource}</span>
-                <select name="referralSource">
-                  <option value="">{demo.form.choose}</option>
-                  {demo.form.referralSourceOptions.map((option) => (
-                    <option value={option}>{option}</option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <label class="field">
-              <span>{demo.form.supplier}</span>
-              <select name="supplier">
-                <option value="">{demo.form.choose}</option>
-                {demo.form.supplierOptions.map((option) => (
-                  <option value={option}>{option}</option>
-                ))}
-              </select>
-            </label>
-            <button class="button button-primary" type="submit">{demo.form.submit}</button>
-            <p>{demo.form.success}</p>
-            <p>{demo.form.error}</p>
-            <p>{demo.form.submitError}</p>
-            <div class="contact-actions">
-              <a class="button button-secondary" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-              <a class="button button-secondary" href={`mailto:${site.email}`}>{site.email}</a>
-            </div>
-          </form>
         </div>
       </section>
     </main>
 
     <SiteFooter />
+    <PersianDigitsScript />
   </body>
 </html>

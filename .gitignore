@@ -7,5 +7,9 @@ dist/
 npm-debug.log*
 .playwright-cli/
 astro-preview*.log
+astro-dev*.log
+.codex-*.png
 Saze Design System/
 Saze Design System.zip
+PersianSaze Cold — Design System/
+PersianSaze Cold — Design System.zip

@@ -2,6 +2,7 @@ import { absoluteUrl } from "@/content/home";
 import { constructionStages, workFields } from "@/content/construction";
 import { cityProfiles } from "@/content/cities";
 import { saleTypes } from "@/content/sales";
+import { subscriptionPlans } from "@/content/subscriptions";
 
 export function GET() {
   const lastModified = new Date().toISOString();
@@ -35,6 +36,12 @@ export function GET() {
     { path: "/sale-types/", changefreq: "weekly", priority: "0.9" },
     ...saleTypes.map((saleType) => ({
       path: `/sale-types/${saleType.slug}/`,
+      changefreq: "monthly",
+      priority: "0.8",
+    })),
+    { path: "/subscriptions/", changefreq: "weekly", priority: "0.9" },
+    ...subscriptionPlans.map((plan) => ({
+      path: `/subscriptions/${plan.slug}/`,
       changefreq: "monthly",
       priority: "0.8",
     })),
