@@ -1619,6 +1619,10 @@ details p {
   line-height: 1.65;
 }
 
+.site-footer .persian-number {
+  color: currentColor;
+}
+
 .footer-phone-row {
   display: flex;
   flex-wrap: wrap;
