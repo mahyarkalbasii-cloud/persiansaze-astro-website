@@ -1,13 +1,17 @@
 ---
 import { footer, footerLinkGroups, site, socialLinks, utilityLinks } from "@/content/home";
 
+const [primaryPages, saleTypes, cityLinks, workFields, stageLinks] = footerLinkGroups;
 const reversedContacts = [...site.contacts].reverse();
-const hrefFor = (href: string) => (href.startsWith("#") ? `/${href}` : href);
+const legalLink = utilityLinks[0];
+const bottomUtilityLinks = utilityLinks.slice(1, 5);
+const isHome = Astro.url.pathname === "/";
+const hrefFor = (href: string) => (href.startsWith("#") && !isHome ? `/${href}` : href);
 ---
 
 <footer class="site-footer">
-  <div class="container footer-top">
-    <section class="footer-brand">
+  <div class="container footer-main">
+    <section class="footer-brand-panel">
       <a class="brand" href="/">
         <span class="brand-mark" aria-hidden="true">PS</span>
         <span class="brand-copy">
@@ -16,50 +20,95 @@ const hrefFor = (href: string) => (href.startsWith("#") ? `/${href}` : href);
         </span>
       </a>
       <p>{footer.description}</p>
-    </section>
 
-    <section class="footer-contact">
-      <h2>{footer.contactTitle}</h2>
-      <ul>
-        {reversedContacts.map((contact) => (
-          <li><a href={contact.href} dir="ltr">{contact.phone}</a> | {contact.label}</li>
-        ))}
-        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-        <li>{site.address}</li>
-        <li>{site.openingHoursText}</li>
+      <h2 class="sr-only">{footer.contactTitle}</h2>
+      <ul class="footer-contact-list">
+        <li class="footer-contact-row footer-phone-row">
+          {reversedContacts.map((contact, index) => (
+            <>
+              <a href={contact.href} dir="ltr">{contact.phone}</a>
+              {index < reversedContacts.length - 1 && <span aria-hidden="true">|</span>}
+            </>
+          ))}
+        </li>
+        <li class="footer-contact-row">{site.address}</li>
+        <li class="footer-contact-row"><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li class="footer-contact-row">{site.openingHoursText}</li>
       </ul>
-    </section>
 
-    <section class="footer-social">
-      <h2>{footer.socialTitle}</h2>
-      <div class="social-grid">
+      <div class="trust-placeholder media-placeholder">{footer.trustPlaceholder}</div>
+
+      <h2 class="sr-only">{footer.socialTitle}</h2>
+      <div class="social-row">
         {socialLinks.map((item) => (
-          <a href={item.href} rel="noreferrer">{item.label}</a>
+          <a href={item.href} rel="noreferrer" aria-label={item.label}>
+            <span aria-hidden="true"></span>
+          </a>
         ))}
       </div>
-      <div class="trust-placeholder media-placeholder">{footer.trustPlaceholder}</div>
     </section>
-  </div>
 
-  <div class="container footer-links">
-    {footerLinkGroups.map((group) => (
-      <section>
-        <h2>{group.title}</h2>
+    <div class="footer-middle-panel">
+      <section class="footer-link-section">
+        <h2 class="sr-only">{saleTypes.title}</h2>
         <ul>
-          {group.links.map((item) => (
+          {saleTypes.links.map((item) => (
             <li><a href={hrefFor(item.href)}>{item.label}</a></li>
           ))}
         </ul>
       </section>
-    ))}
+
+      <section class="footer-link-section">
+        <h2 class="sr-only">{cityLinks.title}</h2>
+        <ul>
+          {cityLinks.links.map((item) => (
+            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="footer-link-section">
+        <h2 class="sr-only">{stageLinks.title}</h2>
+        <ul>
+          {stageLinks.links.map((item) => (
+            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+    </div>
+
+    <div class="footer-primary-panel">
+      <section class="footer-link-section">
+        <h2 class="sr-only">{primaryPages.title}</h2>
+        <ul>
+          {primaryPages.links.map((item) => (
+            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="footer-legal-section">
+        <h2><a href={hrefFor(legalLink.href)}>{legalLink.label}</a></h2>
+      </section>
+
+      <section class="footer-link-section footer-work-section">
+        <h2 class="sr-only">{workFields.title}</h2>
+        <ul>
+          {workFields.links.map((item) => (
+            <li><a href={hrefFor(item.href)}>{item.label}</a></li>
+          ))}
+        </ul>
+        <a class="footer-demo-pill" href={hrefFor("#demo")}>درخواست دمو</a>
+      </section>
+    </div>
   </div>
 
   <div class="container footer-bottom">
-    <p>© {new Date().getFullYear()} {site.name}</p>
     <nav aria-label="لینک‌های کمکی فوتر">
-      {utilityLinks.map((item) => (
+      {bottomUtilityLinks.map((item) => (
         <a href={hrefFor(item.href)}>{item.label}</a>
       ))}
     </nav>
+    <p>© {new Date().getFullYear()} {site.name}</p>
   </div>
 </footer>

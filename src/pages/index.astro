@@ -1,12 +1,12 @@
 ---
 import "../styles/global.css";
+import SiteFooter from "@/components/SiteFooter.astro";
 import {
   audiences,
   demo,
   faqSection,
   faqs,
   footer,
-  footerLinkGroups,
   hero,
   ids,
   metadata,
@@ -15,14 +15,11 @@ import {
   problem,
   salesFlow,
   site,
-  socialLinks,
   solution,
-  utilityLinks,
 } from "@/content/home";
 import { constructionStages, getWorkFieldsForStage } from "@/content/construction";
 
 const primaryContact = site.contacts[0];
-const reversedContacts = [...site.contacts].reverse();
 const defaultDuration = "12" as const;
 const featuredStage = constructionStages.find((stage) => stage.id === "finishing-facade") ?? constructionStages[0];
 const featuredStageFields = getWorkFieldsForStage(featuredStage.id).slice(0, 4);
@@ -485,63 +482,6 @@ const schemaGraph = [
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-top">
-        <section class="footer-brand">
-          <a class="brand" href="/">
-            <span class="brand-mark" aria-hidden="true">PS</span>
-            <span class="brand-copy">
-              <strong>{site.name}</strong>
-              <span>{footer.tagline}</span>
-            </span>
-          </a>
-          <p>{footer.description}</p>
-        </section>
-
-        <section class="footer-contact">
-          <h2>{footer.contactTitle}</h2>
-          <ul>
-            {reversedContacts.map((contact) => (
-              <li><a href={contact.href} dir="ltr">{contact.phone}</a> | {contact.label}</li>
-            ))}
-            <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-            <li>{site.address}</li>
-            <li>{site.openingHoursText}</li>
-          </ul>
-        </section>
-
-        <section class="footer-social">
-          <h2>{footer.socialTitle}</h2>
-          <div class="social-grid">
-            {socialLinks.map((item) => (
-              <a href={item.href} rel="noreferrer">{item.label}</a>
-            ))}
-          </div>
-          <div class="trust-placeholder media-placeholder">{footer.trustPlaceholder}</div>
-        </section>
-      </div>
-
-      <div class="container footer-links">
-        {footerLinkGroups.map((group) => (
-          <section>
-            <h2>{group.title}</h2>
-            <ul>
-              {group.links.map((item) => (
-                <li><a href={item.href}>{item.label}</a></li>
-              ))}
-            </ul>
-          </section>
-        ))}
-      </div>
-
-      <div class="container footer-bottom">
-        <p>© {new Date().getFullYear()} {site.name}</p>
-        <nav aria-label="لینک‌های کمکی فوتر">
-          {utilityLinks.map((item) => (
-            <a href={item.href}>{item.label}</a>
-          ))}
-        </nav>
-      </div>
-    </footer>
+    <SiteFooter />
   </body>
 </html>
