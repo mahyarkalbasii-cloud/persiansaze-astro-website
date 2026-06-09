@@ -1,0 +1,49 @@
+---
+const { hero } = Astro.props;
+---
+
+<section id="hero" class="home-hero">
+  <div class="home-container home-hero-grid">
+    <div class="home-hero-copy">
+      <h1>
+        <span>{hero.titleLines[0]}</span>
+        <span>{hero.titleLines[1]}</span>
+      </h1>
+      <p>{hero.body}</p>
+      <div class="home-action-row">
+        <a class="button button-primary" href="#demo">{hero.primaryCta}</a>
+        <a class="button button-secondary" href="#problem">{hero.secondaryCta}</a>
+      </div>
+    </div>
+
+    <div class="home-visual home-hero-visual" role="img" aria-label={hero.placeholder}>
+      <div class="home-visual-grid" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="home-map-panel" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+      <div class="home-dashboard-lines" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="home-floating-panel home-floating-panel-a" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="home-floating-panel home-floating-panel-b" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</section>

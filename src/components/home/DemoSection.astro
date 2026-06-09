@@ -1,0 +1,70 @@
+---
+type DemoCopy = {
+  title: string;
+  body: string;
+  form: {
+    name: string;
+    phone: string;
+    company: string;
+    referralSource: string;
+    supplier: string;
+    choose: string;
+    submit: string;
+    referralSourceOptions: string[];
+  };
+};
+
+const { demo, site, demoWorkFieldOptions } = Astro.props as {
+  demo: DemoCopy;
+  site: { email: string };
+  demoWorkFieldOptions: string[];
+};
+---
+
+<section id="demo" class="home-section home-demo-section">
+  <div class="home-container">
+    <div class="home-demo-shell">
+      <div class="home-demo-copy">
+        <h2>{demo.title}</h2>
+        <p>{demo.body}</p>
+      </div>
+
+      <form class="home-demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+        <h3>{demo.form.submit}</h3>
+        <div class="home-form-grid">
+          <label class="home-field">
+            <span>{demo.form.name}</span>
+            <input name="name" autocomplete="name" />
+          </label>
+          <label class="home-field">
+            <span>{demo.form.phone}</span>
+            <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
+          </label>
+          <label class="home-field">
+            <span>{demo.form.company}</span>
+            <input name="company" autocomplete="organization" />
+          </label>
+          <label class="home-field">
+            <span>{demo.form.referralSource}</span>
+            <select name="referralSource">
+              <option value="">{demo.form.choose}</option>
+              {demo.form.referralSourceOptions.map((option) => (
+                <option value={option}>{option}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <label class="home-field">
+          <span>{demo.form.supplier}</span>
+          <select name="supplier">
+            <option value="">{demo.form.choose}</option>
+            {demoWorkFieldOptions.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
+          </select>
+        </label>
+        <button class="button button-primary" type="submit">{demo.form.submit}</button>
+      </form>
+    </div>
+  </div>
+</section>

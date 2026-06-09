@@ -1,0 +1,59 @@
+---
+type SolutionCard = {
+  title: string;
+  body: string;
+};
+
+type SolutionFeature = {
+  label: string;
+  title: string;
+  body: string;
+};
+
+const { solution } = Astro.props as {
+  solution: {
+    title: string;
+    body: string;
+    dataTitle: string;
+    dataCards: SolutionCard[];
+    stackTitle: string;
+    features: SolutionFeature[];
+  };
+};
+---
+
+<section id="solution" class="home-section">
+  <div class="home-container">
+    <div class="home-section-heading">
+      <h2>{solution.title}</h2>
+      <p>{solution.body}</p>
+    </div>
+
+    <div class="home-solution-layout">
+      <section class="home-card home-data-panel" aria-labelledby="solution-data-title">
+        <h3 id="solution-data-title">{solution.dataTitle}</h3>
+        <div class="home-data-grid">
+          {solution.dataCards.map((card) => (
+            <article>
+              <h4>{card.title}</h4>
+              <p>{card.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="home-card home-stack-panel" aria-labelledby="solution-stack-title">
+        <h3 id="solution-stack-title">{solution.stackTitle}</h3>
+        <div class="home-feature-grid">
+          {solution.features.map((feature) => (
+            <article>
+              <span>{feature.label}</span>
+              <h4>{feature.title}</h4>
+              <p>{feature.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</section>

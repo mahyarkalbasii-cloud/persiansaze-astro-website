@@ -1,7 +1,16 @@
----
+﻿---
 import "../styles/global.css";
-import SiteFooter from "@/components/SiteFooter.astro";
-import SiteHeader from "@/components/SiteHeader.astro";
+import AudienceSection from "@/components/home/AudienceSection.astro";
+import DemoSection from "@/components/home/DemoSection.astro";
+import FaqSection from "@/components/home/FaqSection.astro";
+import HeroSection from "@/components/home/HeroSection.astro";
+import HomeFooter from "@/components/home/HomeFooter.astro";
+import HomeHeader from "@/components/home/HomeHeader.astro";
+import PricingSection from "@/components/home/PricingSection.astro";
+import ProblemSection from "@/components/home/ProblemSection.astro";
+import SalesFlowSection from "@/components/home/SalesFlowSection.astro";
+import SolutionSection from "@/components/home/SolutionSection.astro";
+import StagesSection from "@/components/home/StagesSection.astro";
 import PersianDigitsScript from "@/components/PersianDigitsScript.astro";
 import {
   audiences,
@@ -23,7 +32,7 @@ import { saleTypes } from "@/content/sales";
 const primaryContact = site.contacts[0];
 const defaultDuration = "3" as const;
 const homeConstructionStages = constructionStages.filter((stage) => stage.id !== "permit-design");
-const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
+const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "Û°Û±Û²Û³Û´ÛµÛ¶Û·Û¸Û¹"[Number(digit)]);
 const homeStageCards = homeConstructionStages.map((stage) => ({
   title: stage.title,
   sourcePhase: toPersianDigits(stage.sourcePhase),
@@ -107,7 +116,7 @@ const schemaGraph = [
     isPartOf: { "@id": ids.website },
     publisher: { "@id": ids.organization },
     description: metadata.pageDescription,
-    about: ["پروژه‌های ساختمانی", "نقشه پروژه‌ها", "مرحله ساخت", "فروش پروژه‌محور", "پیگیری فروش"].map((name) => ({
+    about: ["Ù¾Ø±ÙˆÚ˜Ù‡â€ŒÙ‡Ø§ÛŒ Ø³Ø§Ø®ØªÙ…Ø§Ù†ÛŒ", "Ù†Ù‚Ø´Ù‡ Ù¾Ø±ÙˆÚ˜Ù‡â€ŒÙ‡Ø§", "Ù…Ø±Ø­Ù„Ù‡ Ø³Ø§Ø®Øª", "ÙØ±ÙˆØ´ Ù¾Ø±ÙˆÚ˜Ù‡â€ŒÙ…Ø­ÙˆØ±", "Ù¾ÛŒÚ¯ÛŒØ±ÛŒ ÙØ±ÙˆØ´"].map((name) => ({
       "@type": "Thing",
       name,
     })),
@@ -167,484 +176,22 @@ const schemaGraph = [
     <meta name="twitter:description" content={metadata.description} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
   </head>
-  <body class="home-color-anthropic">
-    <SiteHeader home />
+  <body class="home-anthropic">
+    <HomeHeader />
 
     <main class="home-page">
-      <section id="hero" class="hero">
-        <div class="container hero-grid">
-          <div class="hero-copy">
-            <h1>
-              <span>{hero.titleLines[0]}</span>
-              <span>{hero.titleLines[1]}</span>
-            </h1>
-            <p>{hero.body}</p>
-            <div class="action-row">
-              <a class="button button-primary" href="#demo">{hero.primaryCta}</a>
-              <a class="button button-secondary" href="#problem">{hero.secondaryCta}</a>
-            </div>
-          </div>
-
-          <div class="media-placeholder hero-placeholder hero-bento" aria-label={hero.placeholder}>
-            <div class="hero-bento-scene" aria-hidden="true">
-              <img
-                class="hero-neon-image"
-                src="/assets/company/home-hero-neon.webp"
-                alt=""
-                width="1254"
-                height="1254"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="problem" class="section problem-section">
-        <div class="container two-column">
-          <div class="media-placeholder problem-placeholder market-friction problem-image-card" aria-label={problem.placeholder}>
-            <figure class="problem-image-frame" aria-hidden="true">
-              <img
-                class="problem-neon-image"
-                src="/assets/company/home-problem-map.webp"
-                alt=""
-                width="1254"
-                height="1254"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-
-            <div class="friction-head">
-              <span>روایت مسئله بازار</span>
-              <strong>فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
-            </div>
-
-            <div class="friction-canvas" aria-hidden="true">
-              <svg viewBox="0 0 520 300" role="img" aria-label="پراکندگی پروژه‌ها و پنجره زمانی تماس">
-                <defs>
-                  <pattern id="problem-grid" width="42" height="42" patternUnits="userSpaceOnUse">
-                    <path d="M42 0H0V42" fill="none" stroke="currentColor" stroke-width="1" />
-                  </pattern>
-                </defs>
-                <rect width="520" height="300" rx="24" fill="currentColor" opacity="0.035" />
-                <rect width="520" height="300" rx="24" fill="url(#problem-grid)" opacity="0.26" />
-                <path class="friction-window" d="M286 35V265" />
-                <path class="friction-path early" d="M72 222C124 178 176 176 226 131" />
-                <path class="friction-path late" d="M313 123C363 94 416 101 468 63" />
-                <g class="friction-dot muted" transform="translate(92 78)"><circle r="12" /></g>
-                <g class="friction-dot" transform="translate(157 198)"><circle r="14" /></g>
-                <g class="friction-dot active" transform="translate(286 132)"><circle r="22" /><circle r="6" /></g>
-                <g class="friction-dot" transform="translate(388 96)"><circle r="14" /></g>
-                <g class="friction-dot muted" transform="translate(455 218)"><circle r="12" /></g>
-              </svg>
-
-              <div class="friction-window-card">
-                <span>پنجره تماس</span>
-                <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
-              </div>
-            </div>
-
-            <div class="friction-metrics">
-              <article>
-                <span>پراکندگی</span>
-                <strong>پروژه‌ها روی چند مسیر پخش‌اند</strong>
-              </article>
-              <article>
-                <span>زمان تماس</span>
-                <strong>زود یا دیر، هر دو فرصت را می‌سوزاند</strong>
-              </article>
-              <article>
-                <span>پیگیری</span>
-                <strong>بدون نظم، فرصت‌ها در صف می‌مانند</strong>
-              </article>
-            </div>
-          </div>
-          <div class="section-copy">
-            <h2>{problem.title}</h2>
-            <p>{problem.body}</p>
-            <a class="button button-secondary" href="#solution">{problem.cta}</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="solution" class="section">
-        <div class="container">
-          <div class="section-heading">
-            <h2>{solution.title}</h2>
-            <p>{solution.body}</p>
-          </div>
-
-          <div class="solution-showcase">
-            <div class="solution-main-row">
-              <figure class="solution-visual-card" aria-label={solution.visualAlt}>
-                <img
-                  class="solution-neon-image"
-                  src="/assets/company/home-solution-map.webp"
-                  alt=""
-                  width="1254"
-                  height="1254"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-
-              <section class="solution-data-panel" aria-labelledby="solution-data-title">
-                <h3 id="solution-data-title">{solution.dataTitle}</h3>
-                <div class="solution-data-grid">
-                  {solution.dataCards.map((card) => (
-                    <article>
-                      <h4>{card.title}</h4>
-                      <p>{card.body}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            </div>
-
-            <section class="solution-stack-panel" aria-labelledby="solution-stack-title">
-              <h3 id="solution-stack-title">{solution.stackTitle}</h3>
-              <div class="feature-strip solution-feature-strip">
-                {solution.features.map((feature) => (
-                  <article>
-                    <span>{feature.label}</span>
-                    <h4>{feature.title}</h4>
-                    <p>{feature.body}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </div>
-        </div>
-      </section>
-
-      <section id="audiences" class="section">
-        <div class="container">
-          <div class="section-heading">
-            <h2>{audiences.title}</h2>
-            <p>{audiences.body}</p>
-          </div>
-
-          <div class="audience-grid">
-            {saleTypes.map((item) => (
-              <article class="audience-card">
-                <h3>{item.title}</h3>
-                <p>{item.summary}</p>
-                <a class="text-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation>
-        <div class="container">
-          <div class="stage-rail" role="tablist" aria-label="مراحل ساخت">
-            {homeStageCards.map((stage, index) => (
-              <button
-                class={index === 0 ? "stage-tile active" : "stage-tile"}
-                type="button"
-                role="tab"
-                aria-selected={index === 0 ? "true" : "false"}
-                aria-controls="stage-info-panel"
-                data-stage-index={index}
-              >
-                <strong>{stage.title}</strong>
-              </button>
-            ))}
-          </div>
-
-          <article class="stage-info-card" id="stage-info-panel" aria-live="polite">
-            <div class="stage-info-copy">
-              <h3 data-stage-title>{initialHomeStage.title}</h3>
-              <p data-stage-summary>{initialHomeStage.summary}</p>
-            </div>
-            <div class="stage-info-side">
-              <span>زمان تصمیم‌گیری سازنده</span>
-              <p data-stage-source>{initialHomeStage.sourcePhase}</p>
-              <a class="button button-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
-            </div>
-          </article>
-        </div>
-        <script is:inline type="application/json" id="home-stage-data" set:html={JSON.stringify(homeStageCards)} />
-        <script is:inline>
-          (() => {
-            const root = document.querySelector("[data-stage-rotation]");
-            const dataNode = document.getElementById("home-stage-data");
-            if (!root || !dataNode) return;
-
-            const stages = JSON.parse(dataNode.textContent || "[]");
-            const buttons = [...root.querySelectorAll("[data-stage-index]")];
-            const title = root.querySelector("[data-stage-title]");
-            const summary = root.querySelector("[data-stage-summary]");
-            const source = root.querySelector("[data-stage-source]");
-            const link = root.querySelector("[data-stage-link]");
-            let activeIndex = 0;
-            let userLocked = false;
-            let timerId = null;
-
-            const selectStage = (index, lock = false) => {
-              const stage = stages[index];
-              if (!stage) return;
-
-              activeIndex = index;
-              buttons.forEach((button, buttonIndex) => {
-                const isActive = buttonIndex === index;
-                button.classList.toggle("active", isActive);
-                button.setAttribute("aria-selected", isActive ? "true" : "false");
-              });
-
-              if (title) title.textContent = stage.title;
-              if (summary) summary.textContent = stage.summary;
-              if (source) source.textContent = stage.sourcePhase;
-              if (link) link.setAttribute("href", stage.href);
-
-              if (lock && !userLocked) {
-                userLocked = true;
-                if (timerId) window.clearInterval(timerId);
-              }
-            };
-
-            buttons.forEach((button) => {
-              button.addEventListener("click", () => {
-                selectStage(Number(button.dataset.stageIndex), true);
-              });
-            });
-
-            if (stages.length > 1) {
-              timerId = window.setInterval(() => {
-                if (!userLocked) selectStage((activeIndex + 1) % stages.length);
-              }, 10000);
-            }
-          })();
-        </script>
-      </section>
-
-      <section id="sales-flow" class="section">
-        <div class="container">
-          <div class="section-heading">
-            <h2>{salesFlow.title}</h2>
-          </div>
-
-          <div class="flow-layout">
-            <figure class="flow-visual-card" aria-label="نمای تصویری چهار گام فروش پروژه‌محور">
-              <img
-                class="flow-visual-image"
-                src="/assets/company/home-sales-flow.webp"
-                alt=""
-                width="1122"
-                height="1402"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-
-            <div class="flow-board" role="list" aria-label={salesFlow.ariaLabel}>
-              {salesFlow.stages.map((stage) => (
-                <article class="flow-step" role="listitem">
-                  <p class="flow-step-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
-                  <p class="flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div class="flow-footer">
-            <a class="button button-primary" href="#demo">{salesFlow.cta} ←</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="plans" class="section">
-        <div class="container">
-          <div class="section-heading centered">
-            <h2>{pricing.title}</h2>
-            <p>{pricing.description}</p>
-          </div>
-
-          <div class="duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
-            {pricing.durations.map((duration) => (
-              <button
-                class={duration.id === defaultDuration ? "active" : ""}
-                type="button"
-                role="tab"
-                aria-selected={duration.id === defaultDuration ? "true" : "false"}
-                aria-pressed={duration.id === defaultDuration ? "true" : "false"}
-                data-plan-duration={duration.id}
-              >
-                <span class="duration-number">{duration.id}</span>
-                <span class="duration-unit">ماهه</span>
-              </button>
-            ))}
-          </div>
-
-          <div class="pricing-grid">
-            {pricing.plans.map((plan) => (
-              <article class="pricing-card">
-                <header class="plan-card-head">
-                  <div class="plan-icon-shell">
-                    <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
-                  </div>
-                  <h3>{plan.name}</h3>
-                </header>
-                <strong class="price">
-                  <span
-                    class="price-number"
-                    data-plan-price
-                    data-prices={JSON.stringify(plan.prices)}
-                  >
-                    {plan.prices[defaultDuration]}
-                  </span>
-                  <span class="price-currency">{pricing.currency}</span>
-                </strong>
-                <p class="plan-scope">
-                  <span>{plan.landLine}</span>
-                  <span class="plan-scope-separator" aria-hidden="true">-</span>
-                  <span>{pricing.stagesIncluded}</span>
-                </p>
-                <ul class="plan-highlights">
-                  {plan.highlights.map((item) => <li>{item}</li>)}
-                </ul>
-                <div class="market-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
-                  <strong>{pricing.coverage}</strong>
-                  <div class="coverage-meter" aria-hidden="true">
-                    {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
-                  </div>
-                </div>
-                <p class="plan-addon">
-                  <span>هر مرحله اضافه:</span>
-                  <span class="addon-price">
-                    <span>{plan.addonPrice}</span>
-                    <span>{pricing.currency}</span>
-                  </span>
-                </p>
-                <a class="button button-secondary" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <script is:inline>
-        (() => {
-          const plansSection = document.getElementById("plans");
-          if (!plansSection) return;
-
-          const durationTabs = plansSection.querySelector(".duration-tabs");
-          const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
-          const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
-
-          const setDuration = (duration) => {
-            durationTabs?.setAttribute("data-active-duration", duration);
-
-            buttons.forEach((button) => {
-              const isActive = button.getAttribute("data-plan-duration") === duration;
-              button.classList.toggle("active", isActive);
-              button.setAttribute("aria-selected", String(isActive));
-              button.setAttribute("aria-pressed", String(isActive));
-            });
-
-            priceNodes.forEach((node) => {
-              const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
-              if (prices[duration]) {
-                node.textContent = prices[duration];
-              }
-            });
-          };
-
-          buttons.forEach((button) => {
-            button.addEventListener("click", () => {
-              const duration = button.getAttribute("data-plan-duration");
-              if (duration) setDuration(duration);
-            });
-          });
-        })();
-      </script>
-
-      <section id="faq" class="section">
-        <div class="container">
-          <div class="section-heading centered">
-            <span class="placeholder-label">{faqSection.eyebrow}</span>
-            <h2>{faqSection.title}</h2>
-            <p>{faqSection.description}</p>
-          </div>
-          <div class="faq-list">
-            {faqs.map((item) => (
-              <details>
-                <summary>{item.question}</summary>
-                <p>{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="demo" class="section demo-section">
-        <div class="container">
-          <div class="demo-shell">
-            <div class="demo-copy">
-              <h2>{demo.title}</h2>
-              <p>{demo.body}</p>
-            </div>
-
-            <div class="demo-cards">
-              <figure class="demo-visual-card" aria-label="نمای تصویری نقشه پروژه‌ها و پیگیری فروش">
-                <img
-                  class="demo-visual-image"
-                  src="/assets/company/home-demo-map.webp"
-                  alt=""
-                  width="1254"
-                  height="1254"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-
-              <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
-                <h3>{demo.form.submit}</h3>
-                <div class="form-grid">
-                  <label class="field">
-                    <span>{demo.form.name}</span>
-                    <input name="name" autocomplete="name" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.phone}</span>
-                    <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.company}</span>
-                    <input name="company" autocomplete="organization" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.referralSource}</span>
-                    <select name="referralSource">
-                      <option value="">{demo.form.choose}</option>
-                      {demo.form.referralSourceOptions.map((option) => (
-                        <option value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
-                <label class="field">
-                  <span>{demo.form.supplier}</span>
-                  <select name="supplier">
-                    <option value="">{demo.form.choose}</option>
-                    {demoWorkFieldOptions.map((option) => (
-                      <option value={option}>{option}</option>
-                    ))}
-                  </select>
-                </label>
-                <button class="button button-primary" type="submit">{demo.form.submit}</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection hero={hero} />
+      <ProblemSection problem={problem} />
+      <SolutionSection solution={solution} />
+      <AudienceSection audiences={audiences} saleTypes={saleTypes} />
+      <StagesSection homeStageCards={homeStageCards} initialHomeStage={initialHomeStage} />
+      <SalesFlowSection salesFlow={salesFlow} />
+      <PricingSection pricing={pricing} defaultDuration={defaultDuration} coverageDots={coverageDots} />
+      <FaqSection faqSection={faqSection} faqs={faqs} />
+      <DemoSection demo={demo} site={site} demoWorkFieldOptions={demoWorkFieldOptions} />
     </main>
 
-    <SiteFooter />
+    <HomeFooter />
     <PersianDigitsScript />
   </body>
 </html>

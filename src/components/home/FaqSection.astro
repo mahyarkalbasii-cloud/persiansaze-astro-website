@@ -1,0 +1,35 @@
+---
+type FaqSectionCopy = {
+  eyebrow: string;
+  title: string;
+  description: string;
+};
+
+type FaqItem = {
+  question: string;
+  answer: string;
+};
+
+const { faqSection, faqs } = Astro.props as {
+  faqSection: FaqSectionCopy;
+  faqs: FaqItem[];
+};
+---
+
+<section id="faq" class="home-section">
+  <div class="home-container">
+    <div class="home-section-heading centered">
+      <span class="home-eyebrow">{faqSection.eyebrow}</span>
+      <h2>{faqSection.title}</h2>
+      <p>{faqSection.description}</p>
+    </div>
+    <div class="home-faq-list">
+      {faqs.map((item) => (
+        <details>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

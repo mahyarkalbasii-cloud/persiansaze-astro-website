@@ -1,0 +1,24 @@
+---
+const { problem } = Astro.props;
+---
+
+<section id="problem" class="home-section home-problem-section">
+  <div class="home-container home-split">
+    <div class="home-section-copy">
+      <h2>{problem.title}</h2>
+      <p>{problem.body}</p>
+      <a class="button button-secondary" href="#solution">{problem.cta}</a>
+    </div>
+
+    <div class="home-problem-board" role="img" aria-label={problem.placeholder}>
+      <div class="home-problem-card" aria-hidden="true"><span></span><i></i></div>
+      <div class="home-problem-card" aria-hidden="true"><span></span><i></i></div>
+      <div class="home-problem-card" aria-hidden="true"><span></span><i></i></div>
+      <div class="home-problem-insight" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,137 @@
+---
+type Duration = {
+  id: string;
+};
+
+type PricingPlan = {
+  slug: string;
+  name: string;
+  landLine: string;
+  highlights: string[];
+  prices: Record<string, string>;
+  addonPrice: string;
+  coverageLabel: string;
+  coverageLevel: number;
+  cta: string;
+};
+
+type PricingCopy = {
+  title: string;
+  description: string;
+  durations: Duration[];
+  plans: PricingPlan[];
+  currency: string;
+  stagesIncluded: string;
+  coverage: string;
+};
+
+const { pricing, defaultDuration, coverageDots } = Astro.props as {
+  pricing: PricingCopy;
+  defaultDuration: string;
+  coverageDots: number[];
+};
+---
+
+<section id="plans" class="home-section">
+  <div class="home-container">
+    <div class="home-section-heading centered">
+      <h2>{pricing.title}</h2>
+      <p>{pricing.description}</p>
+    </div>
+
+    <div class="home-duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
+      {pricing.durations.map((duration) => (
+        <button
+          class={duration.id === defaultDuration ? "active" : ""}
+          type="button"
+          role="tab"
+          aria-selected={duration.id === defaultDuration ? "true" : "false"}
+          aria-pressed={duration.id === defaultDuration ? "true" : "false"}
+          data-plan-duration={duration.id}
+        >
+          <span class="duration-number">{duration.id}</span>
+          <span class="duration-unit">ماهه</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="home-pricing-grid">
+      {pricing.plans.map((plan) => (
+        <article class="home-pricing-card">
+          <header class="home-plan-card-head">
+            <span class="home-plan-mark" aria-hidden="true"></span>
+            <h3>{plan.name}</h3>
+          </header>
+          <strong class="home-price">
+            <span
+              class="home-price-number"
+              data-plan-price
+              data-prices={JSON.stringify(plan.prices)}
+            >
+              {plan.prices[defaultDuration]}
+            </span>
+            <span class="home-price-currency">{pricing.currency}</span>
+          </strong>
+          <p class="home-plan-scope">
+            <span>{plan.landLine}</span>
+            <span class="home-plan-scope-separator" aria-hidden="true">-</span>
+            <span>{pricing.stagesIncluded}</span>
+          </p>
+          <ul class="home-plan-highlights">
+            {plan.highlights.map((item) => <li>{item}</li>)}
+          </ul>
+          <div class="home-market-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
+            <strong>{pricing.coverage}</strong>
+            <div class="home-coverage-meter" aria-hidden="true">
+              {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
+            </div>
+          </div>
+          <p class="home-plan-addon">
+            <span>هر مرحله اضافه:</span>
+            <span class="home-addon-price">
+              <span>{plan.addonPrice}</span>
+              <span>{pricing.currency}</span>
+            </span>
+          </p>
+          <a class="button button-secondary" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const plansSection = document.getElementById("plans");
+    if (!plansSection) return;
+
+    const durationTabs = plansSection.querySelector(".home-duration-tabs");
+    const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
+    const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
+
+    const setDuration = (duration) => {
+      durationTabs?.setAttribute("data-active-duration", duration);
+
+      buttons.forEach((button) => {
+        const isActive = button.getAttribute("data-plan-duration") === duration;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-selected", String(isActive));
+        button.setAttribute("aria-pressed", String(isActive));
+      });
+
+      priceNodes.forEach((node) => {
+        const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
+        if (prices[duration]) {
+          node.textContent = prices[duration];
+        }
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const duration = button.getAttribute("data-plan-duration");
+        if (duration) setDuration(duration);
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,37 @@
+---
+type AudienceCopy = {
+  title: string;
+  body: string;
+};
+
+type SaleTypeCard = {
+  title: string;
+  summary: string;
+  slug: string;
+};
+
+const { audiences, saleTypes } = Astro.props as {
+  audiences: AudienceCopy;
+  saleTypes: SaleTypeCard[];
+};
+---
+
+<section id="audiences" class="home-section">
+  <div class="home-container">
+    <div class="home-section-heading">
+      <h2>{audiences.title}</h2>
+      <p>{audiences.body}</p>
+    </div>
+
+    <div class="home-audience-grid">
+      {saleTypes.map((item) => (
+        <article class="home-audience-card">
+          <span aria-hidden="true"></span>
+          <h3>{item.title}</h3>
+          <p>{item.summary}</p>
+          <a class="home-text-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

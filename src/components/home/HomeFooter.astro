@@ -1,0 +1,129 @@
+---
+import { footer, footerLinkGroups, site, socialLinks, utilityLinks } from "@/content/home";
+import { constructionStages, workFields as constructionWorkFields } from "@/content/construction";
+import { saleTypes as saleTypeContent } from "@/content/sales";
+
+const [primaryPages, footerSaleTypes, cityLinks, workFields, stageLinks] = footerLinkGroups;
+const reversedContacts = [...site.contacts].reverse();
+const legalLink = utilityLinks[0];
+const bottomUtilityLinks = utilityLinks.slice(1, 5);
+const footerWorkFieldLinks = [
+  ...constructionWorkFields.slice(0, 6).map((field) => ({
+    label: field.title,
+    href: `/work-fields/${field.slug}/`,
+  })),
+  ...workFields.links,
+];
+const footerStageLinks = [
+  ...constructionStages.slice(0, 6).map((stage) => ({
+    label: stage.title,
+    href: `/construction-stages/${stage.slug}/`,
+  })),
+  ...stageLinks.links,
+];
+const footerSaleTypeLinks = [
+  ...saleTypeContent.map((saleType) => ({
+    label: saleType.title,
+    href: `/sale-types/${saleType.slug}/`,
+  })),
+  ...footerSaleTypes.links,
+];
+---
+
+<footer class="home-footer">
+  <div class="home-container home-footer-main">
+    <section class="home-footer-brand">
+      <a class="home-brand" href="/">
+        <span class="home-brand-mark" aria-hidden="true">PS</span>
+        <span class="home-brand-copy">
+          <strong>{site.name}</strong>
+          <span>{footer.tagline}</span>
+        </span>
+      </a>
+      <p>{footer.description}</p>
+
+      <h2 class="sr-only">{footer.contactTitle}</h2>
+      <ul class="home-footer-contact">
+        <li class="home-footer-phone-row">
+          {reversedContacts.map((contact, index) => (
+            <>
+              <a href={contact.href} dir="ltr">{contact.phone}</a>
+              {index < reversedContacts.length - 1 && <span aria-hidden="true">|</span>}
+            </>
+          ))}
+        </li>
+        <li>{site.address}</li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li>{site.openingHoursText}</li>
+      </ul>
+
+      <div class="home-trust-placeholder">{footer.trustPlaceholder}</div>
+
+      <h2 class="sr-only">{footer.socialTitle}</h2>
+      <div class="home-social-row">
+        {socialLinks.map((item) => (
+          <a href={item.href} rel="noreferrer" aria-label={item.label}>
+            <span aria-hidden="true"></span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <div class="home-footer-links">
+      <section>
+        <h2>{primaryPages.title}</h2>
+        <ul>
+          {primaryPages.links.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+        <h2 class="home-footer-legal"><a href={legalLink.href}>{legalLink.label}</a></h2>
+      </section>
+
+      <section>
+        <h2>{workFields.title}</h2>
+        <ul>
+          {footerWorkFieldLinks.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>{cityLinks.title}</h2>
+        <ul>
+          {cityLinks.links.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>{stageLinks.title}</h2>
+        <ul>
+          {footerStageLinks.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>{footerSaleTypes.title}</h2>
+        <ul>
+          {footerSaleTypeLinks.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <div class="home-container home-footer-bottom">
+    <nav aria-label="لینک‌های کمکی فوتر">
+      {bottomUtilityLinks.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+    <p>© {new Date().getFullYear()} {site.name}</p>
+  </div>
+</footer>

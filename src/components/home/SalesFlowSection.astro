@@ -1,0 +1,37 @@
+---
+type SalesFlowStage = {
+  title: string;
+  body: string;
+  outcome: string;
+};
+
+const { salesFlow } = Astro.props as {
+  salesFlow: {
+    title: string;
+    cta: string;
+    ariaLabel: string;
+    stages: SalesFlowStage[];
+  };
+};
+---
+
+<section id="sales-flow" class="home-section">
+  <div class="home-container">
+    <div class="home-section-heading">
+      <h2>{salesFlow.title}</h2>
+    </div>
+
+    <div class="home-flow-board" role="list" aria-label={salesFlow.ariaLabel}>
+      {salesFlow.stages.map((stage) => (
+        <article class="home-flow-step" role="listitem">
+          <p class="home-flow-step-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
+          <p class="home-flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="home-flow-footer">
+      <a class="button button-primary" href="#demo">{salesFlow.cta} ←</a>
+    </div>
+  </div>
+</section>

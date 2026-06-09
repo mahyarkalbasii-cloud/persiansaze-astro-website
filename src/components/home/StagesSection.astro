@@ -1,0 +1,96 @@
+---
+type HomeStageCard = {
+  title: string;
+  sourcePhase: string;
+  summary: string;
+  href: string;
+};
+
+const { homeStageCards, initialHomeStage } = Astro.props as {
+  homeStageCards: HomeStageCard[];
+  initialHomeStage: HomeStageCard;
+};
+---
+
+<section id="stages" class="home-section" aria-label="مراحل ساخت" data-stage-rotation>
+  <div class="home-container">
+    <div class="home-stage-rail" role="tablist" aria-label="مراحل ساخت">
+      {homeStageCards.map((stage, index) => (
+        <button
+          class={index === 0 ? "home-stage-tile active" : "home-stage-tile"}
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls="stage-info-panel"
+          data-stage-index={index}
+        >
+          <strong>{stage.title}</strong>
+        </button>
+      ))}
+    </div>
+
+    <article class="home-stage-info-card" id="stage-info-panel" aria-live="polite">
+      <div class="home-stage-info-copy">
+        <h3 data-stage-title>{initialHomeStage.title}</h3>
+        <p data-stage-summary>{initialHomeStage.summary}</p>
+      </div>
+      <div class="home-stage-info-side">
+        <span>زمان تصمیم‌گیری سازنده</span>
+        <p data-stage-source>{initialHomeStage.sourcePhase}</p>
+        <a class="button button-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
+      </div>
+    </article>
+  </div>
+  <script is:inline type="application/json" id="home-stage-data" set:html={JSON.stringify(homeStageCards)} />
+  <script is:inline>
+    (() => {
+      const root = document.querySelector("[data-stage-rotation]");
+      const dataNode = document.getElementById("home-stage-data");
+      if (!root || !dataNode) return;
+
+      const stages = JSON.parse(dataNode.textContent || "[]");
+      const buttons = [...root.querySelectorAll("[data-stage-index]")];
+      const title = root.querySelector("[data-stage-title]");
+      const summary = root.querySelector("[data-stage-summary]");
+      const source = root.querySelector("[data-stage-source]");
+      const link = root.querySelector("[data-stage-link]");
+      let activeIndex = 0;
+      let userLocked = false;
+      let timerId = null;
+
+      const selectStage = (index, lock = false) => {
+        const stage = stages[index];
+        if (!stage) return;
+
+        activeIndex = index;
+        buttons.forEach((button, buttonIndex) => {
+          const isActive = buttonIndex === index;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        if (title) title.textContent = stage.title;
+        if (summary) summary.textContent = stage.summary;
+        if (source) source.textContent = stage.sourcePhase;
+        if (link) link.setAttribute("href", stage.href);
+
+        if (lock && !userLocked) {
+          userLocked = true;
+          if (timerId) window.clearInterval(timerId);
+        }
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          selectStage(Number(button.dataset.stageIndex), true);
+        });
+      });
+
+      if (stages.length > 1) {
+        timerId = window.setInterval(() => {
+          if (!userLocked) selectStage((activeIndex + 1) % stages.length);
+        }, 10000);
+      }
+    })();
+  </script>
+</section>

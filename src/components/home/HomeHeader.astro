@@ -1,0 +1,67 @@
+---
+import { footer, navigation, site } from "@/content/home";
+
+const primaryContact = site.contacts[0];
+---
+
+<header class="home-header" data-home-header>
+  <div class="home-container home-header-inner">
+    <a class="home-brand" href="/">
+      <span class="home-brand-mark" aria-hidden="true">PS</span>
+      <span class="home-brand-copy">
+        <strong>{site.name}</strong>
+        <span>{footer.tagline}</span>
+      </span>
+    </a>
+
+    <button
+      class="home-menu-button"
+      type="button"
+      aria-label="باز کردن منوی سایت"
+      aria-expanded="false"
+      aria-controls="home-nav"
+      data-home-menu-button
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <nav id="home-nav" class="home-nav" aria-label="ناوبری اصلی" data-home-nav>
+      {navigation.map((item) => (
+        <a href={item.href}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="home-header-actions">
+      <a class="home-header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+      <a class="button button-secondary" href="#demo">ورود</a>
+      <a class="button button-primary" href="#demo">درخواست دمو</a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector("[data-home-header]");
+    const button = document.querySelector("[data-home-menu-button]");
+    const nav = document.querySelector("[data-home-nav]");
+    if (!header || !button || !nav) return;
+
+    const setOpen = (isOpen) => {
+      header.classList.toggle("is-open", isOpen);
+      button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    };
+
+    button.addEventListener("click", () => {
+      setOpen(!header.classList.contains("is-open"));
+    });
+
+    nav.addEventListener("click", (event) => {
+      if (event.target instanceof HTMLAnchorElement) setOpen(false);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setOpen(false);
+    });
+  })();
+</script>
