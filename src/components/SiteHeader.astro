@@ -9,7 +9,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
 <header class="site-header">
   <div class="container site-header-inner">
     <a class="brand" href="/">
-      <span class="brand-mark" aria-hidden="true">PS</span>
+      {!home && <span class="brand-mark" aria-hidden="true">PS</span>}
       <span class="brand-copy">
         <strong>{site.name}</strong>
         <span>{footer.tagline}</span>
@@ -24,8 +24,55 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
 
     <div class="header-actions">
       <a class="header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-      <a class="button button-secondary" href={home ? "#demo" : "/#demo"}>ورود</a>
-      <a class="button button-primary" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
+      <a class="button button-secondary header-login-link" href={home ? "#demo" : "/#demo"}>ورود</a>
+      <a class="button button-primary header-demo-link" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
+      {home && (
+        <button
+          class="mobile-menu-toggle"
+          type="button"
+          aria-label="باز کردن منوی سایت"
+          aria-expanded="false"
+          aria-controls="mobile-navigation"
+          data-mobile-menu-toggle
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      )}
     </div>
+
+    {home && (
+      <nav class="mobile-nav-panel" id="mobile-navigation" aria-label="منوی موبایل" data-mobile-menu hidden>
+        {navigation.map((item) => (
+          <a href={hrefFor(item.href)}>{item.label}</a>
+        ))}
+        <a href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+        <a href={home ? "#demo" : "/#demo"}>ورود</a>
+        <a href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
+      </nav>
+    )}
   </div>
+  {home && (
+    <script is:inline>
+      (() => {
+        const toggle = document.querySelector("[data-mobile-menu-toggle]");
+        const menu = document.querySelector("[data-mobile-menu]");
+        if (!toggle || !menu) return;
+
+        const setOpen = (open) => {
+          toggle.setAttribute("aria-expanded", String(open));
+          menu.toggleAttribute("hidden", !open);
+        };
+
+        toggle.addEventListener("click", () => {
+          setOpen(toggle.getAttribute("aria-expanded") !== "true");
+        });
+
+        menu.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => setOpen(false));
+        });
+      })();
+    </script>
+  )}
 </header>

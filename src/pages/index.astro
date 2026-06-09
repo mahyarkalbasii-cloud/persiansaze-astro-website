@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import ImagePlaceholder from "@/components/ImagePlaceholder.astro";
 import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
 import PersianDigitsScript from "@/components/PersianDigitsScript.astro";
@@ -187,16 +188,7 @@ const schemaGraph = [
 
           <div class="media-placeholder hero-placeholder hero-bento" aria-label={hero.placeholder}>
             <div class="hero-bento-scene" aria-hidden="true">
-              <img
-                class="hero-neon-image"
-                src="/assets/company/home-hero-neon.webp"
-                alt=""
-                width="1254"
-                height="1254"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-              />
+              <ImagePlaceholder class="hero-neon-image" label={hero.placeholder} />
             </div>
           </div>
         </div>
@@ -206,15 +198,7 @@ const schemaGraph = [
         <div class="container two-column">
           <div class="media-placeholder problem-placeholder market-friction problem-image-card" aria-label={problem.placeholder}>
             <figure class="problem-image-frame" aria-hidden="true">
-              <img
-                class="problem-neon-image"
-                src="/assets/company/home-problem-map.webp"
-                alt=""
-                width="1254"
-                height="1254"
-                loading="lazy"
-                decoding="async"
-              />
+              <ImagePlaceholder class="problem-neon-image" label={problem.placeholder} />
             </figure>
 
             <div class="friction-head">
@@ -280,15 +264,7 @@ const schemaGraph = [
           <div class="solution-showcase">
             <div class="solution-main-row">
               <figure class="solution-visual-card" aria-label={solution.visualAlt}>
-                <img
-                  class="solution-neon-image"
-                  src="/assets/company/home-solution-map.webp"
-                  alt=""
-                  width="1254"
-                  height="1254"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <ImagePlaceholder class="solution-neon-image" label={solution.visualAlt} />
               </figure>
 
               <section class="solution-data-panel" aria-labelledby="solution-data-title">
@@ -430,15 +406,7 @@ const schemaGraph = [
 
           <div class="flow-layout">
             <figure class="flow-visual-card" aria-label="نمای تصویری چهار گام فروش پروژه‌محور">
-              <img
-                class="flow-visual-image"
-                src="/assets/company/home-sales-flow.webp"
-                alt=""
-                width="1122"
-                height="1402"
-                loading="lazy"
-                decoding="async"
-              />
+              <ImagePlaceholder class="flow-visual-image" label="نمای تصویری چهار گام فروش پروژه‌محور" />
             </figure>
 
             <div class="flow-board" role="list" aria-label={salesFlow.ariaLabel}>
@@ -591,15 +559,7 @@ const schemaGraph = [
 
             <div class="demo-cards">
               <figure class="demo-visual-card" aria-label="نمای تصویری نقشه پروژه‌ها و پیگیری فروش">
-                <img
-                  class="demo-visual-image"
-                  src="/assets/company/home-demo-map.webp"
-                  alt=""
-                  width="1254"
-                  height="1254"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <ImagePlaceholder class="demo-visual-image" label="نمای تصویری نقشه پروژه‌ها و پیگیری فروش" />
               </figure>
 
               <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">

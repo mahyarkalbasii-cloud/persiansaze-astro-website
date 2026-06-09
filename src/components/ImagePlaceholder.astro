@@ -1,0 +1,15 @@
+---
+type Props = {
+  class?: string;
+  label?: string;
+  variant?: "default" | "icon";
+};
+
+const { class: className = "", label = "جایگاه تصویر", variant = "default" } = Astro.props as Props;
+const classes = ["image-placeholder", `image-placeholder-${variant}`, className].filter(Boolean).join(" ");
+---
+
+<div class={classes} role="img" aria-label={label}>
+  <span class="image-placeholder-mark" aria-hidden="true"></span>
+  <strong>{label}</strong>
+</div>
