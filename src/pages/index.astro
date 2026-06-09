@@ -170,84 +170,56 @@ const schemaGraph = [
   <body class="home-color-anthropic">
     <SiteHeader home />
 
-    <main class="home-page">
-      <section id="hero" class="hero">
-        <div class="container hero-grid">
-          <div class="hero-copy">
+    <main class="ah-home">
+      <section id="hero" class="ah-hero">
+        <div class="container ah-hero-grid">
+          <div class="ah-hero-copy">
             <h1>
               <span>{hero.titleLines[0]}</span>
               <span>{hero.titleLines[1]}</span>
             </h1>
-            <p>{hero.body}</p>
-            <div class="action-row">
-              <a class="button button-primary" href="#demo">{hero.primaryCta}</a>
-              <a class="button button-secondary" href="#problem">{hero.secondaryCta}</a>
+            <p class="ah-lead">{hero.body}</p>
+            <div class="ah-actions">
+              <a class="ah-btn ah-btn-primary" href="#demo">{hero.primaryCta}</a>
+              <a class="ah-btn ah-btn-outline" href="#problem">{hero.secondaryCta}</a>
             </div>
           </div>
 
-          <div class="media-placeholder hero-placeholder hero-bento" aria-label={hero.placeholder}>
-            <div class="hero-bento-scene" aria-hidden="true">
-              <img
-                class="hero-neon-image"
-                src="/assets/company/home-hero-neon.webp"
-                alt=""
-                width="1254"
-                height="1254"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-              />
-            </div>
+          <div class="ah-placeholder ah-hero-art">
+            <svg class="ah-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+              <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
+              <circle cx="18" cy="20" r="5" stroke="currentColor" stroke-width="2" />
+              <path d="M10 36L20 27L28 32L38 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="ah-placeholder-label">{hero.placeholder}</span>
           </div>
         </div>
       </section>
 
-      <section id="problem" class="section problem-section">
-        <div class="container two-column">
-          <div class="media-placeholder problem-placeholder market-friction problem-image-card" aria-label={problem.placeholder}>
-            <figure class="problem-image-frame" aria-hidden="true">
-              <img
-                class="problem-neon-image"
-                src="/assets/company/home-problem-map.webp"
-                alt=""
-                width="1254"
-                height="1254"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-
-            <div class="friction-head">
-              <span>روایت مسئله بازار</span>
+      <section id="problem" class="ah-section">
+        <div class="container ah-split">
+          <article class="ah-card ah-problem-card">
+            <header class="ah-problem-head">
+              <span class="ah-eyebrow">روایت مسئله بازار</span>
               <strong>فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
-            </div>
+            </header>
 
-            <div class="friction-canvas" aria-hidden="true">
-              <svg viewBox="0 0 520 300" role="img" aria-label="پراکندگی پروژه‌ها و پنجره زمانی تماس">
-                <defs>
-                  <pattern id="problem-grid" width="42" height="42" patternUnits="userSpaceOnUse">
-                    <path d="M42 0H0V42" fill="none" stroke="currentColor" stroke-width="1" />
-                  </pattern>
-                </defs>
-                <rect width="520" height="300" rx="24" fill="currentColor" opacity="0.035" />
-                <rect width="520" height="300" rx="24" fill="url(#problem-grid)" opacity="0.26" />
-                <path class="friction-window" d="M286 35V265" />
-                <path class="friction-path early" d="M72 222C124 178 176 176 226 131" />
-                <path class="friction-path late" d="M313 123C363 94 416 101 468 63" />
-                <g class="friction-dot muted" transform="translate(92 78)"><circle r="12" /></g>
-                <g class="friction-dot" transform="translate(157 198)"><circle r="14" /></g>
-                <g class="friction-dot active" transform="translate(286 132)"><circle r="22" /><circle r="6" /></g>
-                <g class="friction-dot" transform="translate(388 96)"><circle r="14" /></g>
-                <g class="friction-dot muted" transform="translate(455 218)"><circle r="12" /></g>
+            <div class="ah-placeholder ah-problem-art">
+              <svg class="ah-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
+                <circle cx="16" cy="30" r="4" stroke="currentColor" stroke-width="2" />
+                <circle cx="32" cy="18" r="4" stroke="currentColor" stroke-width="2" />
+                <path d="M19 27L29 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4" />
               </svg>
-
-              <div class="friction-window-card">
-                <span>پنجره تماس</span>
-                <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
-              </div>
+              <span class="ah-placeholder-label">{problem.placeholder}</span>
             </div>
 
-            <div class="friction-metrics">
+            <div class="ah-chip">
+              <span>پنجره تماس</span>
+              <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
+            </div>
+
+            <div class="ah-mini-grid">
               <article>
                 <span>پراکندگی</span>
                 <strong>پروژه‌ها روی چند مسیر پخش‌اند</strong>
@@ -261,110 +233,108 @@ const schemaGraph = [
                 <strong>بدون نظم، فرصت‌ها در صف می‌مانند</strong>
               </article>
             </div>
-          </div>
-          <div class="section-copy">
+          </article>
+
+          <div class="ah-section-copy">
             <h2>{problem.title}</h2>
             <p>{problem.body}</p>
-            <a class="button button-secondary" href="#solution">{problem.cta}</a>
+            <a class="ah-btn ah-btn-outline" href="#solution">{problem.cta}</a>
           </div>
         </div>
       </section>
 
-      <section id="solution" class="section">
+      <section id="solution" class="ah-section ah-section-tinted">
         <div class="container">
-          <div class="section-heading">
+          <div class="ah-heading">
             <h2>{solution.title}</h2>
             <p>{solution.body}</p>
           </div>
 
-          <div class="solution-showcase">
-            <div class="solution-main-row">
-              <figure class="solution-visual-card" aria-label={solution.visualAlt}>
-                <img
-                  class="solution-neon-image"
-                  src="/assets/company/home-solution-map.webp"
-                  alt=""
-                  width="1254"
-                  height="1254"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
+          <div class="ah-solution-grid">
+            <figure class="ah-placeholder ah-solution-art" aria-label={solution.visualAlt}>
+              <svg class="ah-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
+                <path d="M14 14H26" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M14 22H34" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M14 30H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <circle cx="32" cy="32" r="4" stroke="currentColor" stroke-width="2" />
+              </svg>
+              <span class="ah-placeholder-label">{solution.dashboardPlaceholder}</span>
+            </figure>
 
-              <section class="solution-data-panel" aria-labelledby="solution-data-title">
-                <h3 id="solution-data-title">{solution.dataTitle}</h3>
-                <div class="solution-data-grid">
-                  {solution.dataCards.map((card) => (
-                    <article>
-                      <h4>{card.title}</h4>
-                      <p>{card.body}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-            </div>
-
-            <section class="solution-stack-panel" aria-labelledby="solution-stack-title">
-              <h3 id="solution-stack-title">{solution.stackTitle}</h3>
-              <div class="feature-strip solution-feature-strip">
-                {solution.features.map((feature) => (
+            <section class="ah-card ah-data-panel" aria-labelledby="solution-data-title">
+              <h3 id="solution-data-title">{solution.dataTitle}</h3>
+              <div class="ah-data-list">
+                {solution.dataCards.map((card) => (
                   <article>
-                    <span>{feature.label}</span>
-                    <h4>{feature.title}</h4>
-                    <p>{feature.body}</p>
+                    <h4>{card.title}</h4>
+                    <p>{card.body}</p>
                   </article>
                 ))}
               </div>
             </section>
           </div>
+
+          <section class="ah-stack-panel" aria-labelledby="solution-stack-title">
+            <h3 id="solution-stack-title">{solution.stackTitle}</h3>
+            <div class="ah-feature-grid">
+              {solution.features.map((feature) => (
+                <article class="ah-card">
+                  <span class="ah-badge">{feature.label}</span>
+                  <h4>{feature.title}</h4>
+                  <p>{feature.body}</p>
+                </article>
+              ))}
+            </div>
+          </section>
         </div>
       </section>
 
-      <section id="audiences" class="section">
+      <section id="audiences" class="ah-section">
         <div class="container">
-          <div class="section-heading">
+          <div class="ah-heading">
             <h2>{audiences.title}</h2>
             <p>{audiences.body}</p>
           </div>
 
-          <div class="audience-grid">
+          <div class="ah-audience-grid">
             {saleTypes.map((item) => (
-              <article class="audience-card">
+              <article class="ah-card ah-audience-card">
                 <h3>{item.title}</h3>
                 <p>{item.summary}</p>
-                <a class="text-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
+                <a class="ah-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation>
+      <section id="stages" class="ah-section ah-section-tinted" aria-label="مراحل ساخت" data-stage-rotation>
         <div class="container">
-          <div class="stage-rail" role="tablist" aria-label="مراحل ساخت">
+          <div class="ah-tabs" role="tablist" aria-label="مراحل ساخت">
             {homeStageCards.map((stage, index) => (
               <button
-                class={index === 0 ? "stage-tile active" : "stage-tile"}
+                class={index === 0 ? "ah-tab active" : "ah-tab"}
                 type="button"
                 role="tab"
                 aria-selected={index === 0 ? "true" : "false"}
                 aria-controls="stage-info-panel"
                 data-stage-index={index}
               >
-                <strong>{stage.title}</strong>
+                {stage.title}
               </button>
             ))}
           </div>
 
-          <article class="stage-info-card" id="stage-info-panel" aria-live="polite">
-            <div class="stage-info-copy">
+          <article class="ah-card ah-stage-card" id="stage-info-panel" aria-live="polite">
+            <div class="ah-stage-copy">
               <h3 data-stage-title>{initialHomeStage.title}</h3>
               <p data-stage-summary>{initialHomeStage.summary}</p>
             </div>
-            <div class="stage-info-side">
+            <div class="ah-stage-side">
               <span>زمان تصمیم‌گیری سازنده</span>
               <p data-stage-source>{initialHomeStage.sourcePhase}</p>
-              <a class="button button-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
+              <a class="ah-btn ah-btn-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
             </div>
           </article>
         </div>
@@ -422,105 +392,95 @@ const schemaGraph = [
         </script>
       </section>
 
-      <section id="sales-flow" class="section">
+      <section id="sales-flow" class="ah-section">
         <div class="container">
-          <div class="section-heading">
+          <div class="ah-heading">
             <h2>{salesFlow.title}</h2>
           </div>
 
-          <div class="flow-layout">
-            <figure class="flow-visual-card" aria-label="نمای تصویری چهار گام فروش پروژه‌محور">
-              <img
-                class="flow-visual-image"
-                src="/assets/company/home-sales-flow.webp"
-                alt=""
-                width="1122"
-                height="1402"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-
-            <div class="flow-board" role="list" aria-label={salesFlow.ariaLabel}>
-              {salesFlow.stages.map((stage) => (
-                <article class="flow-step" role="listitem">
-                  <p class="flow-step-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
-                  <p class="flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
-                </article>
-              ))}
-            </div>
+          <div class="ah-flow-grid" role="list" aria-label={salesFlow.ariaLabel}>
+            {salesFlow.stages.map((stage) => (
+              <article class="ah-card ah-flow-step" role="listitem">
+                <span class="ah-step-number">{stage.number}</span>
+                <p class="ah-flow-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
+                <p class="ah-flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
+              </article>
+            ))}
           </div>
 
-          <div class="flow-footer">
-            <a class="button button-primary" href="#demo">{salesFlow.cta} ←</a>
+          <div class="ah-flow-footer">
+            <a class="ah-btn ah-btn-primary" href="#demo">{salesFlow.cta} ←</a>
           </div>
         </div>
       </section>
 
-      <section id="plans" class="section">
+      <section id="plans" class="ah-section ah-section-tinted">
         <div class="container">
-          <div class="section-heading centered">
+          <div class="ah-heading ah-heading-centered">
             <h2>{pricing.title}</h2>
             <p>{pricing.description}</p>
           </div>
 
-          <div class="duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
+          <div class="ah-tabs ah-duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
             {pricing.durations.map((duration) => (
               <button
-                class={duration.id === defaultDuration ? "active" : ""}
+                class={duration.id === defaultDuration ? "ah-tab active" : "ah-tab"}
                 type="button"
                 role="tab"
                 aria-selected={duration.id === defaultDuration ? "true" : "false"}
                 aria-pressed={duration.id === defaultDuration ? "true" : "false"}
                 data-plan-duration={duration.id}
               >
-                <span class="duration-number">{duration.id}</span>
-                <span class="duration-unit">ماهه</span>
+                <span class="ah-duration-number">{duration.id}</span>
+                <span class="ah-duration-unit">ماهه</span>
               </button>
             ))}
           </div>
 
-          <div class="pricing-grid">
+          <div class="ah-pricing-grid">
             {pricing.plans.map((plan) => (
-              <article class="pricing-card">
-                <header class="plan-card-head">
-                  <div class="plan-icon-shell">
-                    <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
-                  </div>
+              <article class="ah-card ah-price-card">
+                <header class="ah-price-head">
+                  <span class="ah-plan-mark" role="img" aria-label={plan.iconAlt}>
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3" />
+                      <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.5" />
+                    </svg>
+                  </span>
                   <h3>{plan.name}</h3>
                 </header>
-                <strong class="price">
+                <strong class="ah-price">
                   <span
-                    class="price-number"
+                    class="ah-price-number"
                     data-plan-price
                     data-prices={JSON.stringify(plan.prices)}
                   >
                     {plan.prices[defaultDuration]}
                   </span>
-                  <span class="price-currency">{pricing.currency}</span>
+                  <span class="ah-price-currency">{pricing.currency}</span>
                 </strong>
-                <p class="plan-scope">
+                <p class="ah-plan-scope">
                   <span>{plan.landLine}</span>
-                  <span class="plan-scope-separator" aria-hidden="true">-</span>
+                  <span class="ah-plan-scope-separator" aria-hidden="true">-</span>
                   <span>{pricing.stagesIncluded}</span>
                 </p>
-                <ul class="plan-highlights">
+                <ul class="ah-plan-highlights">
                   {plan.highlights.map((item) => <li>{item}</li>)}
                 </ul>
-                <div class="market-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
+                <div class="ah-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
                   <strong>{pricing.coverage}</strong>
-                  <div class="coverage-meter" aria-hidden="true">
+                  <div class="ah-coverage-meter" aria-hidden="true">
                     {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
                   </div>
                 </div>
-                <p class="plan-addon">
+                <p class="ah-plan-addon">
                   <span>هر مرحله اضافه:</span>
-                  <span class="addon-price">
+                  <span class="ah-addon-price">
                     <span>{plan.addonPrice}</span>
                     <span>{pricing.currency}</span>
                   </span>
                 </p>
-                <a class="button button-secondary" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
+                <a class="ah-btn ah-btn-outline" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
               </article>
             ))}
           </div>
@@ -532,7 +492,7 @@ const schemaGraph = [
           const plansSection = document.getElementById("plans");
           if (!plansSection) return;
 
-          const durationTabs = plansSection.querySelector(".duration-tabs");
+          const durationTabs = plansSection.querySelector(".ah-duration-tabs");
           const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
           const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
 
@@ -563,17 +523,22 @@ const schemaGraph = [
         })();
       </script>
 
-      <section id="faq" class="section">
+      <section id="faq" class="ah-section">
         <div class="container">
-          <div class="section-heading centered">
-            <span class="placeholder-label">{faqSection.eyebrow}</span>
+          <div class="ah-heading ah-heading-centered">
+            <span class="ah-eyebrow">{faqSection.eyebrow}</span>
             <h2>{faqSection.title}</h2>
             <p>{faqSection.description}</p>
           </div>
-          <div class="faq-list">
+          <div class="ah-faq">
             {faqs.map((item) => (
-              <details>
-                <summary>{item.question}</summary>
+              <details class="ah-faq-item">
+                <summary>
+                  {item.question}
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </summary>
                 <p>{item.answer}</p>
               </details>
             ))}
@@ -581,65 +546,58 @@ const schemaGraph = [
         </div>
       </section>
 
-      <section id="demo" class="section demo-section">
-        <div class="container">
-          <div class="demo-shell">
-            <div class="demo-copy">
-              <h2>{demo.title}</h2>
-              <p>{demo.body}</p>
-            </div>
+      <section id="demo" class="ah-demo">
+        <div class="container ah-demo-grid">
+          <div class="ah-demo-copy">
+            <h2>{demo.title}</h2>
+            <p>{demo.body}</p>
 
-            <div class="demo-cards">
-              <figure class="demo-visual-card" aria-label="نمای تصویری نقشه پروژه‌ها و پیگیری فروش">
-                <img
-                  class="demo-visual-image"
-                  src="/assets/company/home-demo-map.webp"
-                  alt=""
-                  width="1254"
-                  height="1254"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-
-              <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
-                <h3>{demo.form.submit}</h3>
-                <div class="form-grid">
-                  <label class="field">
-                    <span>{demo.form.name}</span>
-                    <input name="name" autocomplete="name" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.phone}</span>
-                    <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.company}</span>
-                    <input name="company" autocomplete="organization" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.referralSource}</span>
-                    <select name="referralSource">
-                      <option value="">{demo.form.choose}</option>
-                      {demo.form.referralSourceOptions.map((option) => (
-                        <option value={option}>{option}</option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
-                <label class="field">
-                  <span>{demo.form.supplier}</span>
-                  <select name="supplier">
-                    <option value="">{demo.form.choose}</option>
-                    {demoWorkFieldOptions.map((option) => (
-                      <option value={option}>{option}</option>
-                    ))}
-                  </select>
-                </label>
-                <button class="button button-primary" type="submit">{demo.form.submit}</button>
-              </form>
+            <div class="ah-demo-path">
+              <strong>{demo.pathTitle}</strong>
+              <ol>
+                {demo.steps.map((step) => (
+                  <li>{step}</li>
+                ))}
+              </ol>
             </div>
           </div>
+
+          <form class="ah-card ah-demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+            <h3>{demo.form.submit}</h3>
+            <div class="ah-form-grid">
+              <label class="ah-field">
+                <span>{demo.form.name}</span>
+                <input name="name" autocomplete="name" />
+              </label>
+              <label class="ah-field">
+                <span>{demo.form.phone}</span>
+                <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
+              </label>
+              <label class="ah-field">
+                <span>{demo.form.company}</span>
+                <input name="company" autocomplete="organization" />
+              </label>
+              <label class="ah-field">
+                <span>{demo.form.referralSource}</span>
+                <select name="referralSource">
+                  <option value="">{demo.form.choose}</option>
+                  {demo.form.referralSourceOptions.map((option) => (
+                    <option value={option}>{option}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <label class="ah-field">
+              <span>{demo.form.supplier}</span>
+              <select name="supplier">
+                <option value="">{demo.form.choose}</option>
+                {demoWorkFieldOptions.map((option) => (
+                  <option value={option}>{option}</option>
+                ))}
+              </select>
+            </label>
+            <button class="ah-btn ah-btn-primary" type="submit">{demo.form.submit}</button>
+          </form>
         </div>
       </section>
     </main>
@@ -648,3 +606,989 @@ const schemaGraph = [
     <PersianDigitsScript />
   </body>
 </html>
+
+<style>
+  main.ah-home {
+    --ah-paper: #faf9f5;
+    --ah-ink: #141413;
+    --ah-ink-soft: #3d3d3a;
+    --ah-muted: #6e6a60;
+    --ah-oat: #f0eee6;
+    --ah-card: #ffffff;
+    --ah-border: rgba(20, 20, 19, 0.12);
+    --ah-border-strong: rgba(20, 20, 19, 0.22);
+    --ah-accent: #d97757;
+    --ah-accent-ink: #b4552f;
+    --ah-accent-soft: rgba(217, 119, 87, 0.12);
+    --ah-radius: 1.25rem;
+    --ah-radius-sm: 0.75rem;
+    background: var(--ah-paper);
+    color: var(--ah-ink);
+  }
+
+  /* ---------- Primitives (shadcn/ui-like) ---------- */
+
+  .ah-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    padding: 0.7rem 1.6rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .ah-btn-primary {
+    background: var(--ah-ink);
+    color: var(--ah-paper);
+  }
+
+  .ah-btn-primary:hover {
+    background: var(--ah-ink-soft);
+    transform: translateY(-1px);
+  }
+
+  .ah-btn-outline {
+    background: transparent;
+    border-color: var(--ah-border-strong);
+    color: var(--ah-ink);
+  }
+
+  .ah-btn-outline:hover {
+    background: var(--ah-card);
+    border-color: var(--ah-ink);
+    transform: translateY(-1px);
+  }
+
+  .ah-card {
+    background: var(--ah-card);
+    border: 1px solid var(--ah-border);
+    border-radius: var(--ah-radius);
+    padding: clamp(1.5rem, 1.1rem + 1vw, 2.25rem);
+    box-shadow: 0 1px 2px rgba(20, 20, 19, 0.05);
+  }
+
+  .ah-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid rgba(217, 119, 87, 0.35);
+    border-radius: 9999px;
+    background: var(--ah-accent-soft);
+    color: var(--ah-accent-ink);
+    padding: 0.25rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .ah-badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: 9999px;
+    background: var(--ah-oat);
+    border: 1px solid var(--ah-border);
+    color: var(--ah-ink-soft);
+    padding: 0.2rem 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .ah-link {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--ah-ink);
+    transition: color 160ms ease;
+  }
+
+  .ah-link:hover {
+    color: var(--ah-accent-ink);
+  }
+
+  .ah-placeholder {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0;
+    padding: 2rem;
+    text-align: center;
+    border: 1.5px dashed var(--ah-border-strong);
+    border-radius: var(--ah-radius);
+    background:
+      repeating-linear-gradient(45deg, rgba(20, 20, 19, 0.028) 0 12px, transparent 12px 24px),
+      #fcfbf7;
+  }
+
+  .ah-placeholder-mark {
+    width: 56px;
+    height: 56px;
+    color: var(--ah-accent);
+  }
+
+  .ah-placeholder-label {
+    max-width: 34ch;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.8;
+    color: var(--ah-muted);
+  }
+
+  /* ---------- Layout ---------- */
+
+  .ah-section {
+    border-top: 1px solid var(--ah-border);
+    padding-block: clamp(4rem, 3rem + 3vw, 6.5rem);
+  }
+
+  .ah-section-tinted {
+    background: var(--ah-oat);
+  }
+
+  .ah-heading {
+    max-width: 46rem;
+    margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ah-heading-centered {
+    margin-inline: auto;
+    text-align: center;
+    align-items: center;
+  }
+
+  .ah-heading h2,
+  .ah-section-copy h2 {
+    font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .ah-heading p,
+  .ah-section-copy p {
+    color: var(--ah-ink-soft);
+    line-height: 2;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .ah-hero {
+    padding-block: clamp(4rem, 3rem + 4vw, 7.5rem);
+  }
+
+  .ah-hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: clamp(2.5rem, 2rem + 2vw, 4.5rem);
+  }
+
+  .ah-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .ah-hero h1 {
+    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .ah-hero h1 span {
+    display: block;
+  }
+
+  .ah-hero h1 span:last-child {
+    color: var(--ah-accent-ink);
+  }
+
+  .ah-lead {
+    max-width: 38rem;
+    color: var(--ah-ink-soft);
+    font-size: 1.05rem;
+    line-height: 2.1;
+  }
+
+  .ah-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .ah-hero-art {
+    min-height: clamp(18rem, 14rem + 12vw, 26rem);
+  }
+
+  /* ---------- Problem ---------- */
+
+  .ah-split {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: clamp(2.5rem, 2rem + 2vw, 4.5rem);
+  }
+
+  .ah-section-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .ah-problem-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ah-problem-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ah-problem-head strong {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  .ah-problem-art {
+    min-height: 13rem;
+  }
+
+  .ah-chip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    width: fit-content;
+    border: 1px solid var(--ah-border);
+    border-radius: 9999px;
+    background: var(--ah-oat);
+    padding: 0.45rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  .ah-chip span {
+    color: var(--ah-muted);
+    font-weight: 600;
+  }
+
+  .ah-chip strong {
+    font-weight: 700;
+  }
+
+  .ah-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .ah-mini-grid article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border: 1px solid var(--ah-border);
+    border-radius: var(--ah-radius-sm);
+    background: var(--ah-paper);
+    padding: 0.9rem 1rem;
+  }
+
+  .ah-mini-grid span {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ah-accent-ink);
+  }
+
+  .ah-mini-grid strong {
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.8;
+    color: var(--ah-ink-soft);
+  }
+
+  /* ---------- Solution ---------- */
+
+  .ah-solution-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+
+  .ah-solution-art {
+    min-height: 20rem;
+  }
+
+  .ah-data-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ah-data-panel h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.7;
+  }
+
+  .ah-data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ah-data-list article {
+    border: 1px solid var(--ah-border);
+    border-radius: var(--ah-radius-sm);
+    background: var(--ah-paper);
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ah-data-list h4 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  .ah-data-list p {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: var(--ah-muted);
+  }
+
+  .ah-stack-panel {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ah-stack-panel h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+
+  .ah-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .ah-feature-grid article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+
+  .ah-feature-grid article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px -10px rgba(20, 20, 19, 0.18);
+  }
+
+  .ah-feature-grid h4 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  .ah-feature-grid p {
+    font-size: 0.9rem;
+    line-height: 2;
+    color: var(--ah-muted);
+  }
+
+  /* ---------- Audiences ---------- */
+
+  .ah-audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.25rem;
+  }
+
+  .ah-audience-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+
+  .ah-audience-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px -10px rgba(20, 20, 19, 0.18);
+  }
+
+  .ah-audience-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.8;
+  }
+
+  .ah-audience-card p {
+    flex: 1;
+    font-size: 0.9rem;
+    line-height: 2;
+    color: var(--ah-muted);
+  }
+
+  /* ---------- Tabs (stages + durations) ---------- */
+
+  .ah-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+    border: 1px solid var(--ah-border);
+    border-radius: 1.5rem;
+    background: var(--ah-paper);
+    padding: 0.35rem;
+  }
+
+  .ah-tab {
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    background: transparent;
+    color: var(--ah-muted);
+    padding: 0.5rem 1.1rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .ah-tab:hover {
+    color: var(--ah-ink);
+  }
+
+  .ah-tab.active {
+    background: var(--ah-ink);
+    color: var(--ah-paper);
+    box-shadow: 0 1px 3px rgba(20, 20, 19, 0.2);
+  }
+
+  .ah-stage-card {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
+    align-items: center;
+  }
+
+  .ah-stage-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ah-stage-copy h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+
+  .ah-stage-copy p {
+    color: var(--ah-ink-soft);
+    line-height: 2;
+  }
+
+  .ah-stage-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border-inline-start: 1px solid var(--ah-border);
+    padding-inline-start: clamp(1.25rem, 1rem + 1vw, 2rem);
+  }
+
+  .ah-stage-side span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ah-accent-ink);
+  }
+
+  .ah-stage-side p {
+    font-size: 0.9rem;
+    color: var(--ah-muted);
+    line-height: 2;
+  }
+
+  .ah-stage-side .ah-btn {
+    margin-top: 0.5rem;
+    width: fit-content;
+  }
+
+  /* ---------- Sales flow ---------- */
+
+  .ah-flow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+
+  .ah-flow-step {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .ah-step-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ah-accent);
+    line-height: 1;
+  }
+
+  .ah-flow-summary {
+    flex: 1;
+    font-size: 0.92rem;
+    line-height: 2;
+    color: var(--ah-ink-soft);
+  }
+
+  .ah-flow-summary strong {
+    color: var(--ah-ink);
+  }
+
+  .ah-flow-outcome {
+    border-top: 1px solid var(--ah-border);
+    padding-top: 0.85rem;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--ah-muted);
+  }
+
+  .ah-flow-outcome strong {
+    color: var(--ah-accent-ink);
+  }
+
+  .ah-flow-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+
+  /* ---------- Pricing ---------- */
+
+  .ah-duration-tabs .ah-tab {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+  }
+
+  .ah-duration-number {
+    font-size: 1rem;
+    font-weight: 800;
+  }
+
+  .ah-duration-unit {
+    font-size: 0.8rem;
+  }
+
+  .ah-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .ah-price-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+  }
+
+  .ah-price-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -12px rgba(20, 20, 19, 0.2);
+  }
+
+  .ah-price-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .ah-price-head h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+
+  .ah-plan-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    border: 1.5px dashed var(--ah-border-strong);
+    border-radius: var(--ah-radius-sm);
+    background: var(--ah-oat);
+    color: var(--ah-accent);
+  }
+
+  .ah-plan-mark svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .ah-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .ah-price-number {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .ah-price-currency {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ah-muted);
+  }
+
+  .ah-plan-scope {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--ah-ink-soft);
+  }
+
+  .ah-plan-scope-separator {
+    color: var(--ah-muted);
+  }
+
+  .ah-plan-highlights {
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ah-plan-highlights li {
+    position: relative;
+    margin: 0;
+    padding-inline-start: 1.4rem;
+    font-size: 0.88rem;
+    line-height: 1.9;
+    color: var(--ah-muted);
+  }
+
+  .ah-plan-highlights li::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.65em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--ah-accent-soft);
+    border: 1.5px solid var(--ah-accent);
+  }
+
+  .ah-coverage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-top: 1px solid var(--ah-border);
+    padding-top: 1rem;
+  }
+
+  .ah-coverage strong {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ah-ink-soft);
+  }
+
+  .ah-coverage-meter {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .ah-coverage-meter i {
+    width: 1.35rem;
+    height: 0.45rem;
+    border-radius: 9999px;
+    background: var(--ah-oat);
+    border: 1px solid var(--ah-border);
+  }
+
+  .ah-coverage-meter i.filled {
+    background: var(--ah-accent);
+    border-color: var(--ah-accent);
+  }
+
+  .ah-plan-addon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--ah-muted);
+  }
+
+  .ah-addon-price {
+    display: inline-flex;
+    gap: 0.3rem;
+    font-weight: 700;
+    color: var(--ah-ink);
+  }
+
+  .ah-price-card .ah-btn {
+    width: 100%;
+  }
+
+  /* ---------- FAQ ---------- */
+
+  .ah-faq {
+    max-width: 48rem;
+    margin-inline: auto;
+    border-top: 1px solid var(--ah-border);
+  }
+
+  .ah-faq-item {
+    border-bottom: 1px solid var(--ah-border);
+  }
+
+  .ah-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.1rem;
+    font-weight: 700;
+    font-size: 0.98rem;
+    line-height: 1.9;
+    cursor: pointer;
+    list-style: none;
+    transition: color 160ms ease;
+  }
+
+  .ah-faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .ah-faq-item summary:hover {
+    color: var(--ah-accent-ink);
+  }
+
+  .ah-faq-item summary svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex-shrink: 0;
+    color: var(--ah-muted);
+    transition: transform 200ms ease;
+  }
+
+  .ah-faq-item[open] summary svg {
+    transform: rotate(180deg);
+  }
+
+  .ah-faq-item p {
+    padding-block: 0 1.25rem;
+    font-size: 0.92rem;
+    line-height: 2.1;
+    color: var(--ah-muted);
+  }
+
+  /* ---------- Demo ---------- */
+
+  .ah-demo {
+    background: var(--ah-ink);
+    color: var(--ah-paper);
+    padding-block: clamp(4rem, 3rem + 3vw, 6.5rem);
+  }
+
+  .ah-demo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(2.5rem, 2rem + 2vw, 4.5rem);
+    align-items: center;
+  }
+
+  .ah-demo-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ah-demo-copy h2 {
+    color: var(--ah-paper);
+    font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .ah-demo-copy > p {
+    color: rgba(250, 249, 245, 0.75);
+    line-height: 2.1;
+  }
+
+  .ah-demo-path {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: 1px solid rgba(250, 249, 245, 0.18);
+    border-radius: var(--ah-radius);
+    background: rgba(250, 249, 245, 0.05);
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .ah-demo-path strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ah-accent);
+  }
+
+  .ah-demo-path ol {
+    margin: 0;
+    padding-inline-start: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ah-demo-path li {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 2;
+    color: rgba(250, 249, 245, 0.8);
+  }
+
+  .ah-demo-path li::marker {
+    color: var(--ah-accent);
+    font-weight: 700;
+  }
+
+  .ah-demo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .ah-demo-form h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+
+  .ah-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .ah-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .ah-field span {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ah-ink-soft);
+  }
+
+  .ah-field input,
+  .ah-field select {
+    border: 1px solid var(--ah-border-strong);
+    border-radius: var(--ah-radius-sm);
+    background: var(--ah-paper);
+    color: var(--ah-ink);
+    padding: 0.6rem 0.9rem;
+    font-size: 0.92rem;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .ah-field input:focus-visible,
+  .ah-field select:focus-visible {
+    outline: 0;
+    border-color: var(--ah-accent);
+    box-shadow: 0 0 0 3px var(--ah-accent-soft);
+  }
+
+  .ah-demo-form .ah-btn {
+    margin-top: 0.25rem;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 64em) {
+    .ah-hero-grid,
+    .ah-split,
+    .ah-solution-grid,
+    .ah-demo-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ah-split {
+      grid-template-areas: "copy" "card";
+    }
+
+    .ah-split .ah-section-copy {
+      grid-area: copy;
+    }
+
+    .ah-split .ah-problem-card {
+      grid-area: card;
+    }
+
+    .ah-flow-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ah-feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ah-stage-card {
+      grid-template-columns: 1fr;
+    }
+
+    .ah-stage-side {
+      border-inline-start: 0;
+      border-top: 1px solid var(--ah-border);
+      padding-inline-start: 0;
+      padding-top: 1.25rem;
+    }
+  }
+
+  @media (max-width: 40em) {
+    .ah-flow-grid,
+    .ah-form-grid,
+    .ah-mini-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ah-actions .ah-btn {
+      width: 100%;
+    }
+  }
+</style>
