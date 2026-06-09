@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProductVisual from "@/components/ProductVisual.astro";
 import { absoluteUrl, site } from "@/content/home";
-import { assets, educationStats, educationTracks } from "@/content/company";
+import { educationStats, educationTracks } from "@/content/company";
 
 const title = "آموزش فروش پروژه‌محور | آکادمی پرشین‌سازه";
 const description =
@@ -33,17 +34,13 @@ const structuredData = {
             <a class="button button-secondary" href="#tracks">محورهای آموزشی</a>
           </div>
         </div>
-        <figure class="image-panel hero-image-panel">
-          <img src={assets.academyHero.src} alt={assets.academyHero.alt} loading="eager" decoding="async" />
-        </figure>
+        <ProductVisual variant="academy" label="آموزش فروش پروژه‌محور" class="image-panel hero-image-panel" />
       </div>
     </section>
 
     <section class="section">
       <div class="container page-split">
-        <figure class="image-panel">
-          <img src={assets.academyCover.src} alt={assets.academyCover.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ProductVisual variant="workflow" label="استفاده عملی از آموزش در محصول" class="image-panel" />
         <div class="section-copy">
           <h2>آموزش بخشی از محصول است</h2>
           <p>

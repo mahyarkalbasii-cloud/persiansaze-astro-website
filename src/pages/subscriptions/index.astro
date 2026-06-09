@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PlanGlyph from "@/components/PlanGlyph.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
 
@@ -66,7 +67,7 @@ const structuredData = [
         <div class="subscription-plan-strip">
           {subscriptionPlans.map((plan) => (
             <article class="subscription-plan-mini">
-              <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+              <PlanGlyph planId={plan.id} label={plan.iconAlt} />
               <h2>{plan.name}</h2>
               <p>{plan.subtitle}</p>
               <strong class="subscription-mini-price">

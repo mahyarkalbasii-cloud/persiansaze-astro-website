@@ -1,0 +1,171 @@
+---
+type VisualVariant =
+  | "hero"
+  | "map"
+  | "workflow"
+  | "academy"
+  | "team"
+  | "office"
+  | "contact"
+  | "pricing";
+
+type Props = {
+  variant?: VisualVariant;
+  label?: string;
+  class?: string;
+};
+
+const { variant = "hero", label = "نمای محصول پرشین‌سازه", class: className = "" } = Astro.props;
+const classes = ["product-visual", `product-visual-${variant}`, className].filter(Boolean).join(" ");
+const projects = ["سعادت‌آباد", "قیطریه", "کرج", "لواسان"];
+const stages = ["اسکلت", "سفت‌کاری", "تأسیسات", "نما"];
+---
+
+<div class={classes} role="img" aria-label={label}>
+  <div class="visual-topline">
+    <span class="visual-status-dot"></span>
+    <span>PersianSaze OS</span>
+    <span>Live market</span>
+  </div>
+
+  {
+    variant === "hero" && (
+      <div class="visual-dashboard">
+        <div class="visual-map">
+          <svg viewBox="0 0 520 360" aria-hidden="true">
+            <path class="map-road road-a" d="M34 258C92 226 114 184 170 174C230 163 254 206 310 188C368 170 385 104 476 84" />
+            <path class="map-road road-b" d="M72 94C134 122 168 120 214 92C264 62 306 69 356 114C394 148 430 156 486 138" />
+            <path class="map-road road-c" d="M122 326C154 266 184 238 240 246C292 254 312 302 372 282C412 269 432 240 482 238" />
+            <g class="map-pin pin-a"><circle cx="178" cy="170" r="12" /><circle cx="178" cy="170" r="4" /></g>
+            <g class="map-pin pin-b"><circle cx="314" cy="188" r="16" /><circle cx="314" cy="188" r="5" /></g>
+            <g class="map-pin pin-c"><circle cx="397" cy="112" r="10" /><circle cx="397" cy="112" r="3" /></g>
+            <g class="map-pin pin-d"><circle cx="240" cy="246" r="11" /><circle cx="240" cy="246" r="4" /></g>
+          </svg>
+          <div class="visual-map-card">
+            <span>فرصت فعال</span>
+            <strong>مرحله اسکلت</strong>
+            <small>اقدام پیشنهادی: تماس امروز</small>
+          </div>
+        </div>
+        <div class="visual-side">
+          <div class="visual-search">فیلتر: تهران / مرحله ساخت / اولویت بالا</div>
+          {projects.map((project, index) => (
+            <div class={`visual-row row-${index + 1}`}>
+              <span>{project}</span>
+              <b>{stages[index]}</b>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    variant === "map" && (
+      <div class="visual-market">
+        <div class="signal-column">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="market-lines">
+          {projects.map((project, index) => (
+            <div class={`market-line line-${index + 1}`}>
+              <strong>{project}</strong>
+              <span>{stages[index]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    variant === "workflow" && (
+      <div class="visual-flow">
+        {["کشف", "ارزیابی", "ارتباط", "پیگیری"].map((item, index) => (
+          <div class={`flow-node node-${index + 1}`}>
+            <span>{`0${index + 1}`}</span>
+            <strong>{item}</strong>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    variant === "academy" && (
+      <div class="visual-academy">
+        <div class="lesson-panel">
+          <span>Sales enablement</span>
+          <strong>آموزش در کنار داده</strong>
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+        <div class="lesson-stack">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    variant === "team" && (
+      <div class="visual-team">
+        {["داده", "محصول", "فروش", "پشتیبانی"].map((item) => (
+          <div class="team-node">
+            <span></span>
+            <strong>{item}</strong>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    variant === "office" && (
+      <div class="visual-office">
+        <div class="building-frame">
+          {Array.from({ length: 24 }, (_, index) => <span class={index % 5 === 0 ? "active" : ""}></span>)}
+        </div>
+        <div class="office-note">
+          <strong>مرکز عملیات بازار</strong>
+          <span>جمع‌آوری، کنترل کیفیت، پشتیبانی</span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    variant === "contact" && (
+      <div class="visual-contact">
+        <div class="contact-route">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="contact-panel">
+          <strong>درخواست دمو</strong>
+          <span>ثبت، بررسی، هماهنگی تماس</span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    variant === "pricing" && (
+      <div class="visual-pricing">
+        {[1, 2, 3, 4].map((level) => (
+          <div class={`pricing-bar bar-${level}`}>
+            <span></span>
+            <strong>{level}</strong>
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>

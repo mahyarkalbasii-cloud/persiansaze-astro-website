@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProductVisual from "@/components/ProductVisual.astro";
 import { absoluteUrl, site } from "@/content/home";
 import {
-  assets,
   dataOperations,
   featureCards,
   productBoundaries,
@@ -44,9 +44,7 @@ const structuredData = {
             <a class="button button-secondary" href="#features">مشاهده قابلیت‌ها</a>
           </div>
         </div>
-        <figure class="image-panel hero-image-panel">
-          <img src={assets.homeOffice.src} alt={assets.homeOffice.alt} loading="eager" decoding="async" />
-        </figure>
+        <ProductVisual variant="hero" label="نمای محصول پرشین‌سازه" class="image-panel hero-image-panel" />
       </div>
     </section>
 
@@ -105,9 +103,7 @@ const structuredData = {
             ))}
           </ol>
         </div>
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.homeTeam.src} alt={assets.homeTeam.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ProductVisual variant="workflow" label="جریان عملیاتی محصول" class="image-panel tall-image-panel" />
       </div>
     </section>
 
@@ -133,9 +129,7 @@ const structuredData = {
 
     <section class="section">
       <div class="container page-split">
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.academyCover.src} alt={assets.academyCover.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ProductVisual variant="academy" label="آموزش و موفقیت مشتری" class="image-panel tall-image-panel" />
         <div class="section-copy">
           <h2>مرز محصول روشن است</h2>
           <p>

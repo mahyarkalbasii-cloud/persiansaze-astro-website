@@ -1,46 +1,6 @@
-export type ImageAsset = {
-  src: string;
-  alt: string;
-};
-
 export type InfoCard = {
   title: string;
   body: string;
-};
-
-export const assets = {
-  aboutHero: {
-    src: "/assets/company/about-hero.webp",
-    alt: "عکس گروهی تیم پرشین‌سازه",
-  },
-  aboutTeam: {
-    src: "/assets/company/about-team.webp",
-    alt: "تیم پرشین‌سازه در دفتر شرکت",
-  },
-  academyHero: {
-    src: "/assets/company/academy-hero.webp",
-    alt: "کلاس آموزشی آکادمی پرشین‌سازه",
-  },
-  academyCover: {
-    src: "/assets/company/academy-cover.webp",
-    alt: "کارگاه آموزشی فروش پروژه‌محور پرشین‌سازه",
-  },
-  contactHero: {
-    src: "/assets/company/contact-hero.webp",
-    alt: "دفتر و تیم پاسخگویی پرشین‌سازه",
-  },
-  homeOffice: {
-    src: "/assets/company/home-office.webp",
-    alt: "دفتر کاری پرشین‌سازه",
-  },
-  homeTeam: {
-    src: "/assets/company/home-team.webp",
-    alt: "تیم پرشین‌سازه",
-  },
-  homeAcademySession: {
-    src: "/assets/company/home-academy-session.webp",
-    alt: "رویداد آموزشی پرشین‌سازه",
-  },
 };
 
 export const productLayers: InfoCard[] = [

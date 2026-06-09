@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProductVisual from "@/components/ProductVisual.astro";
 import { absoluteUrl, site } from "@/content/home";
-import { aboutStats, aboutValues, assets } from "@/content/company";
+import { aboutStats, aboutValues } from "@/content/company";
 
 const title = "درباره پرشین‌سازه | منبع واحد حقیقت فروش پروژه‌محور";
 const description =
@@ -33,9 +34,7 @@ const structuredData = {
             <a class="button button-secondary" href="/contact-us/">تماس با ما</a>
           </div>
         </div>
-        <figure class="image-panel hero-image-panel">
-          <img src={assets.aboutHero.src} alt={assets.aboutHero.alt} loading="eager" decoding="async" />
-        </figure>
+        <ProductVisual variant="team" label="تیم و عملیات پرشین‌سازه" class="image-panel hero-image-panel" />
       </div>
     </section>
 
@@ -54,9 +53,7 @@ const structuredData = {
 
     <section class="section">
       <div class="container page-split">
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.homeOffice.src} alt={assets.homeOffice.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ProductVisual variant="office" label="مرکز عملیات بازار" class="image-panel tall-image-panel" />
         <div class="section-copy">
           <h2>از کجا و چرا شروع شد؟</h2>
           <p>
@@ -84,9 +81,7 @@ const structuredData = {
             <li>آموزش و پشتیبانی برای استفاده درست و سالم از محصول</li>
           </ul>
         </div>
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.aboutTeam.src} alt={assets.aboutTeam.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ProductVisual variant="team" label="زیرساخت تیم فروش و داده" class="image-panel tall-image-panel" />
       </div>
     </section>
 
@@ -109,9 +104,7 @@ const structuredData = {
 
     <section class="section">
       <div class="container">
-        <figure class="wide-image-panel">
-          <img src={assets.homeTeam.src} alt={assets.homeTeam.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ProductVisual variant="workflow" label="مسیر تیم، داده و پشتیبانی" class="wide-image-panel" />
       </div>
     </section>
   </main>

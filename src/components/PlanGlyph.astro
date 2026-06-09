@@ -1,0 +1,23 @@
+---
+type Props = {
+  planId?: string;
+  label?: string;
+  compact?: boolean;
+};
+
+const { planId = "bonyan", label = "اشتراک", compact = false } = Astro.props;
+const levelMap: Record<string, number> = {
+  bonyan: 1,
+  royan: 2,
+  taban: 3,
+  "taban-plus": 4,
+};
+const level = levelMap[planId] ?? 1;
+---
+
+<span class:list={["plan-glyph", `plan-glyph-${planId}`, { compact }]} aria-label={label} role="img">
+  <span class="plan-glyph-grid" aria-hidden="true">
+    {Array.from({ length: 4 }, (_, index) => <i class={index < level ? "active" : ""}></i>)}
+  </span>
+  <span class="plan-glyph-mark" aria-hidden="true">{level}</span>
+</span>
