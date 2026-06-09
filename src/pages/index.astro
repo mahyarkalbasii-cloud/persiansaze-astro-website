@@ -170,101 +170,95 @@ const schemaGraph = [
   <body class="home-color-anthropic">
     <SiteHeader home />
 
-    <main class="ah-home">
-      <section id="hero" class="ah-hero">
-        <div class="container ah-hero-grid">
-          <div class="ah-hero-copy">
+    <main class="sl-home">
+      <section id="hero" class="sl-hero">
+        <div class="container sl-hero-grid">
+          <div class="sl-hero-copy">
             <h1>
               <span>{hero.titleLines[0]}</span>
               <span>{hero.titleLines[1]}</span>
             </h1>
-            <p class="ah-lead">{hero.body}</p>
-            <div class="ah-actions">
-              <a class="ah-btn ah-btn-primary" href="#demo">{hero.primaryCta}</a>
-              <a class="ah-btn ah-btn-outline" href="#problem">{hero.secondaryCta}</a>
+            <p>{hero.body}</p>
+            <div class="sl-actions">
+              <a class="sl-btn sl-btn-primary" href="#demo">{hero.primaryCta}</a>
+              <a class="sl-btn sl-btn-ghost" href="#problem">{hero.secondaryCta}</a>
             </div>
           </div>
 
-          <div class="ah-placeholder ah-hero-art">
-            <svg class="ah-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
-              <circle cx="18" cy="20" r="5" stroke="currentColor" stroke-width="2" />
-              <path d="M10 36L20 27L28 32L38 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            <span class="ah-placeholder-label">{hero.placeholder}</span>
-          </div>
-        </div>
-      </section>
-
-      <section id="problem" class="ah-section">
-        <div class="container ah-split">
-          <article class="ah-card ah-problem-card">
-            <header class="ah-problem-head">
-              <span class="ah-eyebrow">روایت مسئله بازار</span>
-              <strong>فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
-            </header>
-
-            <div class="ah-placeholder ah-problem-art">
-              <svg class="ah-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
-                <circle cx="16" cy="30" r="4" stroke="currentColor" stroke-width="2" />
-                <circle cx="32" cy="18" r="4" stroke="currentColor" stroke-width="2" />
-                <path d="M19 27L29 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4" />
+          <div class="sl-visual sl-hero-visual">
+            <div class="sl-placeholder">
+              <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
+                <circle cx="18" cy="20" r="5" stroke="currentColor" stroke-width="2" />
+                <path d="M10 36L20 27L28 32L38 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-              <span class="ah-placeholder-label">{problem.placeholder}</span>
+              <span class="sl-placeholder-label">{hero.placeholder}</span>
             </div>
-
-            <div class="ah-chip">
-              <span>پنجره تماس</span>
-              <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
-            </div>
-
-            <div class="ah-mini-grid">
-              <article>
-                <span>پراکندگی</span>
-                <strong>پروژه‌ها روی چند مسیر پخش‌اند</strong>
-              </article>
-              <article>
-                <span>زمان تماس</span>
-                <strong>زود یا دیر، هر دو فرصت را می‌سوزاند</strong>
-              </article>
-              <article>
-                <span>پیگیری</span>
-                <strong>بدون نظم، فرصت‌ها در صف می‌مانند</strong>
-              </article>
-            </div>
-          </article>
-
-          <div class="ah-section-copy">
-            <h2>{problem.title}</h2>
-            <p>{problem.body}</p>
-            <a class="ah-btn ah-btn-outline" href="#solution">{problem.cta}</a>
           </div>
         </div>
       </section>
 
-      <section id="solution" class="ah-section ah-section-tinted">
+      <section id="problem" class="sl-section">
         <div class="container">
-          <div class="ah-heading">
+          <h2 class="sl-statement">{problem.title}</h2>
+
+          <div class="sl-row">
+            <div class="sl-row-copy">
+              <p>{problem.body}</p>
+              <a class="sl-btn sl-btn-primary" href="#solution">{problem.cta}</a>
+            </div>
+
+            <article class="sl-visual sl-problem-visual">
+              <header class="sl-problem-head">
+                <span>روایت مسئله بازار</span>
+                <strong>فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
+              </header>
+
+              <div class="sl-placeholder sl-placeholder-flat">
+                <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
+                  <circle cx="16" cy="30" r="4" stroke="currentColor" stroke-width="2" />
+                  <circle cx="32" cy="18" r="4" stroke="currentColor" stroke-width="2" />
+                  <path d="M19 27L29 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4" />
+                </svg>
+                <span class="sl-placeholder-label">{problem.placeholder}</span>
+              </div>
+
+              <div class="sl-chip">
+                <span>پنجره تماس</span>
+                <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
+              </div>
+
+              <div class="sl-mini-grid">
+                <article>
+                  <span>پراکندگی</span>
+                  <strong>پروژه‌ها روی چند مسیر پخش‌اند</strong>
+                </article>
+                <article>
+                  <span>زمان تماس</span>
+                  <strong>زود یا دیر، هر دو فرصت را می‌سوزاند</strong>
+                </article>
+                <article>
+                  <span>پیگیری</span>
+                  <strong>بدون نظم، فرصت‌ها در صف می‌مانند</strong>
+                </article>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="solution" class="sl-section">
+        <div class="container">
+          <div class="sl-statement-block">
             <h2>{solution.title}</h2>
             <p>{solution.body}</p>
           </div>
 
-          <div class="ah-solution-grid">
-            <figure class="ah-placeholder ah-solution-art" aria-label={solution.visualAlt}>
-              <svg class="ah-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <rect x="4" y="4" width="40" height="40" rx="10" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
-                <path d="M14 14H26" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <path d="M14 22H34" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <path d="M14 30H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                <circle cx="32" cy="32" r="4" stroke="currentColor" stroke-width="2" />
-              </svg>
-              <span class="ah-placeholder-label">{solution.dashboardPlaceholder}</span>
-            </figure>
-
-            <section class="ah-card ah-data-panel" aria-labelledby="solution-data-title">
+          <div class="sl-row sl-row-flip">
+            <div class="sl-row-copy" aria-labelledby="solution-data-title">
               <h3 id="solution-data-title">{solution.dataTitle}</h3>
-              <div class="ah-data-list">
+              <div class="sl-data-list">
                 {solution.dataCards.map((card) => (
                   <article>
                     <h4>{card.title}</h4>
@@ -272,49 +266,70 @@ const schemaGraph = [
                   </article>
                 ))}
               </div>
-            </section>
+            </div>
+
+            <figure class="sl-visual sl-solution-visual" aria-label={solution.visualAlt}>
+              <div class="sl-placeholder">
+                <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
+                  <path d="M14 14H26" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M14 22H34" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M14 30H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <circle cx="32" cy="32" r="4" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <span class="sl-placeholder-label">{solution.dashboardPlaceholder}</span>
+              </div>
+            </figure>
           </div>
 
-          <section class="ah-stack-panel" aria-labelledby="solution-stack-title">
-            <h3 id="solution-stack-title">{solution.stackTitle}</h3>
-            <div class="ah-feature-grid">
-              {solution.features.map((feature) => (
-                <article class="ah-card">
-                  <span class="ah-badge">{feature.label}</span>
-                  <h4>{feature.title}</h4>
-                  <p>{feature.body}</p>
-                </article>
-              ))}
+          <h3 class="sl-substatement" id="solution-stack-title">{solution.stackTitle}</h3>
+
+          {solution.features.map((feature, index) => (
+            <div class={index % 2 === 0 ? "sl-row sl-row-feature" : "sl-row sl-row-feature sl-row-flip"}>
+              <div class="sl-row-copy">
+                <span class="sl-badge">{feature.label}</span>
+                <h4>{feature.title}</h4>
+                <p>{feature.body}</p>
+              </div>
+              <div class="sl-visual sl-feature-visual">
+                <div class="sl-placeholder">
+                  <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
+                    <circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2" />
+                    <path d="M24 16V12M24 36V32M16 24H12M36 24H32" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+              </div>
             </div>
-          </section>
+          ))}
         </div>
       </section>
 
-      <section id="audiences" class="ah-section">
+      <section id="audiences" class="sl-section">
         <div class="container">
-          <div class="ah-heading">
+          <div class="sl-statement-block">
             <h2>{audiences.title}</h2>
             <p>{audiences.body}</p>
           </div>
 
-          <div class="ah-audience-grid">
+          <div class="sl-audience-grid">
             {saleTypes.map((item) => (
-              <article class="ah-card ah-audience-card">
+              <article class="sl-card sl-audience-card">
                 <h3>{item.title}</h3>
                 <p>{item.summary}</p>
-                <a class="ah-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
+                <a class="sl-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="stages" class="ah-section ah-section-tinted" aria-label="مراحل ساخت" data-stage-rotation>
+      <section id="stages" class="sl-section" aria-label="مراحل ساخت" data-stage-rotation>
         <div class="container">
-          <div class="ah-tabs" role="tablist" aria-label="مراحل ساخت">
+          <div class="sl-tabs" role="tablist" aria-label="مراحل ساخت">
             {homeStageCards.map((stage, index) => (
               <button
-                class={index === 0 ? "ah-tab active" : "ah-tab"}
+                class={index === 0 ? "sl-tab active" : "sl-tab"}
                 type="button"
                 role="tab"
                 aria-selected={index === 0 ? "true" : "false"}
@@ -326,15 +341,15 @@ const schemaGraph = [
             ))}
           </div>
 
-          <article class="ah-card ah-stage-card" id="stage-info-panel" aria-live="polite">
-            <div class="ah-stage-copy">
+          <article class="sl-card sl-stage-card" id="stage-info-panel" aria-live="polite">
+            <div class="sl-stage-copy">
               <h3 data-stage-title>{initialHomeStage.title}</h3>
               <p data-stage-summary>{initialHomeStage.summary}</p>
             </div>
-            <div class="ah-stage-side">
+            <div class="sl-stage-side">
               <span>زمان تصمیم‌گیری سازنده</span>
               <p data-stage-source>{initialHomeStage.sourcePhase}</p>
-              <a class="ah-btn ah-btn-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
+              <a class="sl-btn sl-btn-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
             </div>
           </article>
         </div>
@@ -392,56 +407,54 @@ const schemaGraph = [
         </script>
       </section>
 
-      <section id="sales-flow" class="ah-section">
+      <section id="sales-flow" class="sl-section">
         <div class="container">
-          <div class="ah-heading">
-            <h2>{salesFlow.title}</h2>
-          </div>
+          <h2 class="sl-statement">{salesFlow.title}</h2>
 
-          <div class="ah-flow-grid" role="list" aria-label={salesFlow.ariaLabel}>
+          <div class="sl-flow-grid" role="list" aria-label={salesFlow.ariaLabel}>
             {salesFlow.stages.map((stage) => (
-              <article class="ah-card ah-flow-step" role="listitem">
-                <span class="ah-step-number">{stage.number}</span>
-                <p class="ah-flow-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
-                <p class="ah-flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
+              <article class="sl-card sl-flow-step" role="listitem">
+                <span class="sl-step-number">{stage.number}</span>
+                <p class="sl-flow-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
+                <p class="sl-flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
               </article>
             ))}
           </div>
 
-          <div class="ah-flow-footer">
-            <a class="ah-btn ah-btn-primary" href="#demo">{salesFlow.cta} ←</a>
+          <div class="sl-center-cta">
+            <a class="sl-btn sl-btn-primary" href="#demo">{salesFlow.cta} ←</a>
           </div>
         </div>
       </section>
 
-      <section id="plans" class="ah-section ah-section-tinted">
+      <section id="plans" class="sl-section">
         <div class="container">
-          <div class="ah-heading ah-heading-centered">
+          <div class="sl-statement-block">
             <h2>{pricing.title}</h2>
             <p>{pricing.description}</p>
           </div>
 
-          <div class="ah-tabs ah-duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
+          <div class="sl-tabs sl-duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
             {pricing.durations.map((duration) => (
               <button
-                class={duration.id === defaultDuration ? "ah-tab active" : "ah-tab"}
+                class={duration.id === defaultDuration ? "sl-tab active" : "sl-tab"}
                 type="button"
                 role="tab"
                 aria-selected={duration.id === defaultDuration ? "true" : "false"}
                 aria-pressed={duration.id === defaultDuration ? "true" : "false"}
                 data-plan-duration={duration.id}
               >
-                <span class="ah-duration-number">{duration.id}</span>
-                <span class="ah-duration-unit">ماهه</span>
+                <span class="sl-duration-number">{duration.id}</span>
+                <span class="sl-duration-unit">ماهه</span>
               </button>
             ))}
           </div>
 
-          <div class="ah-pricing-grid">
+          <div class="sl-pricing-grid">
             {pricing.plans.map((plan) => (
-              <article class="ah-card ah-price-card">
-                <header class="ah-price-head">
-                  <span class="ah-plan-mark" role="img" aria-label={plan.iconAlt}>
+              <article class="sl-card sl-price-card">
+                <header class="sl-price-head">
+                  <span class="sl-plan-mark" role="img" aria-label={plan.iconAlt}>
                     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3" />
                       <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.5" />
@@ -449,38 +462,38 @@ const schemaGraph = [
                   </span>
                   <h3>{plan.name}</h3>
                 </header>
-                <strong class="ah-price">
+                <strong class="sl-price">
                   <span
-                    class="ah-price-number"
+                    class="sl-price-number"
                     data-plan-price
                     data-prices={JSON.stringify(plan.prices)}
                   >
                     {plan.prices[defaultDuration]}
                   </span>
-                  <span class="ah-price-currency">{pricing.currency}</span>
+                  <span class="sl-price-currency">{pricing.currency}</span>
                 </strong>
-                <p class="ah-plan-scope">
+                <p class="sl-plan-scope">
                   <span>{plan.landLine}</span>
-                  <span class="ah-plan-scope-separator" aria-hidden="true">-</span>
+                  <span class="sl-plan-scope-separator" aria-hidden="true">-</span>
                   <span>{pricing.stagesIncluded}</span>
                 </p>
-                <ul class="ah-plan-highlights">
+                <ul class="sl-plan-highlights">
                   {plan.highlights.map((item) => <li>{item}</li>)}
                 </ul>
-                <div class="ah-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
+                <div class="sl-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
                   <strong>{pricing.coverage}</strong>
-                  <div class="ah-coverage-meter" aria-hidden="true">
+                  <div class="sl-coverage-meter" aria-hidden="true">
                     {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
                   </div>
                 </div>
-                <p class="ah-plan-addon">
+                <p class="sl-plan-addon">
                   <span>هر مرحله اضافه:</span>
-                  <span class="ah-addon-price">
+                  <span class="sl-addon-price">
                     <span>{plan.addonPrice}</span>
                     <span>{pricing.currency}</span>
                   </span>
                 </p>
-                <a class="ah-btn ah-btn-outline" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
+                <a class="sl-btn sl-btn-ghost" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
               </article>
             ))}
           </div>
@@ -492,7 +505,7 @@ const schemaGraph = [
           const plansSection = document.getElementById("plans");
           if (!plansSection) return;
 
-          const durationTabs = plansSection.querySelector(".ah-duration-tabs");
+          const durationTabs = plansSection.querySelector(".sl-duration-tabs");
           const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
           const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
 
@@ -523,16 +536,16 @@ const schemaGraph = [
         })();
       </script>
 
-      <section id="faq" class="ah-section">
+      <section id="faq" class="sl-section">
         <div class="container">
-          <div class="ah-heading ah-heading-centered">
-            <span class="ah-eyebrow">{faqSection.eyebrow}</span>
+          <div class="sl-statement-block">
+            <span class="sl-eyebrow">{faqSection.eyebrow}</span>
             <h2>{faqSection.title}</h2>
             <p>{faqSection.description}</p>
           </div>
-          <div class="ah-faq">
+          <div class="sl-faq">
             {faqs.map((item) => (
-              <details class="ah-faq-item">
+              <details class="sl-faq-item">
                 <summary>
                   {item.question}
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -546,13 +559,13 @@ const schemaGraph = [
         </div>
       </section>
 
-      <section id="demo" class="ah-demo">
-        <div class="container ah-demo-grid">
-          <div class="ah-demo-copy">
+      <section id="demo" class="sl-section sl-demo">
+        <div class="container sl-demo-grid">
+          <div class="sl-demo-copy">
             <h2>{demo.title}</h2>
             <p>{demo.body}</p>
 
-            <div class="ah-demo-path">
+            <div class="sl-card sl-demo-path">
               <strong>{demo.pathTitle}</strong>
               <ol>
                 {demo.steps.map((step) => (
@@ -562,22 +575,22 @@ const schemaGraph = [
             </div>
           </div>
 
-          <form class="ah-card ah-demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+          <form class="sl-card sl-demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
             <h3>{demo.form.submit}</h3>
-            <div class="ah-form-grid">
-              <label class="ah-field">
+            <div class="sl-form-grid">
+              <label class="sl-field">
                 <span>{demo.form.name}</span>
                 <input name="name" autocomplete="name" />
               </label>
-              <label class="ah-field">
+              <label class="sl-field">
                 <span>{demo.form.phone}</span>
                 <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
               </label>
-              <label class="ah-field">
+              <label class="sl-field">
                 <span>{demo.form.company}</span>
                 <input name="company" autocomplete="organization" />
               </label>
-              <label class="ah-field">
+              <label class="sl-field">
                 <span>{demo.form.referralSource}</span>
                 <select name="referralSource">
                   <option value="">{demo.form.choose}</option>
@@ -587,7 +600,7 @@ const schemaGraph = [
                 </select>
               </label>
             </div>
-            <label class="ah-field">
+            <label class="sl-field">
               <span>{demo.form.supplier}</span>
               <select name="supplier">
                 <option value="">{demo.form.choose}</option>
@@ -596,7 +609,7 @@ const schemaGraph = [
                 ))}
               </select>
             </label>
-            <button class="ah-btn ah-btn-primary" type="submit">{demo.form.submit}</button>
+            <button class="sl-btn sl-btn-primary" type="submit">{demo.form.submit}</button>
           </form>
         </div>
       </section>
@@ -607,450 +620,493 @@ const schemaGraph = [
   </body>
 </html>
 
+<style is:global>
+  /* Slite-style palette for the shared header/footer; this body class is used only on the homepage. */
+  body.home-color-anthropic {
+    --background: #f7f0e9;
+    --surface: #ffffff;
+    --surface-muted: #f1e8df;
+    --surface-subtle: #fbf6f0;
+    --foreground: #1e1d35;
+    --muted-foreground: #4a4865;
+    --faint-foreground: #76748e;
+    --border: #e6dccf;
+    --border-strong: #d6c9b8;
+    --primary: #2545d3;
+    --primary-hover: #1c37ad;
+    --primary-foreground: #ffffff;
+    --secondary: #ffffff;
+    --secondary-foreground: #1e1d35;
+    --accent: #e9e0d4;
+    --accent-foreground: #1e1d35;
+    --ring: #2545d3;
+    --inverted: #1e1d35;
+    --inverted-foreground: #f7f0e9;
+  }
+</style>
+
 <style>
-  main.ah-home {
-    --ah-paper: #faf9f5;
-    --ah-ink: #141413;
-    --ah-ink-soft: #3d3d3a;
-    --ah-muted: #6e6a60;
-    --ah-oat: #f0eee6;
-    --ah-card: #ffffff;
-    --ah-border: rgba(20, 20, 19, 0.12);
-    --ah-border-strong: rgba(20, 20, 19, 0.22);
-    --ah-accent: #d97757;
-    --ah-accent-ink: #b4552f;
-    --ah-accent-soft: rgba(217, 119, 87, 0.12);
-    --ah-radius: 1.25rem;
-    --ah-radius-sm: 0.75rem;
-    background: var(--ah-paper);
-    color: var(--ah-ink);
+  main.sl-home {
+    --sl-bg: #f7f0e9;
+    --sl-ink: #1e1d35;
+    --sl-body: #4a4865;
+    --sl-faint: #76748e;
+    --sl-blue: #2545d3;
+    --sl-blue-dark: #1c37ad;
+    --sl-blue-soft: rgba(37, 69, 211, 0.1);
+    --sl-card: #ffffff;
+    --sl-border: rgba(30, 29, 53, 0.08);
+    --sl-shadow: 0 14px 36px rgba(30, 29, 53, 0.09);
+    --sl-shadow-sm: 0 6px 18px rgba(30, 29, 53, 0.07);
+    --sl-radius: 0.875rem;
+    --sl-radius-sm: 0.625rem;
+    background: var(--sl-bg);
+    color: var(--sl-ink);
   }
 
-  /* ---------- Primitives (shadcn/ui-like) ---------- */
+  /* ---------- Primitives ---------- */
 
-  .ah-btn {
+  .sl-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     border: 1px solid transparent;
     border-radius: 9999px;
-    padding: 0.7rem 1.6rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    line-height: 1.4;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.5;
     cursor: pointer;
     white-space: nowrap;
-    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
   }
 
-  .ah-btn-primary {
-    background: var(--ah-ink);
-    color: var(--ah-paper);
+  .sl-btn-primary {
+    background: var(--sl-blue);
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(37, 69, 211, 0.28);
   }
 
-  .ah-btn-primary:hover {
-    background: var(--ah-ink-soft);
+  .sl-btn-primary:hover {
+    background: var(--sl-blue-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(37, 69, 211, 0.32);
+  }
+
+  .sl-btn-ghost {
+    background: var(--sl-card);
+    border-color: rgba(30, 29, 53, 0.14);
+    color: var(--sl-ink);
+    box-shadow: var(--sl-shadow-sm);
+  }
+
+  .sl-btn-ghost:hover {
+    border-color: var(--sl-blue);
+    color: var(--sl-blue);
     transform: translateY(-1px);
   }
 
-  .ah-btn-outline {
-    background: transparent;
-    border-color: var(--ah-border-strong);
-    color: var(--ah-ink);
+  .sl-card {
+    background: var(--sl-card);
+    border: 1px solid var(--sl-border);
+    border-radius: var(--sl-radius);
+    box-shadow: var(--sl-shadow-sm);
+    padding: clamp(1.4rem, 1.1rem + 0.8vw, 2rem);
   }
 
-  .ah-btn-outline:hover {
-    background: var(--ah-card);
-    border-color: var(--ah-ink);
-    transform: translateY(-1px);
+  .sl-visual {
+    background: var(--sl-card);
+    border: 1px solid var(--sl-border);
+    border-radius: var(--sl-radius);
+    box-shadow: var(--sl-shadow);
+    padding: 1.1rem;
+    margin: 0;
   }
 
-  .ah-card {
-    background: var(--ah-card);
-    border: 1px solid var(--ah-border);
-    border-radius: var(--ah-radius);
-    padding: clamp(1.5rem, 1.1rem + 1vw, 2.25rem);
-    box-shadow: 0 1px 2px rgba(20, 20, 19, 0.05);
-  }
-
-  .ah-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-    border: 1px solid rgba(217, 119, 87, 0.35);
-    border-radius: 9999px;
-    background: var(--ah-accent-soft);
-    color: var(--ah-accent-ink);
-    padding: 0.25rem 0.85rem;
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
-
-  .ah-badge {
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-    border-radius: 9999px;
-    background: var(--ah-oat);
-    border: 1px solid var(--ah-border);
-    color: var(--ah-ink-soft);
-    padding: 0.2rem 0.8rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-  }
-
-  .ah-link {
-    font-weight: 700;
-    font-size: 0.92rem;
-    color: var(--ah-ink);
-    transition: color 160ms ease;
-  }
-
-  .ah-link:hover {
-    color: var(--ah-accent-ink);
-  }
-
-  .ah-placeholder {
-    position: relative;
+  .sl-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin: 0;
-    padding: 2rem;
+    gap: 0.9rem;
+    height: 100%;
+    min-height: 11rem;
+    padding: 1.75rem;
     text-align: center;
-    border: 1.5px dashed var(--ah-border-strong);
-    border-radius: var(--ah-radius);
-    background:
-      repeating-linear-gradient(45deg, rgba(20, 20, 19, 0.028) 0 12px, transparent 12px 24px),
-      #fcfbf7;
+    border: 1.5px dashed rgba(30, 29, 53, 0.18);
+    border-radius: var(--sl-radius-sm);
+    background: #fbf7f1;
   }
 
-  .ah-placeholder-mark {
-    width: 56px;
-    height: 56px;
-    color: var(--ah-accent);
+  .sl-placeholder-flat {
+    min-height: 9rem;
   }
 
-  .ah-placeholder-label {
-    max-width: 34ch;
-    font-size: 0.85rem;
+  .sl-placeholder-mark {
+    width: 48px;
+    height: 48px;
+    color: var(--sl-blue);
+    opacity: 0.85;
+  }
+
+  .sl-placeholder-label {
+    max-width: 36ch;
+    font-size: 0.82rem;
     font-weight: 500;
-    line-height: 1.8;
-    color: var(--ah-muted);
+    line-height: 1.9;
+    color: var(--sl-faint);
+  }
+
+  .sl-eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    border-radius: 9999px;
+    background: var(--sl-blue-soft);
+    color: var(--sl-blue);
+    padding: 0.25rem 0.9rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .sl-badge {
+    display: inline-flex;
+    width: fit-content;
+    border-radius: 9999px;
+    background: var(--sl-blue-soft);
+    color: var(--sl-blue);
+    padding: 0.2rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .sl-link {
+    width: fit-content;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--sl-blue);
+    transition: color 160ms ease;
+  }
+
+  .sl-link:hover {
+    color: var(--sl-blue-dark);
   }
 
   /* ---------- Layout ---------- */
 
-  .ah-section {
-    border-top: 1px solid var(--ah-border);
-    padding-block: clamp(4rem, 3rem + 3vw, 6.5rem);
+  .sl-section {
+    padding-block: clamp(3.5rem, 2.5rem + 3vw, 6rem);
   }
 
-  .ah-section-tinted {
-    background: var(--ah-oat);
-  }
-
-  .ah-heading {
-    max-width: 46rem;
-    margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 3.5rem);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .ah-heading-centered {
+  .sl-statement {
+    max-width: 42rem;
     margin-inline: auto;
+    margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 4rem);
     text-align: center;
-    align-items: center;
-  }
-
-  .ah-heading h2,
-  .ah-section-copy h2 {
-    font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.5rem);
+    font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.25rem);
     font-weight: 800;
-    line-height: 1.3;
+    line-height: 1.5;
   }
 
-  .ah-heading p,
-  .ah-section-copy p {
-    color: var(--ah-ink-soft);
-    line-height: 2;
-  }
-
-  /* ---------- Hero ---------- */
-
-  .ah-hero {
-    padding-block: clamp(4rem, 3rem + 4vw, 7.5rem);
-  }
-
-  .ah-hero-grid {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: center;
-    gap: clamp(2.5rem, 2rem + 2vw, 4.5rem);
-  }
-
-  .ah-hero-copy {
+  .sl-statement-block {
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 4rem);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
   }
 
-  .ah-hero h1 {
-    font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem);
+  .sl-statement-block h2 {
+    font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.25rem);
     font-weight: 800;
-    line-height: 1.25;
+    line-height: 1.5;
   }
 
-  .ah-hero h1 span {
-    display: block;
-  }
-
-  .ah-hero h1 span:last-child {
-    color: var(--ah-accent-ink);
-  }
-
-  .ah-lead {
-    max-width: 38rem;
-    color: var(--ah-ink-soft);
-    font-size: 1.05rem;
+  .sl-statement-block p {
+    color: var(--sl-body);
     line-height: 2.1;
   }
 
-  .ah-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
+  .sl-substatement {
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-block: clamp(3rem, 2.5rem + 1.5vw, 4.5rem) clamp(2rem, 1.5rem + 1.5vw, 3rem);
+    text-align: center;
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem);
+    font-weight: 800;
+    line-height: 1.6;
   }
 
-  .ah-hero-art {
-    min-height: clamp(18rem, 14rem + 12vw, 26rem);
-  }
-
-  /* ---------- Problem ---------- */
-
-  .ah-split {
+  .sl-row {
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1fr 1.1fr;
     align-items: center;
-    gap: clamp(2.5rem, 2rem + 2vw, 4.5rem);
+    gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
   }
 
-  .ah-section-copy {
+  .sl-row + .sl-row {
+    margin-top: clamp(3rem, 2.5rem + 2vw, 5rem);
+  }
+
+  .sl-row-flip > .sl-row-copy {
+    order: 2;
+  }
+
+  .sl-row-flip > .sl-visual {
+    order: 1;
+  }
+
+  .sl-row-copy {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
-  .ah-problem-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .ah-problem-head {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .ah-problem-head strong {
-    font-size: 1.05rem;
-    font-weight: 700;
-    line-height: 1.8;
-  }
-
-  .ah-problem-art {
-    min-height: 13rem;
-  }
-
-  .ah-chip {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35rem 0.75rem;
-    width: fit-content;
-    border: 1px solid var(--ah-border);
-    border-radius: 9999px;
-    background: var(--ah-oat);
-    padding: 0.45rem 1.1rem;
-    font-size: 0.85rem;
-  }
-
-  .ah-chip span {
-    color: var(--ah-muted);
-    font-weight: 600;
-  }
-
-  .ah-chip strong {
-    font-weight: 700;
-  }
-
-  .ah-mini-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-  }
-
-  .ah-mini-grid article {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    border: 1px solid var(--ah-border);
-    border-radius: var(--ah-radius-sm);
-    background: var(--ah-paper);
-    padding: 0.9rem 1rem;
-  }
-
-  .ah-mini-grid span {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--ah-accent-ink);
-  }
-
-  .ah-mini-grid strong {
-    font-size: 0.88rem;
-    font-weight: 600;
-    line-height: 1.8;
-    color: var(--ah-ink-soft);
-  }
-
-  /* ---------- Solution ---------- */
-
-  .ah-solution-grid {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: stretch;
-    gap: 1.25rem;
-  }
-
-  .ah-solution-art {
-    min-height: 20rem;
-  }
-
-  .ah-data-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .ah-data-panel h3 {
-    font-size: 1.15rem;
+  .sl-row-copy h3,
+  .sl-row-copy h4 {
+    font-size: 1.25rem;
     font-weight: 800;
     line-height: 1.7;
   }
 
-  .ah-data-list {
+  .sl-row-copy > p {
+    color: var(--sl-body);
+    font-size: 0.96rem;
+    line-height: 2.1;
+  }
+
+  .sl-row-copy .sl-btn {
+    margin-top: 0.5rem;
+  }
+
+  .sl-row-feature {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sl-row-feature .sl-row-copy p {
+    font-size: 0.92rem;
+  }
+
+  .sl-feature-visual .sl-placeholder {
+    min-height: 12rem;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .sl-hero {
+    padding-block: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem);
+  }
+
+  .sl-hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
+  }
+
+  .sl-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+  }
+
+  .sl-hero h1 {
+    font-size: clamp(2rem, 1.4rem + 2.6vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .sl-hero h1 span {
+    display: block;
+  }
+
+  .sl-hero h1 span:last-child {
+    color: var(--sl-blue);
+  }
+
+  .sl-hero-copy > p {
+    max-width: 36rem;
+    color: var(--sl-body);
+    font-size: 1rem;
+    line-height: 2.15;
+  }
+
+  .sl-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.4rem;
+  }
+
+  .sl-hero-visual {
+    min-height: clamp(17rem, 13rem + 12vw, 24rem);
+    display: flex;
+  }
+
+  .sl-hero-visual .sl-placeholder {
+    flex: 1;
+  }
+
+  /* ---------- Problem ---------- */
+
+  .sl-problem-visual {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: clamp(1.4rem, 1.1rem + 0.8vw, 2rem);
   }
 
-  .ah-data-list article {
-    border: 1px solid var(--ah-border);
-    border-radius: var(--ah-radius-sm);
-    background: var(--ah-paper);
-    padding: 1.1rem 1.25rem;
+  .sl-problem-head {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .ah-data-list h4 {
-    font-size: 0.98rem;
+  .sl-problem-head span {
+    font-size: 0.78rem;
     font-weight: 700;
-    line-height: 1.8;
+    color: var(--sl-blue);
   }
 
-  .ah-data-list p {
-    font-size: 0.9rem;
-    line-height: 2;
-    color: var(--ah-muted);
+  .sl-problem-head strong {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.9;
   }
 
-  .ah-stack-panel {
-    margin-top: 1.25rem;
+  .sl-chip {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem 0.7rem;
+    width: fit-content;
+    border-radius: 9999px;
+    background: var(--sl-blue-soft);
+    padding: 0.4rem 1rem;
+    font-size: 0.82rem;
   }
 
-  .ah-stack-panel h3 {
-    font-size: 1.15rem;
-    font-weight: 800;
+  .sl-chip span {
+    color: var(--sl-blue);
+    font-weight: 700;
   }
 
-  .ah-feature-grid {
+  .sl-chip strong {
+    color: var(--sl-ink);
+    font-weight: 700;
+  }
+
+  .sl-mini-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    gap: 0.7rem;
   }
 
-  .ah-feature-grid article {
+  .sl-mini-grid article {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    transition: transform 160ms ease, box-shadow 160ms ease;
+    gap: 0.3rem;
+    border: 1px solid var(--sl-border);
+    border-radius: var(--sl-radius-sm);
+    background: #fbf7f1;
+    padding: 0.85rem 0.95rem;
   }
 
-  .ah-feature-grid article:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 24px -10px rgba(20, 20, 19, 0.18);
-  }
-
-  .ah-feature-grid h4 {
-    font-size: 1.02rem;
+  .sl-mini-grid span {
+    font-size: 0.75rem;
     font-weight: 700;
-    line-height: 1.8;
+    color: var(--sl-blue);
   }
 
-  .ah-feature-grid p {
-    font-size: 0.9rem;
+  .sl-mini-grid strong {
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.85;
+    color: var(--sl-body);
+  }
+
+  /* ---------- Solution ---------- */
+
+  .sl-data-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    width: 100%;
+  }
+
+  .sl-data-list article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    border: 1px solid var(--sl-border);
+    border-radius: var(--sl-radius-sm);
+    background: var(--sl-card);
+    box-shadow: var(--sl-shadow-sm);
+    padding: 1.1rem 1.25rem;
+  }
+
+  .sl-data-list h4 {
+    font-size: 0.96rem;
+    font-weight: 700;
+    line-height: 1.9;
+  }
+
+  .sl-data-list p {
+    font-size: 0.88rem;
     line-height: 2;
-    color: var(--ah-muted);
+    color: var(--sl-body);
+  }
+
+  .sl-solution-visual {
+    align-self: stretch;
+    display: flex;
+  }
+
+  .sl-solution-visual .sl-placeholder {
+    flex: 1;
+    min-height: 16rem;
   }
 
   /* ---------- Audiences ---------- */
 
-  .ah-audience-grid {
+  .sl-audience-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: 1.25rem;
+    gap: 1.1rem;
   }
 
-  .ah-audience-card {
+  .sl-audience-card {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.7rem;
     transition: transform 160ms ease, box-shadow 160ms ease;
   }
 
-  .ah-audience-card:hover {
+  .sl-audience-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 24px -10px rgba(20, 20, 19, 0.18);
+    box-shadow: var(--sl-shadow);
   }
 
-  .ah-audience-card h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
+  .sl-audience-card h3 {
+    font-size: 1.02rem;
+    font-weight: 800;
     line-height: 1.8;
   }
 
-  .ah-audience-card p {
+  .sl-audience-card p {
     flex: 1;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     line-height: 2;
-    color: var(--ah-muted);
+    color: var(--sl-body);
   }
 
   /* ---------- Tabs (stages + durations) ---------- */
 
-  .ah-tabs {
+  .sl-tabs {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -1059,127 +1115,135 @@ const schemaGraph = [
     max-width: 100%;
     margin-inline: auto;
     margin-bottom: 2rem;
-    border: 1px solid var(--ah-border);
-    border-radius: 1.5rem;
-    background: var(--ah-paper);
+    border: 1px solid var(--sl-border);
+    border-radius: 1.4rem;
+    background: var(--sl-card);
+    box-shadow: var(--sl-shadow-sm);
     padding: 0.35rem;
   }
 
-  .ah-tab {
-    border: 1px solid transparent;
+  .sl-tab {
+    border: 0;
     border-radius: 9999px;
     background: transparent;
-    color: var(--ah-muted);
-    padding: 0.5rem 1.1rem;
-    font-size: 0.88rem;
-    font-weight: 600;
+    color: var(--sl-faint);
+    padding: 0.45rem 1.05rem;
+    font-size: 0.86rem;
+    font-weight: 700;
     cursor: pointer;
     transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
   }
 
-  .ah-tab:hover {
-    color: var(--ah-ink);
+  .sl-tab:hover {
+    color: var(--sl-ink);
   }
 
-  .ah-tab.active {
-    background: var(--ah-ink);
-    color: var(--ah-paper);
-    box-shadow: 0 1px 3px rgba(20, 20, 19, 0.2);
+  .sl-tab.active {
+    background: var(--sl-blue);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(37, 69, 211, 0.3);
   }
 
-  .ah-stage-card {
+  .sl-stage-card {
     display: grid;
     grid-template-columns: 1.4fr 0.6fr;
     gap: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
     align-items: center;
   }
 
-  .ah-stage-copy {
+  .sl-stage-copy {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.7rem;
   }
 
-  .ah-stage-copy h3 {
-    font-size: 1.3rem;
+  .sl-stage-copy h3 {
+    font-size: 1.25rem;
     font-weight: 800;
   }
 
-  .ah-stage-copy p {
-    color: var(--ah-ink-soft);
-    line-height: 2;
+  .sl-stage-copy p {
+    color: var(--sl-body);
+    font-size: 0.94rem;
+    line-height: 2.05;
   }
 
-  .ah-stage-side {
+  .sl-stage-side {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    border-inline-start: 1px solid var(--ah-border);
+    gap: 0.55rem;
+    border-inline-start: 1px solid var(--sl-border);
     padding-inline-start: clamp(1.25rem, 1rem + 1vw, 2rem);
   }
 
-  .ah-stage-side span {
-    font-size: 0.8rem;
+  .sl-stage-side span {
+    font-size: 0.78rem;
     font-weight: 700;
-    color: var(--ah-accent-ink);
+    color: var(--sl-blue);
   }
 
-  .ah-stage-side p {
-    font-size: 0.9rem;
-    color: var(--ah-muted);
+  .sl-stage-side p {
+    font-size: 0.88rem;
+    color: var(--sl-body);
     line-height: 2;
   }
 
-  .ah-stage-side .ah-btn {
-    margin-top: 0.5rem;
+  .sl-stage-side .sl-btn {
+    margin-top: 0.4rem;
     width: fit-content;
   }
 
   /* ---------- Sales flow ---------- */
 
-  .ah-flow-grid {
+  .sl-flow-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem;
+    gap: 1.1rem;
   }
 
-  .ah-flow-step {
+  .sl-flow-step {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.8rem;
+    transition: transform 160ms ease, box-shadow 160ms ease;
   }
 
-  .ah-step-number {
-    font-size: 1.5rem;
+  .sl-flow-step:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sl-shadow);
+  }
+
+  .sl-step-number {
+    font-size: 1.4rem;
     font-weight: 800;
-    color: var(--ah-accent);
+    color: var(--sl-blue);
     line-height: 1;
   }
 
-  .ah-flow-summary {
+  .sl-flow-summary {
     flex: 1;
-    font-size: 0.92rem;
-    line-height: 2;
-    color: var(--ah-ink-soft);
+    font-size: 0.9rem;
+    line-height: 2.05;
+    color: var(--sl-body);
   }
 
-  .ah-flow-summary strong {
-    color: var(--ah-ink);
+  .sl-flow-summary strong {
+    color: var(--sl-ink);
   }
 
-  .ah-flow-outcome {
-    border-top: 1px solid var(--ah-border);
-    padding-top: 0.85rem;
-    font-size: 0.85rem;
-    line-height: 1.9;
-    color: var(--ah-muted);
+  .sl-flow-outcome {
+    border-top: 1px solid var(--sl-border);
+    padding-top: 0.8rem;
+    font-size: 0.83rem;
+    line-height: 1.95;
+    color: var(--sl-faint);
   }
 
-  .ah-flow-outcome strong {
-    color: var(--ah-accent-ink);
+  .sl-flow-outcome strong {
+    color: var(--sl-blue);
   }
 
-  .ah-flow-footer {
+  .sl-center-cta {
     display: flex;
     justify-content: center;
     margin-top: 2.5rem;
@@ -1187,407 +1251,394 @@ const schemaGraph = [
 
   /* ---------- Pricing ---------- */
 
-  .ah-duration-tabs .ah-tab {
+  .sl-duration-tabs .sl-tab {
     display: inline-flex;
     align-items: baseline;
     gap: 0.3rem;
   }
 
-  .ah-duration-number {
+  .sl-duration-number {
     font-size: 1rem;
     font-weight: 800;
   }
 
-  .ah-duration-unit {
-    font-size: 0.8rem;
+  .sl-duration-unit {
+    font-size: 0.78rem;
   }
 
-  .ah-pricing-grid {
+  .sl-pricing-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
-    gap: 1.25rem;
+    gap: 1.1rem;
     align-items: stretch;
   }
 
-  .ah-price-card {
+  .sl-price-card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.95rem;
     transition: transform 160ms ease, box-shadow 160ms ease;
   }
 
-  .ah-price-card:hover {
+  .sl-price-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 28px -12px rgba(20, 20, 19, 0.2);
+    box-shadow: var(--sl-shadow);
   }
 
-  .ah-price-head {
+  .sl-price-head {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.7rem;
   }
 
-  .ah-price-head h3 {
-    font-size: 1.15rem;
+  .sl-price-head h3 {
+    font-size: 1.1rem;
     font-weight: 800;
   }
 
-  .ah-plan-mark {
+  .sl-plan-mark {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.6rem;
+    height: 2.6rem;
     flex-shrink: 0;
-    border: 1.5px dashed var(--ah-border-strong);
-    border-radius: var(--ah-radius-sm);
-    background: var(--ah-oat);
-    color: var(--ah-accent);
+    border: 1.5px dashed rgba(30, 29, 53, 0.2);
+    border-radius: var(--sl-radius-sm);
+    background: #fbf7f1;
+    color: var(--sl-blue);
   }
 
-  .ah-plan-mark svg {
-    width: 1.4rem;
-    height: 1.4rem;
+  .sl-plan-mark svg {
+    width: 1.35rem;
+    height: 1.35rem;
   }
 
-  .ah-price {
+  .sl-price {
     display: flex;
     align-items: baseline;
     gap: 0.4rem;
   }
 
-  .ah-price-number {
-    font-size: 1.6rem;
+  .sl-price-number {
+    font-size: 1.55rem;
     font-weight: 800;
-    letter-spacing: -0.01em;
   }
 
-  .ah-price-currency {
-    font-size: 0.85rem;
+  .sl-price-currency {
+    font-size: 0.82rem;
     font-weight: 600;
-    color: var(--ah-muted);
+    color: var(--sl-faint);
   }
 
-  .ah-plan-scope {
+  .sl-plan-scope {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    font-size: 0.85rem;
-    color: var(--ah-ink-soft);
+    font-size: 0.83rem;
+    color: var(--sl-body);
   }
 
-  .ah-plan-scope-separator {
-    color: var(--ah-muted);
+  .sl-plan-scope-separator {
+    color: var(--sl-faint);
   }
 
-  .ah-plan-highlights {
+  .sl-plan-highlights {
     flex: 1;
     margin: 0;
     padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
-  .ah-plan-highlights li {
+  .sl-plan-highlights li {
     position: relative;
     margin: 0;
-    padding-inline-start: 1.4rem;
-    font-size: 0.88rem;
-    line-height: 1.9;
-    color: var(--ah-muted);
+    padding-inline-start: 1.35rem;
+    font-size: 0.86rem;
+    line-height: 1.95;
+    color: var(--sl-body);
   }
 
-  .ah-plan-highlights li::before {
+  .sl-plan-highlights li::before {
     content: "";
     position: absolute;
     inset-inline-start: 0;
-    top: 0.65em;
-    width: 0.5rem;
-    height: 0.5rem;
+    top: 0.62em;
+    width: 0.48rem;
+    height: 0.48rem;
     border-radius: 9999px;
-    background: var(--ah-accent-soft);
-    border: 1.5px solid var(--ah-accent);
+    background: var(--sl-blue-soft);
+    border: 1.5px solid var(--sl-blue);
   }
 
-  .ah-coverage {
+  .sl-coverage {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
-    border-top: 1px solid var(--ah-border);
-    padding-top: 1rem;
+    gap: 0.7rem;
+    border-top: 1px solid var(--sl-border);
+    padding-top: 0.95rem;
   }
 
-  .ah-coverage strong {
-    font-size: 0.85rem;
+  .sl-coverage strong {
+    font-size: 0.83rem;
     font-weight: 700;
-    color: var(--ah-ink-soft);
+    color: var(--sl-body);
   }
 
-  .ah-coverage-meter {
+  .sl-coverage-meter {
     display: flex;
     gap: 0.3rem;
   }
 
-  .ah-coverage-meter i {
-    width: 1.35rem;
-    height: 0.45rem;
+  .sl-coverage-meter i {
+    width: 1.3rem;
+    height: 0.42rem;
     border-radius: 9999px;
-    background: var(--ah-oat);
-    border: 1px solid var(--ah-border);
+    background: #efe7dc;
+    border: 1px solid var(--sl-border);
   }
 
-  .ah-coverage-meter i.filled {
-    background: var(--ah-accent);
-    border-color: var(--ah-accent);
+  .sl-coverage-meter i.filled {
+    background: var(--sl-blue);
+    border-color: var(--sl-blue);
   }
 
-  .ah-plan-addon {
+  .sl-plan-addon {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--ah-muted);
+    font-size: 0.83rem;
+    color: var(--sl-faint);
   }
 
-  .ah-addon-price {
+  .sl-addon-price {
     display: inline-flex;
     gap: 0.3rem;
     font-weight: 700;
-    color: var(--ah-ink);
+    color: var(--sl-ink);
   }
 
-  .ah-price-card .ah-btn {
+  .sl-price-card .sl-btn {
     width: 100%;
   }
 
   /* ---------- FAQ ---------- */
 
-  .ah-faq {
-    max-width: 48rem;
+  .sl-faq {
+    max-width: 46rem;
     margin-inline: auto;
-    border-top: 1px solid var(--ah-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
   }
 
-  .ah-faq-item {
-    border-bottom: 1px solid var(--ah-border);
+  .sl-faq-item {
+    background: var(--sl-card);
+    border: 1px solid var(--sl-border);
+    border-radius: var(--sl-radius-sm);
+    box-shadow: var(--sl-shadow-sm);
+    padding-inline: 1.25rem;
+    transition: box-shadow 160ms ease;
   }
 
-  .ah-faq-item summary {
+  .sl-faq-item:hover {
+    box-shadow: var(--sl-shadow);
+  }
+
+  .sl-faq-item summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-block: 1.1rem;
+    padding-block: 1rem;
     font-weight: 700;
-    font-size: 0.98rem;
-    line-height: 1.9;
+    font-size: 0.95rem;
+    line-height: 1.95;
     cursor: pointer;
     list-style: none;
-    transition: color 160ms ease;
   }
 
-  .ah-faq-item summary::-webkit-details-marker {
+  .sl-faq-item summary::-webkit-details-marker {
     display: none;
   }
 
-  .ah-faq-item summary:hover {
-    color: var(--ah-accent-ink);
-  }
-
-  .ah-faq-item summary svg {
-    width: 1.15rem;
-    height: 1.15rem;
+  .sl-faq-item summary svg {
+    width: 1.1rem;
+    height: 1.1rem;
     flex-shrink: 0;
-    color: var(--ah-muted);
+    color: var(--sl-blue);
     transition: transform 200ms ease;
   }
 
-  .ah-faq-item[open] summary svg {
+  .sl-faq-item[open] summary svg {
     transform: rotate(180deg);
   }
 
-  .ah-faq-item p {
-    padding-block: 0 1.25rem;
-    font-size: 0.92rem;
+  .sl-faq-item p {
+    padding-block: 0 1.15rem;
+    font-size: 0.9rem;
     line-height: 2.1;
-    color: var(--ah-muted);
+    color: var(--sl-body);
   }
 
   /* ---------- Demo ---------- */
 
-  .ah-demo {
-    background: var(--ah-ink);
-    color: var(--ah-paper);
-    padding-block: clamp(4rem, 3rem + 3vw, 6.5rem);
-  }
-
-  .ah-demo-grid {
+  .sl-demo-grid {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
-    gap: clamp(2.5rem, 2rem + 2vw, 4.5rem);
+    gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
     align-items: center;
   }
 
-  .ah-demo-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .ah-demo-copy h2 {
-    color: var(--ah-paper);
-    font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.4rem);
-    font-weight: 800;
-    line-height: 1.35;
-  }
-
-  .ah-demo-copy > p {
-    color: rgba(250, 249, 245, 0.75);
-    line-height: 2.1;
-  }
-
-  .ah-demo-path {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    border: 1px solid rgba(250, 249, 245, 0.18);
-    border-radius: var(--ah-radius);
-    background: rgba(250, 249, 245, 0.05);
-    padding: 1.5rem;
-    margin-top: 0.5rem;
-  }
-
-  .ah-demo-path strong {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--ah-accent);
-  }
-
-  .ah-demo-path ol {
-    margin: 0;
-    padding-inline-start: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .ah-demo-path li {
-    margin: 0;
-    font-size: 0.9rem;
-    line-height: 2;
-    color: rgba(250, 249, 245, 0.8);
-  }
-
-  .ah-demo-path li::marker {
-    color: var(--ah-accent);
-    font-weight: 700;
-  }
-
-  .ah-demo-form {
+  .sl-demo-copy {
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
   }
 
-  .ah-demo-form h3 {
-    font-size: 1.1rem;
+  .sl-demo-copy h2 {
+    font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.2rem);
+    font-weight: 800;
+    line-height: 1.55;
+  }
+
+  .sl-demo-copy > p {
+    color: var(--sl-body);
+    line-height: 2.1;
+  }
+
+  .sl-demo-path {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: 0.4rem;
+  }
+
+  .sl-demo-path strong {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--sl-blue);
+  }
+
+  .sl-demo-path ol {
+    margin: 0;
+    padding-inline-start: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .sl-demo-path li {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 2;
+    color: var(--sl-body);
+  }
+
+  .sl-demo-path li::marker {
+    color: var(--sl-blue);
     font-weight: 800;
   }
 
-  .ah-form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .ah-field {
+  .sl-demo-form {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 1.05rem;
+    box-shadow: var(--sl-shadow);
   }
 
-  .ah-field span {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--ah-ink-soft);
+  .sl-demo-form h3 {
+    font-size: 1.08rem;
+    font-weight: 800;
   }
 
-  .ah-field input,
-  .ah-field select {
-    border: 1px solid var(--ah-border-strong);
-    border-radius: var(--ah-radius-sm);
-    background: var(--ah-paper);
-    color: var(--ah-ink);
-    padding: 0.6rem 0.9rem;
-    font-size: 0.92rem;
+  .sl-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.95rem;
+  }
+
+  .sl-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .sl-field span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--sl-body);
+  }
+
+  .sl-field input,
+  .sl-field select {
+    border: 1px solid rgba(30, 29, 53, 0.16);
+    border-radius: var(--sl-radius-sm);
+    background: #fdfbf8;
+    color: var(--sl-ink);
+    padding: 0.55rem 0.85rem;
+    font-size: 0.9rem;
     transition: border-color 160ms ease, box-shadow 160ms ease;
   }
 
-  .ah-field input:focus-visible,
-  .ah-field select:focus-visible {
+  .sl-field input:focus-visible,
+  .sl-field select:focus-visible {
     outline: 0;
-    border-color: var(--ah-accent);
-    box-shadow: 0 0 0 3px var(--ah-accent-soft);
+    border-color: var(--sl-blue);
+    box-shadow: 0 0 0 3px var(--sl-blue-soft);
   }
 
-  .ah-demo-form .ah-btn {
+  .sl-demo-form .sl-btn {
     margin-top: 0.25rem;
   }
 
   /* ---------- Responsive ---------- */
 
   @media (max-width: 64em) {
-    .ah-hero-grid,
-    .ah-split,
-    .ah-solution-grid,
-    .ah-demo-grid {
+    .sl-hero-grid,
+    .sl-row,
+    .sl-row-feature,
+    .sl-demo-grid {
       grid-template-columns: 1fr;
     }
 
-    .ah-split {
-      grid-template-areas: "copy" "card";
+    .sl-row-flip > .sl-row-copy {
+      order: 1;
     }
 
-    .ah-split .ah-section-copy {
-      grid-area: copy;
+    .sl-row-flip > .sl-visual {
+      order: 2;
     }
 
-    .ah-split .ah-problem-card {
-      grid-area: card;
-    }
-
-    .ah-flow-grid {
+    .sl-flow-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .ah-feature-grid {
+    .sl-stage-card {
       grid-template-columns: 1fr;
     }
 
-    .ah-stage-card {
-      grid-template-columns: 1fr;
-    }
-
-    .ah-stage-side {
+    .sl-stage-side {
       border-inline-start: 0;
-      border-top: 1px solid var(--ah-border);
+      border-top: 1px solid var(--sl-border);
       padding-inline-start: 0;
-      padding-top: 1.25rem;
+      padding-top: 1.2rem;
     }
   }
 
   @media (max-width: 40em) {
-    .ah-flow-grid,
-    .ah-form-grid,
-    .ah-mini-grid {
+    .sl-flow-grid,
+    .sl-form-grid,
+    .sl-mini-grid {
       grid-template-columns: 1fr;
     }
 
-    .ah-actions .ah-btn {
+    .sl-actions .sl-btn {
       width: 100%;
     }
   }
