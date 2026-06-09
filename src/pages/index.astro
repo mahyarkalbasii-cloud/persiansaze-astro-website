@@ -170,66 +170,151 @@ const schemaGraph = [
   <body class="home-color-anthropic">
     <SiteHeader home />
 
-    <main class="sl-home">
-      <section id="hero" class="sl-hero">
-        <div class="container sl-hero-grid">
-          <div class="sl-hero-copy">
+    <main class="pg-home">
+      <!-- ================= HERO ================= -->
+      <section id="hero" class="pg-hero">
+        <div class="container pg-hero-grid">
+          <div class="pg-hero-copy">
             <h1>
               <span>{hero.titleLines[0]}</span>
-              <span>{hero.titleLines[1]}</span>
+              <span class="pg-hl">{hero.titleLines[1]}</span>
             </h1>
             <p>{hero.body}</p>
-            <div class="sl-actions">
-              <a class="sl-btn sl-btn-primary" href="#demo">{hero.primaryCta}</a>
-              <a class="sl-btn sl-btn-ghost" href="#problem">{hero.secondaryCta}</a>
+            <div class="pg-actions">
+              <a class="pg-btn pg-btn-amber" href="#demo">{hero.primaryCta}</a>
+              <a class="pg-btn pg-btn-ghost" href="#problem">{hero.secondaryCta}</a>
             </div>
+            <ul class="pg-city-chips" aria-label="شهرها">
+              {site.areaServed.map((city) => (
+                <li><i aria-hidden="true"></i>{city}</li>
+              ))}
+            </ul>
           </div>
 
-          <div class="sl-visual sl-hero-visual">
-            <div class="sl-placeholder">
-              <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
-                <circle cx="18" cy="20" r="5" stroke="currentColor" stroke-width="2" />
-                <path d="M10 36L20 27L28 32L38 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-              <span class="sl-placeholder-label">{hero.placeholder}</span>
-            </div>
+          <div class="pg-hero-scene" aria-hidden="true">
+            <svg viewBox="0 0 560 420" fill="none">
+              <!-- glow -->
+              <ellipse cx="280" cy="372" rx="250" ry="36" fill="url(#pgGlow)" />
+              <defs>
+                <radialGradient id="pgGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#f7b32b" stop-opacity="0.16" />
+                  <stop offset="1" stop-color="#f7b32b" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+
+              <!-- skyline -->
+              <g class="pg-skyline" stroke="#95a7e8" stroke-width="2">
+                <rect class="pg-b pg-b1" x="42" y="232" width="70" height="140" rx="3" fill="rgba(149,167,232,0.06)" />
+                <rect class="pg-b pg-b2" x="122" y="172" width="60" height="200" rx="3" fill="rgba(149,167,232,0.06)" />
+                <rect class="pg-b pg-b3" x="192" y="112" width="80" height="260" rx="3" fill="rgba(149,167,232,0.08)" />
+                <rect class="pg-b pg-b4" x="282" y="192" width="64" height="180" rx="3" fill="rgba(149,167,232,0.06)" />
+                <rect class="pg-b pg-b5" x="356" y="142" width="74" height="230" rx="3" fill="rgba(149,167,232,0.08)" />
+                <rect class="pg-b pg-b6" x="440" y="252" width="58" height="120" rx="3" fill="rgba(247,179,43,0.05)" stroke-dasharray="7 5" />
+              </g>
+
+              <!-- scaffold lines on the building under construction -->
+              <g stroke="#95a7e8" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.7">
+                <path d="M440 282H498" />
+                <path d="M440 312H498" />
+                <path d="M440 342H498" />
+              </g>
+
+              <!-- windows -->
+              <g class="pg-windows" fill="#ffd66b">
+                <rect class="w1" x="204" y="132" width="12" height="14" rx="2" />
+                <rect class="w2" x="228" y="162" width="12" height="14" rx="2" />
+                <rect class="w3" x="252" y="132" width="12" height="14" rx="2" />
+                <rect class="w4" x="204" y="222" width="12" height="14" rx="2" />
+                <rect class="w5" x="252" y="192" width="12" height="14" rx="2" />
+                <rect class="w6" x="228" y="252" width="12" height="14" rx="2" />
+                <rect class="w7" x="368" y="162" width="12" height="14" rx="2" />
+                <rect class="w8" x="394" y="192" width="12" height="14" rx="2" />
+                <rect class="w9" x="368" y="252" width="12" height="14" rx="2" />
+                <rect class="w10" x="134" y="192" width="12" height="14" rx="2" />
+                <rect class="w11" x="158" y="232" width="12" height="14" rx="2" />
+                <rect class="w12" x="294" y="212" width="12" height="14" rx="2" />
+                <rect class="w13" x="318" y="252" width="12" height="14" rx="2" />
+                <rect class="w14" x="64" y="252" width="12" height="14" rx="2" />
+                <rect class="w15" x="88" y="292" width="12" height="14" rx="2" />
+              </g>
+
+              <!-- tower crane -->
+              <g class="pg-crane" stroke="#f7b32b" stroke-width="3" stroke-linecap="round">
+                <path d="M516 372V96" />
+                <path d="M516 96H404" />
+                <path d="M516 96H548" />
+                <path d="M516 60V96" />
+                <path d="M516 60L450 96" stroke-width="2" />
+                <path d="M516 60L548 96" stroke-width="2" />
+                <g class="pg-hook">
+                  <path d="M430 96V150" stroke-width="2" />
+                  <rect x="422" y="150" width="16" height="14" rx="2" fill="rgba(247,179,43,0.25)" stroke-width="2" />
+                </g>
+              </g>
+
+              <!-- map pins -->
+              <g class="pg-pins">
+                <g transform="translate(232 84)">
+                  <circle class="pg-ping" r="11" stroke="#f7b32b" stroke-width="2" />
+                  <circle r="5.5" fill="#f7b32b" />
+                </g>
+                <g transform="translate(393 112)">
+                  <circle class="pg-ping d2" r="11" stroke="#6fd3df" stroke-width="2" />
+                  <circle r="5.5" fill="#6fd3df" />
+                </g>
+                <g transform="translate(77 204)">
+                  <circle class="pg-ping d3" r="11" stroke="#f7b32b" stroke-width="2" />
+                  <circle r="5.5" fill="#f7b32b" />
+                </g>
+              </g>
+
+              <!-- ground + route -->
+              <path d="M22 372H538" stroke="#95a7e8" stroke-width="2" opacity="0.8" />
+              <path class="pg-route" d="M30 392C150 384 320 400 530 388" stroke="#6fd3df" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round" />
+            </svg>
           </div>
         </div>
       </section>
 
-      <section id="problem" class="sl-section">
-        <div class="container">
-          <h2 class="sl-statement">{problem.title}</h2>
-
-          <div class="sl-row">
-            <div class="sl-row-copy">
+      <div class="pg-sheet">
+        <!-- ================= PROBLEM ================= -->
+        <section id="problem" class="pg-section">
+          <div class="container">
+            <div class="pg-statement">
+              <span class="pg-kicker">روایت مسئله بازار</span>
+              <h2>{problem.title}</h2>
               <p>{problem.body}</p>
-              <a class="sl-btn sl-btn-primary" href="#solution">{problem.cta}</a>
             </div>
 
-            <article class="sl-visual sl-problem-visual">
-              <header class="sl-problem-head">
-                <span>روایت مسئله بازار</span>
-                <strong>فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
-              </header>
+            <div class="pg-problem-board">
+              <div class="pg-window-card">
+                <strong class="pg-window-title">فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
 
-              <div class="sl-placeholder sl-placeholder-flat">
-                <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                  <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
-                  <circle cx="16" cy="30" r="4" stroke="currentColor" stroke-width="2" />
-                  <circle cx="32" cy="18" r="4" stroke="currentColor" stroke-width="2" />
-                  <path d="M19 27L29 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4" />
-                </svg>
-                <span class="sl-placeholder-label">{problem.placeholder}</span>
+                <div class="pg-timeline" aria-hidden="true">
+                  <svg viewBox="0 0 520 170" fill="none">
+                    <g stroke="#c9c2b2" stroke-width="1.5">
+                      <path d="M30 118H490" stroke-width="2" stroke="#8c8674" />
+                      <path d="M95 110V126" />
+                      <path d="M160 110V126" />
+                      <path d="M225 110V126" />
+                      <path d="M290 110V126" />
+                      <path d="M355 110V126" />
+                      <path d="M420 110V126" />
+                    </g>
+                    <rect class="pg-band" x="226" y="34" width="92" height="116" rx="14" fill="rgba(247,179,43,0.16)" stroke="#e3a31b" stroke-width="2" stroke-dasharray="6 6" />
+                    <circle class="pg-probe p1" cy="118" r="7" fill="#9aa3b5" />
+                    <circle class="pg-probe p2" cy="118" r="8" fill="#e3a31b" />
+                    <circle class="pg-probe p3" cy="118" r="7" fill="#9aa3b5" />
+                  </svg>
+                </div>
+
+                <div class="pg-window-chip">
+                  <span>پنجره تماس</span>
+                  <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
+                </div>
               </div>
 
-              <div class="sl-chip">
-                <span>پنجره تماس</span>
-                <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
-              </div>
-
-              <div class="sl-mini-grid">
+              <div class="pg-friction-grid">
                 <article>
                   <span>پراکندگی</span>
                   <strong>پروژه‌ها روی چند مسیر پخش‌اند</strong>
@@ -243,354 +328,393 @@ const schemaGraph = [
                   <strong>بدون نظم، فرصت‌ها در صف می‌مانند</strong>
                 </article>
               </div>
-            </article>
-          </div>
-        </div>
-      </section>
 
-      <section id="solution" class="sl-section">
-        <div class="container">
-          <div class="sl-statement-block">
-            <h2>{solution.title}</h2>
-            <p>{solution.body}</p>
+              <div class="pg-center-cta">
+                <a class="pg-btn pg-btn-ink" href="#solution">{problem.cta}</a>
+              </div>
+            </div>
           </div>
+        </section>
 
-          <div class="sl-row sl-row-flip">
-            <div class="sl-row-copy" aria-labelledby="solution-data-title">
-              <h3 id="solution-data-title">{solution.dataTitle}</h3>
-              <div class="sl-data-list">
+        <!-- ================= SOLUTION ================= -->
+        <section id="solution" class="pg-section pg-section-tinted">
+          <div class="container">
+            <div class="pg-statement">
+              <h2>{solution.title}</h2>
+              <p>{solution.body}</p>
+            </div>
+
+            <div class="pg-solution-grid">
+              <figure class="pg-dash" aria-label={solution.visualAlt}>
+                <div class="pg-dash-top" aria-hidden="true">
+                  <i></i><i></i><i></i>
+                </div>
+                <div class="pg-dash-body" aria-hidden="true">
+                  <div class="pg-dash-map">
+                    <svg viewBox="0 0 240 240" fill="none">
+                      <path class="pg-route" d="M22 196C70 150 96 168 122 122C148 76 190 92 218 44" stroke="#6fd3df" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round" />
+                      <g>
+                        <g transform="translate(60 160)">
+                          <circle class="pg-ping" r="12" stroke="#f7b32b" stroke-width="2" />
+                          <circle r="6" fill="#f7b32b" />
+                        </g>
+                        <g transform="translate(126 118)">
+                          <circle class="pg-ping d2" r="12" stroke="#6fd3df" stroke-width="2" />
+                          <circle r="6" fill="#6fd3df" />
+                        </g>
+                        <g transform="translate(196 62)">
+                          <circle class="pg-ping d3" r="12" stroke="#f7b32b" stroke-width="2" />
+                          <circle r="6" fill="#f7b32b" />
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  <div class="pg-dash-side">
+                    <i class="pg-dash-row" style="width: 84%"></i>
+                    <i class="pg-dash-row" style="width: 62%"></i>
+                    <i class="pg-dash-row" style="width: 74%"></i>
+                    <div class="pg-dash-chart">
+                      <i style="--h: 42%"></i>
+                      <i style="--h: 64%"></i>
+                      <i class="hot" style="--h: 92%"></i>
+                      <i style="--h: 55%"></i>
+                      <i style="--h: 76%"></i>
+                    </div>
+                  </div>
+                </div>
+              </figure>
+
+              <section class="pg-data-panel" aria-labelledby="solution-data-title">
+                <h3 id="solution-data-title">{solution.dataTitle}</h3>
                 {solution.dataCards.map((card) => (
                   <article>
                     <h4>{card.title}</h4>
                     <p>{card.body}</p>
                   </article>
                 ))}
-              </div>
+              </section>
             </div>
 
-            <figure class="sl-visual sl-solution-visual" aria-label={solution.visualAlt}>
-              <div class="sl-placeholder">
-                <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                  <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
-                  <path d="M14 14H26" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  <path d="M14 22H34" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  <path d="M14 30H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  <circle cx="32" cy="32" r="4" stroke="currentColor" stroke-width="2" />
-                </svg>
-                <span class="sl-placeholder-label">{solution.dashboardPlaceholder}</span>
-              </div>
-            </figure>
-          </div>
-
-          <h3 class="sl-substatement" id="solution-stack-title">{solution.stackTitle}</h3>
-
-          {solution.features.map((feature, index) => (
-            <div class={index % 2 === 0 ? "sl-row sl-row-feature" : "sl-row sl-row-feature sl-row-flip"}>
-              <div class="sl-row-copy">
-                <span class="sl-badge">{feature.label}</span>
-                <h4>{feature.title}</h4>
-                <p>{feature.body}</p>
-              </div>
-              <div class="sl-visual sl-feature-visual">
-                <div class="sl-placeholder">
-                  <svg class="sl-placeholder-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                    <rect x="4" y="4" width="40" height="40" rx="8" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5" />
-                    <circle cx="24" cy="24" r="8" stroke="currentColor" stroke-width="2" />
-                    <path d="M24 16V12M24 36V32M16 24H12M36 24H32" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                </div>
-              </div>
+            <h3 class="pg-substatement" id="solution-stack-title">{solution.stackTitle}</h3>
+            <div class="pg-feature-grid" aria-labelledby="solution-stack-title">
+              {solution.features.map((feature) => (
+                <article class="pg-card pg-feature-card">
+                  <span class="pg-tag">{feature.label}</span>
+                  <h4>{feature.title}</h4>
+                  <p>{feature.body}</p>
+                </article>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="audiences" class="sl-section">
-        <div class="container">
-          <div class="sl-statement-block">
-            <h2>{audiences.title}</h2>
-            <p>{audiences.body}</p>
           </div>
+        </section>
 
-          <div class="sl-audience-grid">
-            {saleTypes.map((item) => (
-              <article class="sl-card sl-audience-card">
-                <h3>{item.title}</h3>
-                <p>{item.summary}</p>
-                <a class="sl-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="stages" class="sl-section" aria-label="مراحل ساخت" data-stage-rotation>
-        <div class="container">
-          <div class="sl-tabs" role="tablist" aria-label="مراحل ساخت">
-            {homeStageCards.map((stage, index) => (
-              <button
-                class={index === 0 ? "sl-tab active" : "sl-tab"}
-                type="button"
-                role="tab"
-                aria-selected={index === 0 ? "true" : "false"}
-                aria-controls="stage-info-panel"
-                data-stage-index={index}
-              >
-                {stage.title}
-              </button>
-            ))}
-          </div>
-
-          <article class="sl-card sl-stage-card" id="stage-info-panel" aria-live="polite">
-            <div class="sl-stage-copy">
-              <h3 data-stage-title>{initialHomeStage.title}</h3>
-              <p data-stage-summary>{initialHomeStage.summary}</p>
+        <!-- ================= AUDIENCES ================= -->
+        <section id="audiences" class="pg-section">
+          <div class="container">
+            <div class="pg-statement">
+              <h2>{audiences.title}</h2>
+              <p>{audiences.body}</p>
             </div>
-            <div class="sl-stage-side">
-              <span>زمان تصمیم‌گیری سازنده</span>
-              <p data-stage-source>{initialHomeStage.sourcePhase}</p>
-              <a class="sl-btn sl-btn-primary" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
+
+            <div class="pg-audience-grid">
+              {saleTypes.map((item) => (
+                <article class="pg-card pg-audience-card">
+                  <h3>{item.title}</h3>
+                  <p>{item.summary}</p>
+                  <a class="pg-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
+                </article>
+              ))}
             </div>
-          </article>
-        </div>
-        <script is:inline type="application/json" id="home-stage-data" set:html={JSON.stringify(homeStageCards)} />
-        <script is:inline>
-          (() => {
-            const root = document.querySelector("[data-stage-rotation]");
-            const dataNode = document.getElementById("home-stage-data");
-            if (!root || !dataNode) return;
+          </div>
+        </section>
 
-            const stages = JSON.parse(dataNode.textContent || "[]");
-            const buttons = [...root.querySelectorAll("[data-stage-index]")];
-            const title = root.querySelector("[data-stage-title]");
-            const summary = root.querySelector("[data-stage-summary]");
-            const source = root.querySelector("[data-stage-source]");
-            const link = root.querySelector("[data-stage-link]");
-            let activeIndex = 0;
-            let userLocked = false;
-            let timerId = null;
+        <!-- ================= STAGES ================= -->
+        <section id="stages" class="pg-section pg-section-tinted" aria-label="مراحل ساخت" data-stage-rotation>
+          <div class="container">
+            <div class="pg-stage-rail" role="tablist" aria-label="مراحل ساخت">
+              {homeStageCards.map((stage, index) => (
+                <button
+                  class={index === 0 ? "pg-stage-tab active" : "pg-stage-tab"}
+                  type="button"
+                  role="tab"
+                  aria-selected={index === 0 ? "true" : "false"}
+                  aria-controls="stage-info-panel"
+                  data-stage-index={index}
+                >
+                  {stage.title}
+                </button>
+              ))}
+            </div>
 
-            const selectStage = (index, lock = false) => {
-              const stage = stages[index];
-              if (!stage) return;
+            <article class="pg-stage-card" id="stage-info-panel" aria-live="polite">
+              <div class="pg-stage-copy">
+                <h3 data-stage-title>{initialHomeStage.title}</h3>
+                <p data-stage-summary>{initialHomeStage.summary}</p>
+              </div>
+              <div class="pg-stage-side">
+                <span>زمان تصمیم‌گیری سازنده</span>
+                <p data-stage-source>{initialHomeStage.sourcePhase}</p>
+                <a class="pg-btn pg-btn-amber" data-stage-link href={initialHomeStage.href}>مشاهده اطلاعات بیشتر</a>
+              </div>
+            </article>
+          </div>
+          <script is:inline type="application/json" id="home-stage-data" set:html={JSON.stringify(homeStageCards)} />
+          <script is:inline>
+            (() => {
+              const root = document.querySelector("[data-stage-rotation]");
+              const dataNode = document.getElementById("home-stage-data");
+              if (!root || !dataNode) return;
 
-              activeIndex = index;
-              buttons.forEach((button, buttonIndex) => {
-                const isActive = buttonIndex === index;
-                button.classList.toggle("active", isActive);
-                button.setAttribute("aria-selected", isActive ? "true" : "false");
+              const stages = JSON.parse(dataNode.textContent || "[]");
+              const buttons = [...root.querySelectorAll("[data-stage-index]")];
+              const title = root.querySelector("[data-stage-title]");
+              const summary = root.querySelector("[data-stage-summary]");
+              const source = root.querySelector("[data-stage-source]");
+              const link = root.querySelector("[data-stage-link]");
+              let activeIndex = 0;
+              let userLocked = false;
+              let timerId = null;
+
+              const selectStage = (index, lock = false) => {
+                const stage = stages[index];
+                if (!stage) return;
+
+                activeIndex = index;
+                buttons.forEach((button, buttonIndex) => {
+                  const isActive = buttonIndex === index;
+                  button.classList.toggle("active", isActive);
+                  button.setAttribute("aria-selected", isActive ? "true" : "false");
+                });
+
+                if (title) title.textContent = stage.title;
+                if (summary) summary.textContent = stage.summary;
+                if (source) source.textContent = stage.sourcePhase;
+                if (link) link.setAttribute("href", stage.href);
+
+                if (lock && !userLocked) {
+                  userLocked = true;
+                  if (timerId) window.clearInterval(timerId);
+                }
+              };
+
+              buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                  selectStage(Number(button.dataset.stageIndex), true);
+                });
               });
 
-              if (title) title.textContent = stage.title;
-              if (summary) summary.textContent = stage.summary;
-              if (source) source.textContent = stage.sourcePhase;
-              if (link) link.setAttribute("href", stage.href);
-
-              if (lock && !userLocked) {
-                userLocked = true;
-                if (timerId) window.clearInterval(timerId);
+              if (stages.length > 1) {
+                timerId = window.setInterval(() => {
+                  if (!userLocked) selectStage((activeIndex + 1) % stages.length);
+                }, 10000);
               }
+            })();
+          </script>
+        </section>
+
+        <!-- ================= SALES FLOW ================= -->
+        <section id="sales-flow" class="pg-section">
+          <div class="container">
+            <div class="pg-statement">
+              <h2>{salesFlow.title}</h2>
+            </div>
+
+            <div class="pg-flow-grid" role="list" aria-label={salesFlow.ariaLabel}>
+              {salesFlow.stages.map((stage) => (
+                <article class="pg-card pg-flow-step" role="listitem">
+                  <span class="pg-flow-number">{stage.number}</span>
+                  <p class="pg-flow-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
+                  <p class="pg-flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
+                </article>
+              ))}
+            </div>
+
+            <div class="pg-center-cta">
+              <a class="pg-btn pg-btn-amber" href="#demo">{salesFlow.cta} ←</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= PLANS ================= -->
+        <section id="plans" class="pg-section pg-section-tinted">
+          <div class="container">
+            <div class="pg-statement">
+              <h2>{pricing.title}</h2>
+              <p>{pricing.description}</p>
+            </div>
+
+            <div class="pg-duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
+              {pricing.durations.map((duration) => (
+                <button
+                  class={duration.id === defaultDuration ? "pg-duration-tab active" : "pg-duration-tab"}
+                  type="button"
+                  role="tab"
+                  aria-selected={duration.id === defaultDuration ? "true" : "false"}
+                  aria-pressed={duration.id === defaultDuration ? "true" : "false"}
+                  data-plan-duration={duration.id}
+                >
+                  <span class="pg-duration-number">{duration.id}</span>
+                  <span class="pg-duration-unit">ماهه</span>
+                </button>
+              ))}
+            </div>
+
+            <div class="pg-pricing-grid">
+              {pricing.plans.map((plan) => (
+                <article class="pg-card pg-price-card">
+                  <header class="pg-price-head">
+                    <span class="pg-plan-mark" role="img" aria-label={plan.iconAlt}>
+                      <i class="pg-plan-ring" aria-hidden="true"></i>
+                      <i class="pg-plan-dot" aria-hidden="true"></i>
+                    </span>
+                    <h3>{plan.name}</h3>
+                  </header>
+                  <strong class="pg-price">
+                    <span
+                      class="pg-price-number"
+                      data-plan-price
+                      data-prices={JSON.stringify(plan.prices)}
+                    >
+                      {plan.prices[defaultDuration]}
+                    </span>
+                    <span class="pg-price-currency">{pricing.currency}</span>
+                  </strong>
+                  <p class="pg-plan-scope">
+                    <span>{plan.landLine}</span>
+                    <span class="pg-plan-scope-separator" aria-hidden="true">-</span>
+                    <span>{pricing.stagesIncluded}</span>
+                  </p>
+                  <ul class="pg-plan-highlights">
+                    {plan.highlights.map((item) => <li>{item}</li>)}
+                  </ul>
+                  <div class="pg-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
+                    <strong>{pricing.coverage}</strong>
+                    <div class="pg-coverage-meter" aria-hidden="true">
+                      {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
+                    </div>
+                  </div>
+                  <p class="pg-plan-addon">
+                    <span>هر مرحله اضافه:</span>
+                    <span class="pg-addon-price">
+                      <span>{plan.addonPrice}</span>
+                      <span>{pricing.currency}</span>
+                    </span>
+                  </p>
+                  <a class="pg-btn pg-btn-ink" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <script is:inline>
+          (() => {
+            const plansSection = document.getElementById("plans");
+            if (!plansSection) return;
+
+            const durationTabs = plansSection.querySelector(".pg-duration-tabs");
+            const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
+            const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
+
+            const setDuration = (duration) => {
+              durationTabs?.setAttribute("data-active-duration", duration);
+
+              buttons.forEach((button) => {
+                const isActive = button.getAttribute("data-plan-duration") === duration;
+                button.classList.toggle("active", isActive);
+                button.setAttribute("aria-selected", String(isActive));
+                button.setAttribute("aria-pressed", String(isActive));
+              });
+
+              priceNodes.forEach((node) => {
+                const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
+                if (prices[duration]) {
+                  node.textContent = prices[duration];
+                }
+              });
             };
 
             buttons.forEach((button) => {
               button.addEventListener("click", () => {
-                selectStage(Number(button.dataset.stageIndex), true);
+                const duration = button.getAttribute("data-plan-duration");
+                if (duration) setDuration(duration);
               });
             });
-
-            if (stages.length > 1) {
-              timerId = window.setInterval(() => {
-                if (!userLocked) selectStage((activeIndex + 1) % stages.length);
-              }, 10000);
-            }
           })();
         </script>
-      </section>
 
-      <section id="sales-flow" class="sl-section">
-        <div class="container">
-          <h2 class="sl-statement">{salesFlow.title}</h2>
-
-          <div class="sl-flow-grid" role="list" aria-label={salesFlow.ariaLabel}>
-            {salesFlow.stages.map((stage) => (
-              <article class="sl-card sl-flow-step" role="listitem">
-                <span class="sl-step-number">{stage.number}</span>
-                <p class="sl-flow-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
-                <p class="sl-flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
-              </article>
-            ))}
-          </div>
-
-          <div class="sl-center-cta">
-            <a class="sl-btn sl-btn-primary" href="#demo">{salesFlow.cta} ←</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="plans" class="sl-section">
-        <div class="container">
-          <div class="sl-statement-block">
-            <h2>{pricing.title}</h2>
-            <p>{pricing.description}</p>
-          </div>
-
-          <div class="sl-tabs sl-duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
-            {pricing.durations.map((duration) => (
-              <button
-                class={duration.id === defaultDuration ? "sl-tab active" : "sl-tab"}
-                type="button"
-                role="tab"
-                aria-selected={duration.id === defaultDuration ? "true" : "false"}
-                aria-pressed={duration.id === defaultDuration ? "true" : "false"}
-                data-plan-duration={duration.id}
-              >
-                <span class="sl-duration-number">{duration.id}</span>
-                <span class="sl-duration-unit">ماهه</span>
-              </button>
-            ))}
-          </div>
-
-          <div class="sl-pricing-grid">
-            {pricing.plans.map((plan) => (
-              <article class="sl-card sl-price-card">
-                <header class="sl-price-head">
-                  <span class="sl-plan-mark" role="img" aria-label={plan.iconAlt}>
+        <!-- ================= FAQ ================= -->
+        <section id="faq" class="pg-section">
+          <div class="container">
+            <div class="pg-statement">
+              <span class="pg-kicker">{faqSection.eyebrow}</span>
+              <h2>{faqSection.title}</h2>
+              <p>{faqSection.description}</p>
+            </div>
+            <div class="pg-faq">
+              {faqs.map((item) => (
+                <details class="pg-faq-item">
+                  <summary>
+                    {item.question}
                     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3" />
-                      <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.5" />
+                      <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
                     </svg>
-                  </span>
-                  <h3>{plan.name}</h3>
-                </header>
-                <strong class="sl-price">
-                  <span
-                    class="sl-price-number"
-                    data-plan-price
-                    data-prices={JSON.stringify(plan.prices)}
-                  >
-                    {plan.prices[defaultDuration]}
-                  </span>
-                  <span class="sl-price-currency">{pricing.currency}</span>
-                </strong>
-                <p class="sl-plan-scope">
-                  <span>{plan.landLine}</span>
-                  <span class="sl-plan-scope-separator" aria-hidden="true">-</span>
-                  <span>{pricing.stagesIncluded}</span>
-                </p>
-                <ul class="sl-plan-highlights">
-                  {plan.highlights.map((item) => <li>{item}</li>)}
-                </ul>
-                <div class="sl-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
-                  <strong>{pricing.coverage}</strong>
-                  <div class="sl-coverage-meter" aria-hidden="true">
-                    {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
-                  </div>
-                </div>
-                <p class="sl-plan-addon">
-                  <span>هر مرحله اضافه:</span>
-                  <span class="sl-addon-price">
-                    <span>{plan.addonPrice}</span>
-                    <span>{pricing.currency}</span>
-                  </span>
-                </p>
-                <a class="sl-btn sl-btn-ghost" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
-              </article>
-            ))}
+                  </summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <script is:inline>
-        (() => {
-          const plansSection = document.getElementById("plans");
-          if (!plansSection) return;
-
-          const durationTabs = plansSection.querySelector(".sl-duration-tabs");
-          const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
-          const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
-
-          const setDuration = (duration) => {
-            durationTabs?.setAttribute("data-active-duration", duration);
-
-            buttons.forEach((button) => {
-              const isActive = button.getAttribute("data-plan-duration") === duration;
-              button.classList.toggle("active", isActive);
-              button.setAttribute("aria-selected", String(isActive));
-              button.setAttribute("aria-pressed", String(isActive));
-            });
-
-            priceNodes.forEach((node) => {
-              const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
-              if (prices[duration]) {
-                node.textContent = prices[duration];
-              }
-            });
-          };
-
-          buttons.forEach((button) => {
-            button.addEventListener("click", () => {
-              const duration = button.getAttribute("data-plan-duration");
-              if (duration) setDuration(duration);
-            });
-          });
-        })();
-      </script>
-
-      <section id="faq" class="sl-section">
-        <div class="container">
-          <div class="sl-statement-block">
-            <span class="sl-eyebrow">{faqSection.eyebrow}</span>
-            <h2>{faqSection.title}</h2>
-            <p>{faqSection.description}</p>
-          </div>
-          <div class="sl-faq">
-            {faqs.map((item) => (
-              <details class="sl-faq-item">
-                <summary>
-                  {item.question}
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </summary>
-                <p>{item.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="demo" class="sl-section sl-demo">
-        <div class="container sl-demo-grid">
-          <div class="sl-demo-copy">
+      <!-- ================= DEMO ================= -->
+      <section id="demo" class="pg-demo">
+        <div class="container pg-demo-grid">
+          <div class="pg-demo-copy">
             <h2>{demo.title}</h2>
             <p>{demo.body}</p>
 
-            <div class="sl-card sl-demo-path">
-              <strong>{demo.pathTitle}</strong>
-              <ol>
-                {demo.steps.map((step) => (
-                  <li>{step}</li>
-                ))}
-              </ol>
+            <div class="pg-demo-path">
+              <div class="pg-demo-radar" aria-hidden="true">
+                <svg viewBox="0 0 96 96" fill="none">
+                  <circle cx="48" cy="48" r="44" stroke="rgba(149,167,232,0.35)" stroke-width="1.5" />
+                  <circle cx="48" cy="48" r="28" stroke="rgba(149,167,232,0.3)" stroke-width="1.5" stroke-dasharray="4 6" />
+                  <circle cx="48" cy="48" r="4" fill="#f7b32b" />
+                  <g class="pg-radar-sweep">
+                    <path d="M48 48L48 6A42 42 0 0 1 77 17Z" fill="rgba(247,179,43,0.25)" />
+                  </g>
+                  <circle class="pg-ping" cx="70" cy="34" r="5" stroke="#6fd3df" stroke-width="2" />
+                  <circle cx="70" cy="34" r="2.5" fill="#6fd3df" />
+                </svg>
+              </div>
+              <div class="pg-demo-path-copy">
+                <strong>{demo.pathTitle}</strong>
+                <ol>
+                  {demo.steps.map((step) => (
+                    <li>{step}</li>
+                  ))}
+                </ol>
+              </div>
             </div>
           </div>
 
-          <form class="sl-card sl-demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+          <form class="pg-demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
             <h3>{demo.form.submit}</h3>
-            <div class="sl-form-grid">
-              <label class="sl-field">
+            <div class="pg-form-grid">
+              <label class="pg-field">
                 <span>{demo.form.name}</span>
                 <input name="name" autocomplete="name" />
               </label>
-              <label class="sl-field">
+              <label class="pg-field">
                 <span>{demo.form.phone}</span>
                 <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
               </label>
-              <label class="sl-field">
+              <label class="pg-field">
                 <span>{demo.form.company}</span>
                 <input name="company" autocomplete="organization" />
               </label>
-              <label class="sl-field">
+              <label class="pg-field">
                 <span>{demo.form.referralSource}</span>
                 <select name="referralSource">
                   <option value="">{demo.form.choose}</option>
@@ -600,7 +724,7 @@ const schemaGraph = [
                 </select>
               </label>
             </div>
-            <label class="sl-field">
+            <label class="pg-field">
               <span>{demo.form.supplier}</span>
               <select name="supplier">
                 <option value="">{demo.form.choose}</option>
@@ -609,7 +733,7 @@ const schemaGraph = [
                 ))}
               </select>
             </label>
-            <button class="sl-btn sl-btn-primary" type="submit">{demo.form.submit}</button>
+            <button class="pg-btn pg-btn-amber" type="submit">{demo.form.submit}</button>
           </form>
         </div>
       </section>
@@ -621,729 +745,1075 @@ const schemaGraph = [
 </html>
 
 <style is:global>
-  /* Slite-style palette for the shared header/footer; this body class is used only on the homepage. */
+  /* Blueprint palette for the shared header/footer; this body class is used only on the homepage. */
   body.home-color-anthropic {
-    --background: #f7f0e9;
-    --surface: #ffffff;
-    --surface-muted: #f1e8df;
-    --surface-subtle: #fbf6f0;
-    --foreground: #1e1d35;
-    --muted-foreground: #4a4865;
-    --faint-foreground: #76748e;
-    --border: #e6dccf;
-    --border-strong: #d6c9b8;
-    --primary: #2545d3;
-    --primary-hover: #1c37ad;
-    --primary-foreground: #ffffff;
-    --secondary: #ffffff;
-    --secondary-foreground: #1e1d35;
-    --accent: #e9e0d4;
-    --accent-foreground: #1e1d35;
-    --ring: #2545d3;
-    --inverted: #1e1d35;
-    --inverted-foreground: #f7f0e9;
+    --background: #0c1228;
+    --surface: #131c3d;
+    --surface-muted: #18234a;
+    --surface-subtle: #101733;
+    --foreground: #f3efe4;
+    --muted-foreground: #c0c4d4;
+    --faint-foreground: #8d93ab;
+    --border: rgba(149, 167, 232, 0.2);
+    --border-strong: rgba(149, 167, 232, 0.38);
+    --primary: #f7b32b;
+    --primary-hover: #e3a31b;
+    --primary-foreground: #1d1809;
+    --secondary: rgba(149, 167, 232, 0.14);
+    --secondary-foreground: #f3efe4;
+    --accent: rgba(149, 167, 232, 0.18);
+    --accent-foreground: #f3efe4;
+    --ring: #f7b32b;
+    --inverted: #f3efe4;
+    --inverted-foreground: #0c1228;
   }
 </style>
 
 <style>
-  main.sl-home {
-    --sl-bg: #f7f0e9;
-    --sl-ink: #1e1d35;
-    --sl-body: #4a4865;
-    --sl-faint: #76748e;
-    --sl-blue: #2545d3;
-    --sl-blue-dark: #1c37ad;
-    --sl-blue-soft: rgba(37, 69, 211, 0.1);
-    --sl-card: #ffffff;
-    --sl-border: rgba(30, 29, 53, 0.08);
-    --sl-shadow: 0 14px 36px rgba(30, 29, 53, 0.09);
-    --sl-shadow-sm: 0 6px 18px rgba(30, 29, 53, 0.07);
-    --sl-radius: 0.875rem;
-    --sl-radius-sm: 0.625rem;
-    background: var(--sl-bg);
-    color: var(--sl-ink);
+  main.pg-home {
+    --navy: #0c1228;
+    --navy-soft: #131c3d;
+    --line: #95a7e8;
+    --amber: #f7b32b;
+    --amber-deep: #e3a31b;
+    --amber-ink: #8a6206;
+    --cyan: #6fd3df;
+    --paper: #f3efe4;
+    --paper-deep: #eae4d2;
+    --ink: #20242e;
+    --ink-soft: #4c505e;
+    --ink-faint: #777b89;
+    --card: #fffdf6;
+    --card-border: rgba(32, 36, 46, 0.14);
+    --radius: 1rem;
+    --radius-lg: 1.4rem;
+    background: var(--navy);
+    color: var(--paper);
+    overflow: hidden;
   }
 
-  /* ---------- Primitives ---------- */
+  /* ============ primitives ============ */
 
-  .sl-btn {
+  .pg-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.4rem;
-    border: 1px solid transparent;
-    border-radius: 9999px;
-    padding: 0.55rem 1.4rem;
-    font-size: 0.88rem;
-    font-weight: 700;
-    line-height: 1.5;
+    gap: 0.5rem;
+    border: 2px solid transparent;
+    border-radius: 0.75rem;
+    padding: 0.7rem 1.6rem;
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1.4;
     cursor: pointer;
     white-space: nowrap;
-    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    transition: transform 130ms ease, box-shadow 130ms ease, background-color 130ms ease, color 130ms ease, border-color 130ms ease;
   }
 
-  .sl-btn-primary {
-    background: var(--sl-blue);
-    color: #ffffff;
-    box-shadow: 0 6px 16px rgba(37, 69, 211, 0.28);
+  .pg-btn-amber {
+    background: var(--amber);
+    color: #1d1809;
+    box-shadow: 0 4px 0 var(--amber-ink);
   }
 
-  .sl-btn-primary:hover {
-    background: var(--sl-blue-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(37, 69, 211, 0.32);
+  .pg-btn-amber:hover {
+    background: #ffc043;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--amber-ink);
   }
 
-  .sl-btn-ghost {
-    background: var(--sl-card);
-    border-color: rgba(30, 29, 53, 0.14);
-    color: var(--sl-ink);
-    box-shadow: var(--sl-shadow-sm);
-  }
-
-  .sl-btn-ghost:hover {
-    border-color: var(--sl-blue);
-    color: var(--sl-blue);
-    transform: translateY(-1px);
-  }
-
-  .sl-card {
-    background: var(--sl-card);
-    border: 1px solid var(--sl-border);
-    border-radius: var(--sl-radius);
-    box-shadow: var(--sl-shadow-sm);
-    padding: clamp(1.4rem, 1.1rem + 0.8vw, 2rem);
-  }
-
-  .sl-visual {
-    background: var(--sl-card);
-    border: 1px solid var(--sl-border);
-    border-radius: var(--sl-radius);
-    box-shadow: var(--sl-shadow);
-    padding: 1.1rem;
-    margin: 0;
-  }
-
-  .sl-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.9rem;
-    height: 100%;
-    min-height: 11rem;
-    padding: 1.75rem;
-    text-align: center;
-    border: 1.5px dashed rgba(30, 29, 53, 0.18);
-    border-radius: var(--sl-radius-sm);
-    background: #fbf7f1;
-  }
-
-  .sl-placeholder-flat {
-    min-height: 9rem;
-  }
-
-  .sl-placeholder-mark {
-    width: 48px;
-    height: 48px;
-    color: var(--sl-blue);
-    opacity: 0.85;
-  }
-
-  .sl-placeholder-label {
-    max-width: 36ch;
-    font-size: 0.82rem;
-    font-weight: 500;
-    line-height: 1.9;
-    color: var(--sl-faint);
-  }
-
-  .sl-eyebrow {
-    display: inline-flex;
-    width: fit-content;
-    border-radius: 9999px;
-    background: var(--sl-blue-soft);
-    color: var(--sl-blue);
-    padding: 0.25rem 0.9rem;
-    font-size: 0.78rem;
-    font-weight: 700;
-  }
-
-  .sl-badge {
-    display: inline-flex;
-    width: fit-content;
-    border-radius: 9999px;
-    background: var(--sl-blue-soft);
-    color: var(--sl-blue);
-    padding: 0.2rem 0.8rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-  }
-
-  .sl-link {
-    width: fit-content;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--sl-blue);
-    transition: color 160ms ease;
-  }
-
-  .sl-link:hover {
-    color: var(--sl-blue-dark);
-  }
-
-  /* ---------- Layout ---------- */
-
-  .sl-section {
-    padding-block: clamp(3.5rem, 2.5rem + 3vw, 6rem);
-  }
-
-  .sl-statement {
-    max-width: 42rem;
-    margin-inline: auto;
-    margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 4rem);
-    text-align: center;
-    font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.25rem);
-    font-weight: 800;
-    line-height: 1.5;
-  }
-
-  .sl-statement-block {
-    max-width: 42rem;
-    margin-inline: auto;
-    margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 4rem);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    text-align: center;
-  }
-
-  .sl-statement-block h2 {
-    font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.25rem);
-    font-weight: 800;
-    line-height: 1.5;
-  }
-
-  .sl-statement-block p {
-    color: var(--sl-body);
-    line-height: 2.1;
-  }
-
-  .sl-substatement {
-    max-width: 42rem;
-    margin-inline: auto;
-    margin-block: clamp(3rem, 2.5rem + 1.5vw, 4.5rem) clamp(2rem, 1.5rem + 1.5vw, 3rem);
-    text-align: center;
-    font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem);
-    font-weight: 800;
-    line-height: 1.6;
-  }
-
-  .sl-row {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    align-items: center;
-    gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
-  }
-
-  .sl-row + .sl-row {
-    margin-top: clamp(3rem, 2.5rem + 2vw, 5rem);
-  }
-
-  .sl-row-flip > .sl-row-copy {
-    order: 2;
-  }
-
-  .sl-row-flip > .sl-visual {
-    order: 1;
-  }
-
-  .sl-row-copy {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .sl-row-copy h3,
-  .sl-row-copy h4 {
-    font-size: 1.25rem;
-    font-weight: 800;
-    line-height: 1.7;
-  }
-
-  .sl-row-copy > p {
-    color: var(--sl-body);
-    font-size: 0.96rem;
-    line-height: 2.1;
-  }
-
-  .sl-row-copy .sl-btn {
-    margin-top: 0.5rem;
-  }
-
-  .sl-row-feature {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .sl-row-feature .sl-row-copy p {
-    font-size: 0.92rem;
-  }
-
-  .sl-feature-visual .sl-placeholder {
-    min-height: 12rem;
-  }
-
-  /* ---------- Hero ---------- */
-
-  .sl-hero {
-    padding-block: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem);
-  }
-
-  .sl-hero-grid {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: center;
-    gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
-  }
-
-  .sl-hero-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 1.4rem;
-  }
-
-  .sl-hero h1 {
-    font-size: clamp(2rem, 1.4rem + 2.6vw, 3.2rem);
-    font-weight: 800;
-    line-height: 1.35;
-  }
-
-  .sl-hero h1 span {
-    display: block;
-  }
-
-  .sl-hero h1 span:last-child {
-    color: var(--sl-blue);
-  }
-
-  .sl-hero-copy > p {
-    max-width: 36rem;
-    color: var(--sl-body);
-    font-size: 1rem;
-    line-height: 2.15;
-  }
-
-  .sl-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 0.4rem;
-  }
-
-  .sl-hero-visual {
-    min-height: clamp(17rem, 13rem + 12vw, 24rem);
-    display: flex;
-  }
-
-  .sl-hero-visual .sl-placeholder {
-    flex: 1;
-  }
-
-  /* ---------- Problem ---------- */
-
-  .sl-problem-visual {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: clamp(1.4rem, 1.1rem + 0.8vw, 2rem);
-  }
-
-  .sl-problem-head {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .sl-problem-head span {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--sl-blue);
-  }
-
-  .sl-problem-head strong {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.9;
-  }
-
-  .sl-chip {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.3rem 0.7rem;
-    width: fit-content;
-    border-radius: 9999px;
-    background: var(--sl-blue-soft);
-    padding: 0.4rem 1rem;
-    font-size: 0.82rem;
-  }
-
-  .sl-chip span {
-    color: var(--sl-blue);
-    font-weight: 700;
-  }
-
-  .sl-chip strong {
-    color: var(--sl-ink);
-    font-weight: 700;
-  }
-
-  .sl-mini-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.7rem;
-  }
-
-  .sl-mini-grid article {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    border: 1px solid var(--sl-border);
-    border-radius: var(--sl-radius-sm);
-    background: #fbf7f1;
-    padding: 0.85rem 0.95rem;
-  }
-
-  .sl-mini-grid span {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--sl-blue);
-  }
-
-  .sl-mini-grid strong {
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.85;
-    color: var(--sl-body);
-  }
-
-  /* ---------- Solution ---------- */
-
-  .sl-data-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    width: 100%;
-  }
-
-  .sl-data-list article {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    border: 1px solid var(--sl-border);
-    border-radius: var(--sl-radius-sm);
-    background: var(--sl-card);
-    box-shadow: var(--sl-shadow-sm);
-    padding: 1.1rem 1.25rem;
-  }
-
-  .sl-data-list h4 {
-    font-size: 0.96rem;
-    font-weight: 700;
-    line-height: 1.9;
-  }
-
-  .sl-data-list p {
-    font-size: 0.88rem;
-    line-height: 2;
-    color: var(--sl-body);
-  }
-
-  .sl-solution-visual {
-    align-self: stretch;
-    display: flex;
-  }
-
-  .sl-solution-visual .sl-placeholder {
-    flex: 1;
-    min-height: 16rem;
-  }
-
-  /* ---------- Audiences ---------- */
-
-  .sl-audience-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: 1.1rem;
-  }
-
-  .sl-audience-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    transition: transform 160ms ease, box-shadow 160ms ease;
-  }
-
-  .sl-audience-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sl-shadow);
-  }
-
-  .sl-audience-card h3 {
-    font-size: 1.02rem;
-    font-weight: 800;
-    line-height: 1.8;
-  }
-
-  .sl-audience-card p {
-    flex: 1;
-    font-size: 0.88rem;
-    line-height: 2;
-    color: var(--sl-body);
-  }
-
-  /* ---------- Tabs (stages + durations) ---------- */
-
-  .sl-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.3rem;
-    width: fit-content;
-    max-width: 100%;
-    margin-inline: auto;
-    margin-bottom: 2rem;
-    border: 1px solid var(--sl-border);
-    border-radius: 1.4rem;
-    background: var(--sl-card);
-    box-shadow: var(--sl-shadow-sm);
-    padding: 0.35rem;
-  }
-
-  .sl-tab {
-    border: 0;
-    border-radius: 9999px;
+  .pg-btn-ghost {
     background: transparent;
-    color: var(--sl-faint);
-    padding: 0.45rem 1.05rem;
-    font-size: 0.86rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+    border-color: rgba(149, 167, 232, 0.45);
+    color: var(--paper);
   }
 
-  .sl-tab:hover {
-    color: var(--sl-ink);
+  .pg-btn-ghost:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+    transform: translateY(-1px);
   }
 
-  .sl-tab.active {
-    background: var(--sl-blue);
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(37, 69, 211, 0.3);
+  .pg-btn-ink {
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.45);
   }
 
-  .sl-stage-card {
-    display: grid;
-    grid-template-columns: 1.4fr 0.6fr;
-    gap: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
+  .pg-btn-ink:hover {
+    background: #2e3340;
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+  }
+
+  .pg-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: clamp(1.4rem, 1.1rem + 0.8vw, 2rem);
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  }
+
+  .pg-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(32, 36, 46, 0.3);
+    box-shadow: 0 14px 30px -14px rgba(32, 36, 46, 0.35);
+  }
+
+  .pg-kicker {
+    display: inline-flex;
     align-items: center;
-  }
-
-  .sl-stage-copy {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .sl-stage-copy h3 {
-    font-size: 1.25rem;
-    font-weight: 800;
-  }
-
-  .sl-stage-copy p {
-    color: var(--sl-body);
-    font-size: 0.94rem;
-    line-height: 2.05;
-  }
-
-  .sl-stage-side {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    border-inline-start: 1px solid var(--sl-border);
-    padding-inline-start: clamp(1.25rem, 1rem + 1vw, 2rem);
-  }
-
-  .sl-stage-side span {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--sl-blue);
-  }
-
-  .sl-stage-side p {
-    font-size: 0.88rem;
-    color: var(--sl-body);
-    line-height: 2;
-  }
-
-  .sl-stage-side .sl-btn {
-    margin-top: 0.4rem;
+    gap: 0.5rem;
     width: fit-content;
-  }
-
-  /* ---------- Sales flow ---------- */
-
-  .sl-flow-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.1rem;
-  }
-
-  .sl-flow-step {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    transition: transform 160ms ease, box-shadow 160ms ease;
-  }
-
-  .sl-flow-step:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sl-shadow);
-  }
-
-  .sl-step-number {
-    font-size: 1.4rem;
+    border-radius: 0.5rem;
+    background: rgba(247, 179, 43, 0.16);
+    border: 1px solid rgba(227, 163, 27, 0.4);
+    color: var(--amber-ink);
+    padding: 0.3rem 0.9rem;
+    font-size: 0.8rem;
     font-weight: 800;
-    color: var(--sl-blue);
-    line-height: 1;
   }
 
-  .sl-flow-summary {
-    flex: 1;
+  .pg-tag {
+    display: inline-flex;
+    width: fit-content;
+    border-radius: 0.5rem;
+    background: var(--ink);
+    color: var(--amber);
+    padding: 0.22rem 0.75rem;
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .pg-link {
+    width: fit-content;
     font-size: 0.9rem;
-    line-height: 2.05;
-    color: var(--sl-body);
+    font-weight: 800;
+    color: var(--ink);
+    box-shadow: inset 0 -0.45em 0 rgba(247, 179, 43, 0.5);
+    transition: box-shadow 160ms ease;
   }
 
-  .sl-flow-summary strong {
-    color: var(--sl-ink);
+  .pg-link:hover {
+    box-shadow: inset 0 -1.1em 0 rgba(247, 179, 43, 0.55);
   }
 
-  .sl-flow-outcome {
-    border-top: 1px solid var(--sl-border);
-    padding-top: 0.8rem;
-    font-size: 0.83rem;
-    line-height: 1.95;
-    color: var(--sl-faint);
-  }
-
-  .sl-flow-outcome strong {
-    color: var(--sl-blue);
-  }
-
-  .sl-center-cta {
+  .pg-center-cta {
     display: flex;
     justify-content: center;
     margin-top: 2.5rem;
   }
 
-  /* ---------- Pricing ---------- */
+  /* ============ shared animations ============ */
 
-  .sl-duration-tabs .sl-tab {
+  @keyframes pg-rise {
+    from {
+      transform: scaleY(0);
+    }
+  }
+
+  @keyframes pg-blink {
+    0%, 100% {
+      opacity: 0.12;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pg-ping {
+    0% {
+      transform: scale(0.45);
+      opacity: 0.95;
+    }
+    80%, 100% {
+      transform: scale(2.1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pg-dash-march {
+    to {
+      stroke-dashoffset: -44;
+    }
+  }
+
+  @keyframes pg-hook-drop {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(38px);
+    }
+  }
+
+  @keyframes pg-band-pulse {
+    0%, 100% {
+      opacity: 0.75;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pg-probe-run {
+    0% {
+      transform: translateX(484px);
+      opacity: 0;
+    }
+    6% {
+      opacity: 1;
+    }
+    94% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(6px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pg-grow {
+    from {
+      transform: scaleY(0.08);
+    }
+  }
+
+  @keyframes pg-shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes pg-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .pg-ping {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pg-ping 2.6s ease-out infinite;
+  }
+
+  .pg-ping.d2 {
+    animation-delay: 0.9s;
+  }
+
+  .pg-ping.d3 {
+    animation-delay: 1.7s;
+  }
+
+  .pg-route {
+    animation: pg-dash-march 2.8s linear infinite;
+  }
+
+  /* ============ hero ============ */
+
+  .pg-hero {
+    position: relative;
+    padding-block: clamp(3.5rem, 2.5rem + 3.5vw, 6.5rem) clamp(4rem, 3rem + 3.5vw, 7rem);
+    background-image:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(149, 167, 232, 0.1), transparent),
+      linear-gradient(rgba(149, 167, 232, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(149, 167, 232, 0.06) 1px, transparent 1px);
+    background-size: auto, 38px 38px, 38px 38px;
+  }
+
+  .pg-hero-grid {
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    align-items: center;
+    gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
+  }
+
+  .pg-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .pg-hero h1 {
+    color: var(--paper);
+    font-size: clamp(2.1rem, 1.4rem + 2.9vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .pg-hero h1 span {
+    display: block;
+  }
+
+  .pg-hl {
+    color: var(--amber);
+    text-shadow: 0 0 34px rgba(247, 179, 43, 0.35);
+  }
+
+  .pg-hero-copy > p {
+    max-width: 36rem;
+    color: #c6cadb;
+    font-size: 1.02rem;
+    line-height: 2.15;
+  }
+
+  .pg-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 0.25rem;
+  }
+
+  .pg-city-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pg-city-chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    border: 1px solid rgba(149, 167, 232, 0.3);
+    border-radius: 9999px;
+    padding: 0.32rem 0.95rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #c6cadb;
+  }
+
+  .pg-city-chips i {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--amber);
+    animation: pg-blink 2.4s ease-in-out infinite;
+  }
+
+  .pg-city-chips li:nth-child(2) i {
+    background: var(--cyan);
+    animation-delay: 0.8s;
+  }
+
+  .pg-city-chips li:nth-child(3) i {
+    animation-delay: 1.6s;
+  }
+
+  .pg-hero-scene {
+    border: 1px solid rgba(149, 167, 232, 0.22);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(rgba(149, 167, 232, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(149, 167, 232, 0.05) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(19, 28, 61, 0.5), rgba(12, 18, 40, 0.2));
+    background-size: 28px 28px, 28px 28px, auto;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+    padding: clamp(0.75rem, 0.5rem + 0.8vw, 1.5rem);
+  }
+
+  .pg-hero-scene svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pg-b {
+    transform-box: fill-box;
+    transform-origin: center bottom;
+    animation: pg-rise 1.1s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+  }
+
+  .pg-b1 { animation-delay: 0.1s; }
+  .pg-b2 { animation-delay: 0.25s; }
+  .pg-b3 { animation-delay: 0.4s; }
+  .pg-b4 { animation-delay: 0.55s; }
+  .pg-b5 { animation-delay: 0.7s; }
+  .pg-b6 { animation-delay: 0.85s; }
+
+  .pg-windows rect {
+    animation: pg-blink 3.6s ease-in-out infinite backwards;
+  }
+
+  .pg-windows .w1 { animation-delay: 1.2s; }
+  .pg-windows .w2 { animation-delay: 2.6s; }
+  .pg-windows .w3 { animation-delay: 1.9s; }
+  .pg-windows .w4 { animation-delay: 3.3s; }
+  .pg-windows .w5 { animation-delay: 1.5s; }
+  .pg-windows .w6 { animation-delay: 2.2s; }
+  .pg-windows .w7 { animation-delay: 2.9s; }
+  .pg-windows .w8 { animation-delay: 1.4s; }
+  .pg-windows .w9 { animation-delay: 3.6s; }
+  .pg-windows .w10 { animation-delay: 2.4s; }
+  .pg-windows .w11 { animation-delay: 1.7s; }
+  .pg-windows .w12 { animation-delay: 3.1s; }
+  .pg-windows .w13 { animation-delay: 2s; }
+  .pg-windows .w14 { animation-delay: 2.7s; }
+  .pg-windows .w15 { animation-delay: 1.3s; }
+
+  .pg-hook {
+    animation: pg-hook-drop 6s ease-in-out infinite;
+  }
+
+  /* ============ paper sheet ============ */
+
+  .pg-sheet {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: clamp(1.5rem, 1rem + 2vw, 3rem);
+    margin-inline: clamp(0.4rem, 1.5vw, 1.25rem);
+    overflow: hidden;
+  }
+
+  .pg-section {
+    padding-block: clamp(3.5rem, 2.5rem + 3vw, 6rem);
+  }
+
+  .pg-section-tinted {
+    background: var(--paper-deep);
+  }
+
+  .pg-statement {
+    max-width: 44rem;
+    margin-inline: auto;
+    margin-bottom: clamp(2.5rem, 2rem + 1.5vw, 3.75rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .pg-statement h2 {
+    color: var(--ink);
+    font-size: clamp(1.55rem, 1.2rem + 1.4vw, 2.35rem);
+    font-weight: 800;
+    line-height: 1.5;
+  }
+
+  .pg-statement h2::after {
+    content: "";
+    display: block;
+    width: 3.5rem;
+    height: 0.32rem;
+    border-radius: 9999px;
+    background: var(--amber);
+    margin: 1.1rem auto 0;
+  }
+
+  .pg-statement p {
+    color: var(--ink-soft);
+    line-height: 2.1;
+  }
+
+  .pg-substatement {
+    max-width: 44rem;
+    margin-inline: auto;
+    margin-block: clamp(3rem, 2.5rem + 1.5vw, 4.25rem) clamp(1.75rem, 1.4rem + 1vw, 2.5rem);
+    text-align: center;
+    color: var(--ink);
+    font-size: clamp(1.2rem, 1rem + 0.9vw, 1.6rem);
+    font-weight: 800;
+    line-height: 1.7;
+  }
+
+  /* ============ problem ============ */
+
+  .pg-problem-board {
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+
+  .pg-window-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 18px 40px -22px rgba(32, 36, 46, 0.4);
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .pg-window-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .pg-timeline svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pg-band {
+    animation: pg-band-pulse 3s ease-in-out infinite;
+  }
+
+  .pg-probe {
+    transform-box: view-box;
+    animation: pg-probe-run 7s linear infinite both;
+  }
+
+  .pg-probe.p2 {
+    animation-duration: 9s;
+    animation-delay: 1.4s;
+  }
+
+  .pg-probe.p3 {
+    animation-duration: 11s;
+    animation-delay: 3.2s;
+  }
+
+  .pg-window-chip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.75rem;
+    width: fit-content;
+    border-radius: 0.6rem;
+    background: rgba(247, 179, 43, 0.16);
+    border: 1px solid rgba(227, 163, 27, 0.4);
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .pg-window-chip span {
+    color: var(--amber-ink);
+    font-weight: 800;
+  }
+
+  .pg-window-chip strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .pg-friction-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+    margin-top: 0.9rem;
+  }
+
+  .pg-friction-grid article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    background: var(--card);
+    padding: 1rem 1.15rem;
+  }
+
+  .pg-friction-grid span {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--amber-ink);
+  }
+
+  .pg-friction-grid strong {
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.9;
+    color: var(--ink-soft);
+  }
+
+  /* ============ solution ============ */
+
+  .pg-solution-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
+    align-items: stretch;
+  }
+
+  .pg-dash {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    background: var(--navy);
+    border: 1px solid rgba(149, 167, 232, 0.25);
+    box-shadow: 0 24px 50px -24px rgba(12, 18, 40, 0.55);
+    overflow: hidden;
+  }
+
+  .pg-dash-top {
+    display: flex;
+    gap: 0.45rem;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid rgba(149, 167, 232, 0.18);
+  }
+
+  .pg-dash-top i {
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: 9999px;
+    background: rgba(149, 167, 232, 0.35);
+  }
+
+  .pg-dash-top i:first-child {
+    background: var(--amber);
+  }
+
+  .pg-dash-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 1rem;
+    padding: 1.1rem;
+  }
+
+  .pg-dash-map {
+    border: 1px solid rgba(149, 167, 232, 0.22);
+    border-radius: var(--radius);
+    background:
+      linear-gradient(rgba(149, 167, 232, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(149, 167, 232, 0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+    padding: 0.6rem;
+    display: flex;
+  }
+
+  .pg-dash-map svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pg-dash-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .pg-dash-row {
+    display: block;
+    height: 0.85rem;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, rgba(149, 167, 232, 0.16) 25%, rgba(149, 167, 232, 0.32) 50%, rgba(149, 167, 232, 0.16) 75%);
+    background-size: 200% 100%;
+    animation: pg-shimmer 2.6s linear infinite;
+  }
+
+  .pg-dash-chart {
+    flex: 1;
+    min-height: 7rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.55rem;
+    border-top: 1px dashed rgba(149, 167, 232, 0.25);
+    padding-top: 0.8rem;
+    margin-top: 0.3rem;
+  }
+
+  .pg-dash-chart i {
+    flex: 1;
+    height: var(--h);
+    border-radius: 0.35rem 0.35rem 0 0;
+    background: rgba(149, 167, 232, 0.4);
+    transform-origin: bottom;
+    animation: pg-grow 1.2s cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+  }
+
+  .pg-dash-chart i:nth-child(1) { animation-delay: 0.15s; }
+  .pg-dash-chart i:nth-child(2) { animation-delay: 0.3s; }
+  .pg-dash-chart i:nth-child(3) { animation-delay: 0.45s; }
+  .pg-dash-chart i:nth-child(4) { animation-delay: 0.6s; }
+  .pg-dash-chart i:nth-child(5) { animation-delay: 0.75s; }
+
+  .pg-dash-chart i.hot {
+    background: var(--amber);
+    box-shadow: 0 0 18px rgba(247, 179, 43, 0.45);
+  }
+
+  .pg-data-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .pg-data-panel h3 {
+    color: var(--ink);
+    font-size: 1.12rem;
+    font-weight: 800;
+    line-height: 1.8;
+  }
+
+  .pg-data-panel article {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    border: 1px solid var(--card-border);
+    border-inline-start: 4px solid var(--amber);
+    border-radius: var(--radius);
+    background: var(--card);
+    padding: 1.1rem 1.25rem;
+  }
+
+  .pg-data-panel h4 {
+    color: var(--ink);
+    font-size: 0.96rem;
+    font-weight: 800;
+    line-height: 1.9;
+  }
+
+  .pg-data-panel p {
+    color: var(--ink-soft);
+    font-size: 0.89rem;
+    line-height: 2;
+  }
+
+  .pg-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
+
+  .pg-feature-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .pg-feature-card h4 {
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.85;
+  }
+
+  .pg-feature-card p {
+    color: var(--ink-soft);
+    font-size: 0.89rem;
+    line-height: 2.05;
+  }
+
+  /* ============ audiences ============ */
+
+  .pg-audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1.1rem;
+  }
+
+  .pg-audience-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .pg-audience-card h3 {
+    color: var(--ink);
+    font-size: 1.02rem;
+    font-weight: 800;
+    line-height: 1.85;
+  }
+
+  .pg-audience-card p {
+    flex: 1;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    line-height: 2.05;
+  }
+
+  /* ============ stages ============ */
+
+  .pg-stage-rail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .pg-stage-tab {
+    border: 1px solid var(--card-border);
+    border-radius: 0.65rem;
+    background: var(--card);
+    color: var(--ink-soft);
+    padding: 0.5rem 1.05rem;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+  }
+
+  .pg-stage-tab:hover {
+    border-color: rgba(32, 36, 46, 0.35);
+    color: var(--ink);
+  }
+
+  .pg-stage-tab.active {
+    background: var(--amber);
+    border-color: var(--amber-deep);
+    color: #1d1809;
+    box-shadow: 0 3px 0 var(--amber-ink);
+    transform: translateY(-1px);
+  }
+
+  .pg-stage-card {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: clamp(1.5rem, 1.2rem + 1vw, 2.5rem);
+    align-items: center;
+    background: var(--navy);
+    color: var(--paper);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(149, 167, 232, 0.25);
+    box-shadow: 0 24px 50px -26px rgba(12, 18, 40, 0.6);
+    padding: clamp(1.6rem, 1.3rem + 1vw, 2.5rem);
+  }
+
+  .pg-stage-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .pg-stage-copy h3 {
+    color: var(--paper);
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+
+  .pg-stage-copy p {
+    color: #c6cadb;
+    font-size: 0.95rem;
+    line-height: 2.1;
+  }
+
+  .pg-stage-side {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    border-inline-start: 1px dashed rgba(149, 167, 232, 0.35);
+    padding-inline-start: clamp(1.25rem, 1rem + 1vw, 2rem);
+  }
+
+  .pg-stage-side span {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--amber);
+  }
+
+  .pg-stage-side p {
+    color: #c6cadb;
+    font-size: 0.88rem;
+    line-height: 2;
+  }
+
+  .pg-stage-side .pg-btn {
+    margin-top: 0.5rem;
+    width: fit-content;
+  }
+
+  /* ============ sales flow ============ */
+
+  .pg-flow-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+  }
+
+  .pg-flow-grid::before {
+    content: "";
+    position: absolute;
+    top: 2.3rem;
+    inset-inline: 1rem;
+    height: 2px;
+    background-image: linear-gradient(90deg, var(--amber-deep) 50%, transparent 50%);
+    background-size: 14px 2px;
+    animation: pg-conveyor 1.6s linear infinite;
+    opacity: 0.6;
+    z-index: 0;
+  }
+
+  @keyframes pg-conveyor {
+    to {
+      background-position: -14px 0;
+    }
+  }
+
+  .pg-flow-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .pg-flow-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 9999px;
+    background: var(--amber);
+    color: #1d1809;
+    font-size: 1.05rem;
+    font-weight: 800;
+    box-shadow: 0 3px 0 var(--amber-ink);
+  }
+
+  .pg-flow-summary {
+    flex: 1;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    line-height: 2.05;
+  }
+
+  .pg-flow-summary strong {
+    color: var(--ink);
+  }
+
+  .pg-flow-outcome {
+    border-top: 1px dashed var(--card-border);
+    padding-top: 0.8rem;
+    color: var(--ink-faint);
+    font-size: 0.84rem;
+    line-height: 1.95;
+  }
+
+  .pg-flow-outcome strong {
+    color: var(--amber-ink);
+  }
+
+  /* ============ plans ============ */
+
+  .pg-duration-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-bottom: 2rem;
+  }
+
+  .pg-duration-tab {
     display: inline-flex;
     align-items: baseline;
     gap: 0.3rem;
+    border: 1px solid var(--card-border);
+    border-radius: 0.65rem;
+    background: var(--card);
+    color: var(--ink-soft);
+    padding: 0.5rem 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
   }
 
-  .sl-duration-number {
+  .pg-duration-tab:hover {
+    color: var(--ink);
+    border-color: rgba(32, 36, 46, 0.35);
+  }
+
+  .pg-duration-tab.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--amber);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .pg-duration-number {
     font-size: 1rem;
     font-weight: 800;
   }
 
-  .sl-duration-unit {
+  .pg-duration-unit {
     font-size: 0.78rem;
   }
 
-  .sl-pricing-grid {
+  .pg-pricing-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
     gap: 1.1rem;
     align-items: stretch;
   }
 
-  .sl-price-card {
+  .pg-price-card {
     display: flex;
     flex-direction: column;
     gap: 0.95rem;
-    transition: transform 160ms ease, box-shadow 160ms ease;
   }
 
-  .sl-price-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sl-shadow);
-  }
-
-  .sl-price-head {
+  .pg-price-head {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.75rem;
   }
 
-  .sl-price-head h3 {
-    font-size: 1.1rem;
+  .pg-price-head h3 {
+    color: var(--ink);
+    font-size: 1.12rem;
     font-weight: 800;
   }
 
-  .sl-plan-mark {
+  .pg-plan-mark {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.7rem;
+    height: 2.7rem;
     flex-shrink: 0;
-    border: 1.5px dashed rgba(30, 29, 53, 0.2);
-    border-radius: var(--sl-radius-sm);
-    background: #fbf7f1;
-    color: var(--sl-blue);
   }
 
-  .sl-plan-mark svg {
-    width: 1.35rem;
-    height: 1.35rem;
+  .pg-plan-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px dashed var(--amber-deep);
+    border-radius: 9999px;
+    animation: pg-spin 14s linear infinite;
   }
 
-  .sl-price {
+  .pg-plan-dot {
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 9999px;
+    background: var(--amber);
+    box-shadow: 0 0 12px rgba(247, 179, 43, 0.5);
+  }
+
+  .pg-price {
     display: flex;
     align-items: baseline;
     gap: 0.4rem;
   }
 
-  .sl-price-number {
+  .pg-price-number {
+    color: var(--ink);
     font-size: 1.55rem;
     font-weight: 800;
   }
 
-  .sl-price-currency {
+  .pg-price-currency {
+    color: var(--ink-faint);
     font-size: 0.82rem;
     font-weight: 600;
-    color: var(--sl-faint);
   }
 
-  .sl-plan-scope {
+  .pg-plan-scope {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    font-size: 0.83rem;
-    color: var(--sl-body);
+    color: var(--ink-soft);
+    font-size: 0.84rem;
   }
 
-  .sl-plan-scope-separator {
-    color: var(--sl-faint);
+  .pg-plan-scope-separator {
+    color: var(--ink-faint);
   }
 
-  .sl-plan-highlights {
+  .pg-plan-highlights {
     flex: 1;
     margin: 0;
     padding: 0;
@@ -1353,293 +1823,379 @@ const schemaGraph = [
     gap: 0.45rem;
   }
 
-  .sl-plan-highlights li {
+  .pg-plan-highlights li {
     position: relative;
     margin: 0;
     padding-inline-start: 1.35rem;
-    font-size: 0.86rem;
+    color: var(--ink-soft);
+    font-size: 0.87rem;
     line-height: 1.95;
-    color: var(--sl-body);
   }
 
-  .sl-plan-highlights li::before {
+  .pg-plan-highlights li::before {
     content: "";
     position: absolute;
     inset-inline-start: 0;
-    top: 0.62em;
-    width: 0.48rem;
-    height: 0.48rem;
-    border-radius: 9999px;
-    background: var(--sl-blue-soft);
-    border: 1.5px solid var(--sl-blue);
+    top: 0.6em;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 2px;
+    background: var(--amber);
+    transform: rotate(45deg);
   }
 
-  .sl-coverage {
+  .pg-coverage {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.7rem;
-    border-top: 1px solid var(--sl-border);
+    border-top: 1px dashed var(--card-border);
     padding-top: 0.95rem;
   }
 
-  .sl-coverage strong {
-    font-size: 0.83rem;
-    font-weight: 700;
-    color: var(--sl-body);
+  .pg-coverage strong {
+    color: var(--ink-soft);
+    font-size: 0.84rem;
+    font-weight: 800;
   }
 
-  .sl-coverage-meter {
+  .pg-coverage-meter {
     display: flex;
     gap: 0.3rem;
   }
 
-  .sl-coverage-meter i {
+  .pg-coverage-meter i {
     width: 1.3rem;
-    height: 0.42rem;
+    height: 0.45rem;
     border-radius: 9999px;
-    background: #efe7dc;
-    border: 1px solid var(--sl-border);
+    background: rgba(32, 36, 46, 0.12);
   }
 
-  .sl-coverage-meter i.filled {
-    background: var(--sl-blue);
-    border-color: var(--sl-blue);
+  .pg-coverage-meter i.filled {
+    background: var(--amber);
   }
 
-  .sl-plan-addon {
+  .pg-plan-addon {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    font-size: 0.83rem;
-    color: var(--sl-faint);
+    color: var(--ink-faint);
+    font-size: 0.84rem;
   }
 
-  .sl-addon-price {
+  .pg-addon-price {
     display: inline-flex;
     gap: 0.3rem;
-    font-weight: 700;
-    color: var(--sl-ink);
+    color: var(--ink);
+    font-weight: 800;
   }
 
-  .sl-price-card .sl-btn {
+  .pg-price-card .pg-btn {
     width: 100%;
   }
 
-  /* ---------- FAQ ---------- */
+  /* ============ faq ============ */
 
-  .sl-faq {
+  .pg-faq {
     max-width: 46rem;
     margin-inline: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.7rem;
+    gap: 0.65rem;
   }
 
-  .sl-faq-item {
-    background: var(--sl-card);
-    border: 1px solid var(--sl-border);
-    border-radius: var(--sl-radius-sm);
-    box-shadow: var(--sl-shadow-sm);
+  .pg-faq-item {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
     padding-inline: 1.25rem;
-    transition: box-shadow 160ms ease;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
   }
 
-  .sl-faq-item:hover {
-    box-shadow: var(--sl-shadow);
+  .pg-faq-item:hover {
+    border-color: rgba(32, 36, 46, 0.3);
   }
 
-  .sl-faq-item summary {
+  .pg-faq-item[open] {
+    border-inline-start: 4px solid var(--amber);
+    box-shadow: 0 12px 26px -16px rgba(32, 36, 46, 0.3);
+  }
+
+  .pg-faq-item summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding-block: 1rem;
-    font-weight: 700;
+    padding-block: 1.05rem;
+    color: var(--ink);
+    font-weight: 800;
     font-size: 0.95rem;
     line-height: 1.95;
     cursor: pointer;
     list-style: none;
   }
 
-  .sl-faq-item summary::-webkit-details-marker {
+  .pg-faq-item summary::-webkit-details-marker {
     display: none;
   }
 
-  .sl-faq-item summary svg {
+  .pg-faq-item summary svg {
     width: 1.1rem;
     height: 1.1rem;
     flex-shrink: 0;
-    color: var(--sl-blue);
+    color: var(--amber-deep);
     transition: transform 200ms ease;
   }
 
-  .sl-faq-item[open] summary svg {
-    transform: rotate(180deg);
+  .pg-faq-item[open] summary svg {
+    transform: rotate(45deg);
   }
 
-  .sl-faq-item p {
-    padding-block: 0 1.15rem;
+  .pg-faq-item p {
+    padding-block: 0 1.2rem;
+    color: var(--ink-soft);
     font-size: 0.9rem;
     line-height: 2.1;
-    color: var(--sl-body);
   }
 
-  /* ---------- Demo ---------- */
+  /* ============ demo ============ */
 
-  .sl-demo-grid {
+  .pg-demo {
+    padding-block: clamp(4rem, 3rem + 3vw, 6.5rem);
+    background-image:
+      linear-gradient(rgba(149, 167, 232, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(149, 167, 232, 0.05) 1px, transparent 1px);
+    background-size: 38px 38px;
+  }
+
+  .pg-demo-grid {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
     gap: clamp(2.5rem, 2rem + 2.5vw, 5rem);
     align-items: center;
   }
 
-  .sl-demo-copy {
+  .pg-demo-copy {
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 1.2rem;
   }
 
-  .sl-demo-copy h2 {
-    font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.2rem);
+  .pg-demo-copy h2 {
+    color: var(--paper);
+    font-size: clamp(1.55rem, 1.2rem + 1.4vw, 2.3rem);
     font-weight: 800;
     line-height: 1.55;
   }
 
-  .sl-demo-copy > p {
-    color: var(--sl-body);
+  .pg-demo-copy > p {
+    color: #c6cadb;
     line-height: 2.1;
   }
 
-  .sl-demo-path {
+  .pg-demo-path {
     display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
+    align-items: center;
+    gap: 1.25rem;
+    border: 1px solid rgba(149, 167, 232, 0.25);
+    border-radius: var(--radius-lg);
+    background: rgba(19, 28, 61, 0.55);
+    padding: 1.4rem;
     margin-top: 0.4rem;
   }
 
-  .sl-demo-path strong {
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: var(--sl-blue);
+  .pg-demo-radar {
+    flex-shrink: 0;
+    width: clamp(5rem, 4rem + 2vw, 6.5rem);
   }
 
-  .sl-demo-path ol {
+  .pg-demo-radar svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pg-radar-sweep {
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: pg-spin 5s linear infinite;
+  }
+
+  .pg-demo-path-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pg-demo-path-copy strong {
+    color: var(--amber);
+    font-size: 0.94rem;
+    font-weight: 800;
+  }
+
+  .pg-demo-path-copy ol {
     margin: 0;
     padding-inline-start: 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.4rem;
   }
 
-  .sl-demo-path li {
+  .pg-demo-path-copy li {
     margin: 0;
+    color: #c6cadb;
     font-size: 0.88rem;
     line-height: 2;
-    color: var(--sl-body);
   }
 
-  .sl-demo-path li::marker {
-    color: var(--sl-blue);
+  .pg-demo-path-copy li::marker {
+    color: var(--amber);
     font-weight: 800;
   }
 
-  .sl-demo-form {
+  .pg-demo-form {
     display: flex;
     flex-direction: column;
     gap: 1.05rem;
-    box-shadow: var(--sl-shadow);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
   }
 
-  .sl-demo-form h3 {
-    font-size: 1.08rem;
+  .pg-demo-form h3 {
+    color: var(--ink);
+    font-size: 1.1rem;
     font-weight: 800;
   }
 
-  .sl-form-grid {
+  .pg-form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.95rem;
   }
 
-  .sl-field {
+  .pg-field {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
   }
 
-  .sl-field span {
+  .pg-field span {
+    color: var(--ink-soft);
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--sl-body);
   }
 
-  .sl-field input,
-  .sl-field select {
-    border: 1px solid rgba(30, 29, 53, 0.16);
-    border-radius: var(--sl-radius-sm);
-    background: #fdfbf8;
-    color: var(--sl-ink);
-    padding: 0.55rem 0.85rem;
-    font-size: 0.9rem;
-    transition: border-color 160ms ease, box-shadow 160ms ease;
+  .pg-field input,
+  .pg-field select {
+    border: 1px solid rgba(32, 36, 46, 0.22);
+    border-radius: 0.65rem;
+    background: #ffffff;
+    color: var(--ink);
+    padding: 0.58rem 0.85rem;
+    font-size: 0.92rem;
+    transition: border-color 140ms ease, box-shadow 140ms ease;
   }
 
-  .sl-field input:focus-visible,
-  .sl-field select:focus-visible {
+  .pg-field input:focus-visible,
+  .pg-field select:focus-visible {
     outline: 0;
-    border-color: var(--sl-blue);
-    box-shadow: 0 0 0 3px var(--sl-blue-soft);
+    border-color: var(--amber-deep);
+    box-shadow: 0 0 0 3px rgba(247, 179, 43, 0.3);
   }
 
-  .sl-demo-form .sl-btn {
+  .pg-demo-form .pg-btn {
     margin-top: 0.25rem;
   }
 
-  /* ---------- Responsive ---------- */
+  /* ============ scroll reveal (progressive enhancement) ============ */
+
+  @supports (animation-timeline: view()) {
+    .pg-card,
+    .pg-window-card,
+    .pg-dash,
+    .pg-stage-card,
+    .pg-demo-form {
+      animation: pg-reveal both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 36%;
+    }
+  }
+
+  @keyframes pg-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ============ responsive ============ */
 
   @media (max-width: 64em) {
-    .sl-hero-grid,
-    .sl-row,
-    .sl-row-feature,
-    .sl-demo-grid {
+    .pg-hero-grid,
+    .pg-solution-grid,
+    .pg-demo-grid {
       grid-template-columns: 1fr;
     }
 
-    .sl-row-flip > .sl-row-copy {
-      order: 1;
-    }
-
-    .sl-row-flip > .sl-visual {
-      order: 2;
-    }
-
-    .sl-flow-grid {
+    .pg-flow-grid {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .sl-stage-card {
+    .pg-flow-grid::before {
+      display: none;
+    }
+
+    .pg-feature-grid {
       grid-template-columns: 1fr;
     }
 
-    .sl-stage-side {
+    .pg-stage-card {
+      grid-template-columns: 1fr;
+    }
+
+    .pg-stage-side {
       border-inline-start: 0;
-      border-top: 1px solid var(--sl-border);
+      border-top: 1px dashed rgba(149, 167, 232, 0.35);
       padding-inline-start: 0;
       padding-top: 1.2rem;
     }
   }
 
   @media (max-width: 40em) {
-    .sl-flow-grid,
-    .sl-form-grid,
-    .sl-mini-grid {
+    .pg-flow-grid,
+    .pg-form-grid,
+    .pg-friction-grid {
       grid-template-columns: 1fr;
     }
 
-    .sl-actions .sl-btn {
+    .pg-actions .pg-btn {
       width: 100%;
+    }
+
+    .pg-demo-path {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  /* ============ reduced motion ============ */
+
+  @media (prefers-reduced-motion: reduce) {
+    main.pg-home *,
+    main.pg-home *::before,
+    main.pg-home *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 </style>
