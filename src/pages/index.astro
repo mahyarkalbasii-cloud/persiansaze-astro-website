@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import ImagePlaceholder from "@/components/ImagePlaceholder.astro";
 import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
 import PersianDigitsScript from "@/components/PersianDigitsScript.astro";
@@ -34,6 +33,42 @@ const homeStageCards = homeConstructionStages.map((stage) => ({
 const initialHomeStage = homeStageCards[0];
 const demoWorkFieldOptions = workFields.map((field) => field.title);
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
+const salesPipelineCardSets = [
+  {
+    count: "ورودی خام",
+    cards: [
+      { title: "پروژه‌های هم‌خوان", detail: "جست‌وجو بر اساس موقعیت، مرحله ساخت و نیاز" },
+      { title: "نیاز نزدیک", detail: "تشخیص ارتباط پروژه با محصول یا خدمت شما" },
+      { title: "داده تازه", detail: "بررسی وضعیت فعال بودن و زمان مناسب اقدام" },
+      { title: "دسترسی تماس", detail: "آماده‌سازی مسیر شروع ارتباط با پروژه" },
+      { title: "پوشش بازار", detail: "ورودی از تهران، کرج و لواسان" },
+    ],
+  },
+  {
+    count: "فرصت‌های منتخب",
+    cards: [
+      { title: "کوتاه‌لیست اولیه", detail: "تفکیک پروژه‌های مرتبط از داده‌های پراکنده" },
+      { title: "آمادگی اقدام", detail: "مرتب‌سازی بر اساس زمان، مرحله و تناسب" },
+      { title: "اولویت فروش", detail: "تمرکز روی فرصت‌هایی که ارزش پیگیری دارند" },
+    ],
+  },
+  {
+    count: "مذاکره‌های فعال",
+    cards: [
+      { title: "تماس هدفمند", detail: "شروع ارتباط در زمان درست و با زمینه روشن" },
+      { title: "پیگیری زمان‌دار", detail: "ثبت قدم بعدی فروش و نگه داشتن ریتم مذاکره" },
+    ],
+  },
+  {
+    count: "تبدیل نهایی",
+    cards: [{ title: "قرارداد پایدار", detail: "فرصت تبدیل‌شده به رابطه قابل ادامه" }],
+  },
+];
+const salesPipelineStages = salesFlow.stages.map((stage, index) => ({
+  ...stage,
+  count: salesPipelineCardSets[index]?.count ?? "",
+  cards: salesPipelineCardSets[index]?.cards ?? [],
+}));
 const schemaGraph = [
   {
     "@context": "https://schema.org",
@@ -198,6 +233,14 @@ const schemaGraph = [
                 decoding="async"
                 fetchpriority="high"
               />
+              <a class="hero-video-play" href="#demo" aria-label="پخش ویدیوی معرفی پرشین‌سازه">
+                <span class="hero-video-play-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M8 5.75v12.5L18.5 12 8 5.75Z" />
+                  </svg>
+                </span>
+                <span>مشاهده ویدیو</span>
+              </a>
             </figure>
           </div>
         </div>
@@ -331,10 +374,9 @@ const schemaGraph = [
             const source = root.querySelector("[data-stage-source]");
             const link = root.querySelector("[data-stage-link]");
             let activeIndex = 0;
-            let userLocked = false;
             let timerId = null;
 
-            const selectStage = (index, lock = false) => {
+            const selectStage = (index) => {
               const stage = stages[index];
               if (!stage) return;
 
@@ -349,24 +391,25 @@ const schemaGraph = [
               if (summary) summary.textContent = stage.summary;
               if (source) source.textContent = stage.sourcePhase;
               if (link) link.setAttribute("href", stage.href);
+            };
 
-              if (lock && !userLocked) {
-                userLocked = true;
-                if (timerId) window.clearInterval(timerId);
+            const startRotation = () => {
+              if (timerId) window.clearInterval(timerId);
+              if (stages.length > 1) {
+                timerId = window.setInterval(() => {
+                  selectStage((activeIndex + 1) % stages.length);
+                }, 10000);
               }
             };
 
             buttons.forEach((button) => {
               button.addEventListener("click", () => {
-                selectStage(Number(button.dataset.stageIndex), true);
+                selectStage(Number(button.dataset.stageIndex));
+                startRotation();
               });
             });
 
-            if (stages.length > 1) {
-              timerId = window.setInterval(() => {
-                if (!userLocked) selectStage((activeIndex + 1) % stages.length);
-              }, 10000);
-            }
+            startRotation();
           })();
         </script>
       </section>
@@ -377,31 +420,27 @@ const schemaGraph = [
             <h2>{salesFlow.title}</h2>
           </div>
 
-          <div class="flow-layout">
-            <figure class="flow-visual-card" aria-label="نمای تصویری چهار گام فروش پروژه‌محور">
-              <img
-                class="flow-visual-image"
-                src="/assets/company/home-four-stage-flow.webp"
-                alt="مسیر چهارمرحله‌ای فروش پروژه‌محور در پرشین‌سازه"
-                width="737"
-                height="1319"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-
-            <div class="flow-board" role="list" aria-label={salesFlow.ariaLabel}>
-              {salesFlow.stages.map((stage) => (
-                <article class="flow-step" role="listitem">
-                  <p class="flow-step-summary"><strong>{stage.title} یعنی</strong> {stage.body}</p>
-                  <p class="flow-outcome"><strong>نتیجه:</strong> {stage.outcome}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div class="flow-footer">
-            <a class="button button-primary" href="#demo">{salesFlow.cta} ←</a>
+          <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel}>
+            {salesPipelineStages.map((stage) => (
+              <article class="pipeline-stage-card" role="listitem">
+                <header class="pipeline-stage-head">
+                  <div>
+                    <h3>{stage.title}</h3>
+                    <p>{stage.count}</p>
+                  </div>
+                </header>
+                <p class="pipeline-stage-body">{stage.body}</p>
+                <ul class="pipeline-card-list">
+                  {stage.cards.map((card) => (
+                    <li>
+                      <strong>{card.title}</strong>
+                      <span>{card.detail}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p class="pipeline-stage-outcome"><strong>خروجی:</strong> {stage.outcome}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -542,9 +581,31 @@ const schemaGraph = [
             </div>
 
             <div class="demo-cards">
-              <figure class="demo-visual-card" aria-label="نمای تصویری نقشه پروژه‌ها و پیگیری فروش">
-                <ImagePlaceholder class="demo-visual-image" label="نمای تصویری نقشه پروژه‌ها و پیگیری فروش" />
-              </figure>
+              <section class="demo-signup-notes" aria-labelledby="demo-signup-notes-title">
+                <h3 id="demo-signup-notes-title">نکاتی که قبل از ثبت‌نام باید بدانید</h3>
+                <p>
+                  برای اینکه زمان شما و تیم پرشین‌سازه بهتر مدیریت شود، لطفاً پیش از ثبت‌نام به نکات زیر توجه کنید:
+                </p>
+                <ul>
+                  <li>
+                    پایگاه داده پرشین‌سازه در حال حاضر فقط شامل اطلاعات پروژه‌های ساختمانی <strong>تهران، کرج و لواسان</strong> است.
+                  </li>
+                  <li>
+                    این خدمت فقط برای <strong>تأمین‌کنندگان محصولات و خدمات ساختمانی</strong> کاربرد دارد.
+                  </li>
+                  <li>
+                    پرشین‌سازه برای <strong>مالکین، مصرف‌کنندگان نهایی یا افراد خارج از حوزه تأمین صنعت ساختمان</strong> طراحی نشده است.
+                  </li>
+                  <li>
+                    شروع قیمت اشتراک پرشین‌سازه از <strong>۷,۵۰۰,۰۰۰ تومان</strong> است.
+                  </li>
+                  <li>
+                    امکان ارائه سرویس فقط به <strong>تأمین‌کنندگان معتبر و فعال در صنعت ساختمان</strong> وجود دارد.
+                  </li>
+                  <li>تکمیل فرم ثبت‌نام به معنای پذیرش قطعی نیست و درخواست‌ها پیش از ارائه سرویس بررسی می‌شوند.</li>
+                </ul>
+                <p>در صورتی که موارد بالا با شرایط کسب‌وکار شما همخوانی دارد، فرم ثبت‌نام را تکمیل کنید.</p>
+              </section>
 
               <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
                 <h3>{demo.form.submit}</h3>
