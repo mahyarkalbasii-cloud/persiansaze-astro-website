@@ -250,8 +250,8 @@ const schemaGraph = [
         <div class="container two-column">
           <div class="section-copy problem-copy">
             <h2 aria-label={problem.title}>
-              {problem.titleLines.map((line) => (
-                <span>{line}</span>
+              {problem.titleLines.map((line, index) => (
+                <span>{index > 0 ? ` ${line}` : line}</span>
               ))}
             </h2>
             <p>{problem.body}</p>
