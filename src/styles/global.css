@@ -3258,6 +3258,10 @@ details p {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.home-page #faq .faq-list > details:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .faq-list details {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
