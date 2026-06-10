@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { navigation } from "@/content/home";
+
+const title = "صفحه پیدا نشد (۴۰۴) | پرشین‌سازه";
+const description =
+  "صفحه‌ای که دنبال آن بودید در پرشین‌سازه وجود ندارد. از این صفحه می‌توانید به صفحه اصلی یا بخش‌های اصلی سایت بروید.";
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/404/" noindex>
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">خطای ۴۰۴</p>
+          <h1>صفحه‌ای که دنبال آن بودید پیدا نشد.</h1>
+          <p>
+            ممکن است نشانی صفحه تغییر کرده باشد یا این صفحه دیگر در دسترس نباشد. نشانی را یک‌بار دیگر بررسی کنید یا از
+            مسیرهای زیر به بخش‌های اصلی پرشین‌سازه بروید.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/">بازگشت به صفحه اصلی</a>
+            <a class="button button-secondary" href="/contact-us/">تماس با ما</a>
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>۴۰۴</strong>
+          <span>صفحه پیدا نشد</span>
+          <p>این نشانی در پرشین‌سازه وجود ندارد؛ لینک‌های اصلی سایت در همین صفحه در دسترس هستند.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>صفحات اصلی پرشین‌سازه</h2>
+          <p>برای ادامه مسیر، یکی از بخش‌های اصلی سایت را انتخاب کنید.</p>
+        </div>
+        <ul class="inline-list">
+          <li><a href="/">صفحه اصلی</a></li>
+          {navigation.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

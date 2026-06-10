@@ -10,9 +10,10 @@ type Props = {
   description: string;
   canonicalPath?: string;
   structuredData?: unknown | unknown[];
+  noindex?: boolean;
 };
 
-const { title, description, canonicalPath = "/", structuredData } = Astro.props;
+const { title, description, canonicalPath = "/", structuredData, noindex = false } = Astro.props;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
 const schemaItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
 ---
@@ -24,8 +25,11 @@ const schemaItems = structuredData ? (Array.isArray(structuredData) ? structured
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href={canonicalUrl} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
+    />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
     <link rel="icon" href="data:," />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fa_IR" />
