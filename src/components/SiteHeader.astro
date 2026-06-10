@@ -1,4 +1,5 @@
 ---
+import ThemeToggle from "@/components/ThemeToggle.astro";
 import { footer, navigation, site } from "@/content/home";
 
 const { home = false } = Astro.props;
@@ -23,6 +24,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
     </nav>
 
     <div class="header-actions">
+      <ThemeToggle />
       <a class="header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
       <a class="button button-secondary header-login-link" href={home ? "#demo" : "/#demo"}>
         <span class="header-login-icon" aria-hidden="true">

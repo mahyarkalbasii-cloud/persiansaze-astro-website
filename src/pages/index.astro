@@ -202,6 +202,18 @@ const schemaGraph = [
     <meta name="twitter:title" content={metadata.title} />
     <meta name="twitter:description" content={metadata.description} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
+    <script is:inline>
+      (() => {
+        let theme = null;
+        try {
+          theme = localStorage.getItem("ps-theme");
+        } catch {}
+        if (theme !== "dark" && theme !== "light") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
   </head>
   <body class="home-color-anthropic">
     <SiteHeader home />

@@ -39,6 +39,18 @@ const schemaItems = structuredData ? (Array.isArray(structuredData) ? structured
     {schemaItems.map((schema) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
+    <script is:inline>
+      (() => {
+        let theme = null;
+        try {
+          theme = localStorage.getItem("ps-theme");
+        } catch {}
+        if (theme !== "dark" && theme !== "light") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
   </head>
   <body>
     <SiteHeader />
