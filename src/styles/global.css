@@ -153,6 +153,7 @@
   --space-24: 6rem;
   --section-heading-gap: clamp(0.7rem, 0.85vw, 0.95rem);
   --section-heading-margin: clamp(2.35rem, 4vw, 3rem);
+  --section-gap: 10rem;
   --card-padding: clamp(1.5rem, 1.1rem + 0.9vw, 2.15rem);
   --card-padding-compact: clamp(1.25rem, 1rem + 0.65vw, 1.75rem);
   --card-gap: clamp(1.25rem, 1rem + 0.65vw, 1.75rem);
@@ -299,7 +300,7 @@ li + li {
 
 .section {
   border-top: 1px solid var(--border);
-  padding-block: var(--space-24);
+  padding-block: calc(var(--section-gap) / 2);
 }
 
 .section:nth-of-type(even) {
@@ -572,7 +573,7 @@ li + li {
 
 .hero {
   border-top: 0;
-  padding-block: var(--space-20) var(--space-24);
+  padding-block: var(--space-20) calc(var(--section-gap) / 2);
   background: var(--background);
 }
 
@@ -1285,10 +1286,6 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 
 .problem-section .two-column {
   grid-template-columns: minmax(0, 1fr);
-}
-
-.problem-section {
-  padding-block: var(--space-16);
 }
 
 .problem-copy {
@@ -3931,8 +3928,8 @@ body .persian-number {
     width: min(100% - 1rem, 80rem);
   }
 
-  .section {
-    padding-block: var(--space-16);
+  :root {
+    --section-gap: 8rem;
   }
 
   .demo-shell {
@@ -3981,7 +3978,7 @@ body .persian-number {
   }
 
   .hero {
-    padding-block: var(--space-12) var(--space-16);
+    padding-block: var(--space-12) calc(var(--section-gap) / 2);
   }
 
   .hero-bento {
