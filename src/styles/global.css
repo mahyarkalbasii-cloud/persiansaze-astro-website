@@ -2668,12 +2668,17 @@ details p {
   gap: var(--space-6);
 }
 
-.footer-link-section h2,
-.footer-legal-section h2 {
+.footer-link-section .footer-heading,
+.footer-legal-section .footer-heading {
   color: var(--ps-ink-50);
   font-size: var(--text-base);
   font-weight: 800;
   line-height: var(--leading-tight);
+}
+
+.footer-legal-section .footer-heading a {
+  color: inherit;
+  font-weight: inherit;
 }
 
 .footer-sale-section {

@@ -62,7 +62,7 @@ const socialIconPaths: Record<string, string> = {
       </a>
       <p>{footer.description}</p>
 
-      <h2 class="sr-only">{footer.contactTitle}</h2>
+      <p class="sr-only">{footer.contactTitle}</p>
       <ul class="footer-contact-list">
         <li class="footer-contact-row footer-phone-row">
           {reversedContacts.map((contact, index) => (
@@ -77,7 +77,7 @@ const socialIconPaths: Record<string, string> = {
         <li class="footer-contact-row">{site.openingHoursText}</li>
       </ul>
 
-      <h2 class="sr-only">{footer.socialTitle}</h2>
+      <p class="sr-only">{footer.socialTitle}</p>
       <div class="social-row">
         {socialLinks.map((item) => (
           <a href={item.href} rel="noreferrer" aria-label={item.label}>
@@ -96,7 +96,7 @@ const socialIconPaths: Record<string, string> = {
     <div class="footer-links-panel">
       <div class="footer-link-column footer-primary-column">
         <section class="footer-link-section footer-pages-section">
-          <h2>{primaryPages.title}</h2>
+          <p class="footer-heading">{primaryPages.title}</p>
           <ul>
             {primaryPages.links.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
@@ -104,13 +104,13 @@ const socialIconPaths: Record<string, string> = {
           </ul>
         </section>
         <section class="footer-legal-section">
-          <h2><a href={hrefFor(legalLink.href)}>{legalLink.label}</a></h2>
+          <p class="footer-heading"><a href={hrefFor(legalLink.href)}>{legalLink.label}</a></p>
         </section>
       </div>
 
       <div class="footer-link-column footer-work-city-column">
         <section class="footer-link-section footer-work-section">
-          <h2>{workFields.title}</h2>
+          <p class="footer-heading">{workFields.title}</p>
           <ul>
             {footerWorkFieldLinks.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
@@ -118,7 +118,7 @@ const socialIconPaths: Record<string, string> = {
           </ul>
         </section>
         <section class="footer-link-section footer-city-section">
-          <h2>{cityLinks.title}</h2>
+          <p class="footer-heading">{cityLinks.title}</p>
           <ul>
             {cityLinks.links.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
@@ -129,7 +129,7 @@ const socialIconPaths: Record<string, string> = {
 
       <div class="footer-link-column footer-stage-sale-column">
         <section class="footer-link-section footer-stage-section">
-          <h2>{stageLinks.title}</h2>
+          <p class="footer-heading">{stageLinks.title}</p>
           <ul>
             {footerStageLinks.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
@@ -137,7 +137,7 @@ const socialIconPaths: Record<string, string> = {
           </ul>
         </section>
         <section class="footer-link-section footer-sale-section">
-          <h2>{footerSaleTypes.title}</h2>
+          <p class="footer-heading">{footerSaleTypes.title}</p>
           <ul>
             {footerSaleTypeLinks.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
