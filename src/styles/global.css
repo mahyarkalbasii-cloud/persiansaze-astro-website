@@ -2592,15 +2592,6 @@ details p {
   gap: var(--space-3);
 }
 
-.trust-placeholder {
-  width: min(100%, 8.5rem);
-  min-height: 7.25rem;
-  padding: var(--space-4);
-  border-color: var(--ps-ink-800);
-  background: var(--ps-ink-900);
-  color: var(--ps-ink-300);
-}
-
 .social-row {
   display: flex;
   flex-wrap: wrap;
@@ -2625,6 +2616,13 @@ details p {
   height: 0.8rem;
   border: 1px solid currentColor;
   border-radius: var(--radius-sm);
+}
+
+.social-row svg {
+  display: block;
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
 }
 
 .footer-links-panel {
@@ -4116,10 +4114,6 @@ body .persian-number {
   .footer-phone-row,
   .social-row {
     justify-content: flex-start;
-  }
-
-  .trust-placeholder {
-    justify-self: start;
   }
 
   .content-hero {
