@@ -186,10 +186,19 @@ const schemaGraph = [
             </div>
           </div>
 
-          <div class="media-placeholder hero-placeholder hero-bento" aria-label={hero.placeholder}>
-            <div class="hero-bento-scene" aria-hidden="true">
-              <ImagePlaceholder class="hero-neon-image" label={hero.placeholder} />
-            </div>
+          <div class="media-placeholder hero-placeholder hero-bento">
+            <figure class="hero-bento-scene">
+              <img
+                class="hero-neon-image"
+                src="/assets/company/home-hero-construction-intelligence.webp"
+                alt={hero.placeholder}
+                width="1254"
+                height="1254"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </figure>
           </div>
         </div>
       </section>
@@ -219,8 +228,16 @@ const schemaGraph = [
 
           <div class="solution-showcase">
             <div class="solution-main-row">
-              <figure class="solution-visual-card" aria-label={solution.visualAlt}>
-                <ImagePlaceholder class="solution-neon-image" label={solution.visualAlt} />
+              <figure class="solution-visual-card">
+                <img
+                  class="solution-neon-image"
+                  src="/assets/company/home-solution-relief-dashboard.webp"
+                  alt={solution.visualAlt}
+                  width="1254"
+                  height="1254"
+                  loading="lazy"
+                  decoding="async"
+                />
               </figure>
 
               <section class="solution-data-panel" aria-labelledby="solution-data-title">
@@ -406,7 +423,8 @@ const schemaGraph = [
 
           <div class="pricing-grid">
             {pricing.plans.map((plan) => (
-              <article class="pricing-card">
+              <article class={`pricing-card ${plan.slug === "taban" ? "featured" : ""}`}>
+                {plan.slug === "taban" && <span class="plan-badge">پیشنهاد اصلی</span>}
                 <header class="plan-card-head">
                   <div class="plan-icon-shell">
                     <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
@@ -431,8 +449,10 @@ const schemaGraph = [
                 <ul class="plan-highlights">
                   {plan.highlights.map((item) => <li>{item}</li>)}
                 </ul>
-                <div class="market-coverage" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
-                  <strong>{pricing.coverage}</strong>
+                <div class="market-coverage" aria-label={pricing.coverage}>
+                  <div class="coverage-label-row">
+                    <strong>{pricing.coverage}</strong>
+                  </div>
                   <div class="coverage-meter" aria-hidden="true">
                     {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
                   </div>

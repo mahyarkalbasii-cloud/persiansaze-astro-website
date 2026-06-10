@@ -224,9 +224,9 @@ body.home-color-anthropic {
   --ring: #958474;
   --inverted: #181512;
   --inverted-foreground: #f8f2e9;
-  --claude-orange: #e7dccf;
-  --claude-orange-hover: #dccfbe;
-  --claude-orange-soft: #f0e5d8;
+  --claude-orange: #d97757;
+  --claude-orange-hover: #c96f50;
+  --claude-orange-soft: #f3c7b5;
   --shadow-xs: 0 1px 2px 0 rgb(48 38 28 / 6%);
   --shadow-sm: 0 1px 3px 0 rgb(48 38 28 / 8%), 0 1px 2px -1px rgb(48 38 28 / 6%);
   --shadow-md: 0 4px 12px -2px rgb(48 38 28 / 11%), 0 2px 6px -2px rgb(48 38 28 / 7%);
@@ -4209,17 +4209,315 @@ body.home-color-anthropic {
   --home-violet-soft: #e6e0e3;
   --home-charcoal: #181512;
   --home-panel: #fffaf3;
-  --home-panel-warm: #f1e5d7;
+  --home-panel-soft: #fbf4ea;
+  --home-panel-warm: #f6eadc;
+  --home-plan-surface: #efe3d2;
+  --home-plan-surface-soft: #f5ecdf;
+  --home-plan-surface-strong: #e2d0bb;
+  --home-plan-border: #d6c8b6;
+  --home-plan-border-strong: #b98973;
+  --home-plan-muted: #7c6f62;
+  --home-plan-meter: #85714f;
   --home-line: #d2c5b7;
+  --home-card-shadow: 0 1rem 2rem -1.7rem rgb(65 47 32 / 22%);
+  --home-card-shadow-hover: 0 1.35rem 2.35rem -1.75rem rgb(65 47 32 / 28%);
+}
+
+body.home-color-anthropic .site-header {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 40;
+  isolation: isolate;
+  border-bottom: 0;
+  background: transparent;
+  transition:
+    opacity 180ms ease;
+}
+
+body.home-color-anthropic .site-header::before {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 0;
+  height: 5.1rem;
+  background: linear-gradient(
+    180deg,
+    rgb(246 242 235 / 96%) 0%,
+    rgb(246 242 235 / 82%) 16%,
+    rgb(246 242 235 / 28%) 58%,
+    rgb(246 242 235 / 0%) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+body.home-color-anthropic .site-header-inner {
+  width: min(100% - 1.5rem, var(--container));
+  min-height: 4.15rem;
+  margin-block-start: 0.55rem;
+  z-index: 1;
+  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr) auto;
+  gap: clamp(0.65rem, 1.2vw, 1.35rem);
+  box-sizing: border-box;
+  border: 1px solid rgb(255 255 255 / 42%);
+  border-radius: 1.15rem;
+  background: rgb(246 242 235 / 58%);
+  padding: 0.45rem 0.65rem;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 48%),
+    0 1rem 2.25rem -1.85rem rgb(65 47 32 / 28%);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    min-height 180ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.home-color-anthropic .site-header.is-scrolled .site-header-inner {
+  min-height: 3.65rem;
+  border-color: rgb(255 255 255 / 52%);
+  background: rgb(246 242 235 / 72%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 55%),
+    0 1.1rem 2.2rem -1.65rem rgb(65 47 32 / 34%);
+}
+
+body.home-color-anthropic .site-header .brand {
+  min-width: 0;
+  gap: 0.45rem;
+}
+
+body.home-color-anthropic .site-header .brand-copy {
+  min-width: 0;
+  gap: 0.03rem;
+  line-height: 1.15;
+}
+
+body.home-color-anthropic .site-header .brand strong {
+  font-size: clamp(0.98rem, 1vw, 1.08rem);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+body.home-color-anthropic .site-header .brand-copy span {
+  max-width: 10rem;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--muted-foreground) 74%, var(--primary));
+  font-size: 0.67rem;
+  font-weight: 650;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body.home-color-anthropic .site-header .nav {
+  gap: 0.08rem;
+}
+
+body.home-color-anthropic .site-header .nav a {
+  border-radius: 0.72rem;
+  padding: 0.52rem 0.46rem;
+  color: color-mix(in srgb, var(--muted-foreground) 82%, var(--primary));
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+body.home-color-anthropic .site-header .nav a:hover {
+  background: rgb(255 250 243 / 54%);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+body.home-color-anthropic .site-header .header-actions {
+  gap: 0.42rem;
+}
+
+body.home-color-anthropic .site-header .header-phone {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.65rem;
+  align-items: center;
+  border: 1px solid rgb(137 119 102 / 22%);
+  border-radius: 0.88rem;
+  background: rgb(255 250 243 / 36%);
+  padding-inline: 0.78rem;
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 850;
+  line-height: 1;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 44%);
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+body.home-color-anthropic .site-header .header-phone:hover {
+  border-color: rgb(217 119 87 / 30%);
+  background: rgb(255 250 243 / 62%);
+  transform: translateY(-1px);
+}
+
+body.home-color-anthropic .site-header .header-actions .button {
+  min-height: 2.65rem;
+  border-radius: 0.88rem;
+  padding-inline: 0.96rem;
+  font-size: 0.82rem;
+}
+
+body.home-color-anthropic .site-header .header-actions .header-login-link {
+  gap: 0.42rem;
+  min-width: 5.05rem;
+  border-color: rgb(217 119 87 / 56%);
+  background: rgb(217 119 87 / 28%);
+  color: var(--primary);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 42%),
+    0 0.72rem 1.35rem -1.18rem rgb(92 52 35 / 28%);
+}
+
+body.home-color-anthropic .site-header .header-actions .header-login-link:hover {
+  border-color: rgb(217 119 87 / 72%);
+  background: rgb(217 119 87 / 36%);
+}
+
+body.home-color-anthropic .header-login-icon {
+  display: inline-grid;
+  width: 1.25rem;
+  height: 1.25rem;
+  place-items: center;
+  border-radius: 0.45rem;
+  background: rgb(255 250 243 / 42%);
+}
+
+body.home-color-anthropic .header-login-icon svg {
+  width: 0.96rem;
+  height: 0.96rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+body.home-color-anthropic .site-header .header-actions .header-demo-link {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 12%),
+    0 0.85rem 1.55rem -1.18rem rgb(20 20 20 / 58%);
+}
+
+body.home-color-anthropic .site-header .header-actions .header-demo-link:hover {
+  border-color: var(--primary-hover);
+  background: var(--primary-hover);
+}
+
+body.home-color-anthropic .site-header .mobile-menu-toggle {
+  border-color: rgb(137 119 102 / 24%);
+  border-radius: 0.88rem;
+  background: rgb(255 250 243 / 42%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 42%);
+}
+
+body.home-color-anthropic .site-header .mobile-nav-panel:not([hidden]) {
+  inset-block-start: calc(100% + 0.55rem);
+  border-color: rgb(255 255 255 / 45%);
+  border-radius: 1rem;
+  background: rgb(246 242 235 / 86%);
+  box-shadow: 0 1.1rem 2.15rem -1.55rem rgb(65 47 32 / 32%);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+}
+
+@media (max-width: 1100px) {
+  body.home-color-anthropic .site-header-inner {
+    width: min(100% - 1rem, var(--container));
+    min-height: 3.75rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.6rem;
+    border-radius: 1rem;
+    padding: 0.4rem 0.55rem;
+  }
+
+  body.home-color-anthropic .site-header .nav,
+  body.home-color-anthropic .site-header .header-actions .header-login-link,
+  body.home-color-anthropic .site-header .header-actions .header-demo-link {
+    display: none;
+  }
+
+  body.home-color-anthropic .site-header .header-phone {
+    min-height: 2.5rem;
+    padding-inline: 0.62rem;
+    font-size: 0.78rem;
+  }
+
+  body.home-color-anthropic .site-header .mobile-menu-toggle {
+    display: inline-grid;
+    flex: 0 0 2.55rem;
+    width: 2.55rem;
+    min-width: 2.55rem;
+    height: 2.55rem;
+  }
+}
+
+@media (max-width: 720px) {
+  body.home-color-anthropic .home-page {
+    padding-block-start: 4.45rem;
+  }
+
+  body.home-color-anthropic .home-page > [id] {
+    scroll-margin-top: 3.9rem;
+  }
+
+  body.home-color-anthropic .site-header-inner {
+    width: min(100% - 0.75rem, var(--container));
+    margin-block-start: 0.38rem;
+    border-radius: 0.95rem;
+  }
+
+  body.home-color-anthropic .site-header .brand-copy span {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  body.home-color-anthropic .site-header .header-phone {
+    display: none;
+  }
 }
 
 body.home-color-anthropic .home-page {
   color: var(--foreground);
+  padding-block-start: 4.95rem;
+}
+
+body.home-color-anthropic .home-page > [id] {
+  scroll-margin-top: 3.85rem;
 }
 
 body.home-color-anthropic .home-page > .section {
   position: relative;
   border-top: 0;
+}
+
+@media (max-width: 720px) {
+  body.home-color-anthropic .home-page {
+    padding-block-start: 4.45rem;
+  }
+
+  body.home-color-anthropic .home-page > [id] {
+    scroll-margin-top: 3.9rem;
+  }
 }
 
 body.home-color-anthropic .section-heading,
@@ -4290,10 +4588,10 @@ body.home-color-anthropic .button-primary {
 body.home-color-anthropic .button-secondary {
   border-color: var(--claude-orange);
   background: var(--claude-orange);
-  color: var(--foreground);
+  color: var(--primary);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 48%),
-    0 0.75rem 1.55rem -1.3rem rgb(65 47 32 / 28%);
+    inset 0 1px 0 rgb(255 255 255 / 18%),
+    0 0.8rem 1.55rem -1.25rem rgb(92 52 35 / 38%);
 }
 
 body.home-color-anthropic .button-primary:hover {
@@ -4311,9 +4609,8 @@ body.home-color-anthropic .hero-copy {
 }
 
 body.home-color-anthropic .hero-neon-image {
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+  filter: none;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .hero-bento {
@@ -4322,16 +4619,16 @@ body.home-color-anthropic .hero-bento {
   aspect-ratio: 1;
   justify-self: center;
   padding: 0;
-  border-color: color-mix(in srgb, var(--primary) 82%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 5%),
-    0 1.5rem 3rem -2.2rem rgb(20 20 20 / 70%);
+  border-color: var(--border-strong);
+  background: transparent;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .hero-bento-scene {
   width: 100%;
   height: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
 body.home-color-anthropic #problem .section-copy {
@@ -4343,11 +4640,11 @@ body.home-color-anthropic #problem .section-copy .button-secondary {
 }
 
 body.home-color-anthropic .dashboard-main {
-  border-color: color-mix(in srgb, var(--border) 80%, var(--home-brass));
+  border-color: var(--border);
   background: var(--home-panel);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 56%),
-    0 1.2rem 2.6rem -2rem rgb(65 47 32 / 28%);
+    inset 0 1px 0 rgb(255 255 255 / 62%),
+    var(--home-card-shadow);
 }
 
 body.home-color-anthropic .dashboard-head {
@@ -4355,8 +4652,8 @@ body.home-color-anthropic .dashboard-head {
 }
 
 body.home-color-anthropic .dashboard-status {
-  border-color: color-mix(in srgb, var(--home-blue) 42%, var(--border));
-  background: color-mix(in srgb, var(--home-blue-soft) 46%, white);
+  border-color: color-mix(in srgb, var(--home-blue) 30%, var(--border));
+  background: color-mix(in srgb, var(--home-blue-soft) 54%, var(--home-panel));
 }
 
 body.home-color-anthropic .dashboard-status strong {
@@ -4366,7 +4663,7 @@ body.home-color-anthropic .dashboard-status strong {
 
 body.home-color-anthropic .product-map {
   border-color: color-mix(in srgb, var(--home-blue) 36%, var(--border));
-  background: #eee4d8;
+  background: var(--home-panel-soft);
   color: color-mix(in srgb, var(--home-blue) 70%, var(--primary));
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 55%);
 }
@@ -4388,19 +4685,19 @@ body.home-color-anthropic .map-signal-row span {
 }
 
 body.home-color-anthropic .map-floating-card {
-  border-color: rgb(255 255 255 / 62%);
-  background: rgb(255 250 243 / 92%);
-  box-shadow: 0 1.2rem 2rem -1.45rem rgb(65 47 32 / 34%);
+  border-color: color-mix(in srgb, var(--border) 74%, white);
+  background: rgb(255 250 243 / 94%);
+  box-shadow: 0 1.2rem 2rem -1.45rem rgb(65 47 32 / 28%);
 }
 
 body.home-color-anthropic .project-card-wire {
-  border-color: color-mix(in srgb, var(--home-brass) 42%, var(--border));
-  background: color-mix(in srgb, var(--home-panel-warm) 78%, white);
+  border-color: color-mix(in srgb, var(--home-brass) 32%, var(--border));
+  background: var(--home-panel-soft);
 }
 
 body.home-color-anthropic .followup-note {
-  border-color: color-mix(in srgb, var(--home-brass) 36%, var(--border));
-  background: color-mix(in srgb, var(--home-brass-soft) 52%, white);
+  border-color: color-mix(in srgb, var(--home-brass) 30%, var(--border));
+  background: color-mix(in srgb, var(--home-panel-warm) 72%, var(--home-panel));
 }
 
 body.home-color-anthropic .feature-strip {
@@ -4409,9 +4706,9 @@ body.home-color-anthropic .feature-strip {
 
 body.home-color-anthropic .feature-strip article,
 body.home-color-anthropic .audience-card {
-  border-color: color-mix(in srgb, var(--border) 84%, var(--home-brass));
+  border-color: var(--border);
   background: var(--home-panel);
-  box-shadow: 0 0.85rem 1.8rem -1.55rem rgb(65 47 32 / 28%);
+  box-shadow: var(--home-card-shadow);
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
@@ -4423,7 +4720,8 @@ body.home-color-anthropic .audience-card:hover,
 body.home-color-anthropic .pricing-card:hover,
 body.home-color-anthropic details:hover {
   transform: translateY(-2px);
-  box-shadow: 0 1.25rem 2.3rem -1.75rem rgb(65 47 32 / 32%);
+  border-color: var(--border-strong);
+  box-shadow: var(--home-card-shadow-hover);
 }
 
 body.home-color-anthropic .solution-showcase {
@@ -4440,11 +4738,9 @@ body.home-color-anthropic .solution-main-row {
 body.home-color-anthropic .solution-visual-card {
   width: min(100%, var(--home-visual-size));
   align-self: center;
-  border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+  border-color: var(--border-strong);
+  background: transparent;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .solution-neon-image {
@@ -4453,11 +4749,13 @@ body.home-color-anthropic .solution-neon-image {
 
 body.home-color-anthropic .solution-data-panel,
 body.home-color-anthropic .solution-stack-panel {
-  border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
+  border-color: var(--home-plan-border);
   border-radius: calc(var(--radius-lg) + 0.25rem);
-  background: var(--home-panel);
+  background:
+    linear-gradient(180deg, rgb(255 250 243 / 52%), transparent 42%),
+    var(--home-panel-warm);
   padding: clamp(1.4rem, 2.5vw, 2rem);
-  box-shadow: 0 1rem 2rem -1.65rem rgb(65 47 32 / 26%);
+  box-shadow: var(--home-card-shadow);
 }
 
 body.home-color-anthropic .solution-data-panel {
@@ -4484,11 +4782,15 @@ body.home-color-anthropic .solution-feature-strip article {
   position: relative;
   border: 1px solid color-mix(in srgb, var(--border) 80%, var(--home-brass));
   border-radius: var(--radius-md);
-  border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 250 243 / 66%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
+  border-color: var(--home-plan-border);
+  background: var(--home-plan-surface);
+  box-shadow:
+    inset 0 1px 0 rgb(255 250 243 / 48%),
+    0 0.85rem 1.5rem -1.35rem rgb(65 47 32 / 18%);
   transition:
     background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
     transform 180ms ease;
 }
 
@@ -4504,7 +4806,7 @@ body.home-color-anthropic .solution-data-grid article::before {
   inset-inline-start: var(--space-5);
   width: 0.72rem;
   height: 0.72rem;
-  border: 2px solid var(--home-panel);
+  border: 2px solid var(--home-panel-warm);
   border-radius: 50%;
   background: var(--home-rust);
   content: "";
@@ -4518,8 +4820,11 @@ body.home-color-anthropic .solution-data-grid article:nth-child(2)::before {
 
 body.home-color-anthropic .solution-data-grid article:hover,
 body.home-color-anthropic .solution-feature-strip article:hover {
-  background: color-mix(in srgb, var(--home-brass-soft) 32%, white);
-  box-shadow: none;
+  border-color: color-mix(in srgb, var(--home-plan-border) 70%, var(--home-rust));
+  background: color-mix(in srgb, var(--home-plan-surface-strong) 70%, var(--home-plan-surface));
+  box-shadow:
+    inset 0 1px 0 rgb(255 250 243 / 38%),
+    0 0.95rem 1.65rem -1.42rem rgb(65 47 32 / 22%);
   transform: none;
 }
 
@@ -4554,6 +4859,56 @@ body.home-color-anthropic .audience-grid {
 body.home-color-anthropic .audience-card {
   position: relative;
   overflow: hidden;
+  border-color: rgb(255 250 243 / 10%);
+  background:
+    radial-gradient(circle at 12% 14%, rgb(217 119 87 / 14%), transparent 34%),
+    linear-gradient(135deg, #2d241d 0%, #211a15 48%, #181512 100%);
+  color: var(--primary-foreground);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 7%),
+    0 1.15rem 2rem -1.55rem rgb(24 21 18 / 42%);
+}
+
+body.home-color-anthropic .audience-card::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, rgb(255 250 243 / 5%), transparent 38%),
+    linear-gradient(90deg, transparent, rgb(217 119 87 / 12%), transparent);
+  content: "";
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+body.home-color-anthropic .audience-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.home-color-anthropic .audience-card h3 {
+  color: #fff8ee;
+}
+
+body.home-color-anthropic .audience-card p {
+  color: #d8cbbd;
+}
+
+body.home-color-anthropic .audience-card .text-link {
+  border-bottom-color: rgb(217 119 87 / 58%);
+  color: #f2cdbd;
+}
+
+body.home-color-anthropic .audience-card:hover {
+  border-color: rgb(217 119 87 / 38%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 9%),
+    0 1.35rem 2.25rem -1.6rem rgb(24 21 18 / 52%);
+}
+
+body.home-color-anthropic .audience-card .text-link:hover {
+  border-bottom-color: var(--claude-orange);
+  color: #fff3e8;
 }
 
 body.home-color-anthropic .text-link {
@@ -4580,9 +4935,9 @@ body.home-color-anthropic .stage-rail {
 
 body.home-color-anthropic .stage-tile {
   min-height: 4.85rem;
-  border-color: color-mix(in srgb, var(--border) 80%, transparent);
+  border-color: color-mix(in srgb, var(--border) 86%, transparent);
   border-radius: 0.9rem;
-  background: rgb(255 250 243 / 58%);
+  background: var(--home-panel-soft);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 58%);
   transition:
     border-color 180ms ease,
@@ -4605,9 +4960,11 @@ body.home-color-anthropic .stage-tile.active {
 }
 
 body.home-color-anthropic .stage-info-card {
-  border-color: color-mix(in srgb, var(--home-brass) 38%, var(--border));
+  border-color: var(--border);
   background: var(--home-panel);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 62%),
+    var(--home-card-shadow);
 }
 
 body.home-color-anthropic .stage-info-side {
@@ -4625,11 +4982,9 @@ body.home-color-anthropic .flow-board {
 
 body.home-color-anthropic .flow-visual-card {
   width: min(100%, 21.5rem);
-  border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+  border-color: var(--border-strong);
+  background: transparent;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .flow-visual-image {
@@ -4639,9 +4994,9 @@ body.home-color-anthropic .flow-visual-image {
 body.home-color-anthropic .flow-step {
   min-height: 0;
   gap: var(--space-2);
-  border-color: color-mix(in srgb, var(--border) 84%, var(--home-brass));
-  background: rgb(255 250 243 / 78%);
-  box-shadow: 0 0.9rem 1.9rem -1.65rem rgb(65 47 32 / 26%);
+  border-color: var(--border);
+  background: var(--home-panel);
+  box-shadow: var(--home-card-shadow);
 }
 
 body.home-color-anthropic .flow-step::after {
@@ -4650,8 +5005,8 @@ body.home-color-anthropic .flow-step::after {
 }
 
 body.home-color-anthropic .flow-kicker {
-  border-color: color-mix(in srgb, var(--home-brass) 38%, var(--border));
-  background: color-mix(in srgb, var(--home-brass-soft) 54%, white);
+  border-color: color-mix(in srgb, var(--home-brass) 30%, var(--border));
+  background: var(--home-panel-soft);
   color: color-mix(in srgb, var(--home-rust) 82%, var(--primary));
 }
 
@@ -4673,19 +5028,22 @@ body.home-color-anthropic .decision-box {
 
 body.home-color-anthropic .duration-tabs {
   width: min(100%, 27rem);
-  gap: 0;
-  border: 1px solid color-mix(in srgb, var(--border) 76%, var(--home-brass));
-  border-radius: 1rem;
-  background: rgb(255 250 243 / 72%);
-  padding: 0.28rem;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
+  gap: 0.18rem;
+  border: 1px solid var(--home-plan-border);
+  border-radius: 1.1rem;
+  background: var(--home-plan-surface);
+  padding: 0.32rem;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 42%),
+    0 0.9rem 1.9rem -1.65rem rgb(65 47 32 / 18%);
 }
 
 body.home-color-anthropic .duration-tabs button {
   min-height: 3.05rem;
   border: 0;
-  border-radius: 0.76rem;
+  border-radius: 0.82rem;
   background: transparent;
+  color: var(--primary);
   box-shadow: none;
   transition:
     background 180ms ease,
@@ -4694,63 +5052,259 @@ body.home-color-anthropic .duration-tabs button {
 }
 
 body.home-color-anthropic .duration-tabs button:hover {
-  background: color-mix(in srgb, var(--home-brass-soft) 46%, transparent);
+  background: color-mix(in srgb, var(--home-plan-surface-soft) 82%, transparent);
 }
 
 body.home-color-anthropic .duration-tabs button.active {
   background: var(--primary);
   color: var(--primary-foreground);
-  box-shadow: 0 0.8rem 1.6rem -1.2rem rgb(20 20 20 / 56%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 10%),
+    0 0.75rem 1.4rem -1.1rem rgb(24 21 18 / 46%);
+}
+
+body.home-color-anthropic .duration-tabs .duration-number {
+  border-color: color-mix(in srgb, var(--home-plan-border) 84%, var(--primary));
+  background: color-mix(in srgb, var(--home-plan-surface-soft) 84%, white);
+  color: var(--primary);
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-unit {
   color: var(--primary-foreground);
 }
 
+body.home-color-anthropic .duration-tabs button.active .duration-number {
+  border-color: color-mix(in srgb, var(--primary-foreground) 46%, transparent);
+  background: var(--primary-foreground);
+  color: var(--primary);
+}
+
+body.home-color-anthropic .duration-tabs button.active .duration-number .persian-number {
+  color: var(--primary);
+}
+
 body.home-color-anthropic .pricing-grid {
-  gap: var(--space-5);
+  gap: clamp(1.1rem, 1.6vw, 1.75rem);
 }
 
 body.home-color-anthropic .pricing-card {
-  border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: var(--home-panel);
-  box-shadow: 0 1rem 2rem -1.7rem rgb(65 47 32 / 26%);
+  grid-template-rows: 7.2rem 2.55rem 1.85rem minmax(9.7rem, auto) 4.55rem 2.85rem auto;
+  gap: 0.9rem;
+  border-color: var(--home-plan-border);
+  border-radius: 1.35rem;
+  background: var(--home-plan-surface);
+  overflow: visible;
+  padding: clamp(1.1rem, 0.9rem + 0.55vw, 1.45rem);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 38%),
+    0 1.1rem 2rem -1.55rem rgb(65 47 32 / 20%);
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
 }
 
-body.home-color-anthropic .pricing-card:nth-child(2) {
-  border-color: color-mix(in srgb, var(--home-brass) 52%, var(--primary));
-  background: var(--home-panel);
+body.home-color-anthropic .pricing-card.featured {
+  border-color: var(--home-plan-border-strong);
+  background: var(--home-plan-surface);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 40%),
+    0 1.35rem 2.35rem -1.65rem rgb(121 80 58 / 25%);
 }
 
-body.home-color-anthropic .pricing-card:nth-child(3) {
-  border-color: color-mix(in srgb, var(--home-blue) 42%, var(--border));
+body.home-color-anthropic .pricing-card:nth-child(2) {
+  border-color: var(--home-plan-border);
 }
 
 body.home-color-anthropic .pricing-card:nth-child(4) {
-  border-color: color-mix(in srgb, var(--home-violet) 32%, var(--border));
+  border-color: var(--home-plan-border);
+}
+
+body.home-color-anthropic .plan-badge {
+  position: absolute;
+  inset-block-start: -0.72rem;
+  inset-inline-end: 0.95rem;
+  z-index: 1;
+  display: inline-flex;
+  min-height: 1.85rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--home-plan-border-strong);
+  border-radius: 999px;
+  background: var(--home-plan-surface-soft);
+  color: color-mix(in srgb, var(--home-rust) 78%, var(--primary));
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+  padding-inline: 0.78rem;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 42%);
+}
+
+body.home-color-anthropic .plan-card-head {
+  height: 7.2rem;
+  gap: 0.6rem;
+  align-content: start;
+  padding-block-start: 0;
 }
 
 body.home-color-anthropic .plan-icon-shell {
-  border-bottom-color: color-mix(in srgb, var(--border) 72%, var(--home-brass));
+  width: 4.95rem;
+  height: 4.95rem;
+  border: 0;
+  border-radius: 0.95rem;
+  background: var(--home-plan-surface);
+  box-shadow: none;
 }
 
-body.home-color-anthropic .plan-icon-shell img {
-  filter: grayscale(0.28) contrast(1.08) saturate(0.9);
+body.home-color-anthropic .pricing-card .plan-icon-shell img {
+  width: 4.05rem;
+  height: 4.05rem;
+  opacity: 0.8;
+  filter: grayscale(1) contrast(1.25) brightness(0.92);
+  mix-blend-mode: multiply;
+}
+
+body.home-color-anthropic .pricing-card h3 {
+  color: var(--primary);
+  font-size: clamp(1.32rem, 1.45vw, 1.62rem);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+body.home-color-anthropic .price {
+  color: var(--primary);
+  font-size: clamp(1.35rem, 1.72vw, 1.78rem);
+  font-weight: 900;
+}
+
+body.home-color-anthropic .price-currency,
+body.home-color-anthropic .plan-scope {
+  color: color-mix(in srgb, var(--primary) 70%, var(--home-plan-muted));
+}
+
+body.home-color-anthropic .plan-scope {
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+body.home-color-anthropic .plan-highlights {
+  min-height: 9.7rem;
+  gap: 0.62rem;
+  border-block-color: var(--home-plan-border);
+  padding-block: 0.9rem;
+}
+
+body.home-color-anthropic .pricing-card li {
+  position: relative;
+  min-height: 1.8rem;
+  padding-inline-start: 1.95rem;
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.6;
+  text-align: start;
+}
+
+body.home-color-anthropic .pricing-card li::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.1rem;
+  inset-inline-start: 0;
+  width: 1.42rem;
+  height: 1.42rem;
+  border: 1px solid var(--home-plan-border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--home-plan-surface-soft) 82%, white);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 48%);
+}
+
+body.home-color-anthropic .pricing-card li::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0.45rem;
+  inset-inline-start: 0.53rem;
+  width: 0.32rem;
+  height: 0.58rem;
+  border: solid var(--primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+body.home-color-anthropic .market-coverage {
+  min-height: 4.55rem;
+  justify-items: stretch;
+  border: 1px solid var(--home-plan-border);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--home-plan-surface-soft) 72%, transparent);
+  padding: 0.72rem 0.85rem;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 36%);
+}
+
+body.home-color-anthropic .coverage-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  color: var(--primary);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+body.home-color-anthropic .coverage-meter {
+  width: 100%;
+  gap: 0.36rem;
+}
+
+body.home-color-anthropic .coverage-meter i {
+  height: 0.48rem;
+  border-color: transparent;
+  background: var(--home-plan-surface-strong);
 }
 
 body.home-color-anthropic .coverage-meter i.filled {
-  border-color: color-mix(in srgb, var(--home-brass) 72%, var(--primary));
-  background: var(--home-brass);
+  border-color: transparent;
+  background: var(--home-plan-meter);
+}
+
+body.home-color-anthropic .plan-addon {
+  width: 100%;
+  min-height: 2.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.45rem;
+  border: 1px solid var(--home-plan-border);
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--home-plan-surface-soft) 72%, transparent);
+  color: var(--home-plan-muted);
+  font-weight: 800;
+  padding: 0.48rem 0.7rem;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 34%);
+}
+
+body.home-color-anthropic .plan-addon > span:first-child {
+  color: var(--home-plan-muted);
+}
+
+body.home-color-anthropic .addon-price {
+  color: var(--primary);
 }
 
 body.home-color-anthropic .pricing-card .button {
-  border-color: var(--claude-orange);
-  background: var(--claude-orange);
-  color: var(--foreground);
+  min-height: 3.25rem;
+  border-color: var(--primary);
+  border-radius: 0.88rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 0.9rem;
+  font-weight: 900;
+  box-shadow: 0 1rem 1.8rem -1.35rem rgb(24 21 18 / 46%);
+}
+
+body.home-color-anthropic .pricing-card .button:hover {
+  border-color: var(--primary-hover);
+  background: var(--primary-hover);
 }
 
 body.home-color-anthropic .faq-list {
@@ -4759,9 +5313,11 @@ body.home-color-anthropic .faq-list {
 }
 
 body.home-color-anthropic details {
-  border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 250 243 / 66%);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 58%);
+  border-color: var(--border);
+  background: var(--home-panel);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 58%),
+    var(--home-card-shadow);
   transition:
     border-color 180ms ease,
     background 180ms ease,
@@ -4770,7 +5326,7 @@ body.home-color-anthropic details {
 }
 
 body.home-color-anthropic details[open] {
-  border-color: color-mix(in srgb, var(--home-brass) 42%, var(--border));
+  border-color: var(--border-strong);
   background: var(--home-panel);
 }
 
@@ -4834,11 +5390,9 @@ body.home-color-anthropic .demo-copy p {
 
 body.home-color-anthropic .demo-visual-card {
   width: min(100%, var(--home-visual-size));
-  border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
-  background: var(--primary);
-  box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
-    0 0 0 1px rgb(255 255 255 / 4%);
+  border-color: var(--border-strong);
+  background: transparent;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .demo-visual-image {
@@ -4847,9 +5401,23 @@ body.home-color-anthropic .demo-visual-image {
 
 body.home-color-anthropic .demo-path,
 body.home-color-anthropic .demo-form {
-  border-color: rgb(255 255 255 / 10%);
-  background: rgb(255 250 243 / 94%);
-  box-shadow: 0 1.1rem 2.1rem -1.7rem rgb(0 0 0 / 62%);
+  border-color: var(--border);
+  background: var(--home-panel);
+  box-shadow: var(--home-card-shadow);
+}
+
+body.home-color-anthropic .demo-form .button-primary {
+  border-color: var(--claude-orange);
+  background: var(--claude-orange);
+  color: var(--primary);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 18%),
+    0 0.8rem 1.55rem -1.25rem rgb(92 52 35 / 38%);
+}
+
+body.home-color-anthropic .demo-form .button-primary:hover {
+  border-color: var(--claude-orange-hover);
+  background: var(--claude-orange-hover);
 }
 
 body.home-color-anthropic .field input,
@@ -4982,6 +5550,10 @@ body.home-color-anthropic .field select:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body.home-color-anthropic .site-header,
+  body.home-color-anthropic .site-header-inner,
+  body.home-color-anthropic .site-header .nav a,
+  body.home-color-anthropic .site-header .header-phone,
   body.home-color-anthropic .button,
   body.home-color-anthropic .feature-strip article,
   body.home-color-anthropic .audience-card,
@@ -4992,6 +5564,7 @@ body.home-color-anthropic .field select:focus {
   body.home-color-anthropic .field select {
     transition: none;
   }
+
 }
 
 .image-placeholder {
@@ -5059,10 +5632,15 @@ body.home-color-anthropic .field select:focus {
 }
 
 body.home-color-anthropic .image-placeholder {
-  background: color-mix(in srgb, var(--home-panel) 78%, var(--claude-orange-soft));
-  color: color-mix(in srgb, var(--foreground) 70%, var(--claude-orange));
+  background: transparent;
+  color: var(--faint-foreground);
 }
 
 body.home-color-anthropic .home-page img {
   filter: grayscale(1) contrast(1.02);
+}
+
+body.home-color-anthropic .home-page .hero-neon-image,
+body.home-color-anthropic .home-page .solution-neon-image {
+  filter: none;
 }

@@ -6,7 +6,7 @@ const primaryContact = site.contacts[0];
 const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${href}`);
 ---
 
-<header class="site-header">
+<header class="site-header" data-scroll-header>
   <div class="container site-header-inner">
     <a class="brand" href="/">
       {!home && <span class="brand-mark" aria-hidden="true">PS</span>}
@@ -24,7 +24,16 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
 
     <div class="header-actions">
       <a class="header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-      <a class="button button-secondary header-login-link" href={home ? "#demo" : "/#demo"}>ورود</a>
+      <a class="button button-secondary header-login-link" href={home ? "#demo" : "/#demo"}>
+        <span class="header-login-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M10 7V5.5A2.5 2.5 0 0 1 12.5 3h4A2.5 2.5 0 0 1 19 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-4A2.5 2.5 0 0 1 10 18.5V17" />
+            <path d="M4 12h9" />
+            <path d="m10 9 3 3-3 3" />
+          </svg>
+        </span>
+        <span>ورود</span>
+      </a>
       <a class="button button-primary header-demo-link" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
       {home && (
         <button
@@ -56,6 +65,26 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
   {home && (
     <script is:inline>
       (() => {
+        const scrollHeader = document.querySelector("[data-scroll-header]");
+        let scrollTicking = false;
+
+        const syncScrollHeader = () => {
+          if (!scrollHeader) return;
+
+          const currentY = window.scrollY;
+          scrollHeader.classList.toggle("is-scrolled", currentY > 12);
+          scrollTicking = false;
+        };
+
+        const requestHeaderSync = () => {
+          if (scrollTicking) return;
+          scrollTicking = true;
+          window.requestAnimationFrame(syncScrollHeader);
+        };
+
+        window.addEventListener("scroll", requestHeaderSync, { passive: true });
+        syncScrollHeader();
+
         const toggle = document.querySelector("[data-mobile-menu-toggle]");
         const menu = document.querySelector("[data-mobile-menu]");
         if (!toggle || !menu) return;
