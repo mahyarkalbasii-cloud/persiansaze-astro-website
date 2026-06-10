@@ -1,5 +1,5 @@
 ---
-import { footer, footerLinkGroups, site, socialLinks, utilityLinks } from "@/content/home";
+import { footer, footerLinkGroups, site, socialLinks, toPersianDigits, utilityLinks } from "@/content/home";
 import { constructionStages, workFields as constructionWorkFields } from "@/content/construction";
 import { saleTypes as saleTypeContent } from "@/content/sales";
 
@@ -154,6 +154,6 @@ const socialIconPaths: Record<string, string> = {
         <a href={hrefFor(item.href)}>{item.label}</a>
       ))}
     </nav>
-    <p>© {new Date().getFullYear()} {site.name}</p>
+    <p>© {toPersianDigits(new Date().getFullYear())} {site.name}</p>
   </div>
 </footer>

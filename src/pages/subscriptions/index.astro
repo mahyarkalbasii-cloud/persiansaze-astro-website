@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { absoluteUrl, breadcrumbSchema, site } from "@/content/home";
+import { absoluteUrl, breadcrumbSchema, site, toPersianDigits } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
 
 const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
@@ -58,7 +58,7 @@ const structuredData = [
           </div>
         </div>
         <aside class="content-summary-card subscription-summary-card">
-          <strong>{subscriptionPlans.length}</strong>
+          <strong>{toPersianDigits(subscriptionPlans.length)}</strong>
           <span>مسیر دسترسی به بازار پروژه‌ها</span>
           <p>قیمت‌ها بر اساس اشتراک سه‌ماهه نمایش داده شده‌اند و هر پلن به صفحه جزئیات خودش وصل است.</p>
         </aside>

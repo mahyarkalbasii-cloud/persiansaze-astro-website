@@ -478,7 +478,7 @@ const schemaGraph = [
                 aria-pressed={duration.id === defaultDuration ? "true" : "false"}
                 data-plan-duration={duration.id}
               >
-                <span class="duration-number">{duration.id}</span>
+                <span class="duration-number">{toPersianDigits(duration.id)}</span>
                 <span class="duration-unit">ماهه</span>
               </button>
             ))}

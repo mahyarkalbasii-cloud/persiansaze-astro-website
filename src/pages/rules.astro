@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { absoluteUrl, site } from "@/content/home";
+import { absoluteUrl, site, toPersianDigits } from "@/content/home";
 
 type RuleTerm = {
   title: string;
@@ -169,7 +169,7 @@ const structuredData = {
           </div>
         </div>
         <aside class="content-summary-card rules-summary-card">
-          <strong>{rulesSections.length}</strong>
+          <strong>{toPersianDigits(rulesSections.length)}</strong>
           <span>ماده حقوقی</span>
           <p>شرایط استفاده، مالکیت اطلاعات، حساب کاربری، پرداخت، حریم خصوصی و پشتیبانی در این صفحه آمده است.</p>
         </aside>

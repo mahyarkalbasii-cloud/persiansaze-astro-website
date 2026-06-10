@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { cityProfiles, type CityProfile } from "@/content/cities";
 import { constructionStages, workFields } from "@/content/construction";
-import { breadcrumbSchema, site } from "@/content/home";
+import { breadcrumbSchema, site, toPersianDigits } from "@/content/home";
 
 export function getStaticPaths() {
   return cityProfiles.map((city) => ({
@@ -70,7 +70,7 @@ const placeSchema = {
           </div>
         </div>
         <aside class="content-summary-card">
-          <strong>{city.keyMetrics.length}</strong>
+          <strong>{toPersianDigits(city.keyMetrics.length)}</strong>
           <span>شاخص شهری</span>
           <p>{city.headline}</p>
         </aside>
