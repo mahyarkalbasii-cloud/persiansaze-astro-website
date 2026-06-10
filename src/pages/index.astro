@@ -196,60 +196,16 @@ const schemaGraph = [
 
       <section id="problem" class="section problem-section">
         <div class="container two-column">
-          <div class="media-placeholder problem-placeholder market-friction problem-image-card" aria-label={problem.placeholder}>
-            <figure class="problem-image-frame" aria-hidden="true">
-              <ImagePlaceholder class="problem-neon-image" label={problem.placeholder} />
-            </figure>
-
-            <div class="friction-head">
-              <span>روایت مسئله بازار</span>
-              <strong>فرصت ساختمانی وقتی ارزش دارد که به‌موقع دیده شود.</strong>
-            </div>
-
-            <div class="friction-canvas" aria-hidden="true">
-              <svg viewBox="0 0 520 300" role="img" aria-label="پراکندگی پروژه‌ها و پنجره زمانی تماس">
-                <defs>
-                  <pattern id="problem-grid" width="42" height="42" patternUnits="userSpaceOnUse">
-                    <path d="M42 0H0V42" fill="none" stroke="currentColor" stroke-width="1" />
-                  </pattern>
-                </defs>
-                <rect width="520" height="300" rx="24" fill="currentColor" opacity="0.035" />
-                <rect width="520" height="300" rx="24" fill="url(#problem-grid)" opacity="0.26" />
-                <path class="friction-window" d="M286 35V265" />
-                <path class="friction-path early" d="M72 222C124 178 176 176 226 131" />
-                <path class="friction-path late" d="M313 123C363 94 416 101 468 63" />
-                <g class="friction-dot muted" transform="translate(92 78)"><circle r="12" /></g>
-                <g class="friction-dot" transform="translate(157 198)"><circle r="14" /></g>
-                <g class="friction-dot active" transform="translate(286 132)"><circle r="22" /><circle r="6" /></g>
-                <g class="friction-dot" transform="translate(388 96)"><circle r="14" /></g>
-                <g class="friction-dot muted" transform="translate(455 218)"><circle r="12" /></g>
-              </svg>
-
-              <div class="friction-window-card">
-                <span>پنجره تماس</span>
-                <strong>زودتر از رقبا، نه زودتر از نیاز</strong>
-              </div>
-            </div>
-
-            <div class="friction-metrics">
-              <article>
-                <span>پراکندگی</span>
-                <strong>پروژه‌ها روی چند مسیر پخش‌اند</strong>
-              </article>
-              <article>
-                <span>زمان تماس</span>
-                <strong>زود یا دیر، هر دو فرصت را می‌سوزاند</strong>
-              </article>
-              <article>
-                <span>پیگیری</span>
-                <strong>بدون نظم، فرصت‌ها در صف می‌مانند</strong>
-              </article>
-            </div>
-          </div>
-          <div class="section-copy">
-            <h2>{problem.title}</h2>
+          <div class="section-copy problem-copy">
+            <h2 aria-label={problem.title}>
+              {problem.titleLines.map((line) => (
+                <span>{line}</span>
+              ))}
+            </h2>
             <p>{problem.body}</p>
-            <a class="button button-secondary" href="#solution">{problem.cta}</a>
+            <div class="action-row">
+              <a class="button button-secondary" href="#solution">{problem.cta}</a>
+            </div>
           </div>
         </div>
       </section>
