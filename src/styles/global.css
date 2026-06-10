@@ -112,7 +112,8 @@
   --surface-subtle: var(--ps-ink-50);
   --foreground: var(--ps-ink-950);
   --muted-foreground: var(--ps-ink-700);
-  --faint-foreground: var(--ps-ink-600);
+  /* ink-700 به‌جای ink-600: روی سفید 5.6:1 (ink-600 با 3.96:1 رد AA بود) */
+  --faint-foreground: var(--ps-ink-700);
   --border: var(--ps-ink-250);
   --border-strong: var(--ps-ink-300);
   --primary: var(--ps-ink-900);
@@ -287,9 +288,10 @@ li + li {
   margin-top: var(--space-2);
 }
 
+/* outline به‌جای box-shadow تا قوانین box-shadow کامپوننت‌ها رینگ فوکوس را حذف نکنند */
 :focus-visible {
-  outline: 0;
-  box-shadow: var(--shadow-ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .container {
