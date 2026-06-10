@@ -151,6 +151,8 @@
   --space-16: 4rem;
   --space-20: 5rem;
   --space-24: 6rem;
+  --section-heading-gap: clamp(0.7rem, 0.85vw, 0.95rem);
+  --section-heading-margin: clamp(2.35rem, 4vw, 3rem);
   --card-padding: clamp(1.5rem, 1.1rem + 0.9vw, 2.15rem);
   --card-padding-compact: clamp(1.25rem, 1rem + 0.65vw, 1.75rem);
   --card-gap: clamp(1.25rem, 1rem + 0.65vw, 1.75rem);
@@ -308,8 +310,8 @@ li + li {
 .section-copy {
   display: grid;
   max-width: 48rem;
-  gap: var(--space-5);
-  margin-bottom: var(--space-12);
+  gap: var(--section-heading-gap);
+  margin-bottom: var(--section-heading-margin);
 }
 
 .section-heading h2,
@@ -1980,7 +1982,7 @@ details {
 .flow-visual-card {
   grid-area: visual;
   width: min(100%, 22rem);
-  aspect-ratio: 1122 / 1402;
+  aspect-ratio: 737 / 1319;
   justify-self: end;
   margin: 0;
   overflow: hidden;
@@ -1995,7 +1997,7 @@ details {
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .flow-step {
@@ -4376,17 +4378,17 @@ body.home-color-anthropic .site-header .header-actions .button {
 body.home-color-anthropic .site-header .header-actions .header-login-link {
   gap: 0.42rem;
   min-width: 5.05rem;
-  border-color: rgb(217 119 87 / 56%);
-  background: rgb(217 119 87 / 28%);
+  border-color: var(--claude-orange);
+  background: var(--claude-orange);
   color: var(--primary);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 42%),
-    0 0.72rem 1.35rem -1.18rem rgb(92 52 35 / 28%);
+    inset 0 1px 0 rgb(255 255 255 / 18%),
+    0 0.78rem 1.45rem -1.16rem rgb(92 52 35 / 38%);
 }
 
 body.home-color-anthropic .site-header .header-actions .header-login-link:hover {
-  border-color: rgb(217 119 87 / 72%);
-  background: rgb(217 119 87 / 36%);
+  border-color: var(--claude-orange-hover);
+  background: var(--claude-orange-hover);
 }
 
 body.home-color-anthropic .header-login-icon {
@@ -4522,7 +4524,8 @@ body.home-color-anthropic .home-page > .section {
 
 body.home-color-anthropic .section-heading,
 body.home-color-anthropic .section-copy {
-  gap: var(--space-4);
+  gap: var(--section-heading-gap);
+  margin-bottom: var(--section-heading-margin);
 }
 
 body.home-color-anthropic #solution .section-heading,
@@ -4981,10 +4984,13 @@ body.home-color-anthropic .flow-board {
 }
 
 body.home-color-anthropic .flow-visual-card {
-  width: min(100%, 21.5rem);
+  width: min(100%, 18.5rem);
   border-color: var(--border-strong);
-  background: transparent;
-  box-shadow: none;
+  background: color-mix(in srgb, var(--home-panel-warm) 72%, transparent);
+  padding: 0.35rem;
+  box-shadow:
+    inset 0 1px 0 rgb(255 250 243 / 42%),
+    var(--home-card-shadow);
 }
 
 body.home-color-anthropic .flow-visual-image {
@@ -5150,18 +5156,21 @@ body.home-color-anthropic .plan-card-head {
 body.home-color-anthropic .plan-icon-shell {
   width: 4.95rem;
   height: 4.95rem;
-  border: 0;
+  border: 1px solid color-mix(in srgb, var(--home-plan-border) 74%, var(--primary));
   border-radius: 0.95rem;
   background: var(--home-plan-surface);
-  box-shadow: none;
+  box-shadow:
+    inset 0 1px 0 rgb(255 250 243 / 46%),
+    inset 0 -0.7rem 1.1rem -1.05rem rgb(24 21 18 / 30%),
+    0 0.65rem 1.15rem -0.9rem rgb(65 47 32 / 32%);
 }
 
 body.home-color-anthropic .pricing-card .plan-icon-shell img {
-  width: 4.05rem;
-  height: 4.05rem;
-  opacity: 0.8;
-  filter: grayscale(1) contrast(1.25) brightness(0.92);
-  mix-blend-mode: multiply;
+  width: 3.95rem;
+  height: 3.95rem;
+  opacity: 1;
+  filter: contrast(1.55) brightness(0.62) drop-shadow(0 0.18rem 0.18rem rgb(24 21 18 / 22%));
+  mix-blend-mode: normal;
 }
 
 body.home-color-anthropic .pricing-card h3 {
@@ -5233,6 +5242,8 @@ body.home-color-anthropic .pricing-card li::after {
 body.home-color-anthropic .market-coverage {
   min-height: 4.55rem;
   justify-items: stretch;
+  direction: rtl;
+  text-align: right;
   border: 1px solid var(--home-plan-border);
   border-radius: 1rem;
   background: color-mix(in srgb, var(--home-plan-surface-soft) 72%, transparent);
@@ -5243,7 +5254,7 @@ body.home-color-anthropic .market-coverage {
 body.home-color-anthropic .coverage-label-row {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: var(--space-3);
   color: var(--primary);
   font-size: 0.76rem;
@@ -5252,6 +5263,7 @@ body.home-color-anthropic .coverage-label-row {
 
 body.home-color-anthropic .coverage-meter {
   width: 100%;
+  direction: rtl;
   gap: 0.36rem;
 }
 
@@ -5528,7 +5540,7 @@ body.home-color-anthropic .field select:focus {
   }
 
   body.home-color-anthropic .flow-visual-card {
-    width: min(100%, var(--home-visual-size-mobile));
+    width: min(78vw, 18.5rem);
     justify-self: center;
   }
 
@@ -5641,6 +5653,7 @@ body.home-color-anthropic .home-page img {
 }
 
 body.home-color-anthropic .home-page .hero-neon-image,
-body.home-color-anthropic .home-page .solution-neon-image {
+body.home-color-anthropic .home-page .solution-neon-image,
+body.home-color-anthropic .home-page .flow-visual-image {
   filter: none;
 }
