@@ -1,12 +1,14 @@
 import { aiCrawlerUserAgents, absoluteUrl } from "@/content/home";
 
 export function GET() {
+  // قاعده «Disallow: /*?*» حذف شد: هر URL دارای query (از جمله UTM) را از کرال
+  // می‌بست. مدیریت نسخه‌های تکراری با تگ canonical انجام می‌شود که در همه
+  // صفحات به نسخه تمیز اشاره می‌کند.
   const lines = [
     "User-agent: *",
     "Allow: /",
     "Disallow: /api/",
     "Disallow: /admin/",
-    "Disallow: /*?*",
     "",
     ...aiCrawlerUserAgents.flatMap((userAgent) => [
       `User-agent: ${userAgent}`,
