@@ -402,6 +402,19 @@ export function absoluteUrl(path = "") {
   return `${site.url}${path}`;
 }
 
+export function breadcrumbSchema(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
 export const ids = {
   organization: `${site.url}/#organization`,
   localBusiness: `${site.url}/#localbusiness`,

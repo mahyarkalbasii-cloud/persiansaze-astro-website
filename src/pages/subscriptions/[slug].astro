@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { absoluteUrl, site } from "@/content/home";
-import { pricing, subscriptionPlans, type SubscriptionPlan } from "@/content/subscriptions";
+import { absoluteUrl, breadcrumbSchema, site } from "@/content/home";
+import { pricing, subscriptionPlans, tomanToIrr, type SubscriptionPlan } from "@/content/subscriptions";
 
 export function getStaticPaths() {
   return subscriptionPlans.map((plan) => ({
@@ -14,8 +14,7 @@ const { plan } = Astro.props as { plan: SubscriptionPlan };
 const relatedPlans = subscriptionPlans.filter((item) => item.slug !== plan.slug);
 const defaultDuration = "3" as const;
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
-const toLatinNumber = (value: string) =>
-  value.replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit))).replace(/,/g, "");
+const planPricesIrr = Object.values(plan.prices).map(tomanToIrr);
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -26,13 +25,20 @@ const structuredData = [
     inLanguage: "fa-IR",
     provider: { "@type": "Organization", name: site.name, url: site.url },
     offers: {
-      "@type": "Offer",
-      price: toLatinNumber(plan.prices[defaultDuration]),
+      "@type": "AggregateOffer",
       priceCurrency: "IRR",
+      lowPrice: Math.min(...planPricesIrr),
+      highPrice: Math.max(...planPricesIrr),
+      offerCount: planPricesIrr.length,
       availability: "https://schema.org/InStock",
       url: absoluteUrl(`/subscriptions/${plan.slug}/`),
     },
   },
+  breadcrumbSchema([
+    { name: "خانه", path: "/" },
+    { name: "اشتراک‌ها", path: "/subscriptions/" },
+    { name: `اشتراک ${plan.name}`, path: `/subscriptions/${plan.slug}/` },
+  ]),
 ];
 ---
 

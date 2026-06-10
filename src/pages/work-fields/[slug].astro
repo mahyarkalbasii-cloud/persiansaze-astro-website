@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { constructionStages, getWorkFieldsForStage, workFields, type WorkField } from "@/content/construction";
+import { breadcrumbSchema } from "@/content/home";
 
 export function getStaticPaths() {
   return workFields.map((field) => ({
@@ -21,9 +22,19 @@ const relatedFields = [
       .map((item) => [item.slug, item])
   ).values(),
 ].slice(0, 6);
+const structuredData = breadcrumbSchema([
+  { name: "خانه", path: "/" },
+  { name: "زمینه‌های کاری", path: "/work-fields/" },
+  { name: field.title, path: `/work-fields/${field.slug}/` },
+]);
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={`/work-fields/${field.slug}/`}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={`/work-fields/${field.slug}/`}
+  structuredData={structuredData}
+>
   <main>
     <section class="content-hero">
       <div class="container content-hero-grid">

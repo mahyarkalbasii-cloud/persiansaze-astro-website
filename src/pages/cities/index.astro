@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { breadcrumbSchema } from "@/content/home";
 import { cityProfiles } from "@/content/cities";
 
 const title = "شهرهای پوشش پرشین‌سازه | تهران، کرج و لواسان";
@@ -7,7 +8,15 @@ const description =
   "صفحات شهری پرشین‌سازه برای تحلیل ساخت‌وساز تهران، کرج و لواسان: جمعیت، مسکن، پروانه ساخت، زیرساخت، ریسک شهری و فرصت فروش پروژه‌محور.";
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/cities/">
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/cities/"
+  structuredData={breadcrumbSchema([
+    { name: "خانه", path: "/" },
+    { name: "شهرها", path: "/cities/" },
+  ])}
+>
   <main>
     <section class="content-hero">
       <div class="container content-hero-grid">

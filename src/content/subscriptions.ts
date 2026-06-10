@@ -288,6 +288,18 @@ export const subscriptionComparisonRows: SubscriptionComparisonRow[] = [
   },
 ];
 
+// قیمت‌های نمایشی سایت به «تومان» هستند؛ کد ارز رسمی ISO 4217 برای ایران IRR
+// (ریال) است، پس مقدار ماشین‌خوان Schema باید تومان × ۱۰ باشد.
+export function tomanToIrr(value: string): number {
+  const latin = value.replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit))).replace(/,/g, "");
+  return Number(latin) * 10;
+}
+
+export const subscriptionPriceBoundsIrr = (() => {
+  const all = subscriptionPlans.flatMap((plan) => Object.values(plan.prices).map(tomanToIrr));
+  return { low: Math.min(...all), high: Math.max(...all) };
+})();
+
 export const pricing = {
   title: "زمین بازی خود را انتخاب کنید",
   description:

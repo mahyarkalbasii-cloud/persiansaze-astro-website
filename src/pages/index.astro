@@ -19,6 +19,7 @@ import {
 } from "@/content/home";
 import { constructionStages, workFields } from "@/content/construction";
 import { saleTypes } from "@/content/sales";
+import { subscriptionPlans, subscriptionPriceBoundsIrr } from "@/content/subscriptions";
 
 const primaryContact = site.contacts[0];
 const ogImageUrl = new URL("/assets/og/persiansaze-og.png", site.url).toString();
@@ -162,8 +163,11 @@ const schemaGraph = [
     description: site.description,
     publisher: { "@id": ids.organization },
     offers: {
-      "@type": "Offer",
+      "@type": "AggregateOffer",
       priceCurrency: "IRR",
+      lowPrice: subscriptionPriceBoundsIrr.low,
+      highPrice: subscriptionPriceBoundsIrr.high,
+      offerCount: subscriptionPlans.length,
       availability: "https://schema.org/InStock",
       url: `${site.url}/subscriptions/`,
     },

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { absoluteUrl, site } from "@/content/home";
+import { absoluteUrl, breadcrumbSchema, site } from "@/content/home";
+import { subscriptionPlans, subscriptionPriceBoundsIrr } from "@/content/subscriptions";
 import {
   assets,
   dataOperations,
@@ -14,18 +15,33 @@ import {
 const title = "محصول و ویژگی‌های پرشین‌سازه | زیرساخت فروش پروژه‌محور ساختمان";
 const description =
   "پرشین‌سازه داده زنده پروژه‌های ساختمانی، نقشه، فیلتر، CRM، پیامک، آموزش و مسیر پیگیری فروش را برای تامین‌کنندگان بازار ساختمان در یک محصول واحد ترکیب می‌کند.";
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "پرشین‌سازه",
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  url: absoluteUrl("/product/"),
-  inLanguage: "fa-IR",
-  description,
-  publisher: { "@type": "Organization", name: site.name, url: site.url },
-  featureList: featureCards.map((item) => item.title),
-};
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "پرشین‌سازه",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: absoluteUrl("/product/"),
+    inLanguage: "fa-IR",
+    description,
+    publisher: { "@type": "Organization", name: site.name, url: site.url },
+    featureList: featureCards.map((item) => item.title),
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "IRR",
+      lowPrice: subscriptionPriceBoundsIrr.low,
+      highPrice: subscriptionPriceBoundsIrr.high,
+      offerCount: subscriptionPlans.length,
+      availability: "https://schema.org/InStock",
+      url: absoluteUrl("/subscriptions/"),
+    },
+  },
+  breadcrumbSchema([
+    { name: "خانه", path: "/" },
+    { name: "محصول", path: "/product/" },
+  ]),
+];
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/product/" structuredData={structuredData}>

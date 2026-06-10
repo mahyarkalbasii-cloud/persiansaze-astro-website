@@ -6,6 +6,7 @@ import {
   getWorkSubcategoriesForStage,
   type ConstructionStage,
 } from "@/content/construction";
+import { breadcrumbSchema } from "@/content/home";
 
 export function getStaticPaths() {
   return constructionStages.map((stage) => ({
@@ -22,9 +23,19 @@ const description = `${stage.title} در چرخه ساخت ساختمان: تع�
 const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
 const relatedFieldsCount = toPersianDigits(relatedFields.length);
 const relatedSubcategoriesCount = toPersianDigits(relatedSubcategories.length);
+const structuredData = breadcrumbSchema([
+  { name: "خانه", path: "/" },
+  { name: "مراحل ساخت", path: "/construction-stages/" },
+  { name: stage.title, path: `/construction-stages/${stage.slug}/` },
+]);
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={`/construction-stages/${stage.slug}/`}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={`/construction-stages/${stage.slug}/`}
+  structuredData={structuredData}
+>
   <main>
     <section class="content-hero stage-page-hero">
       <div class="container content-hero-grid stage-page-hero-grid">

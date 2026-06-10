@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { absoluteUrl, site } from "@/content/home";
+import { absoluteUrl, breadcrumbSchema, site } from "@/content/home";
 import { saleTypeComparison, saleTypes, saleTypesIntro } from "@/content/sales";
 
 const title = "انواع فروش در صنعت ساختمان | پرشین‌سازه";
@@ -33,6 +33,10 @@ const structuredData = [
       description: item.summary,
     })),
   },
+  breadcrumbSchema([
+    { name: "خانه", path: "/" },
+    { name: "انواع فروش", path: "/sale-types/" },
+  ]),
 ];
 ---
 

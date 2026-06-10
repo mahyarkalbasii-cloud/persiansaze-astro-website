@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { breadcrumbSchema } from "@/content/home";
 import { constructionStages, stageTitleById, workFields, workSubcategories } from "@/content/construction";
 
 const title = "زمینه‌های کاری ساختمان | پرشین‌سازه";
@@ -7,7 +8,15 @@ const description =
   "دسته‌بندی کامل زمینه‌های کاری، زیر‌دسته‌های محصول و خدمات ساختمانی، معادل مرحله ساخت، تعریف فنی و نکات مهم برای سازنده.";
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/work-fields/">
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/work-fields/"
+  structuredData={breadcrumbSchema([
+    { name: "خانه", path: "/" },
+    { name: "زمینه‌های کاری", path: "/work-fields/" },
+  ])}
+>
   <main>
     <section class="content-hero">
       <div class="container content-hero-grid">

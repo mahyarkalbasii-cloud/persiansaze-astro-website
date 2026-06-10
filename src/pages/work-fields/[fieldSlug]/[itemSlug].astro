@@ -8,6 +8,7 @@ import {
   type WorkField,
   type WorkSubcategory,
 } from "@/content/construction";
+import { breadcrumbSchema } from "@/content/home";
 
 export function getStaticPaths() {
   return workFields.flatMap((field) =>
@@ -31,9 +32,20 @@ const relatedFields = [
 ].slice(0, 6);
 const title = `${subcategory.title} | ${field.title} | پرشین‌سازه`;
 const description = `${subcategory.title} در دسته ${field.title}: معادل مرحله ساخت، تعریف فنی محصول یا خدمت، نکات مهم برای سازنده و صفحات مرتبط.`;
+const structuredData = breadcrumbSchema([
+  { name: "خانه", path: "/" },
+  { name: "زمینه‌های کاری", path: "/work-fields/" },
+  { name: field.title, path: `/work-fields/${field.slug}/` },
+  { name: subcategory.title, path: `/work-fields/${field.slug}/${subcategory.slug}/` },
+]);
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={`/work-fields/${field.slug}/${subcategory.slug}/`}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={`/work-fields/${field.slug}/${subcategory.slug}/`}
+  structuredData={structuredData}
+>
   <main>
     <section class="content-hero">
       <div class="container content-hero-grid">

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { absoluteUrl, site } from "@/content/home";
+import { absoluteUrl, breadcrumbSchema, site } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
 
 const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
@@ -35,6 +35,10 @@ const structuredData = [
       description: plan.subtitle,
     })),
   },
+  breadcrumbSchema([
+    { name: "خانه", path: "/" },
+    { name: "اشتراک‌ها", path: "/subscriptions/" },
+  ]),
 ];
 ---
 

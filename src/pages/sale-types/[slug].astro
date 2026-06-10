@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { absoluteUrl, site } from "@/content/home";
+import { absoluteUrl, breadcrumbSchema, site } from "@/content/home";
 import { barterRiskRows, saleTypes, type SaleType } from "@/content/sales";
 
 export function getStaticPaths() {
@@ -42,6 +42,11 @@ const structuredData = [
       },
     })),
   },
+  breadcrumbSchema([
+    { name: "خانه", path: "/" },
+    { name: "انواع فروش", path: "/sale-types/" },
+    { name: saleType.title, path: `/sale-types/${saleType.slug}/` },
+  ]),
 ];
 ---
 
