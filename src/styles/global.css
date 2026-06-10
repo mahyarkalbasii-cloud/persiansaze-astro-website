@@ -103,6 +103,9 @@
   --ps-success: #3e8e7e;
   --ps-warning: #c68a3a;
   --ps-danger: #c24a3f;
+  --claude-orange: #d97757;
+  --claude-orange-hover: #c96f50;
+  --claude-orange-soft: #f3c7b5;
   --background: var(--ps-white);
   --surface: var(--ps-white);
   --surface-muted: var(--ps-ink-100);
@@ -190,42 +193,45 @@ body {
 }
 
 body.home-color-anthropic {
-  --ps-ink-950: #141413;
-  --ps-ink-900: #24211e;
-  --ps-ink-800: #3e3933;
-  --ps-ink-700: #5e574f;
-  --ps-ink-600: #756d63;
-  --ps-ink-500: #908677;
-  --ps-ink-400: #b9ad9b;
-  --ps-ink-300: #d2c7b8;
-  --ps-ink-250: #ded3c3;
-  --ps-ink-200: #e8dfd2;
-  --ps-ink-100: #f1ece3;
-  --ps-ink-50: #faf9f5;
-  --background: #faf9f5;
-  --surface: #e8dfd2;
-  --surface-muted: #e3d8c8;
-  --surface-subtle: #f1ece3;
-  --foreground: #141413;
-  --muted-foreground: #3f3c38;
-  --faint-foreground: #756d63;
-  --border: #ded3c3;
-  --border-strong: #cdbfae;
-  --primary: #141413;
-  --primary-hover: #2b2925;
-  --primary-foreground: #faf9f5;
-  --secondary: #e8dfd2;
-  --secondary-foreground: #141413;
-  --accent: #d8ccba;
-  --accent-foreground: #141413;
-  --ring: #908677;
-  --inverted: #141413;
-  --inverted-foreground: #faf9f5;
-  --shadow-xs: 0 1px 2px 0 rgb(20 20 19 / 7%);
-  --shadow-sm: 0 1px 3px 0 rgb(20 20 19 / 9%), 0 1px 2px -1px rgb(20 20 19 / 7%);
-  --shadow-md: 0 4px 12px -2px rgb(20 20 19 / 13%), 0 2px 6px -2px rgb(20 20 19 / 8%);
-  --shadow-lg: 0 12px 28px -6px rgb(20 20 19 / 16%), 0 6px 12px -6px rgb(20 20 19 / 9%);
-  --shadow-ring: 0 0 0 3px rgb(144 134 119 / 35%);
+  --ps-ink-950: #141414;
+  --ps-ink-900: #242424;
+  --ps-ink-800: #3b3b3b;
+  --ps-ink-700: #565656;
+  --ps-ink-600: #6f6f6f;
+  --ps-ink-500: #8a8a8a;
+  --ps-ink-400: #adadad;
+  --ps-ink-300: #c8c8c8;
+  --ps-ink-250: #d6d6d6;
+  --ps-ink-200: #e3e3e3;
+  --ps-ink-100: #eeeeee;
+  --ps-ink-50: #f8f8f8;
+  --background: #f8f8f8;
+  --surface: #e3e3e3;
+  --surface-muted: #dedede;
+  --surface-subtle: #eeeeee;
+  --foreground: #141414;
+  --muted-foreground: #3f3f3f;
+  --faint-foreground: #6f6f6f;
+  --border: #d6d6d6;
+  --border-strong: #c4c4c4;
+  --primary: #141414;
+  --primary-hover: #2b2b2b;
+  --primary-foreground: #f8f8f8;
+  --secondary: #e3e3e3;
+  --secondary-foreground: #141414;
+  --accent: #d8d8d8;
+  --accent-foreground: #141414;
+  --ring: #8a8a8a;
+  --inverted: #141414;
+  --inverted-foreground: #f8f8f8;
+  --claude-orange: #e2e2e2;
+  --claude-orange-hover: #d2d2d2;
+  --claude-orange-soft: #eeeeee;
+  --shadow-xs: 0 1px 2px 0 rgb(20 20 20 / 7%);
+  --shadow-sm: 0 1px 3px 0 rgb(20 20 20 / 9%), 0 1px 2px -1px rgb(20 20 20 / 7%);
+  --shadow-md: 0 4px 12px -2px rgb(20 20 20 / 13%), 0 2px 6px -2px rgb(20 20 20 / 8%);
+  --shadow-lg: 0 12px 28px -6px rgb(20 20 20 / 16%), 0 6px 12px -6px rgb(20 20 20 / 9%);
+  --shadow-ring: 0 0 0 3px rgb(130 130 130 / 35%);
 }
 
 a {
@@ -406,6 +412,7 @@ li + li {
 }
 
 .site-header-inner {
+  position: relative;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   min-height: 4.5rem;
@@ -509,6 +516,57 @@ li + li {
   white-space: nowrap;
 }
 
+.mobile-menu-toggle {
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  gap: 0.24rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--foreground);
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+}
+
+.mobile-menu-toggle span {
+  display: block;
+  width: 1.1rem;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.mobile-nav-panel {
+  display: none;
+}
+
+.mobile-nav-panel:not([hidden]) {
+  position: absolute;
+  inset-block-start: calc(100% + 1px);
+  inset-inline: 0;
+  display: none;
+  gap: var(--space-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--background);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-lg);
+}
+
+.mobile-nav-panel a {
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.85rem;
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.mobile-nav-panel a:hover {
+  background: var(--surface-subtle);
+}
+
 .hero {
   border-top: 0;
   padding-block: var(--space-20) var(--space-24);
@@ -544,8 +602,7 @@ li + li {
 
 .hero-placeholder {
   min-height: 33rem;
-  background:
-    linear-gradient(180deg, var(--surface) 0%, var(--surface-subtle) 100%);
+  background: var(--surface-subtle);
 }
 
 body.home-color-anthropic .home-page {
@@ -585,9 +642,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(circle at 50% 42%, rgb(255 255 255 / 10%), transparent 34%),
-    radial-gradient(circle at 50% 70%, rgb(255 255 255 / 7%), transparent 30%);
+  background: transparent;
   content: "";
 }
 
@@ -600,10 +655,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 8%);
   border-radius: calc(var(--radius-xl) + 0.35rem);
-  background:
-    radial-gradient(circle at center, rgb(250 249 245 / 8%) 0 1px, transparent 1.5px) 0 0 / 1.45rem 1.45rem,
-    linear-gradient(180deg, rgb(255 255 255 / 5%), transparent 34%),
-    #151513;
+  background: #151515;
   transition:
     border-color 260ms ease,
     transform 260ms ease;
@@ -618,20 +670,18 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 }
 
 .hero-bento-scene::before {
-  background:
-    linear-gradient(90deg, transparent 0 18%, rgb(250 249 245 / 6%) 18% 18.3%, transparent 18.3% 82%, rgb(250 249 245 / 6%) 82% 82.3%, transparent 82.3%),
-    linear-gradient(0deg, transparent 0 18%, rgb(250 249 245 / 6%) 18% 18.3%, transparent 18.3% 82%, rgb(250 249 245 / 6%) 82% 82.3%, transparent 82.3%);
+  background: transparent;
 }
 
 .hero-bento-scene::after {
-  background: radial-gradient(circle at center, transparent 0 48%, rgb(20 20 19 / 46%) 76%);
+  background: rgb(20 20 20 / 18%);
 }
 
 .hero-bento-orbit {
   position: absolute;
   z-index: 1;
   display: block;
-  border: 1px solid rgb(250 249 245 / 9%);
+  border: 1px solid rgb(248 248 248 / 9%);
   border-radius: 42%;
   pointer-events: none;
 }
@@ -650,7 +700,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   position: absolute;
   z-index: 1;
   display: block;
-  background: rgb(250 249 245 / 34%);
+  background: rgb(248 248 248 / 34%);
 }
 
 .hero-bento-axis.horizontal {
@@ -668,10 +718,8 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-bento-shell {
   position: absolute;
   z-index: 1;
-  border: 1px solid rgb(250 249 245 / 10%);
-  background:
-    linear-gradient(180deg, rgb(250 249 245 / 7%), rgb(250 249 245 / 2%)),
-    rgb(20 20 19 / 36%);
+  border: 1px solid rgb(248 248 248 / 10%);
+  background: rgb(20 20 20 / 36%);
   clip-path: polygon(22% 0, 78% 0, 92% 24%, 92% 76%, 78% 100%, 22% 100%, 8% 76%, 8% 24%);
 }
 
@@ -683,10 +731,8 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-bento-shell.shell-front {
   inset: 30% 18% 20%;
   z-index: 2;
-  border-color: rgb(250 249 245 / 13%);
-  background:
-    linear-gradient(180deg, rgb(250 249 245 / 10%), rgb(250 249 245 / 3%)),
-    rgb(20 20 19 / 48%);
+  border-color: rgb(248 248 248 / 13%);
+  background: rgb(20 20 20 / 48%);
   clip-path: polygon(12% 0, 88% 0, 100% 32%, 100% 100%, 0 100%, 0 32%);
 }
 
@@ -707,14 +753,14 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   width: 0.72rem;
   height: 0.22rem;
   border-radius: var(--radius-full);
-  background: rgb(250 249 245 / 24%);
+  background: rgb(248 248 248 / 24%);
 }
 
 .hero-bento-scale i {
   width: 0.85rem;
   height: 0.85rem;
   border-radius: 0.24rem;
-  background: rgb(250 249 245 / 70%);
+  background: rgb(248 248 248 / 70%);
   rotate: 45deg;
 }
 
@@ -730,11 +776,9 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   align-items: end;
   justify-content: center;
   gap: 0.48rem;
-  border: 1px solid rgb(250 249 245 / 14%);
+  border: 1px solid rgb(248 248 248 / 14%);
   border-radius: 1.05rem;
-  background:
-    linear-gradient(180deg, rgb(250 249 245 / 7%), rgb(250 249 245 / 3%)),
-    rgb(20 20 19 / 58%);
+  background: rgb(20 20 20 / 58%);
   box-shadow:
     inset 0 0 0 1px rgb(255 255 255 / 4%),
     0 1.5rem 4rem rgb(0 0 0 / 36%);
@@ -751,12 +795,10 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   max-width: 1.55rem;
   position: relative;
   z-index: 2;
-  border: 1px solid rgb(250 249 245 / 12%);
+  border: 1px solid rgb(248 248 248 / 12%);
   border-radius: 0.42rem;
-  background:
-    linear-gradient(180deg, rgb(250 249 245 / 32%), rgb(250 249 245 / 9%)),
-    #24211e;
-  box-shadow: inset 0 0.9rem 1.3rem rgb(250 249 245 / 7%);
+  background: #242424;
+  box-shadow: inset 0 0.9rem 1.3rem rgb(248 248 248 / 7%);
   transform-origin: bottom;
   transition:
     background 260ms ease,
@@ -793,7 +835,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   z-index: 4;
   color: var(--primary-foreground);
   direction: ltr;
-  filter: drop-shadow(0 0 0.55rem rgb(250 249 245 / 14%));
+  filter: drop-shadow(0 0 0.55rem rgb(248 248 248 / 14%));
   overflow: visible;
   pointer-events: auto;
   transform-origin: center;
@@ -803,7 +845,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 }
 
 .hero-growth-line .growth-area {
-  fill: url(#hero-growth-fill);
+  fill: currentColor;
   opacity: 0.56;
   transition: opacity 260ms ease;
 }
@@ -826,7 +868,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-growth-line .growth-node {
   fill: currentColor;
   opacity: 0.72;
-  stroke: rgb(20 20 19 / 72%);
+  stroke: rgb(20 20 20 / 72%);
   stroke-width: 1.8;
   transform-box: fill-box;
   transform-origin: center;
@@ -848,7 +890,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   inset-inline-start: 19%;
   width: 62%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(250 249 245 / 54%), transparent);
+  background: rgb(248 248 248 / 54%);
   content: "";
   rotate: -18deg;
   transform-origin: center;
@@ -859,10 +901,10 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   display: block;
   width: 0.82rem;
   height: 0.82rem;
-  border: 1px solid rgb(250 249 245 / 45%);
+  border: 1px solid rgb(248 248 248 / 45%);
   border-radius: 50%;
-  background: rgb(250 249 245 / 20%);
-  box-shadow: 0 0 1.4rem rgb(250 249 245 / 18%);
+  background: rgb(248 248 248 / 20%);
+  box-shadow: 0 0 1.4rem rgb(248 248 248 / 18%);
   transform-origin: center;
   transition:
     opacity 260ms ease,
@@ -879,7 +921,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   inset-inline-start: 49%;
   width: 1.15rem;
   height: 1.15rem;
-  background: rgb(250 249 245 / 72%);
+  background: rgb(248 248 248 / 72%);
 }
 
 .hero-bento-route .node-c {
@@ -891,11 +933,9 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   position: absolute;
   z-index: 4;
   display: block;
-  border: 1px solid rgb(250 249 245 / 11%);
+  border: 1px solid rgb(248 248 248 / 11%);
   border-radius: 1rem;
-  background:
-    linear-gradient(180deg, rgb(250 249 245 / 8%), rgb(250 249 245 / 2%)),
-    rgb(20 20 19 / 52%);
+  background: rgb(20 20 20 / 52%);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 3%);
 }
 
@@ -905,7 +945,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   inset-inline: 18%;
   height: 1px;
   border-radius: var(--radius-full);
-  background: rgb(250 249 245 / 16%);
+  background: rgb(248 248 248 / 16%);
   content: "";
 }
 
@@ -939,14 +979,12 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   display: block;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid rgb(250 249 245 / 34%);
+  border: 1px solid rgb(248 248 248 / 34%);
   border-radius: 50%;
-  background:
-    radial-gradient(circle, rgb(250 249 245 / 72%) 0 18%, transparent 19%),
-    rgb(250 249 245 / 9%);
+  background: rgb(248 248 248 / 42%);
   box-shadow:
-    0 0 0 0.8rem rgb(250 249 245 / 3%),
-    0 0 2.2rem rgb(250 249 245 / 13%);
+    0 0 0 0.8rem rgb(248 248 248 / 3%),
+    0 0 2.2rem rgb(248 248 248 / 13%);
   transform: translateX(-50%);
   transition:
     box-shadow 260ms ease,
@@ -957,7 +995,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-bento-signal::after {
   position: absolute;
   inset: -0.55rem;
-  border: 1px solid rgb(250 249 245 / 10%);
+  border: 1px solid rgb(248 248 248 / 10%);
   border-radius: inherit;
   content: "";
 }
@@ -970,23 +1008,21 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-bento:hover .hero-bento-scene,
 .hero-bento.is-active .hero-bento-scene,
 .hero-bento-scene:hover {
-  border-color: rgb(250 249 245 / 16%);
+  border-color: rgb(248 248 248 / 16%);
   transform: translateY(-2px);
 }
 
 .hero-bento:hover .hero-bento-chart,
 .hero-bento.is-active .hero-bento-chart,
 .hero-bento-scene:hover .hero-bento-chart {
-  border-color: rgb(250 249 245 / 22%);
+  border-color: rgb(248 248 248 / 22%);
   transform: translateX(-50%) translateY(-2px);
 }
 
 .hero-bento:hover .hero-bento-chart .bar,
 .hero-bento.is-active .hero-bento-chart .bar,
 .hero-bento-scene:hover .hero-bento-chart .bar {
-  background:
-    linear-gradient(180deg, rgb(250 249 245 / 42%), rgb(250 249 245 / 12%)),
-    #24211e;
+  background: #2f2f2f;
   transform: scaleY(1.045);
 }
 
@@ -1019,7 +1055,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-bento.is-active .hero-growth-line,
 .hero-bento-scene:hover .hero-growth-line,
 .hero-growth-line:hover {
-  filter: drop-shadow(0 0 0.82rem rgb(250 249 245 / 22%));
+  filter: drop-shadow(0 0 0.82rem rgb(248 248 248 / 22%));
   transform: translateY(-1px);
 }
 
@@ -1065,8 +1101,8 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-bento.is-active .hero-bento-signal,
 .hero-bento-scene:hover .hero-bento-signal {
   box-shadow:
-    0 0 0 1rem rgb(250 249 245 / 4%),
-    0 0 2.8rem rgb(250 249 245 / 18%);
+    0 0 0 1rem rgb(248 248 248 / 4%),
+    0 0 2.8rem rgb(248 248 248 / 18%);
   transform: translateX(-50%) scale(1.04);
 }
 
@@ -1107,17 +1143,14 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 
 .hero-bento-scene {
   width: min(100%, 27rem);
-  border-color: rgb(250 249 245 / 9%);
+  border-color: rgb(248 248 248 / 9%);
   border-radius: var(--radius-xl);
-  background:
-    linear-gradient(90deg, rgb(250 249 245 / 4%) 1px, transparent 1px) 0 0 / 4rem 4rem,
-    linear-gradient(0deg, rgb(250 249 245 / 4%) 1px, transparent 1px) 0 0 / 4rem 4rem,
-    linear-gradient(180deg, #1b1a17, #11110f);
+  background: #111111;
 }
 
 .hero-bento-scene::before {
   inset: 13%;
-  border: 1px solid rgb(250 249 245 / 7%);
+  border: 1px solid rgb(248 248 248 / 7%);
   border-radius: calc(var(--radius-lg) + 0.25rem);
   background: transparent;
 }
@@ -1143,7 +1176,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   inset-inline: 0;
   bottom: 0;
   height: 1px;
-  background: rgb(250 249 245 / 18%);
+  background: rgb(248 248 248 / 18%);
   content: "";
 }
 
@@ -1153,7 +1186,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   flex: 1 1 0;
   max-width: 2.1rem;
   border-radius: 0.55rem 0.55rem 0.18rem 0.18rem;
-  background: linear-gradient(180deg, rgb(250 249 245 / 72%), rgb(250 249 245 / 18%));
+  background: rgb(248 248 248 / 48%);
   opacity: 0.78;
   transform-origin: bottom;
   transition:
@@ -1206,7 +1239,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 
 .hero-bento:hover .hero-bento-scene,
 .hero-bento.is-active .hero-bento-scene {
-  border-color: rgb(250 249 245 / 14%);
+  border-color: rgb(248 248 248 / 14%);
   transform: translateY(-1px);
 }
 
@@ -1219,7 +1252,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .hero-bento:hover .hero-simple-chart .hero-growth-line,
 .hero-bento.is-active .hero-simple-chart .hero-growth-line,
 .hero-simple-chart .hero-growth-line:hover {
-  filter: drop-shadow(0 0 0.55rem rgb(250 249 245 / 18%));
+  filter: drop-shadow(0 0 0.55rem rgb(248 248 248 / 18%));
   transform: translateY(-1px);
 }
 
@@ -1260,9 +1293,7 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   overflow: hidden;
   align-content: stretch;
   gap: var(--space-5);
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(247 249 249 / 82%)),
-    var(--surface);
+  background: var(--surface);
   color: var(--foreground);
   padding: var(--card-padding);
   text-align: right;
@@ -1270,14 +1301,12 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 
 body.home-color-anthropic .market-friction,
 body.home-color-anthropic .dashboard-main {
-  background:
-    linear-gradient(180deg, rgb(250 249 245 / 94%), rgb(241 236 227 / 92%)),
-    var(--surface-muted);
+  background: var(--surface-muted);
 }
 
 body.home-color-anthropic .friction-window-card,
 body.home-color-anthropic .map-floating-card {
-  background: rgb(250 249 245 / 94%);
+  background: rgb(248 248 248 / 94%);
 }
 
 .friction-head {
@@ -1407,9 +1436,7 @@ body.home-color-anthropic .map-floating-card {
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 92%), rgb(247 249 249 / 86%)),
-    var(--surface);
+  background: var(--surface);
   padding: var(--card-padding);
   box-shadow: var(--shadow-sm);
 }
@@ -1506,12 +1533,12 @@ body.home-color-anthropic .map-floating-card {
 }
 
 body.home-color-anthropic .map-zone {
-  fill: rgb(20 20 19 / 8%);
-  stroke: rgb(20 20 19 / 16%);
+  fill: rgb(20 20 20 / 8%);
+  stroke: rgb(20 20 20 / 16%);
 }
 
 body.home-color-anthropic .map-zone.secondary {
-  fill: rgb(20 20 19 / 5%);
+  fill: rgb(20 20 20 / 5%);
 }
 
 body.home-color-anthropic .home-page h1,
@@ -1550,8 +1577,9 @@ body.home-color-anthropic .button-primary {
 }
 
 body.home-color-anthropic .button-secondary {
-  background: var(--secondary);
-  color: var(--secondary-foreground);
+  border-color: var(--claude-orange);
+  background: var(--claude-orange);
+  color: var(--foreground);
 }
 
 body.home-color-anthropic .media-placeholder,
@@ -3935,6 +3963,23 @@ body .persian-number {
     justify-self: end;
   }
 
+  body.home-color-anthropic .header-phone {
+    display: inline-flex;
+  }
+
+  body.home-color-anthropic .header-actions .header-login-link,
+  body.home-color-anthropic .header-actions .header-demo-link {
+    display: none;
+  }
+
+  body.home-color-anthropic .mobile-menu-toggle {
+    display: inline-grid;
+  }
+
+  body.home-color-anthropic .mobile-nav-panel:not([hidden]) {
+    display: grid;
+  }
+
   .feature-strip,
   .flow-board,
   .pricing-grid,
@@ -3991,6 +4036,43 @@ body .persian-number {
 
   .site-header-inner {
     min-height: 4.5rem;
+  }
+
+  body.home-color-anthropic .site-header-inner {
+    min-height: 3.9rem;
+    gap: var(--space-2);
+  }
+
+  body.home-color-anthropic .site-header .brand {
+    min-width: 0;
+  }
+
+  body.home-color-anthropic .site-header .brand-copy {
+    min-width: 0;
+  }
+
+  body.home-color-anthropic .site-header .brand-copy span {
+    display: none;
+  }
+
+  body.home-color-anthropic .header-actions {
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  body.home-color-anthropic .header-phone {
+    flex: 0 0 auto;
+    min-height: 2.75rem;
+    align-items: center;
+    padding-inline: 0.15rem;
+    font-size: clamp(0.78rem, 3vw, var(--text-sm));
+    line-height: 1;
+  }
+
+  body.home-color-anthropic .mobile-menu-toggle {
+    flex: 0 0 2.75rem;
+    width: 2.75rem;
+    min-width: 2.75rem;
   }
 
   .hero {
@@ -4134,6 +4216,19 @@ body .persian-number {
     row-gap: var(--space-8);
   }
 
+  body.home-color-anthropic .footer-links-panel {
+    grid-template-areas:
+      "primary work"
+      "stages stages";
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-5);
+  }
+
+  body.home-color-anthropic .footer-stage-sale-column {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-5);
+  }
+
   .footer-brand-panel {
     justify-items: start;
     text-align: right;
@@ -4169,6 +4264,12 @@ body .persian-number {
     width: 100%;
   }
 
+  body.home-color-anthropic .header-actions a,
+  body.home-color-anthropic .header-actions .button,
+  body.home-color-anthropic .header-actions button {
+    width: auto;
+  }
+
   .hero-placeholder,
   .map-placeholder,
   .problem-placeholder {
@@ -4197,6 +4298,11 @@ body .persian-number {
 
 @media (max-width: 340px) {
   .stage-rail {
+    grid-template-columns: 1fr;
+  }
+
+  body.home-color-anthropic .footer-links-panel,
+  body.home-color-anthropic .footer-stage-sale-column {
     grid-template-columns: 1fr;
   }
 }
@@ -4246,17 +4352,17 @@ body .persian-number {
 body.home-color-anthropic {
   --home-visual-size: 29rem;
   --home-visual-size-mobile: 18.75rem;
-  --home-brass: #b98b5f;
-  --home-brass-soft: #eadbc7;
-  --home-rust: #8f583b;
-  --home-blue: #4d83a5;
-  --home-blue-soft: #dbe7ec;
-  --home-violet: #8067a8;
-  --home-violet-soft: #e5def0;
-  --home-charcoal: #171613;
-  --home-panel: #fffdf8;
-  --home-panel-warm: #f3ebe0;
-  --home-line: #cfc0ad;
+  --home-brass: #6d6d6d;
+  --home-brass-soft: #e8e8e8;
+  --home-rust: #4f4f4f;
+  --home-blue: #777777;
+  --home-blue-soft: #e5e5e5;
+  --home-violet: #626262;
+  --home-violet-soft: #e2e2e2;
+  --home-charcoal: #171717;
+  --home-panel: #ffffff;
+  --home-panel-warm: #eeeeee;
+  --home-line: #c7c7c7;
 }
 
 body.home-color-anthropic .home-page {
@@ -4273,7 +4379,7 @@ body.home-color-anthropic .home-page > .section::before {
   inset-block-start: 0;
   inset-inline: max(1rem, calc((100% - var(--container)) / 2));
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--home-line), transparent);
+  background: var(--home-line);
   content: "";
   opacity: 0.65;
 }
@@ -4308,7 +4414,7 @@ body.home-color-anthropic .section-copy h2::after {
   height: 0.22rem;
   margin-top: var(--space-4);
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--primary), var(--home-brass));
+  background: var(--home-brass);
   content: "";
 }
 
@@ -4329,7 +4435,6 @@ body.home-color-anthropic .button {
   padding-inline: 1.15rem;
   transition:
     border-color 180ms ease,
-    background 180ms ease,
     box-shadow 180ms ease,
     color 180ms ease,
     transform 180ms ease;
@@ -4338,7 +4443,7 @@ body.home-color-anthropic .button {
 body.home-color-anthropic .button::before {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgb(255 255 255 / 14%), transparent 48%);
+  background: rgb(255 255 255 / 10%);
   content: "";
   opacity: 0;
   transition: opacity 180ms ease;
@@ -4358,32 +4463,29 @@ body.home-color-anthropic .button:hover::before {
 
 body.home-color-anthropic .button-primary {
   border-color: color-mix(in srgb, var(--primary) 84%, var(--home-brass));
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--primary) 94%, var(--home-brass)), var(--primary));
+  background: var(--primary);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 12%),
-    0 0.9rem 1.8rem -1.25rem rgb(20 20 19 / 65%);
+    0 0.9rem 1.8rem -1.25rem rgb(20 20 20 / 65%);
 }
 
 body.home-color-anthropic .button-secondary {
-  border-color: color-mix(in srgb, var(--border-strong) 72%, var(--home-brass));
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--secondary) 86%, white), var(--secondary));
-  color: var(--secondary-foreground);
+  border-color: var(--claude-orange);
+  background: var(--claude-orange);
+  color: var(--foreground);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 48%),
-    0 0.75rem 1.55rem -1.3rem rgb(66 60 52 / 38%);
+    0 0.75rem 1.55rem -1.3rem rgb(60 60 60 / 38%);
 }
 
 body.home-color-anthropic .button-primary:hover {
   border-color: var(--home-brass);
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--primary-hover) 88%, var(--home-brass)), var(--primary-hover));
+  background: var(--primary-hover);
 }
 
 body.home-color-anthropic .button-secondary:hover {
-  border-color: color-mix(in srgb, var(--home-brass) 72%, var(--border-strong));
-  background: linear-gradient(180deg, #f5ede3, #e6d8c7);
+  border-color: var(--claude-orange-hover);
+  background: var(--claude-orange-hover);
 }
 
 body.home-color-anthropic .hero {
@@ -4401,13 +4503,13 @@ body.home-color-anthropic .hero-copy::before {
   width: 4.5rem;
   height: 0.24rem;
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, var(--home-brass), var(--home-blue));
+  background: var(--home-brass);
   content: "";
 }
 
 body.home-color-anthropic .hero-neon-image {
   box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
+    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
     0 0 0 1px rgb(255 255 255 / 4%);
 }
 
@@ -4421,7 +4523,7 @@ body.home-color-anthropic .hero-bento {
   background: var(--primary);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 5%),
-    0 1.5rem 3rem -2.2rem rgb(20 20 19 / 70%);
+    0 1.5rem 3rem -2.2rem rgb(20 20 20 / 70%);
 }
 
 body.home-color-anthropic .hero-bento-scene {
@@ -4431,13 +4533,11 @@ body.home-color-anthropic .hero-bento-scene {
 
 body.home-color-anthropic .market-friction {
   border-color: color-mix(in srgb, var(--home-charcoal) 76%, var(--home-blue));
-  background:
-    linear-gradient(135deg, rgb(77 131 165 / 16%), transparent 44%),
-    linear-gradient(180deg, #20201c, #151411);
+  background: #151515;
   color: var(--primary-foreground);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 7%),
-    0 1.35rem 2.8rem -2.1rem rgb(20 20 19 / 72%);
+    0 1.35rem 2.8rem -2.1rem rgb(20 20 20 / 72%);
 }
 
 body.home-color-anthropic .problem-image-card {
@@ -4508,7 +4608,7 @@ body.home-color-anthropic .friction-canvas {
 
 body.home-color-anthropic .friction-window-card {
   border-color: rgb(255 255 255 / 9%);
-  background: rgb(20 20 19 / 76%);
+  background: rgb(20 20 20 / 76%);
   color: var(--primary-foreground);
   box-shadow: 0 1rem 2rem -1.6rem rgb(0 0 0 / 75%);
 }
@@ -4532,12 +4632,10 @@ body.home-color-anthropic #problem .section-copy .button-secondary {
 
 body.home-color-anthropic .dashboard-main {
   border-color: color-mix(in srgb, var(--border) 80%, var(--home-brass));
-  background:
-    linear-gradient(135deg, rgb(185 139 95 / 9%), transparent 42%),
-    linear-gradient(180deg, var(--home-panel), var(--home-panel-warm));
+  background: var(--home-panel);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 56%),
-    0 1.2rem 2.6rem -2rem rgb(75 65 52 / 38%);
+    0 1.2rem 2.6rem -2rem rgb(70 70 70 / 38%);
 }
 
 body.home-color-anthropic .dashboard-head {
@@ -4556,9 +4654,7 @@ body.home-color-anthropic .dashboard-status strong {
 
 body.home-color-anthropic .product-map {
   border-color: color-mix(in srgb, var(--home-blue) 36%, var(--border));
-  background:
-    radial-gradient(circle at 28% 24%, rgb(77 131 165 / 13%), transparent 34%),
-    linear-gradient(180deg, #f9f4eb, #efe4d5);
+  background: #e8e8e8;
   color: color-mix(in srgb, var(--home-blue) 70%, var(--primary));
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 55%);
 }
@@ -4581,15 +4677,13 @@ body.home-color-anthropic .map-signal-row span {
 
 body.home-color-anthropic .map-floating-card {
   border-color: rgb(255 255 255 / 62%);
-  background: rgb(255 253 248 / 92%);
-  box-shadow: 0 1.2rem 2rem -1.45rem rgb(65 50 35 / 45%);
+  background: rgb(255 255 255 / 92%);
+  box-shadow: 0 1.2rem 2rem -1.45rem rgb(60 60 60 / 45%);
 }
 
 body.home-color-anthropic .project-card-wire {
   border-color: color-mix(in srgb, var(--home-brass) 42%, var(--border));
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 52%), transparent),
-    color-mix(in srgb, var(--home-panel-warm) 78%, white);
+  background: color-mix(in srgb, var(--home-panel-warm) 78%, white);
 }
 
 body.home-color-anthropic .followup-note {
@@ -4604,10 +4698,8 @@ body.home-color-anthropic .feature-strip {
 body.home-color-anthropic .feature-strip article,
 body.home-color-anthropic .audience-card {
   border-color: color-mix(in srgb, var(--border) 84%, var(--home-brass));
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 58%), transparent 62%),
-    var(--home-panel);
-  box-shadow: 0 0.85rem 1.8rem -1.55rem rgb(65 57 48 / 38%);
+  background: var(--home-panel);
+  box-shadow: 0 0.85rem 1.8rem -1.55rem rgb(60 60 60 / 38%);
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
@@ -4619,7 +4711,7 @@ body.home-color-anthropic .audience-card:hover,
 body.home-color-anthropic .pricing-card:hover,
 body.home-color-anthropic details:hover {
   transform: translateY(-2px);
-  box-shadow: 0 1.25rem 2.3rem -1.75rem rgb(65 57 48 / 42%);
+  box-shadow: 0 1.25rem 2.3rem -1.75rem rgb(60 60 60 / 42%);
 }
 
 body.home-color-anthropic .feature-strip article:nth-child(1)::before {
@@ -4651,7 +4743,7 @@ body.home-color-anthropic .solution-visual-card {
   border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
   background: var(--primary);
   box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
+    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
     0 0 0 1px rgb(255 255 255 / 4%);
 }
 
@@ -4663,11 +4755,9 @@ body.home-color-anthropic .solution-data-panel,
 body.home-color-anthropic .solution-stack-panel {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
   border-radius: calc(var(--radius-lg) + 0.25rem);
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 56%), transparent 64%),
-    var(--home-panel);
+  background: var(--home-panel);
   padding: clamp(1.4rem, 2.5vw, 2rem);
-  box-shadow: 0 1rem 2rem -1.65rem rgb(65 57 48 / 36%);
+  box-shadow: 0 1rem 2rem -1.65rem rgb(60 60 60 / 36%);
 }
 
 body.home-color-anthropic .solution-data-panel {
@@ -4683,7 +4773,7 @@ body.home-color-anthropic .solution-data-panel::before {
   inset-inline-start: clamp(1.05rem, 1.9vw, 1.45rem);
   width: 2px;
   border-radius: var(--radius-full);
-  background: linear-gradient(180deg, var(--home-brass), var(--home-rust), var(--home-blue));
+  background: var(--home-brass);
   content: "";
 }
 
@@ -4706,7 +4796,7 @@ body.home-color-anthropic .solution-feature-strip article {
   border: 1px solid color-mix(in srgb, var(--border) 80%, var(--home-brass));
   border-radius: var(--radius-md);
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 253 248 / 62%);
+  background: rgb(255 255 255 / 62%);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
   transition:
     background 180ms ease,
@@ -4729,12 +4819,12 @@ body.home-color-anthropic .solution-data-grid article::before {
   border-radius: 50%;
   background: var(--home-rust);
   content: "";
-  box-shadow: 0 0 0 3px rgb(185 139 95 / 18%);
+  box-shadow: 0 0 0 3px rgb(120 120 120 / 18%);
 }
 
 body.home-color-anthropic .solution-data-grid article:nth-child(2)::before {
   background: var(--home-blue);
-  box-shadow: 0 0 0 3px rgb(77 131 165 / 18%);
+  box-shadow: 0 0 0 3px rgb(120 120 120 / 18%);
 }
 
 body.home-color-anthropic .solution-data-grid article:hover,
@@ -4758,7 +4848,7 @@ body.home-color-anthropic .solution-stack-panel::before {
   inset-inline: clamp(1.4rem, 3vw, 2rem);
   height: 2px;
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, transparent, var(--home-brass), var(--home-blue), transparent);
+  background: var(--home-brass);
   content: "";
 }
 
@@ -4833,7 +4923,7 @@ body.home-color-anthropic .stage-tile {
   min-height: 4.85rem;
   border-color: color-mix(in srgb, var(--border) 80%, transparent);
   border-radius: 0.9rem;
-  background: rgb(255 253 248 / 58%);
+  background: rgb(255 255 255 / 58%);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 58%);
   transition:
     border-color 180ms ease,
@@ -4849,18 +4939,15 @@ body.home-color-anthropic .stage-tile:hover {
 
 body.home-color-anthropic .stage-tile.active {
   border-color: color-mix(in srgb, var(--primary) 82%, var(--home-brass));
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--primary) 92%, var(--home-brass)), var(--primary));
+  background: var(--primary);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 12%),
-    0 1rem 1.85rem -1.35rem rgb(20 20 19 / 56%);
+    0 1rem 1.85rem -1.35rem rgb(20 20 20 / 56%);
 }
 
 body.home-color-anthropic .stage-info-card {
   border-color: color-mix(in srgb, var(--home-brass) 38%, var(--border));
-  background:
-    linear-gradient(90deg, rgb(185 139 95 / 11%), transparent 42%),
-    var(--home-panel);
+  background: var(--home-panel);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
 }
 
@@ -4882,7 +4969,7 @@ body.home-color-anthropic .flow-visual-card {
   border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
   background: var(--primary);
   box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
+    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
     0 0 0 1px rgb(255 255 255 / 4%);
 }
 
@@ -4894,8 +4981,8 @@ body.home-color-anthropic .flow-step {
   min-height: 0;
   gap: var(--space-2);
   border-color: color-mix(in srgb, var(--border) 84%, var(--home-brass));
-  background: rgb(255 253 248 / 78%);
-  box-shadow: 0 0.9rem 1.9rem -1.65rem rgb(65 57 48 / 36%);
+  background: rgb(255 255 255 / 78%);
+  box-shadow: 0 0.9rem 1.9rem -1.65rem rgb(60 60 60 / 36%);
 }
 
 body.home-color-anthropic .flow-step::before {
@@ -4949,7 +5036,7 @@ body.home-color-anthropic .duration-tabs {
   gap: 0;
   border: 1px solid color-mix(in srgb, var(--border) 76%, var(--home-brass));
   border-radius: 1rem;
-  background: rgb(255 253 248 / 72%);
+  background: rgb(255 255 255 / 72%);
   padding: 0.28rem;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 62%);
 }
@@ -4973,7 +5060,7 @@ body.home-color-anthropic .duration-tabs button:hover {
 body.home-color-anthropic .duration-tabs button.active {
   background: var(--primary);
   color: var(--primary-foreground);
-  box-shadow: 0 0.8rem 1.6rem -1.2rem rgb(20 20 19 / 56%);
+  box-shadow: 0 0.8rem 1.6rem -1.2rem rgb(20 20 20 / 56%);
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-unit {
@@ -4986,10 +5073,8 @@ body.home-color-anthropic .pricing-grid {
 
 body.home-color-anthropic .pricing-card {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 62%), transparent 45%),
-    var(--home-panel);
-  box-shadow: 0 1rem 2rem -1.7rem rgb(65 57 48 / 36%);
+  background: var(--home-panel);
+  box-shadow: 0 1rem 2rem -1.7rem rgb(60 60 60 / 36%);
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
@@ -4998,8 +5083,7 @@ body.home-color-anthropic .pricing-card {
 
 body.home-color-anthropic .pricing-card:nth-child(2) {
   border-color: color-mix(in srgb, var(--home-brass) 52%, var(--primary));
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--home-brass-soft) 62%, white), var(--home-panel));
+  background: var(--home-panel);
 }
 
 body.home-color-anthropic .pricing-card:nth-child(3) {
@@ -5032,12 +5116,13 @@ body.home-color-anthropic .plan-icon-shell img {
 
 body.home-color-anthropic .coverage-meter i.filled {
   border-color: color-mix(in srgb, var(--home-brass) 72%, var(--primary));
-  background: linear-gradient(90deg, var(--primary), var(--home-brass));
+  background: var(--home-brass);
 }
 
 body.home-color-anthropic .pricing-card .button {
-  border-color: color-mix(in srgb, var(--border-strong) 68%, var(--home-brass));
-  background: color-mix(in srgb, var(--home-brass-soft) 50%, white);
+  border-color: var(--claude-orange);
+  background: var(--claude-orange);
+  color: var(--foreground);
 }
 
 body.home-color-anthropic .faq-list {
@@ -5047,7 +5132,7 @@ body.home-color-anthropic .faq-list {
 
 body.home-color-anthropic details {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 253 248 / 66%);
+  background: rgb(255 255 255 / 66%);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 58%);
   transition:
     border-color 180ms ease,
@@ -5097,13 +5182,10 @@ body.home-color-anthropic .demo-shell {
   position: relative;
   overflow: hidden;
   border-color: color-mix(in srgb, var(--primary) 72%, var(--home-brass));
-  background:
-    radial-gradient(circle at 18% 0%, rgb(77 131 165 / 22%), transparent 36%),
-    radial-gradient(circle at 82% 100%, rgb(185 139 95 / 18%), transparent 38%),
-    linear-gradient(180deg, #1b1a17, #11110f);
+  background: #111111;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 7%),
-    0 1.7rem 3rem -2.25rem rgb(20 20 19 / 72%);
+    0 1.7rem 3rem -2.25rem rgb(20 20 20 / 72%);
 }
 
 body.home-color-anthropic .demo-shell::before {
@@ -5112,7 +5194,7 @@ body.home-color-anthropic .demo-shell::before {
   inset-inline: var(--space-8);
   height: 2px;
   border-radius: var(--radius-full);
-  background: linear-gradient(90deg, transparent, var(--home-brass), var(--home-blue), transparent);
+  background: var(--home-brass);
   content: "";
 }
 
@@ -5137,7 +5219,7 @@ body.home-color-anthropic .demo-visual-card {
   border-color: color-mix(in srgb, var(--primary) 78%, var(--home-brass));
   background: var(--primary);
   box-shadow:
-    0 1.35rem 2.4rem -1.8rem rgb(20 20 19 / 72%),
+    0 1.35rem 2.4rem -1.8rem rgb(20 20 20 / 72%),
     0 0 0 1px rgb(255 255 255 / 4%);
 }
 
@@ -5148,14 +5230,14 @@ body.home-color-anthropic .demo-visual-image {
 body.home-color-anthropic .demo-path,
 body.home-color-anthropic .demo-form {
   border-color: rgb(255 255 255 / 10%);
-  background: rgb(250 249 245 / 94%);
+  background: rgb(245 245 245 / 94%);
   box-shadow: 0 1.1rem 2.1rem -1.7rem rgb(0 0 0 / 72%);
 }
 
 body.home-color-anthropic .field input,
 body.home-color-anthropic .field select {
   border-color: color-mix(in srgb, var(--border) 82%, var(--home-brass));
-  background: rgb(255 253 248 / 86%);
+  background: rgb(255 255 255 / 86%);
   transition:
     border-color 160ms ease,
     box-shadow 160ms ease,
@@ -5167,7 +5249,7 @@ body.home-color-anthropic .field select:focus {
   border-color: var(--home-brass);
   background: white;
   outline: 0;
-  box-shadow: 0 0 0 3px rgb(185 139 95 / 18%);
+  box-shadow: 0 0 0 3px rgb(120 120 120 / 18%);
 }
 
 @media (max-width: 1100px) {
@@ -5312,4 +5394,77 @@ body.home-color-anthropic .field select:focus {
   body.home-color-anthropic .problem-neon-image {
     transform: none;
   }
+}
+
+.image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-3);
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--surface-subtle) 82%, var(--claude-orange-soft));
+  color: var(--muted-foreground);
+  filter: none;
+  mix-blend-mode: normal;
+  object-fit: initial;
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.image-placeholder-mark {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px solid currentColor;
+  border-radius: var(--radius-md);
+  opacity: 0.65;
+}
+
+.image-placeholder strong {
+  max-width: 18rem;
+  color: currentColor;
+  font-size: var(--text-sm);
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.image-placeholder-icon {
+  width: 5.8rem;
+  height: 5.8rem;
+  min-height: 5.8rem;
+  padding: var(--space-2);
+}
+
+.image-placeholder-icon .image-placeholder-mark {
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.image-placeholder-icon strong {
+  font-size: 0.62rem;
+  line-height: 1.45;
+}
+
+.plan-icon-shell .image-placeholder {
+  width: 6.1rem;
+  height: 6.1rem;
+  min-height: 6.1rem;
+}
+
+.related-card .related-plan-icon {
+  width: 4.4rem;
+  height: 4.4rem;
+  min-height: 4.4rem;
+}
+
+body.home-color-anthropic .image-placeholder {
+  background: color-mix(in srgb, var(--home-panel) 78%, var(--claude-orange-soft));
+  color: color-mix(in srgb, var(--foreground) 70%, var(--claude-orange));
+}
+
+body.home-color-anthropic .home-page img {
+  filter: grayscale(1) contrast(1.02);
 }
