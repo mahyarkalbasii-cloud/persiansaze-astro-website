@@ -1,0 +1,5 @@
+# TODO: remove this rule when the site cuts over to the production domain
+# (persiansaze.com). It only targets *.pages.dev preview/production aliases
+# so the preview infrastructure never gets indexed alongside the real site.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

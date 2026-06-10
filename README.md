@@ -15,3 +15,9 @@ npm run dev
 npm run check
 npm run build
 ```
+
+## Launch checklist
+
+- [ ] **Remove the `X-Robots-Tag: noindex` rule for `*.pages.dev` from `public/_headers`
+  once the production domain (persiansaze.com) is connected.** The rule exists so
+  preview deployments are not indexed by search engines before cutover.
