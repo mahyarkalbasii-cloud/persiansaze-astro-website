@@ -1,0 +1,28 @@
+# پرشین‌سازه (PersianSaze)
+
+> پرشین‌سازه پلتفرم B2B داده پروژه‌های ساختمانی در ایران است. پروژه‌های در حال ساخت تهران، کرج و لواسان را جمع‌آوری و دسته‌بندی می‌کند تا تأمین‌کنندگان محصولات و خدمات ساختمانی پروژه‌های مرتبط را زودتر پیدا کنند، بهتر ارزیابی کنند و با CRM و ابزار پیگیری، منظم‌تر بفروشند.
+
+پرشین‌سازه از سال ۱۳۸۶ (2007) فعال است و خدمات آن شامل بانک اطلاعات پروژه‌های در حال ساخت، نقشه پروژه‌ها، فیلتر بر اساس مرحله ساخت، CRM سبک فروش پروژه‌ای، پنل پیامک و دستیار هوشمند تصمیم‌یار فروش است. خدمات فقط به تأمین‌کنندگان معتبر و فعال صنعت ساختمان ارائه می‌شود و اشتراک‌ها (بنیان، رویان، تابان و تابان پلاس) از ۹,۰۰۰,۰۰۰ تومان شروع می‌شوند.
+
+PersianSaze is an Iranian B2B construction-intelligence platform (founded 2007, Tehran). It aggregates and categorizes active construction projects in Tehran, Karaj, and Lavasan so that building-material and construction-service suppliers can discover relevant projects earlier, qualify them by construction stage and location, and manage follow-up with a built-in sales CRM, SMS panel, and an AI sales copilot. Subscriptions are sold to verified construction-industry suppliers only.
+
+## صفحات کلیدی
+
+- [محصول](https://persiansaze.com/product/): امکانات پلتفرم؛ بانک اطلاعات پروژه‌ها، نقشه، فیلتر مرحله ساخت، CRM، پیامک و تصمیم‌یار فروش
+- [اشتراک‌ها](https://persiansaze.com/subscriptions/): پلن‌های بنیان، رویان، تابان و تابان پلاس با قیمت و مقایسه امکانات
+- [زمینه‌های کاری](https://persiansaze.com/work-fields/): دسته‌بندی تأمین‌کنندگان از مصالح پایه تا تأسیسات و نازک‌کاری
+- [مراحل ساخت](https://persiansaze.com/construction-stages/): مراحل پروژه ساختمانی و زمان مناسب ورود هر تأمین‌کننده
+- [انواع فروش](https://persiansaze.com/sale-types/): مدل‌های فروش B2B در بازار ساختمان
+- [شهرها](https://persiansaze.com/cities/): تحلیل بازار ساخت‌وساز تهران، کرج و لواسان
+- [سوالات متداول](https://persiansaze.com/#faq): پاسخ پرسش‌های رایج درباره سرویس، داده و اشتراک‌ها
+
+## درباره و تماس
+
+- [درباره ما](https://persiansaze.com/about-us/): تاریخچه و مأموریت پرشین‌سازه
+- [تماس با ما](https://persiansaze.com/contact-us/): تلفن فروش ۰۲۱-۷۵۴۲۵۰۰۰، دفتر تهران (سعادت‌آباد) و فرم درخواست دمو
+- [آموزش](https://persiansaze.com/education/): محتوای آموزشی فروش پروژه‌محور
+- [قوانین و مقررات](https://persiansaze.com/rules/): شرایط استفاده از خدمات
+
+## Optional
+
+- [نقشه سایت](https://persiansaze.com/sitemap.xml): فهرست کامل صفحات برای کرالرها
