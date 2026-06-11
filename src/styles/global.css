@@ -2601,6 +2601,70 @@ details p {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--claude-orange) 18%, transparent);
 }
 
+.back-to-top-button {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  z-index: 39;
+  display: inline-grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--primary) 82%, transparent);
+  border-radius: var(--radius-full);
+  background: var(--ink, var(--primary));
+  color: var(--primary-foreground);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0.75rem 1.45rem -1.05rem color-mix(in srgb, var(--foreground) 46%, transparent);
+  transform: translateY(0.4rem);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.back-to-top-button.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 720px) {
+  body.home-color-anthropic .demo-form {
+    --demo-mobile-field-gap: clamp(1rem, 3vw, 1.4rem);
+    gap: var(--demo-mobile-field-gap);
+  }
+
+  body.home-color-anthropic .demo-form .form-grid,
+  body.home-color-anthropic .demo-form .field {
+    gap: var(--demo-mobile-field-gap);
+  }
+
+  body.home-color-anthropic .demo-form .field-error:empty {
+    min-height: 0;
+  }
+
+  body.home-color-anthropic .back-to-top-button {
+    bottom: calc(var(--mobile-action-bar-height, 0rem) + 0.75rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top-button {
+    transition: none;
+  }
+}
+
 .site-footer {
   border-top: 1px solid color-mix(in srgb, var(--home-brass, var(--ps-ink-800)) 36%, var(--ps-ink-900));
   background: var(--ps-ink-950);
@@ -4357,7 +4421,7 @@ body.home-color-anthropic {
   --home-panel-warm: #f6eadc;
   --home-plan-surface: #efe3d2;
   --home-plan-surface-soft: #f5ecdf;
-  --home-plan-surface-strong: #e2d0bb;
+  --home-plan-surface-strong: #ece2d3;
   --home-plan-border: #d6c8b6;
   --home-plan-border-strong: #b98973;
   --home-plan-muted: #7c6f62;
@@ -4632,6 +4696,259 @@ body.home-color-anthropic .site-header .mobile-nav-panel:not([hidden]) {
 @media (max-width: 520px) {
   body.home-color-anthropic .site-header .header-phone {
     display: none;
+  }
+}
+
+html.is-mobile-menu-open,
+body.is-mobile-menu-open {
+  overflow: hidden;
+}
+
+body.home-color-anthropic .site-header .mobile-nav-panel {
+  display: none;
+}
+
+body.home-color-anthropic .site-header .mobile-nav-panel:not([hidden]) {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
+  align-content: start;
+  gap: 1.25rem;
+  overflow-y: auto;
+  border: 0;
+  border-radius: 0;
+  background: var(--background);
+  box-shadow: none;
+  padding: calc(var(--site-header-offset) + 0.8rem) max(1rem, env(safe-area-inset-right)) calc(1.1rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  animation: mobile-nav-panel-in 180ms ease both;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.home-color-anthropic .mobile-nav-panel-head {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 900;
+}
+
+body.home-color-anthropic .mobile-nav-close {
+  display: inline-grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-xs);
+}
+
+body.home-color-anthropic .mobile-nav-links {
+  display: grid;
+  align-content: start;
+  gap: 0.25rem;
+}
+
+body.home-color-anthropic .mobile-nav-links a {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  border-radius: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  color: var(--foreground);
+  font-size: var(--text-xl);
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+body.home-color-anthropic .mobile-nav-links a:hover {
+  background: var(--surface-subtle);
+}
+
+body.home-color-anthropic .mobile-nav-actions {
+  display: grid;
+  gap: 0.65rem;
+  padding-block-start: 1rem;
+  border-block-start: 1px solid var(--border);
+}
+
+body.home-color-anthropic .mobile-nav-phone {
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-subtle);
+  color: var(--foreground);
+  font-size: var(--text-lg);
+  font-weight: 900;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.mobile-bottom-actions {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  body.home-color-anthropic {
+    --mobile-action-bar-height: 4.75rem;
+    padding-bottom: calc(var(--mobile-action-bar-height) + env(safe-area-inset-bottom));
+  }
+
+  body.home-color-anthropic .site-header .header-actions {
+    gap: 0.45rem;
+  }
+
+  body.home-color-anthropic .site-header .header-phone {
+    display: inline-flex;
+    min-height: 2.85rem;
+    align-items: center;
+    border: 1px solid var(--claude-orange);
+    border-radius: 0.88rem;
+    background: var(--claude-orange);
+    padding-inline: 0.58rem;
+    color: var(--primary);
+    font-size: 0.74rem;
+    font-weight: 900;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 30%),
+      0 0.8rem 1.35rem -1rem rgb(174 82 49 / 42%);
+  }
+
+  body.home-color-anthropic .site-header .mobile-menu-toggle {
+    display: inline-flex;
+    flex: 0 0 2.9rem;
+    width: 2.9rem;
+    min-width: 2.9rem;
+    height: 2.9rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.27rem;
+    border-color: color-mix(in srgb, var(--home-plan-border-strong) 48%, var(--border));
+    background: var(--home-panel);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 68%),
+      0 0.7rem 1.2rem -1.05rem rgb(62 43 29 / 32%);
+  }
+
+  body.home-color-anthropic .site-header .mobile-menu-toggle span {
+    width: 1.46rem;
+    height: 2.75px;
+    flex: 0 0 2.75px;
+  }
+
+  body.home-color-anthropic .mobile-bottom-actions {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 38;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    min-height: var(--mobile-action-bar-height);
+    border-block-start: 1px solid color-mix(in srgb, var(--home-plan-border-strong) 42%, var(--border));
+    background: color-mix(in srgb, var(--background) 96%, white);
+    padding: 0.65rem max(0.7rem, env(safe-area-inset-right)) calc(0.65rem + env(safe-area-inset-bottom)) max(0.7rem, env(safe-area-inset-left));
+    box-shadow:
+      0 -1rem 1.8rem -1.35rem color-mix(in srgb, var(--foreground) 34%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 70%);
+    backdrop-filter: blur(16px) saturate(1.08);
+    -webkit-backdrop-filter: blur(16px) saturate(1.08);
+  }
+
+  body.home-color-anthropic.is-mobile-menu-open .mobile-bottom-actions {
+    display: none;
+  }
+
+  body.home-color-anthropic .mobile-bottom-action {
+    display: inline-flex;
+    min-width: 0;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border));
+    border-radius: 0.95rem;
+    background: var(--home-panel);
+    color: var(--primary);
+    font-size: var(--text-sm);
+    font-weight: 900;
+    line-height: 1.15;
+    text-align: center;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 62%),
+      0 0.85rem 1.35rem -1.05rem rgb(62 43 29 / 24%);
+  }
+
+  body.home-color-anthropic .mobile-bottom-action-call {
+    border-color: var(--claude-orange);
+    background: var(--claude-orange);
+    color: var(--primary);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 28%),
+      0 0.95rem 1.55rem -1.05rem rgb(174 82 49 / 42%);
+  }
+
+  body.home-color-anthropic .mobile-bottom-action-primary {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 13%),
+      0 1rem 1.65rem -1.05rem rgb(20 20 20 / 52%);
+  }
+
+  body.home-color-anthropic .mobile-bottom-action-login {
+    border-color: color-mix(in srgb, var(--home-blue) 72%, var(--primary));
+    background: color-mix(in srgb, var(--home-blue) 58%, var(--primary));
+    color: var(--primary-foreground);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 12%),
+      0 0.95rem 1.55rem -1.05rem rgb(48 57 52 / 42%);
+  }
+}
+
+@media (max-width: 380px) {
+  body.home-color-anthropic .site-header .brand strong {
+    font-size: 0.9rem;
+  }
+
+  body.home-color-anthropic .site-header .header-phone {
+    padding-inline: 0.38rem;
+    font-size: 0.69rem;
+  }
+}
+
+@keyframes mobile-nav-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-color-anthropic .site-header .mobile-nav-panel:not([hidden]) {
+    animation: none;
   }
 }
 
@@ -6278,13 +6595,7 @@ body.home-color-anthropic .field select:focus {
   }
 
   body.home-color-anthropic .stage-rail-wrap::after {
-    position: absolute;
-    inset-block: 0.2rem 0.55rem;
-    left: 0;
-    width: 3rem;
-    background: linear-gradient(90deg, var(--background), color-mix(in srgb, var(--background) 0%, transparent));
-    content: "";
-    pointer-events: none;
+    display: none;
   }
 
   body.home-color-anthropic .stage-rail {
@@ -6293,10 +6604,12 @@ body.home-color-anthropic .field select:focus {
     margin-inline: -0.5rem;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
-    padding: 0 0.5rem 0.55rem 1.8rem;
-    scroll-padding-inline: 0.5rem;
+    padding: 0 clamp(0.75rem, 5vw, 1.25rem) 0.55rem;
+    scroll-padding-inline: 2rem;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 1.65rem, #000 calc(100% - 1.65rem), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 1.65rem, #000 calc(100% - 1.65rem), transparent);
   }
 
   body.home-color-anthropic .stage-rail::-webkit-scrollbar {
@@ -6304,8 +6617,8 @@ body.home-color-anthropic .field select:focus {
   }
 
   body.home-color-anthropic .stage-tile {
-    flex: 0 0 min(13.5rem, 78vw);
-    scroll-snap-align: start;
+    flex: 0 0 min(12.5rem, 64vw);
+    scroll-snap-align: center;
   }
 
   body.home-color-anthropic .duration-tabs {
@@ -6359,37 +6672,64 @@ body.home-color-anthropic .field select:focus {
 
 body.home-color-anthropic .duration-tabs {
   width: min(100%, 28rem);
+  align-items: stretch;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface-subtle);
+  padding: 0.25rem;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .duration-tabs button {
   grid-template-areas:
     "number unit"
     "saving saving";
-  grid-template-rows: 2.2rem 1rem;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1.45rem 1rem;
   min-height: 3.75rem;
-  row-gap: 0.3rem;
+  align-content: center;
+  justify-content: center;
+  column-gap: 0.25rem;
+  row-gap: 0.12rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: color-mix(in srgb, var(--ink, var(--primary)) 78%, var(--muted-foreground));
+  box-shadow: none;
+  transform: none;
 }
 
 body.home-color-anthropic .duration-tabs .duration-number {
   grid-area: number;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: currentColor;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .duration-unit {
   grid-area: unit;
   justify-self: start;
+  color: currentColor;
+  font-weight: 850;
 }
 
 body.home-color-anthropic .duration-saving {
   grid-area: saving;
   justify-self: center;
-  border: 1px solid color-mix(in srgb, var(--claude-orange) 34%, var(--home-plan-border));
-  border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--claude-orange) 14%, var(--home-plan-surface-soft));
-  color: color-mix(in srgb, var(--primary) 78%, var(--home-rust));
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--home-plan-muted);
   font-size: 0.68rem;
   font-weight: 900;
-  line-height: 1;
-  padding: 0.28rem 0.48rem;
+  line-height: 1.2;
+  padding: 0;
   white-space: nowrap;
 }
 
@@ -6398,27 +6738,25 @@ body.home-color-anthropic .duration-tabs button.active:hover {
   border-color: var(--claude-orange);
   border-bottom-color: var(--claude-orange);
   background: var(--claude-orange);
-  color: var(--primary);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--surface) 22%, transparent),
-    0 0.42rem 1.1rem -0.85rem color-mix(in srgb, var(--claude-orange) 72%, var(--primary));
-  transform: translateY(0.08rem);
+  color: var(--primary-foreground);
+  box-shadow: none;
+  transform: none;
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-unit {
-  color: var(--primary);
+  color: var(--primary-foreground);
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-number {
-  border-color: color-mix(in srgb, var(--surface) 70%, var(--claude-orange));
-  background: var(--surface);
-  color: var(--primary);
+  border-color: transparent;
+  background: transparent;
+  color: var(--primary-foreground);
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-saving {
-  border-color: color-mix(in srgb, var(--primary) 22%, transparent);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-  color: var(--primary);
+  border-color: transparent;
+  background: transparent;
+  color: color-mix(in srgb, var(--primary-foreground) 88%, var(--primary));
 }
 
 body.home-color-anthropic .pricing-card {
@@ -6598,33 +6936,23 @@ body.home-color-anthropic .faq-demo-bridge a {
     z-index: 8;
     width: min(100%, 23rem);
     margin-block: var(--space-5) var(--space-8);
-    border: 1px solid color-mix(in srgb, var(--home-plan-border) 72%, transparent);
-    border-radius: var(--radius-xl);
-    background: color-mix(in srgb, var(--background) 86%, var(--surface));
-    padding: 0.42rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: var(--surface-subtle);
+    padding: 0.25rem;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    box-shadow: 0 0.75rem 1.4rem -1.2rem color-mix(in srgb, var(--primary) 28%, transparent);
+    box-shadow: none;
+  }
+
+  body.home-color-anthropic #plans .duration-tabs button {
+    min-height: 3.45rem;
+    padding: 0.42rem 0.3rem;
+    font-size: 0.78rem;
   }
 
   body.home-color-anthropic .pricing-card.featured {
     margin-block-start: 0;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-taban {
-    order: 1;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-royan {
-    order: 2;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-taban-plus {
-    order: 3;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-bonyan {
-    order: 4;
   }
 }
 

@@ -498,6 +498,14 @@ const schemaGraph = [
                 button.setAttribute("aria-selected", isActive ? "true" : "false");
               });
 
+              if (window.matchMedia("(max-width: 720px)").matches) {
+                buttons[index]?.scrollIntoView({
+                  behavior: reduceMotion ? "auto" : "smooth",
+                  inline: "center",
+                  block: "nearest",
+                });
+              }
+
               if (!panel || !animate || reduceMotion) {
                 if (changeTimeoutId) window.clearTimeout(changeTimeoutId);
                 panel?.classList.remove("is-changing");
@@ -686,7 +694,7 @@ const schemaGraph = [
           const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
           const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-          const setDuration = (duration) => {
+          const setDuration = (duration, animate = true) => {
             durationTabs?.setAttribute("data-active-duration", duration);
 
             buttons.forEach((button) => {
@@ -699,7 +707,7 @@ const schemaGraph = [
             priceNodes.forEach((node) => {
               const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
               if (prices[duration]) {
-                if (reduceMotion) {
+                if (reduceMotion || !animate) {
                   node.textContent = prices[duration];
                   return;
                 }
@@ -719,6 +727,8 @@ const schemaGraph = [
               if (duration) setDuration(duration);
             });
           });
+
+          setDuration(durationTabs?.getAttribute("data-active-duration") || "3", false);
         })();
       </script>
 
@@ -826,9 +836,9 @@ const schemaGraph = [
                     <small class="field-error" id="demo-supplier-error" data-field-error></small>
                   </label>
                 </div>
-                <label class="field">
-                  <span class="field-label">{demo.form.referralSource}</span>
-                  <select name="referralSource" aria-describedby="demo-referral-source-error">
+                <label class="field" data-required>
+                  <span class="field-label">{demo.form.referralSource}<span class="required-star" aria-hidden="true">*</span></span>
+                  <select name="referralSource" required aria-describedby="demo-referral-source-error">
                     <option value="">{demo.form.choose}</option>
                     {demo.form.referralSourceOptions.map((option) => (
                       <option value={option}>{option}</option>
@@ -854,6 +864,7 @@ const schemaGraph = [
           const retryButton = form.querySelector("[data-demo-retry]");
           const initialSubmitText = submitButton?.textContent?.trim() || "";
           const requiredMessage = "این فیلد اجباری است.";
+          const selectRequiredMessage = "لطفاً یک گزینه را انتخاب کنید.";
           const phoneMessage = "شماره تماس را با ۱۱ رقم و کد صفر وارد کنید.";
 
           const toEnglishDigits = (value) => String(value)
@@ -899,7 +910,7 @@ const schemaGraph = [
             if (!control) return true;
 
             if (control.required && !control.value.trim()) {
-              setFieldError(field, requiredMessage);
+              setFieldError(field, control.tagName === "SELECT" ? selectRequiredMessage : requiredMessage);
               return false;
             }
 
@@ -986,6 +997,40 @@ const schemaGraph = [
         })();
       </script>
     </main>
+
+    <button class="back-to-top-button" type="button" aria-label="بازگشت به بالای صفحه" data-back-to-top>
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+        <path d="M12 19V5" />
+        <path d="m6 11 6-6 6 6" />
+      </svg>
+    </button>
+    <script is:inline>
+      (() => {
+        const backToTop = document.querySelector("[data-back-to-top]");
+        if (!backToTop) return;
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let ticking = false;
+
+        const syncVisibility = () => {
+          backToTop.classList.toggle("is-visible", window.scrollY > 600);
+          ticking = false;
+        };
+
+        const requestVisibilitySync = () => {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(syncVisibility);
+        };
+
+        backToTop.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+        });
+
+        window.addEventListener("scroll", requestVisibilitySync, { passive: true });
+        syncVisibility();
+      })();
+    </script>
 
     <script is:inline>
       (() => {
