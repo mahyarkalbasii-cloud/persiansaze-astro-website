@@ -6,6 +6,13 @@ import { saleTypeComparison, saleTypes, saleTypesIntro } from "@/content/sales";
 const title = "انواع فروش در صنعت ساختمان | پرشین‌سازه";
 const description =
   "راهنمای انواع فروش در صنعت ساختمان: فروش سریع و تراکنشی، فروش مشاوره‌ای، فروش ترکیبی و تهاتر مصالح و خدمات با تعریف، کاربرد، ریسک و چرخه تصمیم‌گیری.";
+const spectrumLabels = ["تصمیم سریع", "دو فاز", "مشاوره عمیق", "قرارداد پیچیده"];
+const spectrumPositionBySlug = {
+  "transactional-selling": 0,
+  "hybrid-sales": 1,
+  "consultative-selling": 2,
+  "barter-materials-services": 3,
+};
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -38,7 +45,7 @@ const structuredData = [
 
 <BaseLayout title={title} description={description} canonicalPath="/sale-types/" structuredData={structuredData}>
   <main>
-    <section class="content-hero">
+    <section class="content-hero sale-index-hero">
       <div class="container content-hero-grid">
         <div>
           <p class="content-eyebrow">{saleTypesIntro.eyebrow}</p>
@@ -49,7 +56,7 @@ const structuredData = [
             <a class="button button-secondary" href="/construction-stages/">مشاهده مراحل ساخت</a>
           </div>
         </div>
-        <aside class="content-summary-card">
+        <aside class="content-summary-card sale-index-summary">
           <strong>{saleTypes.length}</strong>
           <span>مدل اصلی فروش ساختمانی</span>
           <p>{saleTypesIntro.summary}</p>
@@ -59,12 +66,28 @@ const structuredData = [
 
     <section class="section">
       <div class="container">
-        <div class="content-card-grid">
-          {saleTypes.map((saleType) => (
-            <article class="content-card">
+        <div class="content-card-grid sale-method-grid">
+          {saleTypes.map((saleType, index) => (
+            <article class="content-card sale-method-card">
+              <span class="sale-method-card-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <p class="content-eyebrow">{saleType.englishTitle}</p>
               <h2>{saleType.title}</h2>
               <p>{saleType.summary}</p>
+              <svg class="sale-spectrum mini" viewBox="0 0 100 18" aria-label={`جایگاه ${saleType.title} روی طیف فروش`}>
+                <line x1="8" y1="9" x2="92" y2="9"></line>
+                {spectrumLabels.map((_, spectrumIndex) => (
+                  <circle
+                    class={
+                      spectrumIndex === spectrumPositionBySlug[saleType.slug]
+                        ? "sale-spectrum-dot is-active"
+                        : "sale-spectrum-dot"
+                    }
+                    cx={8 + spectrumIndex * 28}
+                    cy="9"
+                    r={spectrumIndex === spectrumPositionBySlug[saleType.slug] ? "4.8" : "3"}
+                  ></circle>
+                ))}
+              </svg>
               <dl class="compact-facts">
                 <div>
                   <dt>چرخه فروش</dt>
