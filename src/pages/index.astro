@@ -769,7 +769,7 @@ const schemaGraph = [
                 <p>در صورتی که موارد بالا با شرایط کسب‌وکار شما همخوانی دارد، فرم ثبت‌نام را تکمیل کنید.</p>
               </section>
 
-              <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain" novalidate data-demo-form data-state="idle">
+              <form class="demo-form" action="/api/demo-request" method="post" novalidate data-demo-form data-state="idle">
                 <h3>{demo.form.submit}</h3>
                 <p class="demo-form-status demo-form-status-success" data-demo-success role="status" hidden>
                   درخواست شما ثبت شد، تا یک روز کاری تماس می‌گیریم.
@@ -856,6 +856,7 @@ const schemaGraph = [
 
           const setSubmitting = (isSubmitting) => {
             form.classList.toggle("is-submitting", isSubmitting);
+            if (isSubmitting) form.dataset.state = "submitting";
             if (!submitButton) return;
             submitButton.disabled = isSubmitting;
             submitButton.textContent = isSubmitting ? "در حال ارسال..." : initialSubmitText;
@@ -923,20 +924,40 @@ const schemaGraph = [
             setStatus("idle");
             if (!validateForm()) return;
 
+            const formData = new FormData(form);
+            const payload = {
+              name: String(formData.get("name") || "").trim(),
+              phone: String(formData.get("phone") || "").trim(),
+              company: String(formData.get("company") || "").trim(),
+              referralSource: String(formData.get("referralSource") || "").trim(),
+              workField: String(formData.get("supplier") || "").trim(),
+            };
+
             setSubmitting(true);
-            await new Promise((resolve) => window.setTimeout(resolve, 650));
-            setSubmitting(false);
+            try {
+              const response = await fetch("/api/demo-request", {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(payload),
+              });
 
-            if (form.dataset.demoForceError === "true") {
+              if (!response.ok) {
+                setStatus("error");
+                return;
+              }
+
+              setStatus("success");
+              form.reset();
+            } catch {
               setStatus("error");
-              return;
+            } finally {
+              setSubmitting(false);
             }
-
-            setStatus("success");
           });
 
           retryButton?.addEventListener("click", () => {
-            form.dataset.demoForceError = "";
             form.requestSubmit();
           });
         })();
