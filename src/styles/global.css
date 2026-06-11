@@ -4672,20 +4672,6 @@ body.home-color-anthropic .hero {
   padding-block: clamp(3.15rem, 5vw, 4.5rem) clamp(2.75rem, 4.8vw, 4.25rem);
 }
 
-body.home-color-anthropic .hero::before {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--home-brass) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(0deg, color-mix(in srgb, var(--home-brass) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(135deg, color-mix(in srgb, var(--home-brass) 5%, transparent) 1px, transparent 1px);
-  background-position: center;
-  background-size: 5.75rem 5.75rem, 5.75rem 5.75rem, 11.5rem 11.5rem;
-  content: "";
-  opacity: 0.8;
-  pointer-events: none;
-}
-
 body.home-color-anthropic .hero-grid {
   position: relative;
   z-index: 1;
@@ -6778,4 +6764,29 @@ body.home-color-anthropic #demo {
   body.home-color-anthropic .footer-bottom nav {
     gap: var(--space-3);
   }
+}
+
+/* هیرو شبیه آیکون اپلیکیشن — قاب نرم، بدون حس کارت سنگین */
+body.home-color-anthropic .hero-placeholder.hero-bento {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: clamp(0.45rem, 1vw, 0.75rem);
+}
+
+body.home-color-anthropic .hero-bento-scene {
+  width: min(100%, 34rem);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--claude-orange) 18%, var(--border));
+  border-radius: 12.5%;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, #ffffff 76%, var(--background)), var(--surface-subtle));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #ffffff 75%, transparent) inset,
+    0 18px 45px rgb(48 38 28 / 12%);
+}
+
+body.home-color-anthropic .hero-bento-scene::after,
+body.home-color-anthropic .hero-bento-orbit {
+  display: none;
 }
