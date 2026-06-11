@@ -6779,3 +6779,24 @@ body.home-color-anthropic #demo {
     gap: var(--space-3);
   }
 }
+
+/* هیرو فریم‌لس — تصویر v3 قاب داخلی ندارد */
+body.home-color-anthropic .hero-placeholder.hero-bento {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+body.home-color-anthropic .hero-bento-scene {
+  width: min(100%, 34rem);
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+body.home-color-anthropic .hero-bento-scene::after,
+body.home-color-anthropic .hero-bento-orbit {
+  display: none;
+}

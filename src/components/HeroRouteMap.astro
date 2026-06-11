@@ -1,11 +1,12 @@
 ---
 /**
- * HeroRouteMap.astro — نسخه مطابق دموی تاییدشده (route-icon-hybrid-v2)
- * موشن، رنگ‌ها، حالت ترکیب screen و همه اعداد «عیناً» از دموی تایید‌شده
- * کپی شده‌اند — هیچ خطی از SVG یا کی‌فریم‌ها بازنویسی نشود.
+ * HeroRouteMap.astro — هیبرید v3، سینک‌شده با تصویر جدید بدون قاب
+ * تکنیک عیناً از دموی تاییدشده route-icon-hybrid-v2 (screen blend — دست نخورده).
+ * همه اعداد به هندسه route-icon.webp جدید (۱۲۵۴×۱۲۵۴) قفل شده‌اند:
+ *   طول مسیر = 1183 → dasharray "200 1183"، sweep ‎200→‎-983،
+ *   keyTimes 0;0.8309;1، پینگ 82.09/83.09/92.09٪
  * - تصویر: وب‌پی جدا و کش‌پذیر (بیس‌۶۴ ممنوع)
- * - صفر جاوااسکریپت، صفر هیدریشن
- * - مختصات قفل به route-icon.webp (۱۲۵۴×۱۲۵۴)
+ * - صفر جاوااسکریپت، صفر هیدریشن، لایه نور aria-hidden
  */
 interface Props {
   src?: string;
@@ -43,11 +44,11 @@ const {
         <stop offset="0" stop-color="#ff9d57" stop-opacity=".5"/>
         <stop offset="1" stop-color="#ff9d57" stop-opacity="0"/>
       </radialGradient>
-      <path id="hrm-route" d="M 1002.0 354.0 L 996.6 398.8 L 988.4 427.2 L 979.3 446.4 L 970.0 466.7 L 958.4 487.2 L 942.3 505.2 L 922.5 519.3 L 901.0 528.3 L 879.0 533.1 L 857.0 536.2 L 835.0 538.4 L 813.0 539.7 L 791.0 540.1 L 769.2 541.4 L 748.4 547.5 L 729.8 560.7 L 714.6 579.5 L 703.9 600.5 L 697.1 622.1 L 692.5 644.0 L 688.4 666.0 L 684.3 688.0 L 680.2 710.0 L 676.2 732.0 L 671.8 754.0 L 665.6 775.8 L 656.8 797.5 L 646.0 818.7 L 633.5 838.6 L 618.4 855.6 L 600.2 870.2 L 579.8 884.9 L 559.3 902.2 L 541.6 922.4 L 528.9 944.0 L 520.7 966.0 L 514.5 988.0 L 507.2 1010.0 L 496.3 1031.3 L 480.5 1050.0 L 460.6 1063.6 L 439.0 1071.7 L 418.7 1075.9 L 400.4 1076.7 L 373.6 1074.6 L 330.0 1072.0"/>
+      <path id="hrm-route" d="M 1008.0 313.0 L 1010.0 344.0 L 1004.0 353.0 L 1003.0 364.0 L 991.0 393.0 L 973.0 460.0 L 959.0 491.0 L 943.0 509.0 L 922.0 522.0 L 889.0 531.0 L 847.0 529.0 L 833.0 533.0 L 752.0 539.0 L 745.0 551.0 L 717.0 580.0 L 711.0 597.0 L 680.0 760.0 L 662.0 811.0 L 647.0 842.0 L 624.0 870.0 L 598.0 880.0 L 572.0 899.0 L 561.0 917.0 L 542.0 936.0 L 537.0 955.0 L 527.0 973.0 L 516.0 1026.0 L 499.0 1056.0 L 483.0 1070.0 L 466.0 1079.0 L 425.0 1085.0 L 405.0 1092.0 L 347.0 1089.0 L 340.0 1078.0"/>
     </defs>
 
-    <ellipse class="halo"   cx="1002" cy="368"  rx="92"  ry="40" fill="url(#hrm-halo-grad)"/>
-    <ellipse class="halo b" cx="330"  cy="1085" rx="100" ry="44" fill="url(#hrm-halo-grad)"/>
+    <ellipse class="halo"   cx="1008" cy="326"  rx="92"  ry="40" fill="url(#hrm-halo-grad)"/>
+    <ellipse class="halo b" cx="340"  cy="1090" rx="100" ry="44" fill="url(#hrm-halo-grad)"/>
 
     <g style="mix-blend-mode:screen">
       <use href="#hrm-route" class="comet" fill="none" stroke="#ffb36b" stroke-width="30"
@@ -59,17 +60,17 @@ const {
     <g>
       <circle r="10.5" fill="#fff" stroke="#e07238" stroke-width="5.5">
         <animateMotion dur="5.6s" repeatCount="indefinite"
-          keyPoints="0;1;1" keyTimes="0;0.8477;1" calcMode="linear">
+          keyPoints="0;1;1" keyTimes="0;0.8309;1" calcMode="linear">
           <mpath href="#hrm-route"/>
         </animateMotion>
       </circle>
     </g>
 
-    <!-- ping now lands on the construction-site node -->
-    <circle class="ping" cx="330" cy="1072" r="58" fill="none"
+    <!-- ping lands on the construction-site node -->
+    <circle class="ping" cx="340" cy="1078" r="58" fill="none"
             stroke="#ff9d57" stroke-width="7"/>
 
-    <ellipse class="glint" cx="982" cy="200" rx="26" ry="40"
+    <ellipse class="glint" cx="1009" cy="205" rx="26" ry="40"
              fill="#ffffff" filter="url(#hrm-blur-wide)"/>
   </svg>
 </figure>
@@ -94,23 +95,23 @@ const {
     pointer-events: none;
   }
 
-  /* ── موشن: عیناً از دموی تاییدشده v2 — تغییر ممنوع ── */
-.comet, .comet-core{
-    stroke-dasharray: 200 1314;
+  /* ── موشن: تکنیک v2، اعداد سینک با مسیر جدید (L=1183) ── */
+  .comet, .comet-core{
+    stroke-dasharray: 200 1183;
     animation: sweep 5.6s linear infinite;
   }
   @keyframes sweep{
     from{ stroke-dashoffset: 200; }
-    to  { stroke-dashoffset: -1114; }
+    to  { stroke-dashoffset: -983; }
   }
 
   /* arrival ping at the construction-site node */
   .ping{ transform-box:fill-box; transform-origin:center;
     animation: ping 5.6s linear infinite; opacity:0; }
   @keyframes ping{
-    0%, 83.77% { transform:scale(.3); opacity:0; }
-    84.77%       { transform:scale(.4); opacity:.85; }
-    93.77% { transform:scale(1.5); opacity:0; }
+    0%, 82.09% { transform:scale(.3); opacity:0; }
+    83.09%     { transform:scale(.4); opacity:.85; }
+    92.09%     { transform:scale(1.5); opacity:0; }
     100%{ opacity:0; }
   }
 
