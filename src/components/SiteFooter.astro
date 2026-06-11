@@ -7,6 +7,7 @@ const [primaryPages, footerSaleTypes, cityLinks, workFields, stageLinks] = foote
 const reversedContacts = [...site.contacts].reverse();
 const legalLink = utilityLinks[0];
 const bottomUtilityLinks = utilityLinks.slice(1, 5);
+const footerPrimaryPageLinks = primaryPages.links.filter((item) => item.href !== "#faq");
 const footerWorkFieldLinks = [
   ...constructionWorkFields.slice(0, 6).map((field) => ({
     label: field.title,
@@ -127,13 +128,11 @@ const socialIconFor = (href: string, label: string) => {
         <section class="footer-link-section footer-pages-section">
           <p class="footer-heading">{primaryPages.title}</p>
           <ul>
-            {primaryPages.links.map((item) => (
+            {footerPrimaryPageLinks.map((item) => (
               <li><a href={hrefFor(item.href)}>{item.label}</a></li>
             ))}
+            <li><a href={hrefFor(legalLink.href)}>{legalLink.label}</a></li>
           </ul>
-        </section>
-        <section class="footer-legal-section">
-          <p class="footer-heading footer-legal-heading"><a href={hrefFor(legalLink.href)}>{legalLink.label}</a></p>
         </section>
       </div>
 
