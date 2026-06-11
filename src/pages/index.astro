@@ -293,7 +293,9 @@ const schemaGraph = [
           </div>
 
           <div class="media-placeholder hero-placeholder hero-bento">
-            <HeroRouteMap class="hero-bento-scene" alt={hero.placeholder} />
+            <div class="hero-bento-scene" data-anim-scope>
+              <HeroRouteMap alt={hero.placeholder} />
+            </div>
           </div>
         </div>
       </section>
@@ -391,7 +393,7 @@ const schemaGraph = [
         </div>
       </section>
 
-      <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation>
+      <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation data-anim-scope>
         <div class="container">
           <div class="section-heading stages-heading">
             <h2>هر محصول، در یک مرحله از ساخت فروش می‌رود</h2>
@@ -511,6 +513,14 @@ const schemaGraph = [
               }
             };
 
+            root.addEventListener("anim:pause", () => {
+              if (timerId) {
+                window.clearInterval(timerId);
+                timerId = null;
+              }
+            });
+            root.addEventListener("anim:resume", startRotation);
+
             buttons.forEach((button) => {
               button.addEventListener("click", () => {
                 selectStage(Number(button.dataset.stageIndex));
@@ -545,7 +555,7 @@ const schemaGraph = [
             <p>{salesFlow.subtitle}</p>
           </div>
 
-          <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel}>
+          <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel} data-anim-scope>
             <div class="pipeline-route-layer" aria-hidden="true">
               <span class="pipeline-route-line"></span>
               <span class="pipeline-route-signal"></span>
@@ -963,6 +973,26 @@ const schemaGraph = [
         })();
       </script>
     </main>
+
+    <script is:inline>
+      (() => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const targets = document.querySelectorAll("[data-anim-scope]");
+        if (!targets.length || !("IntersectionObserver" in window)) return;
+        const io = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            const el = entry.target;
+            el.toggleAttribute("data-paused", !entry.isIntersecting);
+            el.querySelectorAll("svg").forEach((svg) => {
+              if (typeof svg.pauseAnimations !== "function") return;
+              entry.isIntersecting ? svg.unpauseAnimations() : svg.pauseAnimations();
+            });
+            el.dispatchEvent(new CustomEvent(entry.isIntersecting ? "anim:resume" : "anim:pause"));
+          }
+        }, { rootMargin: "160px 0px", threshold: 0.01 });
+        targets.forEach((target) => io.observe(target));
+      })();
+    </script>
 
     <SiteFooter />
     <PersianDigitsScript />

@@ -6748,3 +6748,8 @@ body.home-color-anthropic .hero-bento-scene::after,
 body.home-color-anthropic .hero-bento-orbit {
   display: none;
 }
+
+[data-paused],
+[data-paused] * {
+  animation-play-state: paused;
+}
