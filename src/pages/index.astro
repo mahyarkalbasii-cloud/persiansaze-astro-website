@@ -686,7 +686,7 @@ const schemaGraph = [
           const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
           const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-          const setDuration = (duration) => {
+          const setDuration = (duration, animate = true) => {
             durationTabs?.setAttribute("data-active-duration", duration);
 
             buttons.forEach((button) => {
@@ -699,7 +699,7 @@ const schemaGraph = [
             priceNodes.forEach((node) => {
               const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
               if (prices[duration]) {
-                if (reduceMotion) {
+                if (reduceMotion || !animate) {
                   node.textContent = prices[duration];
                   return;
                 }
@@ -719,6 +719,8 @@ const schemaGraph = [
               if (duration) setDuration(duration);
             });
           });
+
+          setDuration(durationTabs?.getAttribute("data-active-duration") || "3", false);
         })();
       </script>
 

@@ -6598,37 +6598,64 @@ body.home-color-anthropic .field select:focus {
 
 body.home-color-anthropic .duration-tabs {
   width: min(100%, 28rem);
+  align-items: stretch;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: var(--surface-subtle);
+  padding: 0.25rem;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .duration-tabs button {
   grid-template-areas:
     "number unit"
     "saving saving";
-  grid-template-rows: 2.2rem 1rem;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1.45rem 1rem;
   min-height: 3.75rem;
-  row-gap: 0.3rem;
+  align-content: center;
+  justify-content: center;
+  column-gap: 0.25rem;
+  row-gap: 0.12rem;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: color-mix(in srgb, var(--ink, var(--primary)) 78%, var(--muted-foreground));
+  box-shadow: none;
+  transform: none;
 }
 
 body.home-color-anthropic .duration-tabs .duration-number {
   grid-area: number;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: currentColor;
+  box-shadow: none;
 }
 
 body.home-color-anthropic .duration-unit {
   grid-area: unit;
   justify-self: start;
+  color: currentColor;
+  font-weight: 850;
 }
 
 body.home-color-anthropic .duration-saving {
   grid-area: saving;
   justify-self: center;
-  border: 1px solid color-mix(in srgb, var(--claude-orange) 34%, var(--home-plan-border));
-  border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--claude-orange) 14%, var(--home-plan-surface-soft));
-  color: color-mix(in srgb, var(--primary) 78%, var(--home-rust));
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--home-plan-muted);
   font-size: 0.68rem;
   font-weight: 900;
-  line-height: 1;
-  padding: 0.28rem 0.48rem;
+  line-height: 1.2;
+  padding: 0;
   white-space: nowrap;
 }
 
@@ -6637,27 +6664,25 @@ body.home-color-anthropic .duration-tabs button.active:hover {
   border-color: var(--claude-orange);
   border-bottom-color: var(--claude-orange);
   background: var(--claude-orange);
-  color: var(--primary);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--surface) 22%, transparent),
-    0 0.42rem 1.1rem -0.85rem color-mix(in srgb, var(--claude-orange) 72%, var(--primary));
-  transform: translateY(0.08rem);
+  color: var(--primary-foreground);
+  box-shadow: none;
+  transform: none;
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-unit {
-  color: var(--primary);
+  color: var(--primary-foreground);
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-number {
-  border-color: color-mix(in srgb, var(--surface) 70%, var(--claude-orange));
-  background: var(--surface);
-  color: var(--primary);
+  border-color: transparent;
+  background: transparent;
+  color: var(--primary-foreground);
 }
 
 body.home-color-anthropic .duration-tabs button.active .duration-saving {
-  border-color: color-mix(in srgb, var(--primary) 22%, transparent);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-  color: var(--primary);
+  border-color: transparent;
+  background: transparent;
+  color: color-mix(in srgb, var(--primary-foreground) 88%, var(--primary));
 }
 
 body.home-color-anthropic .pricing-card {
@@ -6837,33 +6862,23 @@ body.home-color-anthropic .faq-demo-bridge a {
     z-index: 8;
     width: min(100%, 23rem);
     margin-block: var(--space-5) var(--space-8);
-    border: 1px solid color-mix(in srgb, var(--home-plan-border) 72%, transparent);
-    border-radius: var(--radius-xl);
-    background: color-mix(in srgb, var(--background) 86%, var(--surface));
-    padding: 0.42rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    background: var(--surface-subtle);
+    padding: 0.25rem;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    box-shadow: 0 0.75rem 1.4rem -1.2rem color-mix(in srgb, var(--primary) 28%, transparent);
+    box-shadow: none;
+  }
+
+  body.home-color-anthropic #plans .duration-tabs button {
+    min-height: 3.45rem;
+    padding: 0.42rem 0.3rem;
+    font-size: 0.78rem;
   }
 
   body.home-color-anthropic .pricing-card.featured {
     margin-block-start: 0;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-taban {
-    order: 1;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-royan {
-    order: 2;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-taban-plus {
-    order: 3;
-  }
-
-  body.home-color-anthropic .pricing-card.plan-bonyan {
-    order: 4;
   }
 }
 
