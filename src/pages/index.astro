@@ -794,26 +794,26 @@ const schemaGraph = [
                     <input name="company" autocomplete="organization" required aria-describedby="demo-company-error" />
                     <small class="field-error" id="demo-company-error" data-field-error></small>
                   </label>
-                  <label class="field">
-                    <span class="field-label">{demo.form.referralSource}</span>
-                    <select name="referralSource" aria-describedby="demo-referral-source-error">
+                  <label class="field" data-required>
+                    <span class="field-label">{demo.form.supplier}<span class="required-star" aria-hidden="true">*</span></span>
+                    <select name="supplier" required aria-describedby="demo-supplier-error">
                       <option value="">{demo.form.choose}</option>
-                      {demo.form.referralSourceOptions.map((option) => (
+                      {demoWorkFieldOptions.map((option) => (
                         <option value={option}>{option}</option>
                       ))}
                     </select>
-                    <small class="field-error" id="demo-referral-source-error" data-field-error></small>
+                    <small class="field-error" id="demo-supplier-error" data-field-error></small>
                   </label>
                 </div>
-                <label class="field" data-required>
-                  <span class="field-label">{demo.form.supplier}<span class="required-star" aria-hidden="true">*</span></span>
-                  <select name="supplier" required aria-describedby="demo-supplier-error">
+                <label class="field">
+                  <span class="field-label">{demo.form.referralSource}</span>
+                  <select name="referralSource" aria-describedby="demo-referral-source-error">
                     <option value="">{demo.form.choose}</option>
-                    {demoWorkFieldOptions.map((option) => (
+                    {demo.form.referralSourceOptions.map((option) => (
                       <option value={option}>{option}</option>
                     ))}
                   </select>
-                  <small class="field-error" id="demo-supplier-error" data-field-error></small>
+                  <small class="field-error" id="demo-referral-source-error" data-field-error></small>
                 </label>
                 <button class="button button-primary" type="submit" data-demo-submit>{demo.form.submit}</button>
               </form>
