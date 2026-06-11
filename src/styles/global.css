@@ -5398,6 +5398,40 @@ body.home-color-anthropic .stage-tile.active:hover {
     0 1rem 1.85rem -1.35rem color-mix(in srgb, var(--home-rust) 46%, transparent);
 }
 
+body.home-color-anthropic .stage-tile.active {
+  position: relative;
+  overflow: hidden;
+}
+
+body.home-color-anthropic .stage-tile.active::after {
+  position: absolute;
+  inset-inline: 0.9rem;
+  bottom: 0.5rem;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    270deg,
+    color-mix(in srgb, var(--claude-orange) 85%, transparent),
+    color-mix(in srgb, var(--home-brass) 55%, transparent)
+  );
+  content: "";
+  transform: scaleX(0);
+  transform-origin: right;
+  animation: stage-timeline 10s linear forwards; /* sync: stage rotation 10s */
+}
+
+@keyframes stage-timeline {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.home-color-anthropic .stage-tile.active::after {
+    display: none;
+  }
+}
+
 body.home-color-anthropic .stage-tile.active .stage-tile-number {
   border-color: color-mix(in srgb, var(--primary-foreground) 46%, transparent);
   background: color-mix(in srgb, var(--primary-foreground) 13%, transparent);
@@ -6747,4 +6781,9 @@ body.home-color-anthropic .hero-bento-scene {
 body.home-color-anthropic .hero-bento-scene::after,
 body.home-color-anthropic .hero-bento-orbit {
   display: none;
+}
+
+[data-paused],
+[data-paused] * {
+  animation-play-state: paused;
 }

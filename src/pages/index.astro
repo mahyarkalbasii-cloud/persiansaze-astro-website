@@ -98,6 +98,9 @@ const durationSavings = pricing.durations.reduce<Record<string, number | null>>(
 const orderedFaqs = [faqs[0], faqs[1], faqs[3], faqs[2], faqs[4], faqs[7], faqs[8], faqs[9], faqs[10], faqs[11], faqs[12], faqs[6], faqs[5]].filter(
   (item): item is (typeof faqs)[number] => Boolean(item),
 );
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+const canonicalOrigin = new URL(site.url).origin;
+const homeOgImageUrl = new URL("/assets/company/og-home.jpg", canonicalOrigin).href;
 const salesPipelineCardSets = [
   {
     count: "ورودی خام",
@@ -255,14 +258,21 @@ const schemaGraph = [
     <meta name="keywords" content={metadata.keywords.join(", ")} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={site.url} />
-    <link rel="icon" href="data:," />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:url" content={site.url} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={metadata.title} />
     <meta property="og:description" content={metadata.description} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={homeOgImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="پرشین‌سازه - زیرساخت فروش پروژه‌محور" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={homeOgImageUrl} />
     <meta name="twitter:title" content={metadata.title} />
     <meta name="twitter:description" content={metadata.description} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
@@ -293,7 +303,9 @@ const schemaGraph = [
           </div>
 
           <div class="media-placeholder hero-placeholder hero-bento">
-            <HeroRouteMap class="hero-bento-scene" alt={hero.placeholder} />
+            <div class="hero-bento-scene" data-anim-scope>
+              <HeroRouteMap alt={hero.placeholder} />
+            </div>
           </div>
         </div>
       </section>
@@ -391,7 +403,7 @@ const schemaGraph = [
         </div>
       </section>
 
-      <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation>
+      <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation data-anim-scope>
         <div class="container">
           <div class="section-heading stages-heading">
             <h2>هر محصول، در یک مرحله از ساخت فروش می‌رود</h2>
@@ -505,11 +517,20 @@ const schemaGraph = [
             const startRotation = () => {
               if (timerId) window.clearInterval(timerId);
               if (stages.length > 1) {
+                /* sync: stage rotation 10s */
                 timerId = window.setInterval(() => {
                   selectStage((activeIndex + 1) % stages.length);
                 }, 10000);
               }
             };
+
+            root.addEventListener("anim:pause", () => {
+              if (timerId) {
+                window.clearInterval(timerId);
+                timerId = null;
+              }
+            });
+            root.addEventListener("anim:resume", startRotation);
 
             buttons.forEach((button) => {
               button.addEventListener("click", () => {
@@ -545,7 +566,7 @@ const schemaGraph = [
             <p>{salesFlow.subtitle}</p>
           </div>
 
-          <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel}>
+          <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel} data-anim-scope>
             <div class="pipeline-route-layer" aria-hidden="true">
               <span class="pipeline-route-line"></span>
               <span class="pipeline-route-signal"></span>
@@ -931,6 +952,8 @@ const schemaGraph = [
               company: String(formData.get("company") || "").trim(),
               referralSource: String(formData.get("referralSource") || "").trim(),
               workField: String(formData.get("supplier") || "").trim(),
+              page: location.pathname,
+              referrer: document.referrer || "",
             };
 
             setSubmitting(true);
@@ -964,7 +987,35 @@ const schemaGraph = [
       </script>
     </main>
 
+    <script is:inline>
+      (() => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        const targets = document.querySelectorAll("[data-anim-scope]");
+        if (!targets.length || !("IntersectionObserver" in window)) return;
+        const io = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            const el = entry.target;
+            el.toggleAttribute("data-paused", !entry.isIntersecting);
+            el.querySelectorAll("svg").forEach((svg) => {
+              if (typeof svg.pauseAnimations !== "function") return;
+              entry.isIntersecting ? svg.unpauseAnimations() : svg.pauseAnimations();
+            });
+            el.dispatchEvent(new CustomEvent(entry.isIntersecting ? "anim:resume" : "anim:pause"));
+          }
+        }, { rootMargin: "160px 0px", threshold: 0.01 });
+        targets.forEach((target) => io.observe(target));
+      })();
+    </script>
+
     <SiteFooter />
     <PersianDigitsScript />
+    {cfBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+      />
+    )}
   </body>
 </html>

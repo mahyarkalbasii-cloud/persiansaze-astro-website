@@ -7,7 +7,7 @@ interface PagesContext {
   env: Env;
 }
 
-interface DemoRequestPayload {
+interface DemoRequestPayload extends Record<string, string> {
   name: string;
   phone: string;
   company: string;
@@ -36,6 +36,13 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 
 const asTrimmedString = (value: unknown) =>
   typeof value === "string" ? value.trim() : "";
+
+const toStringFields = (body: Record<string, unknown>) =>
+  Object.fromEntries(
+    Object.entries(body)
+      .filter((entry): entry is [string, string] => typeof entry[1] === "string")
+      .map(([key, value]) => [key, value.trim()]),
+  );
 
 const readBody = async (request: Request): Promise<Record<string, unknown> | null> => {
   const contentType = request.headers.get("content-type") || "";
@@ -67,7 +74,8 @@ const readBody = async (request: Request): Promise<Record<string, unknown> | nul
 const toPayload = (body: Record<string, unknown> | null): DemoRequestPayload | null => {
   if (!body) return null;
 
-  const payload = {
+  const payload: DemoRequestPayload = {
+    ...toStringFields(body),
     name: asTrimmedString(body.name),
     phone: asTrimmedString(body.phone),
     company: asTrimmedString(body.company),
