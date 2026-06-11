@@ -8,6 +8,20 @@ const description =
   "مقایسه اشتراک‌های پرشین‌سازه برای دسترسی به پروژه‌های ساختمانی: بنیان، رویان، تابان و تابان پلاس با قیمت، پوشش بازار و ویژگی‌های هر پلن.";
 const defaultDuration = "3" as const;
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
+const subscriptionPrinciples = [
+  {
+    title: "پلن یعنی میدان فروش",
+    body: "هر اشتراک مشخص می‌کند تیم فروش شما در کدام سطح پروژه‌ها، با چه پوشش جغرافیایی و چه عمقی از بازار بازی می‌کند.",
+  },
+  {
+    title: "مرحله اضافه یعنی پنجره فروش جدید",
+    body: "اضافه شدن مرحله ساخت فقط چند رکورد بیشتر نیست؛ یعنی ورود به یک زمان اقدام تازه برای محصول یا خدمت شما.",
+  },
+  {
+    title: "انتخاب پلن باید از محصول شروع شود",
+    body: "پلن مناسب به فروش تراکنشی یا مشاوره‌ای، محدوده فعالیت، توان پیگیری و ارزش پروژه هدف وابسته است.",
+  },
+];
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -40,13 +54,14 @@ const structuredData = [
 
 <BaseLayout title={title} description={description} canonicalPath="/subscriptions/" structuredData={structuredData}>
   <main>
-    <section class="content-hero subscription-hero">
+    <section class="content-hero subscription-hero subscription-index-hero">
       <div class="container content-hero-grid">
         <div>
           <p class="content-eyebrow">اشتراک‌ها</p>
-          <h1>اشتراک‌های پرشین‌سازه</h1>
+          <h1>اشتراک‌ها معماری تجاری دسترسی به بازار پروژه‌ها هستند</h1>
           <p>
-            چهار مسیر دسترسی به پروژه‌های ساختمانی را کنار هم ببینید؛ از شروع اقتصادی تا پوشش کامل‌تر بازار برای تیم‌های فروش پروژه‌محور.
+            هر پلن فقط قیمت یا تعداد پروژه نیست؛ محدوده‌ای از بازار، سطحی از فرصت و میزان ورود تیم فروش شما به جریان
+            پروژه‌های ساختمانی را تعریف می‌کند.
           </p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
@@ -61,12 +76,23 @@ const structuredData = [
       </div>
     </section>
 
+    <section class="section subscription-principles-section">
+      <div class="container subscription-principle-grid">
+        {subscriptionPrinciples.map((item) => (
+          <article>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
     <section class="section">
       <div class="container">
         <div class="subscription-plan-strip">
-          {subscriptionPlans.map((plan) => (
+          {subscriptionPlans.map((plan, index) => (
             <article class="subscription-plan-mini">
-              <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+              <span class="subscription-plan-index">{String(index + 1).padStart(2, "0")}</span>
               <h2>{plan.name}</h2>
               <p>{plan.subtitle}</p>
               <strong class="subscription-mini-price">

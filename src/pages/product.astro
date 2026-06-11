@@ -1,19 +1,90 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { absoluteUrl, site } from "@/content/home";
-import {
-  assets,
-  dataOperations,
-  featureCards,
-  productBoundaries,
-  productLayers,
-  productMetrics,
-  productWorkflow,
-} from "@/content/company";
 
-const title = "محصول و ویژگی‌های پرشین‌سازه | زیرساخت فروش پروژه‌محور ساختمان";
+const title = "محصول پرشین‌سازه | زیرساخت فروش پروژه‌محور ساختمان";
 const description =
-  "پرشین‌سازه داده زنده پروژه‌های ساختمانی، نقشه، فیلتر، CRM، پیامک، آموزش و مسیر پیگیری فروش را برای تامین‌کنندگان بازار ساختمان در یک محصول واحد ترکیب می‌کند.";
+  "پرشین‌سازه داده زنده پروژه‌های ساختمانی، نقشه، فیلتر، CRM، پیامک هدفمند، آموزش و تصمیم‌یار فروش را برای تامین‌کنندگان صنعت ساختمان در یک سیستم واحد ترکیب می‌کند.";
+
+const productPillars = [
+  {
+    title: "داده زنده",
+    body: "پروژه فقط یک شماره تماس نیست؛ موقعیت، مرحله ساخت، تصویر، مسیر ارتباطی، تاریخ به‌روزرسانی و وضعیت اقدام فروش کنار هم دیده می‌شوند.",
+  },
+  {
+    title: "ابزار اجرایی",
+    body: "نقشه، فیلتر، صفحه پروژه، CRM، پیامک هدفمند، یادداشت و یادآور کمک می‌کنند داده به اقدام فروش تبدیل شود.",
+  },
+  {
+    title: "آموزش استفاده",
+    body: "کاربر باید بداند کدام مرحله برای محصولش مهم است، چه زمانی تماس بگیرد و چطور فرصت را پیگیری کند.",
+  },
+  {
+    title: "تصمیم‌یار",
+    body: "لایه هوشمند باید فاصله میان داده پروژه و تصمیم فروش را کوتاه کند؛ نه اینکه جای قضاوت تیم فروش را بگیرد.",
+  },
+];
+
+const marketProblems = [
+  "پروژه‌های در حال ساخت در سطح شهر پخش‌اند و دید زنده و متمرکز از آن‌ها وجود ندارد.",
+  "بسیاری از اطلاعات بازار ناقص، قدیمی، عمومی یا فاقد مرحله ساخت و مسیر اقدام‌اند.",
+  "هر محصول ساختمانی پنجره فروش محدود دارد؛ تماس دیر یا زود می‌تواند فرصت را بسوزاند.",
+];
+
+const workflow = [
+  "پروژه مناسب بر اساس شهر، مرحله، مقیاس و تناسب محصول پیدا می‌شود.",
+  "تیم فروش تشخیص می‌دهد الان زمان معرفی، تماس، پیامک یا رصد است.",
+  "مسیر ارتباطی مناسب انتخاب می‌شود و تماس کور جای خود را به اقدام زمینه‌دار می‌دهد.",
+  "نتیجه تماس، یادداشت، وضعیت فرصت و پیگیری بعدی کنار همان پروژه ثبت می‌شود.",
+];
+
+const executionTools = [
+  {
+    title: "نقشه",
+    body: "بازار پراکنده ساختمان را به تصویر قابل تصمیم تبدیل می‌کند؛ منطقه هدف، تراکم فرصت و مسیر بازدید روشن‌تر می‌شود.",
+  },
+  {
+    title: "فیلترها",
+    body: "اطلاعات زیاد را بر اساس مرحله ساخت، محدوده جغرافیایی، متراژ، وضعیت و تازگی به فرصت‌های مرتبط تبدیل می‌کنند.",
+  },
+  {
+    title: "صفحه پروژه",
+    body: "تصمیم سریع را ممکن می‌کند: آیا این پروژه فعال، مرتبط، قابل پیگیری و ارزشمند است یا نه.",
+  },
+  {
+    title: "CRM و پیگیری",
+    body: "پروژه را از یک رکورد قابل مشاهده به فرصت فروش قابل مدیریت تبدیل می‌کند.",
+  },
+  {
+    title: "پیامک هدفمند",
+    body: "مکمل تماس و پیگیری است؛ ارزش آن در تناسب پیام با مرحله، منطقه و زمینه پروژه است.",
+  },
+];
+
+const goldenWindow = [
+  {
+    label: "مرحله ساخت",
+    body: "پروژه از نظر فیزیکی کجای چرخه ساخت است.",
+  },
+  {
+    label: "زمان اجرا",
+    body: "محصول یا خدمت چه زمانی وارد پروژه می‌شود.",
+  },
+  {
+    label: "زمان فروش",
+    body: "تامین‌کننده چه زمانی باید وارد معرفی، مذاکره یا پیگیری شود.",
+  },
+];
+
+const moatItems = [
+  "داده میدانی زنده و به‌روزرسانی مستمر",
+  "تصویر و اعتبارسنجی پروژه",
+  "طبقه‌بندی مرحله ساخت و تناسب با محصول",
+  "ابزارهای اجرایی متصل به فروش",
+  "آموزش، CRM، پیامک و رفتار استفاده مداوم",
+  "لایه هوشمند مبتنی بر داده اختصاصی",
+];
+
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -24,105 +95,114 @@ const structuredData = {
   inLanguage: "fa-IR",
   description,
   publisher: { "@type": "Organization", name: site.name, url: site.url },
-  featureList: featureCards.map((item) => item.title),
+  featureList: executionTools.map((item) => item.title),
 };
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/product/" structuredData={structuredData}>
-  <main>
-    <section class="content-hero media-hero product-page-hero">
-      <div class="container content-hero-grid">
+  <main class="product-system-page">
+    <section class="content-hero product-system-hero">
+      <div class="container product-system-hero-grid">
         <div>
-          <p class="content-eyebrow">محصول و ویژگی‌ها</p>
-          <h1>پرشین‌سازه پروژه ساختمانی را به فرصت فروش قابل پیگیری تبدیل می‌کند.</h1>
+          <h1>زیرساخت فروش پروژه‌محور برای تامین‌کنندگان صنعت ساختمان</h1>
           <p>
-            محصول برای تیم‌هایی ساخته شده که باید پروژه درست را در زمان درست ببینند، ارزیابی کنند، تماس بگیرند و مسیر
-            پیگیری را از حالت پراکنده خارج کنند.
+            پرشین‌سازه پروژه‌های ساختمانی زنده را به فرصت‌های فروش قابل شناسایی، قابل ارزیابی، قابل ارتباط و قابل
+            پیگیری تبدیل می‌کند.
           </p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
-            <a class="button button-secondary" href="#features">مشاهده قابلیت‌ها</a>
+            <a class="button button-secondary" href="#workflow">دیدن جریان محصول</a>
           </div>
         </div>
-        <figure class="image-panel hero-image-panel">
-          <img src={assets.homeOffice.src} alt={assets.homeOffice.alt} loading="eager" decoding="async" />
-        </figure>
+        <aside class="product-signal-panel" aria-label="معماری محصول">
+          <strong>داده زنده</strong>
+          <span>به</span>
+          <strong>اقدام فروش</strong>
+          <span>و سپس</span>
+          <strong>پیگیری منظم</strong>
+        </aside>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <h2>معماری محصول</h2>
-          <p>
-            ارزش پرشین‌سازه از کنار هم قرار گرفتن داده، ابزار، آموزش و تصمیم‌یار می‌آید؛ نه از یک فهرست شماره تماس یا
-            یک CRM عمومی.
-          </p>
-        </div>
-        <div class="pillar-grid">
-          {productLayers.map((item) => (
-            <article class="pillar-card">
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="features" class="section product-features-section">
-      <div class="container">
-        <div class="section-heading">
-          <h2>قابلیت‌هایی که داده پروژه را به اقدام فروش تبدیل می‌کنند</h2>
-          <p>
-            هر قابلیت باید به تصمیم بهتر کمک کند: پیدا کردن پروژه، دیدن روی نقشه، فیلتر کردن، ذخیره فرصت، تماس، پیامک،
-            یادداشت و پیگیری بعدی.
-          </p>
-        </div>
-        <div class="feature-card-grid">
-          {featureCards.map((item) => (
-            <article class="feature-detail-card">
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container page-split product-workflow-split">
+    <section class="section product-problem-section">
+      <div class="container product-two-column">
         <div class="section-copy">
+          <h2>مسئله محصول، پیدا کردن مشتری نیست؛ پیدا کردن زمان درست اقدام است.</h2>
+          <p>
+            فروش در بازار ساختمان به کیفیت محصول و مهارت مذاکره محدود نیست. تامین‌کننده باید پروژه مناسب را قبل از بسته
+            شدن فرصت ببیند، مرحله ساخت را بفهمد، مسیر ارتباطی درست را پیدا کند و پیگیری را از حافظه فردی خارج کند.
+          </p>
+        </div>
+        <ul class="business-friction-list">
+          {marketProblems.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section product-architecture-section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>چهار لایه محصول</h2>
+          <p>ارزش پرشین‌سازه از ترکیب این لایه‌ها ساخته می‌شود؛ نه از یک فایل شماره تماس یا CRM عمومی.</p>
+        </div>
+        <div class="product-pillar-track">
+          {productPillars.map((item, index) => (
+            <article class="product-pillar-node">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="section">
+      <div class="container product-workflow-panel">
+        <div class="section-heading">
           <h2>جریان عملیاتی محصول</h2>
-          <p>
-            پرشین‌سازه تیم فروش را از جست‌وجوی پراکنده به مسیر منظم کشف، ارزیابی، ارتباط و پیگیری می‌برد.
-          </p>
-          <ol class="page-flow compact-flow">
-            {productWorkflow.map((item) => (
-              <li>
-                <p>{item}</p>
-              </li>
-            ))}
-          </ol>
+          <p>workflow واقعی کاربر باید از جست‌وجو شروع شود و به ثبت نتیجه و پیگیری بعدی برسد.</p>
         </div>
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.homeTeam.src} alt={assets.homeTeam.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ol class="product-workflow-list">
+          {workflow.map((item, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <p>{item}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <h2>کیفیت داده قبل از ابزار مهم است</h2>
+    <section class="section product-window-section">
+      <div class="container product-two-column">
+        <div class="section-copy">
+          <h2>پنجره طلایی فروش</h2>
           <p>
-            ابزار زمانی ارزش می‌سازد که روی داده قابل اتکا سوار شود. چرخه عملیاتی پرشین‌سازه از گردآوری میدانی تا
-            به‌روزرسانی پیوسته، پایه قابلیت‌های محصول است.
+            مرحله ساخت مهم است، اما کافی نیست. محصول باید بین وضعیت فیزیکی پروژه، زمان اجرا و زمان درست ورود فروشنده
+            تفاوت بگذارد.
           </p>
         </div>
-        <div class="process-grid">
-          {dataOperations.map((item) => (
-            <article class="process-card">
+        <div class="golden-window-grid">
+          {goldenWindow.map((item) => (
+            <article>
+              <strong>{item.label}</strong>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>ابزارهای اجرایی فروش</h2>
+          <p>داده بدون ابزار اجرایی فقط اطلاعات است. این ابزارها پروژه را به فرصت قابل اقدام تبدیل می‌کنند.</p>
+        </div>
+        <div class="execution-tool-grid">
+          {executionTools.map((item) => (
+            <article class="execution-tool-card">
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </article>
@@ -132,43 +212,25 @@ const structuredData = {
     </section>
 
     <section class="section">
-      <div class="container page-split">
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.academyCover.src} alt={assets.academyCover.alt} loading="lazy" decoding="async" />
-        </figure>
+      <div class="container product-two-column">
         <div class="section-copy">
-          <h2>مرز محصول روشن است</h2>
+          <h2>مزیت قابل دفاع پرشین‌سازه</h2>
           <p>
-            پرشین‌سازه نباید به عنوان فایل شماره، ابزار پیامک یا CRM عمومی فروخته شود. هسته محصول، تبدیل پروژه فعال به
-            فرصت فروش قابل تصمیم و قابل پیگیری است.
+            رقیب می‌تواند سایت، چند فیلتر یا CRM ساده بسازد؛ اما ساختن ماشین زنده تولید، کنترل، به‌روزرسانی و تبدیل داده
+            به رفتار فروش بسیار سخت‌تر است.
           </p>
-          <ul class="check-list">
-            {productBoundaries.map((item) => <li>{item}</li>)}
-          </ul>
         </div>
+        <ul class="moat-list">
+          {moatItems.map((item) => <li>{item}</li>)}
+        </ul>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="metric-strip">
-          {productMetrics.map((item) => (
-            <article>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading centered">
+        <div class="product-final-cta">
           <h2>محصول را در مسیر واقعی فروش ببینید</h2>
-          <p>
-            در دمو، مسیر پیدا کردن پروژه، بررسی مرحله ساخت، ذخیره فرصت و پیگیری فروش را روی یک نمونه عملی مرور می‌کنیم.
-          </p>
+          <p>در دمو، از پیدا کردن پروژه تا ثبت پیگیری بعدی را روی یک سناریوی واقعی فروش پروژه‌محور مرور می‌کنیم.</p>
           <div class="action-row centered-actions">
             <a class="button button-primary" href="/#demo">ثبت درخواست دمو</a>
             <a class="button button-secondary" href="/education/">نقش آموزش در محصول</a>

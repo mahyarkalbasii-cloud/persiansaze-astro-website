@@ -3990,6 +3990,362 @@ details p {
   font-size: var(--text-lg);
 }
 
+.product-system-page,
+.company-system-page,
+.contact-system-page {
+  background: var(--surface-subtle);
+}
+
+.product-system-hero,
+.company-story-hero,
+.contact-operations-hero,
+.subscription-index-hero,
+.subscription-plan-hero,
+.stage-index-hero,
+.stage-window-hero {
+  border-bottom: 1px solid color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--claude-orange-soft) 18%, var(--surface)), var(--surface-subtle));
+}
+
+.product-system-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.42fr);
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.product-system-hero-grid > div:first-child {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 58rem;
+}
+
+.product-system-hero-grid h1 {
+  font-size: clamp(var(--text-3xl), 4.8vw, var(--text-4xl));
+  line-height: var(--leading-tight);
+}
+
+.product-system-hero-grid p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: var(--text-md);
+  font-weight: 600;
+  line-height: var(--leading-relaxed);
+}
+
+.product-signal-panel,
+.company-story-card,
+.contact-hero-card {
+  display: grid;
+  gap: var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 52%, var(--border));
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--claude-orange-soft) 26%, var(--surface)), var(--surface));
+  padding: var(--card-padding);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 62%),
+    0 1rem 2.2rem -1.8rem rgb(77 53 37 / 28%);
+}
+
+.product-signal-panel {
+  justify-items: center;
+  text-align: center;
+}
+
+.product-signal-panel strong,
+.company-story-card strong,
+.contact-hero-card strong {
+  color: var(--foreground);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+}
+
+.product-signal-panel span,
+.company-story-card span,
+.contact-hero-card span {
+  color: color-mix(in srgb, var(--claude-orange) 72%, var(--muted-foreground));
+  font-size: var(--text-sm);
+  font-weight: 900;
+}
+
+.company-story-card,
+.contact-hero-card {
+  align-content: center;
+  min-height: 18rem;
+}
+
+.product-two-column {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: start;
+  gap: var(--space-8);
+}
+
+.business-friction-list,
+.moat-list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.business-friction-list li,
+.moat-list li {
+  position: relative;
+  min-height: 4.4rem;
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-6) var(--space-4) var(--space-4);
+  color: var(--muted-foreground);
+  font-weight: 700;
+  line-height: var(--leading-normal);
+  box-shadow: var(--shadow-xs);
+}
+
+.business-friction-list li::before,
+.moat-list li::before {
+  position: absolute;
+  inset-block-start: 1.45rem;
+  inset-inline-start: var(--space-4);
+  width: 0.58rem;
+  height: 0.58rem;
+  border-radius: var(--radius-full);
+  background: var(--claude-orange);
+  content: "";
+}
+
+.product-pillar-track,
+.subscription-principle-grid,
+.stage-principle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.subscription-principle-grid,
+.stage-principle-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.product-pillar-node,
+.subscription-principle-grid article,
+.stage-principle-grid article,
+.execution-tool-card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 38%, var(--border));
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+  box-shadow: var(--shadow-xs);
+}
+
+.product-pillar-node {
+  border-top: 0.28rem solid color-mix(in srgb, var(--claude-orange) 72%, var(--primary));
+}
+
+.product-pillar-node span,
+.subscription-plan-index {
+  display: inline-grid;
+  width: 3.05rem;
+  height: 3.05rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--claude-orange) 64%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--claude-orange-soft) 54%, var(--surface));
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.subscription-plan-index.large {
+  width: 4.4rem;
+  height: 4.4rem;
+  font-size: var(--text-xl);
+}
+
+.subscription-detail-card > .subscription-plan-index {
+  color: var(--foreground);
+}
+
+.product-pillar-node h3,
+.subscription-principle-grid h2,
+.stage-principle-grid h2,
+.execution-tool-card h3 {
+  font-size: var(--text-lg);
+}
+
+.product-pillar-node p,
+.subscription-principle-grid p,
+.stage-principle-grid p,
+.execution-tool-card p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-weight: 600;
+  line-height: var(--leading-relaxed);
+}
+
+.product-workflow-panel,
+.product-final-cta {
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 48%, var(--border));
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--claude-orange-soft) 20%, var(--surface)), var(--surface));
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-xs);
+}
+
+.product-workflow-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product-workflow-list li {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 38%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface) 78%, var(--surface-subtle));
+  padding: var(--card-padding-compact);
+}
+
+.product-workflow-list span {
+  color: color-mix(in srgb, var(--claude-orange) 72%, var(--foreground));
+  font-family: var(--font-mono);
+  font-size: var(--text-xl);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.product-workflow-list p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-weight: 700;
+}
+
+.golden-window-grid,
+.execution-tool-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.golden-window-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.execution-tool-grid {
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+
+.golden-window-grid article {
+  display: grid;
+  gap: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+  box-shadow: var(--shadow-xs);
+}
+
+.golden-window-grid strong {
+  color: var(--foreground);
+  font-size: var(--text-lg);
+}
+
+.golden-window-grid p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-weight: 600;
+}
+
+.product-final-cta {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.product-final-cta p {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-weight: 700;
+}
+
+.subscription-principles-section,
+.stage-principles-section,
+.stage-cycle-band {
+  padding-block: var(--space-8);
+}
+
+.subscription-plan-mini {
+  border-color: color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+}
+
+.subscription-market-fit {
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--claude-orange-soft) 18%, var(--surface));
+  padding: var(--card-padding-compact);
+}
+
+.stage-cycle-band {
+  background: var(--surface);
+}
+
+.stage-cycle-rail {
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  margin-top: 0;
+}
+
+.stage-cycle-list .stage-row {
+  border-color: color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+}
+
+.company-pillar-grid,
+.contact-route-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.contact-route-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.company-story-panel {
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 72%, var(--claude-orange-soft)), var(--surface));
+}
+
+.contact-system-layout {
+  align-items: stretch;
+}
+
+.contact-office-panel {
+  align-content: start;
+  padding: var(--card-padding);
+}
+
+.contact-office-panel .contact-info-block {
+  border-top: 1px solid color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+  padding: var(--space-5) 0 0;
+}
+
+.contact-office-panel .contact-info-block:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
 /* Phase 0 / Template A: sale method narrative */
 .sale-method-hero {
   position: relative;
@@ -4687,6 +5043,8 @@ body .persian-number {
   .problem-section .two-column,
   .dashboard-body,
   .content-hero-grid,
+  .product-system-hero-grid,
+  .product-two-column,
   .detail-layout,
   .rules-layout,
   .page-split,
@@ -4780,10 +5138,16 @@ body .persian-number {
   .demo-cards,
   .content-card-grid,
   .subscription-plan-strip,
+  .subscription-principle-grid,
+  .stage-principle-grid,
+  .product-pillar-track,
+  .company-pillar-grid,
+  .contact-route-grid,
   .subcategory-grid,
   .sale-method-grid,
   .related-grid,
   .process-grid,
+  .golden-window-grid,
   .contact-card-grid,
   .page-flow,
   .pillar-grid,
@@ -4945,9 +5309,15 @@ body .persian-number {
   .form-grid,
   .content-card-grid,
   .subscription-plan-strip,
+  .subscription-principle-grid,
+  .stage-principle-grid,
+  .product-pillar-track,
+  .company-pillar-grid,
+  .contact-route-grid,
   .subscription-price-panel,
   .subcategory-grid,
   .related-grid,
+  .golden-window-grid,
   .feature-card-grid,
   .process-grid,
   .education-grid,

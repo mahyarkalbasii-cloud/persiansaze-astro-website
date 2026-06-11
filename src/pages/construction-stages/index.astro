@@ -10,18 +10,32 @@ import {
 const title = "مراحل ساخت ساختمان | پرشین‌سازه";
 const description =
   "مراحل ساخت ساختمان از طراحی و اخذ جواز تا ظریف‌کاری و پایان کار، همراه با زمینه‌های کاری، زیر‌دسته‌های محصول و خدمت و نکات مهم برای سازنده.";
+const stagePrinciples = [
+  {
+    title: "مرحله ساخت",
+    body: "وضعیت فیزیکی پروژه را روشن می‌کند؛ از طراحی و جواز تا اجرای سازه، تاسیسات، نازک‌کاری و تحویل.",
+  },
+  {
+    title: "زمان اجرا",
+    body: "مشخص می‌کند محصول یا خدمت شما چه زمانی واقعا وارد پروژه می‌شود و چه زمانی هنوز زود یا دیر است.",
+  },
+  {
+    title: "زمان فروش",
+    body: "لحظه مناسب معرفی، مذاکره، تماس یا پیگیری را از روی چرخه پروژه به زبان تیم فروش ترجمه می‌کند.",
+  },
+];
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/construction-stages/">
   <main>
-    <section class="content-hero">
+    <section class="content-hero stage-index-hero">
       <div class="container content-hero-grid">
         <div>
           <p class="content-eyebrow">مراحل ساخت</p>
-          <h1>چرخه ساخت را به زبان فروش پروژه‌محور بخوانید</h1>
+          <h1>مراحل ساخت را به پنجره‌های فروش تبدیل کنید</h1>
           <p>
-            هر مرحله ساخت تعریف مستقل، نکات مهم برای سازنده، دسته‌های کاری مرتبط و زیر‌دسته‌های محصول یا خدمت خودش را
-            دارد تا هم کاربر و هم موتور پاسخ بتوانند رابطه مرحله و محصول را دقیق بخوانند.
+            هر مرحله ساخت فقط یک وضعیت فنی نیست؛ برای تامین‌کننده یعنی زمان متفاوتی برای ورود، معرفی محصول، مذاکره یا
+            پیگیری. این صفحه رابطه مرحله، زمینه کاری و زیر‌دسته محصول را شفاف می‌کند.
           </p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
@@ -36,8 +50,19 @@ const description =
       </div>
     </section>
 
+    <section class="section stage-principles-section">
+      <div class="container stage-principle-grid">
+        {stagePrinciples.map((item) => (
+          <article>
+            <h2>{item.title}</h2>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
     <section class="section">
-      <div class="container stage-list">
+      <div class="container stage-list stage-cycle-list">
         {constructionStages.map((stage, index) => {
           const relatedFields = getWorkFieldsForStage(stage.id);
           const relatedSubcategories = getWorkSubcategoriesForStage(stage.id);

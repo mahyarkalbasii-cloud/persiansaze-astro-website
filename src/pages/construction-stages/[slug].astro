@@ -17,6 +17,7 @@ export function getStaticPaths() {
 const { stage } = Astro.props as { stage: ConstructionStage };
 const relatedFields = getWorkFieldsForStage(stage.id);
 const relatedSubcategories = getWorkSubcategoriesForStage(stage.id);
+const stageIndex = constructionStages.findIndex((item) => item.id === stage.id);
 const title = `${stage.title} | مرحله ساخت ساختمان | پرشین‌سازه`;
 const description = `${stage.title} در چرخه ساخت ساختمان: تعریف مرحله، نکات مهم برای سازنده، دسته‌های کاری و زیر‌دسته‌های محصول یا خدمت مرتبط.`;
 const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
@@ -26,9 +27,14 @@ const relatedSubcategoriesCount = toPersianDigits(relatedSubcategories.length);
 
 <BaseLayout title={title} description={description} canonicalPath={`/construction-stages/${stage.slug}/`}>
   <main>
-    <section class="content-hero stage-page-hero">
+    <section class="content-hero stage-page-hero stage-window-hero">
       <div class="container content-hero-grid stage-page-hero-grid">
         <div class="stage-page-intro">
+          <nav class="breadcrumb" aria-label="مسیر صفحه">
+            <a href="/construction-stages/">مراحل ساخت</a>
+            <span aria-hidden="true">‹</span>
+            <span>{stage.title}</span>
+          </nav>
           <p class="content-eyebrow">مرحله ساخت</p>
           <h1>{stage.title}</h1>
           <p>{toPersianDigits(stage.summary)}</p>
@@ -53,9 +59,32 @@ const relatedSubcategoriesCount = toPersianDigits(relatedSubcategories.length);
       </div>
     </section>
 
+    <section class="section stage-cycle-band">
+      <div class="container">
+        <div class="stage-fit-rail stage-cycle-rail" aria-label="چرخه مراحل ساخت">
+          {constructionStages.map((item, index) => (
+            <a
+              class={item.id === stage.id ? "stage-fit-tile is-active" : "stage-fit-tile"}
+              href={`/construction-stages/${item.slug}/`}
+              aria-current={item.id === stage.id ? "page" : undefined}
+            >
+              <span>{toPersianDigits(index + 1)}</span>
+              <strong>{item.title}</strong>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section class="section stage-page-section">
       <div class="container detail-layout">
         <aside class="detail-sidebar">
+          <h2>جایگاه در چرخه</h2>
+          <p>
+            این مرحله، گام {toPersianDigits(stageIndex + 1)} از {toPersianDigits(constructionStages.length)} در مسیر
+            پرشین‌سازه است و باید با زمان فروش محصول شما تطبیق داده شود.
+          </p>
+
           <h2>زمان اقدام فروش</h2>
           <p>{toPersianDigits(stage.buyerTiming)}</p>
 
