@@ -6780,20 +6780,24 @@ body.home-color-anthropic #demo {
   }
 }
 
-/* هیرو فریم‌لس — تصویر v3 قاب داخلی ندارد */
+/* هیرو شبیه آیکون اپلیکیشن — قاب نرم، بدون حس کارت سنگین */
 body.home-color-anthropic .hero-placeholder.hero-bento {
   border: none;
   background: transparent;
   box-shadow: none;
-  padding: 0;
+  padding: clamp(0.45rem, 1vw, 0.75rem);
 }
 
 body.home-color-anthropic .hero-bento-scene {
   width: min(100%, 34rem);
-  overflow: visible;
-  border: none;
-  border-radius: 0;
-  background: transparent;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--claude-orange) 18%, var(--border));
+  border-radius: 12.5%;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, #ffffff 76%, var(--background)), var(--surface-subtle));
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #ffffff 75%, transparent) inset,
+    0 18px 45px rgb(48 38 28 / 12%);
 }
 
 body.home-color-anthropic .hero-bento-scene::after,
