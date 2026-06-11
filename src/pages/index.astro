@@ -106,7 +106,6 @@ const salesPipelineCardSets = [
       { title: "نیاز نزدیک", detail: "تشخیص ارتباط پروژه با محصول یا خدمت شما" },
       { title: "داده تازه", detail: "بررسی وضعیت فعال بودن و زمان مناسب اقدام" },
       { title: "دسترسی تماس", detail: "آماده‌سازی مسیر شروع ارتباط با پروژه" },
-      { title: "پوشش بازار", detail: "ورودی از تهران، کرج و لواسان" },
     ],
   },
   {
@@ -543,6 +542,7 @@ const schemaGraph = [
         <div class="container">
           <div class="section-heading">
             <h2>{salesFlow.title}</h2>
+            <p>{salesFlow.subtitle}</p>
           </div>
 
           <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel}>
