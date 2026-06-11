@@ -83,7 +83,7 @@ const toPayload = (body: Record<string, unknown> | null): DemoRequestPayload | n
     workField: asTrimmedString(body.workField ?? body.supplier),
   };
 
-  if (!payload.name || !payload.phone || !payload.company || !payload.workField) {
+  if (!payload.name || !payload.phone || !payload.company || !payload.referralSource || !payload.workField) {
     return null;
   }
 

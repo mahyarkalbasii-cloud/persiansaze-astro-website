@@ -2601,6 +2601,70 @@ details p {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--claude-orange) 18%, transparent);
 }
 
+.back-to-top-button {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+  z-index: 39;
+  display: inline-grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--primary) 82%, transparent);
+  border-radius: var(--radius-full);
+  background: var(--ink, var(--primary));
+  color: var(--primary-foreground);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0.75rem 1.45rem -1.05rem color-mix(in srgb, var(--foreground) 46%, transparent);
+  transform: translateY(0.4rem);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.back-to-top-button.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 720px) {
+  body.home-color-anthropic .demo-form {
+    --demo-mobile-field-gap: clamp(1rem, 3vw, 1.4rem);
+    gap: var(--demo-mobile-field-gap);
+  }
+
+  body.home-color-anthropic .demo-form .form-grid,
+  body.home-color-anthropic .demo-form .field {
+    gap: var(--demo-mobile-field-gap);
+  }
+
+  body.home-color-anthropic .demo-form .field-error:empty {
+    min-height: 0;
+  }
+
+  body.home-color-anthropic .back-to-top-button {
+    bottom: calc(var(--mobile-action-bar-height, 0rem) + 0.75rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top-button {
+    transition: none;
+  }
+}
+
 .site-footer {
   border-top: 1px solid color-mix(in srgb, var(--home-brass, var(--ps-ink-800)) 36%, var(--ps-ink-900));
   background: var(--ps-ink-950);
