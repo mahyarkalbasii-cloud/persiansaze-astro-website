@@ -153,6 +153,8 @@
   --space-24: 6rem;
   --section-heading-gap: clamp(0.7rem, 0.85vw, 0.95rem);
   --section-heading-margin: clamp(2.35rem, 4vw, 3rem);
+  --section-space: clamp(4.5rem, 7vw, 6.5rem);
+  --section-space-sm: clamp(3rem, 9vw, 4rem);
   --card-padding: clamp(1.5rem, 1.1rem + 0.9vw, 2.15rem);
   --card-padding-compact: clamp(1.25rem, 1rem + 0.65vw, 1.75rem);
   --card-gap: clamp(1.25rem, 1rem + 0.65vw, 1.75rem);
@@ -299,7 +301,7 @@ li + li {
 
 .section {
   border-top: 1px solid var(--border);
-  padding-block: var(--space-24);
+  padding-block: var(--section-space);
 }
 
 .section:nth-of-type(even) {
@@ -1286,10 +1288,6 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   grid-template-columns: minmax(0, 1fr);
 }
 
-.problem-section {
-  padding-block: var(--space-16);
-}
-
 .problem-copy {
   justify-items: center;
   justify-self: center;
@@ -1892,10 +1890,6 @@ details {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-3);
-}
-
-#stages {
-  padding-block: var(--space-8);
 }
 
 .stage-tile {
@@ -4041,6 +4035,7 @@ body .persian-number {
 
 @media (max-width: 720px) {
   :root {
+    --section-space: var(--section-space-sm);
     --card-padding: 1.25rem;
     --card-padding-compact: 1rem;
     --card-gap: 1rem;
@@ -4048,10 +4043,6 @@ body .persian-number {
 
   .container {
     width: min(100% - 1rem, 80rem);
-  }
-
-  .section {
-    padding-block: var(--space-16);
   }
 
   .demo-shell {
@@ -4704,14 +4695,12 @@ body.home-color-anthropic .hero-detail-block {
 
 body.home-color-anthropic #problem {
   background: var(--home-plan-surface-strong);
-  padding-block: clamp(4rem, 6vw, 5.6rem);
 }
 
 body.home-color-anthropic #solution {
   border-block: 1px solid color-mix(in srgb, var(--home-brass) 30%, transparent);
   background: var(--ps-ink-950);
   color: var(--primary-foreground);
-  padding-block: clamp(5.5rem, 8vw, 8rem);
 }
 
 @media (max-width: 720px) {
@@ -4739,7 +4728,6 @@ body.home-color-anthropic #sales-flow .section-heading {
 body.home-color-anthropic #solution .section-heading {
   justify-items: center;
   margin-inline: auto;
-  margin-bottom: clamp(3.15rem, 5vw, 4.25rem);
   text-align: center;
 }
 
@@ -5251,7 +5239,6 @@ body.home-color-anthropic .solution-feature-strip article:nth-child(3) span {
 
 body.home-color-anthropic #audiences {
   border-top-color: transparent;
-  padding-block-end: clamp(4.5rem, 7vw, 6.25rem);
 }
 
 body.home-color-anthropic .audience-grid {
@@ -5338,14 +5325,9 @@ body.home-color-anthropic .text-link:hover {
   color: color-mix(in srgb, var(--primary) 72%, var(--home-blue));
 }
 
-body.home-color-anthropic #stages {
-  padding-block: clamp(4.75rem, 7.6vw, 6.75rem);
-}
-
 body.home-color-anthropic .stages-heading {
   justify-items: center;
   margin-inline: auto;
-  margin-bottom: clamp(1.6rem, 3.4vw, 2.35rem);
   text-align: center;
 }
 
@@ -5357,11 +5339,6 @@ body.home-color-anthropic #sales-flow {
   position: relative;
   overflow: hidden;
   background: var(--home-plan-surface-strong);
-  padding-block: clamp(5rem, 7.4vw, 6.75rem);
-}
-
-body.home-color-anthropic #plans {
-  padding-block-start: clamp(1.75rem, 3.4vw, 2.75rem);
 }
 
 body.home-color-anthropic #sales-flow .section-heading {
@@ -6151,14 +6128,6 @@ body.home-color-anthropic .field select:focus {
     min-height: 0;
   }
 
-  body.home-color-anthropic #problem {
-    padding-block: clamp(3.85rem, 14vw, 5rem);
-  }
-
-  body.home-color-anthropic #solution {
-    padding-block: clamp(4.5rem, 16vw, 5.75rem);
-  }
-
   body.home-color-anthropic #solution .section-heading,
   body.home-color-anthropic #sales-flow .section-heading {
     justify-items: center;
@@ -6223,10 +6192,6 @@ body.home-color-anthropic .field select:focus {
   body.home-color-anthropic .feature-strip,
   body.home-color-anthropic .audience-grid {
     grid-template-columns: 1fr;
-  }
-
-  body.home-color-anthropic #sales-flow {
-    padding-block: clamp(4.35rem, 14vw, 5.7rem);
   }
 
   body.home-color-anthropic .sales-pipeline {
