@@ -4672,20 +4672,6 @@ body.home-color-anthropic .hero {
   padding-block: clamp(3.15rem, 5vw, 4.5rem) clamp(2.75rem, 4.8vw, 4.25rem);
 }
 
-body.home-color-anthropic .hero::before {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--home-brass) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(0deg, color-mix(in srgb, var(--home-brass) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(135deg, color-mix(in srgb, var(--home-brass) 5%, transparent) 1px, transparent 1px);
-  background-position: center;
-  background-size: 5.75rem 5.75rem, 5.75rem 5.75rem, 11.5rem 11.5rem;
-  content: "";
-  opacity: 0.8;
-  pointer-events: none;
-}
-
 body.home-color-anthropic .hero-grid {
   position: relative;
   z-index: 1;
