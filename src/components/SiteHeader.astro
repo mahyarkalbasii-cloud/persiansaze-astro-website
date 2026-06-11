@@ -10,7 +10,6 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
 <header class="site-header" data-scroll-header>
   <div class="container site-header-inner">
     <a class="brand" href="/">
-      {!home && <span class="brand-mark" aria-hidden="true">PS</span>}
       <span class="brand-copy">
         <strong>{site.name}</strong>
         <span>{footer.tagline}</span>
@@ -29,107 +28,99 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
         <span>ورود کاربران</span>
       </a>
       <a class="button button-primary header-demo-link" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
-      {home && (
-        <button
-          class="mobile-menu-toggle"
-          type="button"
-          aria-label="باز کردن منوی سایت"
-          aria-expanded="false"
-          aria-controls="mobile-navigation"
-          data-mobile-menu-toggle
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
-      )}
+      <button
+        class="mobile-menu-toggle"
+        type="button"
+        aria-label="باز کردن منوی سایت"
+        aria-expanded="false"
+        aria-controls="mobile-navigation"
+        data-mobile-menu-toggle
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
     </div>
 
   </div>
-  {home && (
-    <nav class="mobile-nav-panel" id="mobile-navigation" aria-label="منوی موبایل" data-mobile-menu hidden>
-      <div class="mobile-nav-panel-head">
-        <span>{site.name}</span>
-        <button class="mobile-nav-close" type="button" aria-label="بستن منوی سایت" data-mobile-menu-close>
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="mobile-nav-links">
-        {navigation.map((item) => (
-          <a href={hrefFor(item.href)}>{item.label}</a>
-        ))}
-      </div>
-      <div class="mobile-nav-actions">
-        <a class="mobile-nav-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-        <a class="button button-secondary" href={loginHref}>ورود کاربران</a>
-        <a class="button button-primary" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
-      </div>
-    </nav>
-  )}
-  {home && (
-    <nav class="mobile-bottom-actions" aria-label="اکشن‌های سریع موبایل" data-mobile-bottom-actions>
-      <a class="mobile-bottom-action mobile-bottom-action-call" href={primaryContact.href}>
-        <span>تماس</span>
-      </a>
-      <a class="mobile-bottom-action mobile-bottom-action-primary" href={home ? "#demo" : "/#demo"}>
-        <span>درخواست دمو</span>
-      </a>
-      <a class="mobile-bottom-action mobile-bottom-action-login" href={loginHref}>
-        <span>ورود</span>
-      </a>
-    </nav>
-  )}
-  {home && (
-    <script is:inline>
-      (() => {
-        const scrollHeader = document.querySelector("[data-scroll-header]");
-        let scrollTicking = false;
+  <nav class="mobile-nav-panel" id="mobile-navigation" aria-label="منوی موبایل" data-mobile-menu hidden>
+    <div class="mobile-nav-panel-head">
+      <span>{site.name}</span>
+      <button class="mobile-nav-close" type="button" aria-label="بستن منوی سایت" data-mobile-menu-close>
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="mobile-nav-links">
+      {navigation.map((item) => (
+        <a href={hrefFor(item.href)}>{item.label}</a>
+      ))}
+    </div>
+    <div class="mobile-nav-actions">
+      <a class="mobile-nav-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+      <a class="button button-secondary" href={loginHref}>ورود کاربران</a>
+      <a class="button button-primary" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
+    </div>
+  </nav>
+  <nav class="mobile-bottom-actions" aria-label="اکشن‌های سریع موبایل" data-mobile-bottom-actions>
+    <a class="mobile-bottom-action mobile-bottom-action-call" href={primaryContact.href}>
+      <span>تماس</span>
+    </a>
+    <a class="mobile-bottom-action mobile-bottom-action-primary" href={home ? "#demo" : "/#demo"}>
+      <span>درخواست دمو</span>
+    </a>
+    <a class="mobile-bottom-action mobile-bottom-action-login" href={loginHref}>
+      <span>ورود</span>
+    </a>
+  </nav>
+  <script is:inline>
+    (() => {
+      const scrollHeader = document.querySelector("[data-scroll-header]");
+      let scrollTicking = false;
 
-        const syncScrollHeader = () => {
-          if (!scrollHeader) return;
+      const syncScrollHeader = () => {
+        if (!scrollHeader) return;
 
-          const currentY = window.scrollY;
-          scrollHeader.classList.toggle("is-scrolled", currentY > 20);
-          scrollTicking = false;
-        };
+        const currentY = window.scrollY;
+        scrollHeader.classList.toggle("is-scrolled", currentY > 20);
+        scrollTicking = false;
+      };
 
-        const requestHeaderSync = () => {
-          if (scrollTicking) return;
-          scrollTicking = true;
-          window.requestAnimationFrame(syncScrollHeader);
-        };
+      const requestHeaderSync = () => {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        window.requestAnimationFrame(syncScrollHeader);
+      };
 
-        window.addEventListener("scroll", requestHeaderSync, { passive: true });
-        syncScrollHeader();
+      window.addEventListener("scroll", requestHeaderSync, { passive: true });
+      syncScrollHeader();
 
-        const toggle = document.querySelector("[data-mobile-menu-toggle]");
-        const menu = document.querySelector("[data-mobile-menu]");
-        if (!toggle || !menu) return;
-        const closeButton = menu.querySelector("[data-mobile-menu-close]");
-        const root = document.documentElement;
+      const toggle = document.querySelector("[data-mobile-menu-toggle]");
+      const menu = document.querySelector("[data-mobile-menu]");
+      if (!toggle || !menu) return;
+      const closeButton = menu.querySelector("[data-mobile-menu-close]");
+      const root = document.documentElement;
 
-        const setOpen = (open) => {
-          toggle.setAttribute("aria-expanded", String(open));
-          toggle.setAttribute("aria-label", open ? "بستن منوی سایت" : "باز کردن منوی سایت");
-          menu.toggleAttribute("hidden", !open);
-          root.classList.toggle("is-mobile-menu-open", open);
-          document.body.classList.toggle("is-mobile-menu-open", open);
-        };
+      const setOpen = (open) => {
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "بستن منوی سایت" : "باز کردن منوی سایت");
+        menu.toggleAttribute("hidden", !open);
+        root.classList.toggle("is-mobile-menu-open", open);
+        document.body.classList.toggle("is-mobile-menu-open", open);
+      };
 
-        toggle.addEventListener("click", () => {
-          setOpen(toggle.getAttribute("aria-expanded") !== "true");
-        });
+      toggle.addEventListener("click", () => {
+        setOpen(toggle.getAttribute("aria-expanded") !== "true");
+      });
 
-        closeButton?.addEventListener("click", () => setOpen(false));
+      closeButton?.addEventListener("click", () => setOpen(false));
 
-        menu.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => setOpen(false));
-        });
+      menu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => setOpen(false));
+      });
 
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") setOpen(false);
-        });
-      })();
-    </script>
-  )}
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setOpen(false);
+      });
+    })();
+  </script>
 </header>

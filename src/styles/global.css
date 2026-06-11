@@ -7874,6 +7874,87 @@ body.home-color-anthropic .hero-bento-orbit {
   display: none;
 }
 
+/* bridge: until per-template styles land */
+body.home-color-anthropic > main:not(.home-page) {
+  background: var(--background);
+  color: var(--foreground);
+  padding-block-start: var(--site-header-offset);
+}
+
+body.home-color-anthropic > main:not(.home-page) > [id] {
+  scroll-margin-top: var(--site-header-offset);
+}
+
+body.home-color-anthropic > main:not(.home-page) .content-hero:not(.sale-method-hero, .city-file-hero, .city-index-hero, .sale-index-hero, .work-fit-hero, .work-index-hero, .work-item-hero) {
+  background: var(--surface-subtle);
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.content-hero, .detail-main, .detail-sidebar, .content-card, .related-card, .content-summary-card) {
+  color: var(--foreground);
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.content-card, .detail-main, .detail-sidebar, .related-card, .content-summary-card, .table-wrap) {
+  border-color: color-mix(in srgb, var(--home-brass) 28%, var(--border));
+  background: var(--surface);
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.content-hero p, .detail-main p, .content-card p, .related-card p, .content-summary-card p, .data-table td) {
+  color: var(--muted-foreground);
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.content-eyebrow, .compact-facts dt, .breadcrumb span[aria-hidden="true"]) {
+  color: color-mix(in srgb, var(--claude-orange) 68%, var(--home-brass));
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.compact-facts div, .detail-main section + section, .data-table th, .data-table td) {
+  border-color: color-mix(in srgb, var(--home-brass) 24%, var(--border));
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.compact-facts dd, .breadcrumb, .content-summary-card span) {
+  color: color-mix(in srgb, var(--muted-foreground) 86%, var(--home-brass));
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.breadcrumb a, .text-link, .link-list a, .tag-list a, .template-chip-list a) {
+  color: color-mix(in srgb, var(--primary) 72%, var(--claude-orange));
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.link-list a, .tag-list a, .template-chip-list a, .work-product-grid a) {
+  border-color: color-mix(in srgb, var(--home-brass) 28%, var(--border));
+  background: color-mix(in srgb, var(--surface) 72%, var(--home-panel));
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.button-primary, button.button-primary) {
+  border-color: var(--claude-orange);
+  background: var(--claude-orange);
+  color: var(--primary);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 18%),
+    0 0.85rem 1.55rem -1.18rem rgb(174 82 49 / 38%);
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.button-primary, button.button-primary):hover {
+  border-color: var(--claude-orange-hover);
+  background: var(--claude-orange-hover);
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.button-secondary, button.button-secondary) {
+  border-color: color-mix(in srgb, var(--home-brass) 34%, var(--border));
+  background: var(--home-panel);
+  color: var(--primary);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 52%),
+    0 0.75rem 1.45rem -1.18rem rgb(65 47 32 / 22%);
+}
+
+body.home-color-anthropic > main:not(.home-page) :is(.button-secondary, button.button-secondary):hover {
+  border-color: color-mix(in srgb, var(--claude-orange) 52%, var(--border));
+  background: var(--home-panel-soft);
+}
+
+body.home-color-anthropic > main:not(.home-page) .data-table th {
+  background: color-mix(in srgb, var(--surface-subtle) 72%, var(--home-panel));
+}
+
 [data-paused],
 [data-paused] * {
   animation-play-state: paused;
