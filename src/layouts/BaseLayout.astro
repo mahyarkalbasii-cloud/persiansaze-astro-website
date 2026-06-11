@@ -15,6 +15,7 @@ type Props = {
 const { title, description, canonicalPath = "/", structuredData } = Astro.props;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
 const schemaItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
 <!doctype html>
@@ -45,5 +46,13 @@ const schemaItems = structuredData ? (Array.isArray(structuredData) ? structured
     <slot />
     <SiteFooter />
     <PersianDigitsScript />
+    {cfBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+      />
+    )}
   </body>
 </html>

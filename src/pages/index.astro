@@ -98,6 +98,7 @@ const durationSavings = pricing.durations.reduce<Record<string, number | null>>(
 const orderedFaqs = [faqs[0], faqs[1], faqs[3], faqs[2], faqs[4], faqs[7], faqs[8], faqs[9], faqs[10], faqs[11], faqs[12], faqs[6], faqs[5]].filter(
   (item): item is (typeof faqs)[number] => Boolean(item),
 );
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 const salesPipelineCardSets = [
   {
     count: "ورودی خام",
@@ -942,6 +943,8 @@ const schemaGraph = [
               company: String(formData.get("company") || "").trim(),
               referralSource: String(formData.get("referralSource") || "").trim(),
               workField: String(formData.get("supplier") || "").trim(),
+              page: location.pathname,
+              referrer: document.referrer || "",
             };
 
             setSubmitting(true);
@@ -997,5 +1000,13 @@ const schemaGraph = [
 
     <SiteFooter />
     <PersianDigitsScript />
+    {cfBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+      />
+    )}
   </body>
 </html>
