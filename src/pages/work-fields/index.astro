@@ -9,7 +9,7 @@ const description =
 
 <BaseLayout title={title} description={description} canonicalPath="/work-fields/">
   <main>
-    <section class="content-hero">
+    <section class="content-hero work-index-hero">
       <div class="container content-hero-grid">
         <div>
           <p class="content-eyebrow">زمینه‌های کاری</p>
@@ -23,7 +23,7 @@ const description =
             <a class="button button-secondary" href="/construction-stages/">مشاهده مراحل ساخت</a>
           </div>
         </div>
-        <aside class="content-summary-card">
+        <aside class="content-summary-card work-index-summary">
           <strong>{workFields.length}</strong>
           <span>گروه کاری ساختاریافته</span>
           <p>{workSubcategories.length} زیر‌دسته محصول و خدمت در {constructionStages.length} مرحله ساخت</p>
@@ -33,12 +33,23 @@ const description =
 
     <section class="section">
       <div class="container">
-        <div class="content-card-grid">
+        <div class="content-card-grid work-field-card-grid">
           {workFields.map((field) => (
-            <article class="content-card">
+            <article class="content-card work-field-card">
               <p class="content-eyebrow">{field.stageIds.map((id) => stageTitleById.get(id)).filter(Boolean).join(" / ")}</p>
               <h2>{field.title}</h2>
               <p>{field.definition}</p>
+              <div class="stage-fit-rail work-card-stage-rail" aria-label={`مراحل مرتبط ${field.title}`}>
+                {constructionStages.map((stage, index) => (
+                  <a
+                    class={field.stageIds.includes(stage.id) ? "stage-fit-tile is-active" : "stage-fit-tile"}
+                    href={`/construction-stages/${stage.slug}/`}
+                    aria-label={stage.title}
+                  >
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  </a>
+                ))}
+              </div>
               <dl class="compact-facts">
                 <div>
                   <dt>معادل مرحله ساخت</dt>
@@ -51,7 +62,7 @@ const description =
               </dl>
               <div>
                 <p class="content-eyebrow">زیر‌دسته‌ها</p>
-                <ul class="tag-list">
+                <ul class="tag-list work-card-tags">
                   {field.subcategories.map((subcategory) => (
                     <li>
                       <a href={`/work-fields/${field.slug}/${subcategory.slug}/`}>{subcategory.title}</a>
