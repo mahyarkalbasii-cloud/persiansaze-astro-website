@@ -45,36 +45,36 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
       )}
     </div>
 
-    {home && (
-      <nav class="mobile-nav-panel" id="mobile-navigation" aria-label="منوی موبایل" data-mobile-menu hidden>
-        <div class="mobile-nav-panel-head">
-          <span>{site.name}</span>
-          <button class="mobile-nav-close" type="button" aria-label="بستن منوی سایت" data-mobile-menu-close>
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="mobile-nav-links">
-          {navigation.map((item) => (
-            <a href={hrefFor(item.href)}>{item.label}</a>
-          ))}
-        </div>
-        <div class="mobile-nav-actions">
-          <a class="mobile-nav-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-          <a class="button button-secondary" href={loginHref}>ورود کاربران</a>
-          <a class="button button-primary" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
-        </div>
-      </nav>
-    )}
   </div>
   {home && (
+    <nav class="mobile-nav-panel" id="mobile-navigation" aria-label="منوی موبایل" data-mobile-menu hidden>
+      <div class="mobile-nav-panel-head">
+        <span>{site.name}</span>
+        <button class="mobile-nav-close" type="button" aria-label="بستن منوی سایت" data-mobile-menu-close>
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="mobile-nav-links">
+        {navigation.map((item) => (
+          <a href={hrefFor(item.href)}>{item.label}</a>
+        ))}
+      </div>
+      <div class="mobile-nav-actions">
+        <a class="mobile-nav-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
+        <a class="button button-secondary" href={loginHref}>ورود کاربران</a>
+        <a class="button button-primary" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
+      </div>
+    </nav>
+  )}
+  {home && (
     <nav class="mobile-bottom-actions" aria-label="اکشن‌های سریع موبایل" data-mobile-bottom-actions>
-      <a class="mobile-bottom-action" href={primaryContact.href}>
+      <a class="mobile-bottom-action mobile-bottom-action-call" href={primaryContact.href}>
         <span>تماس</span>
       </a>
       <a class="mobile-bottom-action mobile-bottom-action-primary" href={home ? "#demo" : "/#demo"}>
         <span>درخواست دمو</span>
       </a>
-      <a class="mobile-bottom-action" href={loginHref}>
+      <a class="mobile-bottom-action mobile-bottom-action-login" href={loginHref}>
         <span>ورود</span>
       </a>
     </nav>
