@@ -66,7 +66,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
           if (!scrollHeader) return;
 
           const currentY = window.scrollY;
-          scrollHeader.classList.toggle("is-scrolled", currentY > 12);
+          scrollHeader.classList.toggle("is-scrolled", currentY > 20);
           scrollTicking = false;
         };
 
