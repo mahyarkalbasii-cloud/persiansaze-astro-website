@@ -498,6 +498,14 @@ const schemaGraph = [
                 button.setAttribute("aria-selected", isActive ? "true" : "false");
               });
 
+              if (window.matchMedia("(max-width: 720px)").matches) {
+                buttons[index]?.scrollIntoView({
+                  behavior: reduceMotion ? "auto" : "smooth",
+                  inline: "center",
+                  block: "nearest",
+                });
+              }
+
               if (!panel || !animate || reduceMotion) {
                 if (changeTimeoutId) window.clearTimeout(changeTimeoutId);
                 panel?.classList.remove("is-changing");

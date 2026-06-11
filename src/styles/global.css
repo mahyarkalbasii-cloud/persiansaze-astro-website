@@ -6517,13 +6517,7 @@ body.home-color-anthropic .field select:focus {
   }
 
   body.home-color-anthropic .stage-rail-wrap::after {
-    position: absolute;
-    inset-block: 0.2rem 0.55rem;
-    left: 0;
-    width: 3rem;
-    background: linear-gradient(90deg, var(--background), color-mix(in srgb, var(--background) 0%, transparent));
-    content: "";
-    pointer-events: none;
+    display: none;
   }
 
   body.home-color-anthropic .stage-rail {
@@ -6532,10 +6526,12 @@ body.home-color-anthropic .field select:focus {
     margin-inline: -0.5rem;
     overflow-x: auto;
     overscroll-behavior-inline: contain;
-    padding: 0 0.5rem 0.55rem 1.8rem;
-    scroll-padding-inline: 0.5rem;
+    padding: 0 clamp(0.75rem, 5vw, 1.25rem) 0.55rem;
+    scroll-padding-inline: 2rem;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 1.65rem, #000 calc(100% - 1.65rem), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 1.65rem, #000 calc(100% - 1.65rem), transparent);
   }
 
   body.home-color-anthropic .stage-rail::-webkit-scrollbar {
@@ -6543,8 +6539,8 @@ body.home-color-anthropic .field select:focus {
   }
 
   body.home-color-anthropic .stage-tile {
-    flex: 0 0 min(13.5rem, 78vw);
-    scroll-snap-align: start;
+    flex: 0 0 min(12.5rem, 64vw);
+    scroll-snap-align: center;
   }
 
   body.home-color-anthropic .duration-tabs {
