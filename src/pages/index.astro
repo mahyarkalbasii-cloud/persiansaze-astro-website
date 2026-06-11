@@ -507,6 +507,7 @@ const schemaGraph = [
             const startRotation = () => {
               if (timerId) window.clearInterval(timerId);
               if (stages.length > 1) {
+                /* sync: stage rotation 10s */
                 timerId = window.setInterval(() => {
                   selectStage((activeIndex + 1) % stages.length);
                 }, 10000);
