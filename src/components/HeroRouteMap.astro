@@ -1,0 +1,132 @@
+---
+/**
+ * HeroRouteMap.astro — نسخه مطابق دموی تاییدشده (route-icon-hybrid-v2)
+ * موشن، رنگ‌ها، حالت ترکیب screen و همه اعداد «عیناً» از دموی تایید‌شده
+ * کپی شده‌اند — هیچ خطی از SVG یا کی‌فریم‌ها بازنویسی نشود.
+ * - تصویر: وب‌پی جدا و کش‌پذیر (بیس‌۶۴ ممنوع)
+ * - صفر جاوااسکریپت، صفر هیدریشن
+ * - مختصات قفل به route-icon.webp (۱۲۵۴×۱۲۵۴)
+ */
+interface Props {
+  src?: string;
+  alt?: string;
+  class?: string;
+  eager?: boolean;
+}
+const {
+  src = '/assets/company/route-icon.webp',
+  alt = 'مسیر کشف پروژه ساختمانی فعال روی نقشه — از موقعیت تا پروژه',
+  class: className = '',
+  eager = true,
+} = Astro.props;
+---
+
+<figure class={`route-map ${className}`}>
+  <img
+    src={src}
+    alt={alt}
+    width="1254"
+    height="1254"
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding="async"
+  />
+  <svg viewBox="0 0 1254 1254" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <filter id="hrm-blur-wide" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="11"/>
+      </filter>
+      <filter id="hrm-blur-soft" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="3.5"/>
+      </filter>
+      <radialGradient id="hrm-halo-grad">
+        <stop offset="0" stop-color="#ff9d57" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#ff9d57" stop-opacity="0"/>
+      </radialGradient>
+      <path id="hrm-route" d="M 1002.0 354.0 L 996.6 398.8 L 988.4 427.2 L 979.3 446.4 L 970.0 466.7 L 958.4 487.2 L 942.3 505.2 L 922.5 519.3 L 901.0 528.3 L 879.0 533.1 L 857.0 536.2 L 835.0 538.4 L 813.0 539.7 L 791.0 540.1 L 769.2 541.4 L 748.4 547.5 L 729.8 560.7 L 714.6 579.5 L 703.9 600.5 L 697.1 622.1 L 692.5 644.0 L 688.4 666.0 L 684.3 688.0 L 680.2 710.0 L 676.2 732.0 L 671.8 754.0 L 665.6 775.8 L 656.8 797.5 L 646.0 818.7 L 633.5 838.6 L 618.4 855.6 L 600.2 870.2 L 579.8 884.9 L 559.3 902.2 L 541.6 922.4 L 528.9 944.0 L 520.7 966.0 L 514.5 988.0 L 507.2 1010.0 L 496.3 1031.3 L 480.5 1050.0 L 460.6 1063.6 L 439.0 1071.7 L 418.7 1075.9 L 400.4 1076.7 L 373.6 1074.6 L 330.0 1072.0"/>
+    </defs>
+
+    <ellipse class="halo"   cx="1002" cy="368"  rx="92"  ry="40" fill="url(#hrm-halo-grad)"/>
+    <ellipse class="halo b" cx="330"  cy="1085" rx="100" ry="44" fill="url(#hrm-halo-grad)"/>
+
+    <g style="mix-blend-mode:screen">
+      <use href="#hrm-route" class="comet" fill="none" stroke="#ffb36b" stroke-width="30"
+           stroke-linecap="round" filter="url(#hrm-blur-wide)" opacity=".9"/>
+      <use href="#hrm-route" class="comet-core" fill="none" stroke="#fff3e4" stroke-width="9"
+           stroke-linecap="round" filter="url(#hrm-blur-soft)"/>
+    </g>
+
+    <g>
+      <circle r="10.5" fill="#fff" stroke="#e07238" stroke-width="5.5">
+        <animateMotion dur="5.6s" repeatCount="indefinite"
+          keyPoints="0;1;1" keyTimes="0;0.8477;1" calcMode="linear">
+          <mpath href="#hrm-route"/>
+        </animateMotion>
+      </circle>
+    </g>
+
+    <!-- ping now lands on the construction-site node -->
+    <circle class="ping" cx="330" cy="1072" r="58" fill="none"
+            stroke="#ff9d57" stroke-width="7"/>
+
+    <ellipse class="glint" cx="982" cy="200" rx="26" ry="40"
+             fill="#ffffff" filter="url(#hrm-blur-wide)"/>
+  </svg>
+</figure>
+
+<style>
+  .route-map {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 1;
+  }
+  .route-map img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+  .route-map svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  /* ── موشن: عیناً از دموی تاییدشده v2 — تغییر ممنوع ── */
+.comet, .comet-core{
+    stroke-dasharray: 200 1314;
+    animation: sweep 5.6s linear infinite;
+  }
+  @keyframes sweep{
+    from{ stroke-dashoffset: 200; }
+    to  { stroke-dashoffset: -1114; }
+  }
+
+  /* arrival ping at the construction-site node */
+  .ping{ transform-box:fill-box; transform-origin:center;
+    animation: ping 5.6s linear infinite; opacity:0; }
+  @keyframes ping{
+    0%, 83.77% { transform:scale(.3); opacity:0; }
+    84.77%       { transform:scale(.4); opacity:.85; }
+    93.77% { transform:scale(1.5); opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  .halo{ transform-box:fill-box; transform-origin:center;
+    animation: breathe 4.2s ease-in-out infinite; }
+  .halo.b{ animation-delay:2.1s; }
+  @keyframes breathe{
+    0%,100%{ transform:scale(1); opacity:0; }
+    50%    { transform:scale(1.22); opacity:.5; }
+  }
+
+  .glint{ transform-box:fill-box; transform-origin:center;
+    animation: glint 4.2s ease-in-out infinite; }
+  @keyframes glint{ 0%,100%{ opacity:0; } 50%{ opacity:.45; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .route-map svg { display: none; }
+  }
+</style>

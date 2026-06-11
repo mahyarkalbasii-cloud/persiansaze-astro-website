@@ -3,6 +3,7 @@ import "../styles/global.css";
 import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
 import PersianDigitsScript from "@/components/PersianDigitsScript.astro";
+import HeroRouteMap from "@/components/HeroRouteMap.astro";
 import {
   audiences,
   demo,
@@ -24,15 +25,79 @@ const primaryContact = site.contacts[0];
 const defaultDuration = "3" as const;
 const homeConstructionStages = constructionStages.filter((stage) => stage.id !== "permit-design");
 const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
-const homeStageCards = homeConstructionStages.map((stage) => ({
+const homeStageCards = homeConstructionStages.map((stage, index) => ({
   title: stage.title,
+  indexLabel: toPersianDigits(index + 1),
   sourcePhase: toPersianDigits(stage.sourcePhase),
   summary: toPersianDigits(stage.summary),
   href: `/construction-stages/${stage.slug}/`,
 }));
 const initialHomeStage = homeStageCards[0];
+const audienceIconPaths: Record<string, string[]> = {
+  "transactional-selling": [
+    "M5 12h14",
+    "m14 12-4-4",
+    "m19 12-4 4",
+    "M8 5h8",
+    "M8 19h8",
+  ],
+  "consultative-selling": [
+    "M6.5 15.5h-.9a2.6 2.6 0 0 1-2.6-2.6V7.6A2.6 2.6 0 0 1 5.6 5h8.8A2.6 2.6 0 0 1 17 7.6v5.3a2.6 2.6 0 0 1-2.6 2.6h-4.1L6.5 19v-3.5Z",
+    "M17.5 9h.9a2.6 2.6 0 0 1 2.6 2.6v4.8a2.6 2.6 0 0 1-2.6 2.6h-.9v2.5L15 19h-3.5",
+  ],
+  "hybrid-sales": [
+    "M5 7.5h5.5v5.5H5z",
+    "M13.5 11 19 5.5",
+    "M15.2 5.5H19v3.8",
+    "M13.5 16.5H19V22h-5.5z",
+    "M8 13v3.5h5.5",
+  ],
+  "barter-materials-services": [
+    "M7 8h10",
+    "m17 8-3-3",
+    "m17 8-3 3",
+    "M17 16H7",
+    "m7 16 3-3",
+    "m7 16 3 3",
+    "M4.5 12a7.5 7.5 0 0 1 13-5",
+    "M19.5 12a7.5 7.5 0 0 1-13 5",
+  ],
+};
 const demoWorkFieldOptions = workFields.map((field) => field.title);
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
+const toNumericPrice = (value: string) =>
+  Number(
+    String(value)
+      .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+      .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+      .replace(/[^\d]/g, ""),
+  );
+const getPlanPrice = (prices: Record<string, string>, durationId: string) => prices[durationId] ?? "";
+const durationSavings = pricing.durations.reduce<Record<string, number | null>>((acc, duration) => {
+  if (duration.id === defaultDuration) {
+    acc[duration.id] = null;
+    return acc;
+  }
+
+  const months = Number(duration.id);
+  const baseMonths = Number(defaultDuration);
+  const savings = pricing.plans
+    .map((plan) => {
+      const basePrice = toNumericPrice(getPlanPrice(plan.prices, defaultDuration)) * (months / baseMonths);
+      const durationPrice = toNumericPrice(getPlanPrice(plan.prices, duration.id));
+
+      if (!basePrice || !durationPrice || durationPrice >= basePrice) return null;
+      return Math.round((1 - durationPrice / basePrice) * 100);
+    })
+    .filter((saving): saving is number => saving !== null);
+  const uniqueSavings = [...new Set(savings)];
+
+  acc[duration.id] = savings.length === pricing.plans.length && uniqueSavings.length === 1 ? uniqueSavings[0] : null;
+  return acc;
+}, {});
+const orderedFaqs = [faqs[0], faqs[1], faqs[3], faqs[2], faqs[4], faqs[7], faqs[8], faqs[9], faqs[10], faqs[11], faqs[12], faqs[6], faqs[5]].filter(
+  (item): item is (typeof faqs)[number] => Boolean(item),
+);
 const salesPipelineCardSets = [
   {
     count: "ورودی خام",
@@ -169,7 +234,7 @@ const schemaGraph = [
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((item) => ({
+    mainEntity: orderedFaqs.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -209,30 +274,27 @@ const schemaGraph = [
     <main class="home-page">
       <section id="hero" class="hero">
         <div class="container hero-grid">
-          <div class="hero-copy">
+          <div class="hero-title-block">
             <h1>
               <span>{hero.titleLines[0]}</span>
               <span>{hero.titleLines[1]}</span>
             </h1>
+          </div>
+
+          <div class="hero-detail-block">
             <p>{hero.body}</p>
-            <div class="action-row">
-              <a class="button button-primary" href="/cities/">{hero.primaryCta}</a>
+            <div class="action-row hero-action-row">
+              <a class="button button-primary hero-demo-cta" href="#demo">{hero.demoCta}</a>
+              <a class="button button-secondary hero-projects-cta" href="/cities/">{hero.secondaryCta}</a>
             </div>
+            <p class="hero-trust-line">
+              <span class="hero-trust-dot" aria-hidden="true"></span>
+              پوشش میدانی تهران، کرج و لواسان
+            </p>
           </div>
 
           <div class="media-placeholder hero-placeholder hero-bento">
-            <figure class="hero-bento-scene">
-              <img
-                class="hero-neon-image"
-                src="/assets/company/home-hero-map-light.webp"
-                alt={hero.placeholder}
-                width="1254"
-                height="1254"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-              />
-            </figure>
+            <HeroRouteMap class="hero-bento-scene" alt={hero.placeholder} />
           </div>
         </div>
       </section>
@@ -263,15 +325,16 @@ const schemaGraph = [
           <div class="solution-showcase">
             <div class="solution-main-row">
               <figure class="solution-visual-card">
-                <img
-                  class="solution-neon-image"
-                  src="/assets/company/home-solution-relief-dashboard.webp"
-                  alt={solution.visualAlt}
+                <iframe
+                  class="home-interactive-visual solution-dashboard-visual"
+                  src="/assets/company/interactive/dashboard-animated.html"
+                  title={solution.visualAlt}
                   width="1254"
                   height="1254"
                   loading="lazy"
-                  decoding="async"
-                />
+                  referrerpolicy="no-referrer"
+                  sandbox=""
+                ></iframe>
               </figure>
 
               <section class="solution-data-panel" aria-labelledby="solution-data-title">
@@ -312,11 +375,18 @@ const schemaGraph = [
 
           <div class="audience-grid">
             {saleTypes.map((item) => (
-              <article class="audience-card">
+              <a class="audience-card" href={`/sale-types/${item.slug}/`} aria-label={`مشاهده جزئیات ${item.title}`}>
+                <span class="audience-card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    {(audienceIconPaths[item.slug] ?? audienceIconPaths["hybrid-sales"]).map((path) => (
+                      <path d={path} />
+                    ))}
+                  </svg>
+                </span>
                 <h3>{item.title}</h3>
                 <p>{item.summary}</p>
-                <a class="text-link" href={`/sale-types/${item.slug}/`}>مشاهده جزئیات ←</a>
-              </article>
+                <span class="text-link">مشاهده جزئیات ←</span>
+              </a>
             ))}
           </div>
         </div>
@@ -324,22 +394,30 @@ const schemaGraph = [
 
       <section id="stages" class="section" aria-label="مراحل ساخت" data-stage-rotation>
         <div class="container">
-          <div class="stage-rail" role="tablist" aria-label="مراحل ساخت">
-            {homeStageCards.map((stage, index) => (
-              <button
-                class={index === 0 ? "stage-tile active" : "stage-tile"}
-                type="button"
-                role="tab"
-                aria-selected={index === 0 ? "true" : "false"}
-                aria-controls="stage-info-panel"
-                data-stage-index={index}
-              >
-                <strong>{stage.title}</strong>
-              </button>
-            ))}
+          <div class="section-heading stages-heading">
+            <h2>هر محصول، در یک مرحله از ساخت فروش می‌رود</h2>
+            <p>هشت مرحله ساخت را بشناسید و بدانید مشتری شما در کدام مرحله تصمیم می‌گیرد.</p>
           </div>
 
-          <article class="stage-info-card" id="stage-info-panel" aria-live="polite">
+          <div class="stage-rail-wrap">
+            <div class="stage-rail" role="tablist" aria-label="مراحل ساخت">
+              {homeStageCards.map((stage, index) => (
+                <button
+                  class={index === 0 ? "stage-tile active" : "stage-tile"}
+                  type="button"
+                  role="tab"
+                  aria-selected={index === 0 ? "true" : "false"}
+                  aria-controls="stage-info-panel"
+                  data-stage-index={index}
+                >
+                  <span class="stage-tile-number">{stage.indexLabel}</span>
+                  <strong>{stage.title}</strong>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <article class="stage-info-card" id="stage-info-panel" aria-live="polite" data-stage-panel>
             <div class="stage-info-copy">
               <h3 data-stage-title>{initialHomeStage.title}</h3>
               <p data-stage-summary>{initialHomeStage.summary}</p>
@@ -360,14 +438,45 @@ const schemaGraph = [
 
             const stages = JSON.parse(dataNode.textContent || "[]");
             const buttons = [...root.querySelectorAll("[data-stage-index]")];
+            const panel = root.querySelector("[data-stage-panel]");
             const title = root.querySelector("[data-stage-title]");
             const summary = root.querySelector("[data-stage-summary]");
             const source = root.querySelector("[data-stage-source]");
             const link = root.querySelector("[data-stage-link]");
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             let activeIndex = 0;
             let timerId = null;
+            let changeTimeoutId = null;
+            let resizeTimeoutId = null;
 
-            const selectStage = (index) => {
+            const renderStage = (stage) => {
+              if (title) title.textContent = stage.title;
+              if (summary) summary.textContent = stage.summary;
+              if (source) source.textContent = stage.sourcePhase;
+              if (link) link.setAttribute("href", stage.href);
+            };
+
+            const syncPanelHeight = () => {
+              if (!panel || stages.length === 0) return;
+
+              const currentStage = stages[activeIndex] ?? stages[0];
+              const previousTransition = panel.style.transition;
+              panel.style.transition = "none";
+              panel.style.minHeight = "";
+
+              const maxHeight = stages.reduce((height, stage) => {
+                renderStage(stage);
+                return Math.max(height, Math.ceil(panel.getBoundingClientRect().height));
+              }, 0);
+
+              renderStage(currentStage);
+              panel.style.minHeight = `${maxHeight}px`;
+              window.requestAnimationFrame(() => {
+                panel.style.transition = previousTransition;
+              });
+            };
+
+            const selectStage = (index, animate = true) => {
               const stage = stages[index];
               if (!stage) return;
 
@@ -378,10 +487,20 @@ const schemaGraph = [
                 button.setAttribute("aria-selected", isActive ? "true" : "false");
               });
 
-              if (title) title.textContent = stage.title;
-              if (summary) summary.textContent = stage.summary;
-              if (source) source.textContent = stage.sourcePhase;
-              if (link) link.setAttribute("href", stage.href);
+              if (!panel || !animate || reduceMotion) {
+                if (changeTimeoutId) window.clearTimeout(changeTimeoutId);
+                panel?.classList.remove("is-changing");
+                renderStage(stage);
+                return;
+              }
+
+              if (changeTimeoutId) window.clearTimeout(changeTimeoutId);
+              panel.classList.add("is-changing");
+              changeTimeoutId = window.setTimeout(() => {
+                renderStage(stage);
+                panel.classList.remove("is-changing");
+                changeTimeoutId = null;
+              }, 100);
             };
 
             const startRotation = () => {
@@ -400,6 +519,21 @@ const schemaGraph = [
               });
             });
 
+            if ("fonts" in document && document.fonts.ready) {
+              document.fonts.ready.then(syncPanelHeight);
+            } else {
+              syncPanelHeight();
+            }
+
+            window.addEventListener(
+              "resize",
+              () => {
+                if (resizeTimeoutId) window.clearTimeout(resizeTimeoutId);
+                resizeTimeoutId = window.setTimeout(syncPanelHeight, 140);
+              },
+              { passive: true },
+            );
+
             startRotation();
           })();
         </script>
@@ -412,9 +546,17 @@ const schemaGraph = [
           </div>
 
           <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel}>
-            {salesPipelineStages.map((stage) => (
+            <div class="pipeline-route-layer" aria-hidden="true">
+              <span class="pipeline-route-line"></span>
+              <span class="pipeline-route-signal"></span>
+              {salesPipelineStages.map((_, index) => (
+                <span class="pipeline-route-node" style={`--node-index: ${index}`}></span>
+              ))}
+            </div>
+            {salesPipelineStages.map((stage, index) => (
               <article class="pipeline-stage-card" role="listitem">
                 <header class="pipeline-stage-head">
+                  <span class="pipeline-stage-number" aria-hidden="true">{toPersianDigits(index + 1)}</span>
                   <div>
                     <h3>{stage.title}</h3>
                     <p>{stage.count}</p>
@@ -454,6 +596,9 @@ const schemaGraph = [
                 data-plan-duration={duration.id}
               >
                 <span class="duration-number">{duration.id}</span>
+                {durationSavings[duration.id] && (
+                  <span class="duration-saving">٪{toPersianDigits(durationSavings[duration.id] ?? 0)} صرفه‌جویی</span>
+                )}
                 <span class="duration-unit">ماهه</span>
               </button>
             ))}
@@ -461,7 +606,7 @@ const schemaGraph = [
 
           <div class="pricing-grid">
             {pricing.plans.map((plan) => (
-              <article class={`pricing-card ${plan.slug === "taban" ? "featured" : ""}`}>
+              <article class={`pricing-card plan-${plan.slug} ${plan.slug === "taban" ? "featured" : ""}`}>
                 {plan.slug === "taban" && <span class="plan-badge">پیشنهاد اصلی</span>}
                 <header class="plan-card-head">
                   <div class="plan-icon-shell">
@@ -494,6 +639,7 @@ const schemaGraph = [
                   <div class="coverage-meter" aria-hidden="true">
                     {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
                   </div>
+                  <span class="coverage-caption">پوشش {plan.coverageLabel} سطح بازار</span>
                 </div>
                 <p class="plan-addon">
                   <span>هر مرحله اضافه:</span>
@@ -502,7 +648,7 @@ const schemaGraph = [
                     <span>{pricing.currency}</span>
                   </span>
                 </p>
-                <a class="button button-secondary" href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
+                <a class={`button ${plan.slug === "taban" ? "button-primary" : "button-secondary"}`} href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
               </article>
             ))}
           </div>
@@ -517,6 +663,7 @@ const schemaGraph = [
           const durationTabs = plansSection.querySelector(".duration-tabs");
           const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
           const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
           const setDuration = (duration) => {
             durationTabs?.setAttribute("data-active-duration", duration);
@@ -531,7 +678,16 @@ const schemaGraph = [
             priceNodes.forEach((node) => {
               const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
               if (prices[duration]) {
-                node.textContent = prices[duration];
+                if (reduceMotion) {
+                  node.textContent = prices[duration];
+                  return;
+                }
+
+                node.classList.add("is-updating");
+                window.setTimeout(() => {
+                  node.textContent = prices[duration];
+                  node.classList.remove("is-updating");
+                }, 100);
               }
             });
           };
@@ -553,15 +709,30 @@ const schemaGraph = [
             <p>{faqSection.description}</p>
           </div>
           <div class="faq-list">
-            {faqs.map((item) => (
-              <details>
+            {orderedFaqs.map((item, index) => (
+              <details open={index === 0}>
                 <summary>{item.question}</summary>
                 <p>{item.answer}</p>
               </details>
             ))}
           </div>
+          <p class="faq-demo-bridge">جواب سوالتان را پیدا نکردید؟ <a href="#demo">در دمو بپرسید</a></p>
         </div>
       </section>
+
+      <script is:inline>
+        (() => {
+          const faqItems = Array.from(document.querySelectorAll("#faq .faq-list details"));
+          faqItems.forEach((item) => {
+            item.addEventListener("toggle", () => {
+              if (!item.open) return;
+              faqItems.forEach((otherItem) => {
+                if (otherItem !== item) otherItem.open = false;
+              });
+            });
+          });
+        })();
+      </script>
 
       <section id="demo" class="section demo-section">
         <div class="container">
@@ -588,7 +759,7 @@ const schemaGraph = [
                     پرشین‌سازه برای <strong>مالکین، مصرف‌کنندگان نهایی یا افراد خارج از حوزه تأمین صنعت ساختمان</strong> طراحی نشده است.
                   </li>
                   <li>
-                    شروع قیمت اشتراک پرشین‌سازه از <strong>۷,۵۰۰,۰۰۰ تومان</strong> است.
+                    شروع قیمت اشتراک پرشین‌سازه از <strong>۹,۰۰۰,۰۰۰ تومان</strong> است.
                   </li>
                   <li>
                     امکان ارائه سرویس فقط به <strong>تأمین‌کنندگان معتبر و فعال در صنعت ساختمان</strong> وجود دارد.
@@ -598,46 +769,178 @@ const schemaGraph = [
                 <p>در صورتی که موارد بالا با شرایط کسب‌وکار شما همخوانی دارد، فرم ثبت‌نام را تکمیل کنید.</p>
               </section>
 
-              <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
+              <form class="demo-form" action={`mailto:${site.email}`} method="post" enctype="text/plain" novalidate data-demo-form data-state="idle">
                 <h3>{demo.form.submit}</h3>
+                <p class="demo-form-status demo-form-status-success" data-demo-success role="status" hidden>
+                  درخواست شما ثبت شد، تا یک روز کاری تماس می‌گیریم.
+                </p>
+                <div class="demo-form-status demo-form-status-error" data-demo-error role="alert" hidden>
+                  <span>ارسال درخواست با خطا روبه‌رو شد. لطفاً دوباره تلاش کنید.</span>
+                  <button class="button button-secondary demo-retry-button" type="button" data-demo-retry>تلاش مجدد</button>
+                </div>
                 <div class="form-grid">
-                  <label class="field">
-                    <span>{demo.form.name}</span>
-                    <input name="name" autocomplete="name" />
+                  <label class="field" data-required>
+                    <span class="field-label">{demo.form.name}<span class="required-star" aria-hidden="true">*</span></span>
+                    <input name="name" autocomplete="name" required aria-describedby="demo-name-error" />
+                    <small class="field-error" id="demo-name-error" data-field-error></small>
+                  </label>
+                  <label class="field" data-required>
+                    <span class="field-label">{demo.form.phone}<span class="required-star" aria-hidden="true">*</span></span>
+                    <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" required aria-describedby="demo-phone-error" />
+                    <small class="field-error" id="demo-phone-error" data-field-error></small>
+                  </label>
+                  <label class="field" data-required>
+                    <span class="field-label">{demo.form.company}<span class="required-star" aria-hidden="true">*</span></span>
+                    <input name="company" autocomplete="organization" required aria-describedby="demo-company-error" />
+                    <small class="field-error" id="demo-company-error" data-field-error></small>
                   </label>
                   <label class="field">
-                    <span>{demo.form.phone}</span>
-                    <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.company}</span>
-                    <input name="company" autocomplete="organization" />
-                  </label>
-                  <label class="field">
-                    <span>{demo.form.referralSource}</span>
-                    <select name="referralSource">
+                    <span class="field-label">{demo.form.referralSource}</span>
+                    <select name="referralSource" aria-describedby="demo-referral-source-error">
                       <option value="">{demo.form.choose}</option>
                       {demo.form.referralSourceOptions.map((option) => (
                         <option value={option}>{option}</option>
                       ))}
                     </select>
+                    <small class="field-error" id="demo-referral-source-error" data-field-error></small>
                   </label>
                 </div>
-                <label class="field">
-                  <span>{demo.form.supplier}</span>
-                  <select name="supplier">
+                <label class="field" data-required>
+                  <span class="field-label">{demo.form.supplier}<span class="required-star" aria-hidden="true">*</span></span>
+                  <select name="supplier" required aria-describedby="demo-supplier-error">
                     <option value="">{demo.form.choose}</option>
                     {demoWorkFieldOptions.map((option) => (
                       <option value={option}>{option}</option>
                     ))}
                   </select>
+                  <small class="field-error" id="demo-supplier-error" data-field-error></small>
                 </label>
-                <button class="button button-primary" type="submit">{demo.form.submit}</button>
+                <button class="button button-primary" type="submit" data-demo-submit>{demo.form.submit}</button>
               </form>
             </div>
           </div>
         </div>
       </section>
+
+      <script is:inline>
+        (() => {
+          const form = document.querySelector("[data-demo-form]");
+          if (!form) return;
+
+          const submitButton = form.querySelector("[data-demo-submit]");
+          const successMessage = form.querySelector("[data-demo-success]");
+          const errorMessage = form.querySelector("[data-demo-error]");
+          const retryButton = form.querySelector("[data-demo-retry]");
+          const initialSubmitText = submitButton?.textContent?.trim() || "";
+          const requiredMessage = "این فیلد اجباری است.";
+          const phoneMessage = "شماره تماس را با ۱۱ رقم و کد صفر وارد کنید.";
+
+          const toEnglishDigits = (value) => String(value)
+            .replace(/[\u06F0-\u06F9]/g, (digit) => String(digit.charCodeAt(0) - 0x06F0))
+            .replace(/[\u0660-\u0669]/g, (digit) => String(digit.charCodeAt(0) - 0x0660));
+
+          const normalizePhone = (value) => {
+            let phone = toEnglishDigits(value).replace(/[^\d+]/g, "");
+            if (phone.startsWith("0098")) phone = `0${phone.slice(4)}`;
+            if (phone.startsWith("+98")) phone = `0${phone.slice(3)}`;
+            if (phone.startsWith("98")) phone = `0${phone.slice(2)}`;
+            if (/^9\d{9}$/.test(phone)) phone = `0${phone}`;
+            return phone.replace(/\D/g, "");
+          };
+
+          const setStatus = (type) => {
+            form.dataset.state = type;
+            if (successMessage) successMessage.hidden = type !== "success";
+            if (errorMessage) errorMessage.hidden = type !== "error";
+          };
+
+          const setSubmitting = (isSubmitting) => {
+            form.classList.toggle("is-submitting", isSubmitting);
+            if (!submitButton) return;
+            submitButton.disabled = isSubmitting;
+            submitButton.textContent = isSubmitting ? "در حال ارسال..." : initialSubmitText;
+          };
+
+          const getControl = (field) => field.querySelector("input, select, textarea");
+
+          const setFieldError = (field, message = "") => {
+            const control = getControl(field);
+            const error = field.querySelector("[data-field-error]");
+            const hasError = Boolean(message);
+            field.dataset.invalid = hasError ? "true" : "false";
+            if (control) control.setAttribute("aria-invalid", hasError ? "true" : "false");
+            if (error) error.textContent = message;
+          };
+
+          const validateField = (field) => {
+            const control = getControl(field);
+            if (!control) return true;
+
+            if (control.required && !control.value.trim()) {
+              setFieldError(field, requiredMessage);
+              return false;
+            }
+
+            if (control.name === "phone" && control.value.trim()) {
+              const normalizedPhone = normalizePhone(control.value);
+              if (!/^0\d{10}$/.test(normalizedPhone)) {
+                setFieldError(field, phoneMessage);
+                return false;
+              }
+              control.value = normalizedPhone;
+            }
+
+            setFieldError(field);
+            return true;
+          };
+
+          const validateForm = () => {
+            const fields = Array.from(form.querySelectorAll(".field"));
+            let firstInvalidField = null;
+            fields.forEach((field) => {
+              const isValid = validateField(field);
+              if (!isValid && !firstInvalidField) firstInvalidField = field;
+            });
+            if (firstInvalidField) {
+              getControl(firstInvalidField)?.focus();
+              return false;
+            }
+            return true;
+          };
+
+          form.addEventListener("input", (event) => {
+            const field = event.target.closest?.(".field");
+            if (field) validateField(field);
+          });
+
+          form.addEventListener("change", (event) => {
+            const field = event.target.closest?.(".field");
+            if (field) validateField(field);
+          });
+
+          form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            setStatus("idle");
+            if (!validateForm()) return;
+
+            setSubmitting(true);
+            await new Promise((resolve) => window.setTimeout(resolve, 650));
+            setSubmitting(false);
+
+            if (form.dataset.demoForceError === "true") {
+              setStatus("error");
+              return;
+            }
+
+            setStatus("success");
+          });
+
+          retryButton?.addEventListener("click", () => {
+            form.dataset.demoForceError = "";
+            form.requestSubmit();
+          });
+        })();
+      </script>
     </main>
 
     <SiteFooter />
