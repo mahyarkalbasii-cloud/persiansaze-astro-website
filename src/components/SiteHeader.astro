@@ -3,6 +3,7 @@ import { footer, navigation, site } from "@/content/home";
 
 const { home = false } = Astro.props;
 const primaryContact = site.contacts[0];
+const loginHref = "https://my.persiansaze.com/";
 const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${href}`);
 ---
 
@@ -24,15 +25,8 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
 
     <div class="header-actions">
       <a class="header-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-      <a class="button button-secondary header-login-link" href={home ? "#demo" : "/#demo"}>
-        <span class="header-login-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M10 7V5.5A2.5 2.5 0 0 1 12.5 3h4A2.5 2.5 0 0 1 19 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-4A2.5 2.5 0 0 1 10 18.5V17" />
-            <path d="M4 12h9" />
-            <path d="m10 9 3 3-3 3" />
-          </svg>
-        </span>
-        <span>ورود</span>
+      <a class="button button-secondary header-login-link" href={loginHref}>
+        <span>ورود کاربران</span>
       </a>
       <a class="button button-primary header-demo-link" href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
       {home && (
@@ -57,7 +51,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
           <a href={hrefFor(item.href)}>{item.label}</a>
         ))}
         <a href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
-        <a href={home ? "#demo" : "/#demo"}>ورود</a>
+        <a href={loginHref}>ورود کاربران</a>
         <a href={home ? "#demo" : "/#demo"}>درخواست دمو</a>
       </nav>
     )}

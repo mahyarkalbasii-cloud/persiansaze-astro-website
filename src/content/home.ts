@@ -111,8 +111,7 @@ export const navigation: LinkItem[] = [
 export const hero = {
   titleLines: ["پروژه‌های ساختمانی فعال", "را زودتر پیدا کنید"],
   body: "در بازار محصولات و خدمات ساختمانی، فروش موفق از رسیدن به پروژه مناسب در زمان درست شروع می‌شود. پرشین‌سازه پروژه‌های در حال ساخت در تهران، کرج و لواسان را جمع‌آوری و دسته‌بندی می‌کند تا تأمین‌کنندگان بتوانند با دید روشن‌تر، پروژه‌های مرتبط را سریع‌تر بررسی و پیگیری کنند.",
-  primaryCta: "مشاهده دمو",
-  secondaryCta: "چرا پرشین‌سازه؟",
+  primaryCta: "مشاهده پروژه‌ها",
   placeholder: "جایگاه تصویرسازی هیرو: پروژه‌های ساختمانی فعال و مسیر کشف فرصت روی نقشه",
 };
 
@@ -396,7 +395,7 @@ export const utilityLinks: LinkItem[] = [
   { label: "AI تصمیم‌یار", href: "/product/" },
   { label: "تماس با ما", href: "/contact-us/" },
   { label: "ثبت‌نام", href: "/#demo" },
-  { label: "ورود", href: "/#demo" },
+  { label: "ورود کاربران", href: "https://my.persiansaze.com/" },
 ];
 
 export function absoluteUrl(path = "") {

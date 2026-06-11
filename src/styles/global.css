@@ -1293,14 +1293,14 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
 .problem-copy {
   justify-items: center;
   justify-self: center;
-  max-width: 48rem;
+  max-width: 56rem;
   gap: var(--space-4);
   margin-bottom: 0;
   text-align: center;
 }
 
 .problem-copy h2 {
-  max-width: 48rem;
+  max-width: 56rem;
 }
 
 .problem-copy h2 span {
@@ -4362,24 +4362,20 @@ body.home-color-anthropic .site-header .header-phone {
   display: inline-flex;
   min-height: 2.65rem;
   align-items: center;
-  border: 1px solid rgb(137 119 102 / 22%);
-  border-radius: 0.88rem;
-  background: rgb(255 250 243 / 36%);
-  padding-inline: 0.78rem;
-  color: var(--primary);
+  border: 0;
+  background: transparent;
+  padding-inline: 0.25rem;
+  color: color-mix(in srgb, var(--primary) 78%, var(--muted-foreground));
   font-size: 0.82rem;
   font-weight: 850;
   line-height: 1;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 44%);
   transition:
-    background 160ms ease,
-    border-color 160ms ease,
+    color 160ms ease,
     transform 160ms ease;
 }
 
 body.home-color-anthropic .site-header .header-phone:hover {
-  border-color: rgb(217 119 87 / 30%);
-  background: rgb(255 250 243 / 62%);
+  color: var(--primary);
   transform: translateY(-1px);
 }
 
@@ -4391,8 +4387,7 @@ body.home-color-anthropic .site-header .header-actions .button {
 }
 
 body.home-color-anthropic .site-header .header-actions .header-login-link {
-  gap: 0.36rem;
-  min-width: 4.65rem;
+  min-width: 7rem;
   border-color: var(--claude-orange);
   background: var(--claude-orange);
   color: var(--primary);
@@ -4404,25 +4399,6 @@ body.home-color-anthropic .site-header .header-actions .header-login-link {
 body.home-color-anthropic .site-header .header-actions .header-login-link:hover {
   border-color: var(--claude-orange-hover);
   background: var(--claude-orange-hover);
-}
-
-body.home-color-anthropic .header-login-icon {
-  display: inline-grid;
-  width: 1.1rem;
-  height: 1.1rem;
-  place-items: center;
-  border-radius: 0.36rem;
-  background: rgb(255 250 243 / 42%);
-}
-
-body.home-color-anthropic .header-login-icon svg {
-  width: 0.86rem;
-  height: 0.86rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
 }
 
 body.home-color-anthropic .site-header .header-actions .header-demo-link {
@@ -4527,6 +4503,22 @@ body.home-color-anthropic .home-page > .section {
   border-top: 0;
 }
 
+body.home-color-anthropic .hero {
+  padding-block: clamp(3.15rem, 5vw, 4.5rem) clamp(2.75rem, 4.8vw, 4.25rem);
+}
+
+body.home-color-anthropic .hero-grid {
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+body.home-color-anthropic #problem {
+  padding-block: clamp(2.4rem, 4.6vw, 3.75rem) clamp(1.75rem, 3vw, 2.5rem);
+}
+
+body.home-color-anthropic #solution {
+  padding-block-start: clamp(2rem, 3.5vw, 3rem);
+}
+
 @media (max-width: 720px) {
   body.home-color-anthropic .home-page {
     padding-block-start: 4.45rem;
@@ -4543,11 +4535,17 @@ body.home-color-anthropic .section-copy {
   margin-bottom: var(--section-heading-margin);
 }
 
-body.home-color-anthropic #solution .section-heading,
 body.home-color-anthropic #sales-flow .section-heading {
   justify-items: start;
   margin-inline: 0 auto;
   text-align: right;
+}
+
+body.home-color-anthropic #solution .section-heading {
+  justify-items: center;
+  margin-inline: auto;
+  margin-bottom: clamp(2.85rem, 4.6vw, 3.75rem);
+  text-align: center;
 }
 
 body.home-color-anthropic #plans .section-heading,
@@ -4637,7 +4635,7 @@ body.home-color-anthropic .hero-bento {
   aspect-ratio: 1;
   justify-self: center;
   padding: 0;
-  border-color: var(--border-strong);
+  border: 0;
   background: transparent;
   box-shadow: none;
 }
@@ -4713,6 +4711,12 @@ body.home-color-anthropic .hero-bento-scene {
 
 body.home-color-anthropic #problem .section-copy {
   align-self: center;
+}
+
+body.home-color-anthropic .problem-copy h2 {
+  max-width: 56rem;
+  font-size: clamp(2.65rem, 3.1vw, 3.35rem);
+  line-height: 1.24;
 }
 
 body.home-color-anthropic #problem .section-copy .button-secondary {
@@ -5627,6 +5631,11 @@ body.home-color-anthropic .field select:focus {
 
   body.home-color-anthropic #problem .section-copy .button-secondary {
     width: 100%;
+  }
+
+  body.home-color-anthropic .problem-copy h2 {
+    font-size: clamp(2rem, 8vw, 2.65rem);
+    line-height: 1.26;
   }
 
   .problem-copy h2 span {
