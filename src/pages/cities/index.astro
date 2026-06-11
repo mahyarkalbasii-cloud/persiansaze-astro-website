@@ -9,7 +9,7 @@ const description =
 
 <BaseLayout title={title} description={description} canonicalPath="/cities/">
   <main>
-    <section class="content-hero">
+    <section class="content-hero city-index-hero">
       <div class="container content-hero-grid">
         <div>
           <p class="content-eyebrow">شهرها</p>
@@ -23,7 +23,7 @@ const description =
             <a class="button button-secondary" href="/construction-stages/">مشاهده مراحل ساخت</a>
           </div>
         </div>
-        <aside class="content-summary-card">
+        <aside class="content-summary-card city-index-summary">
           <strong>{cityProfiles.length}</strong>
           <span>بازار شهری تحلیل‌شده</span>
           <p>تهران، کرج و لواسان با ساختار جمعیتی و کالبدی متفاوت</p>
@@ -33,18 +33,19 @@ const description =
 
     <section class="section">
       <div class="container">
-        <div class="content-card-grid">
+        <div class="content-card-grid city-file-card-grid">
           {cityProfiles.map((city) => (
-            <article class="content-card">
+            <article class="content-card city-file-card">
+              <span class="city-card-pin" aria-hidden="true"></span>
               <p class="content-eyebrow">{city.province}</p>
               <h2>{city.title}</h2>
               <p><strong>{city.headline}</strong></p>
               <p>{city.summary}</p>
-              <dl class="compact-facts">
+              <dl class="compact-facts city-card-metrics">
                 {city.keyMetrics.slice(0, 3).map((metric) => (
                   <div>
                     <dt>{metric.label}</dt>
-                    <dd>{metric.value} - {metric.note}</dd>
+                    <dd><strong>{metric.value}</strong><span>{metric.note}</span></dd>
                   </div>
                 ))}
               </dl>

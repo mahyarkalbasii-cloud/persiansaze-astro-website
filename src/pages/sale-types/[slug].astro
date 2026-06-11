@@ -13,6 +13,33 @@ export function getStaticPaths() {
 const { saleType } = Astro.props as { saleType: SaleType };
 const relatedSaleTypes = saleTypes.filter((item) => item.slug !== saleType.slug);
 const isBarter = saleType.slug === "barter-materials-services";
+const modelIndex = saleTypes.findIndex((item) => item.slug === saleType.slug);
+const modelNumber = String(modelIndex + 1).padStart(2, "0");
+const spectrumLabels = ["تصمیم سریع", "دو فاز", "مشاوره عمیق", "قرارداد پیچیده"];
+const spectrumPositionBySlug: Record<SaleType["slug"], number> = {
+  "transactional-selling": 0,
+  "hybrid-sales": 1,
+  "consultative-selling": 2,
+  "barter-materials-services": 3,
+};
+const activeSpectrumIndex = spectrumPositionBySlug[saleType.slug];
+const decisionRows = [
+  {
+    label: "چرخه فروش",
+    value: saleType.cycle,
+    iconPath: "M5 12a7 7 0 0 1 11.9-5M19 5v5h-5M19 12a7 7 0 0 1-11.9 5M5 19v-5h5",
+  },
+  {
+    label: "تمرکز فروشنده",
+    value: saleType.sellerFocus,
+    iconPath: "M12 5v14M5 12h14M7.5 7.5l9 9M16.5 7.5l-9 9",
+  },
+  {
+    label: "ریسک اصلی",
+    value: saleType.risk,
+    iconPath: "M12 4 21 20H3L12 4ZM12 9v4M12 16h.01",
+  },
+];
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -52,25 +79,41 @@ const structuredData = [
   structuredData={structuredData}
 >
   <main>
-    <section class="content-hero">
-      <div class="container content-hero-grid">
-        <div>
+    <section class="content-hero sale-method-hero">
+      <div class="container content-hero-grid sale-method-hero-grid">
+        <div class="sale-method-hero-copy">
           <nav class="breadcrumb" aria-label="مسیر صفحه">
             <a href="/sale-types/">انواع فروش</a>
-            <span>/</span>
+            <span aria-hidden="true">‹</span>
             <span>{saleType.title}</span>
           </nav>
-          <p class="content-eyebrow">{saleType.englishTitle}</p>
+          <p class="content-eyebrow">روایت متد فروش</p>
           <h1>{saleType.headline}</h1>
           <p>{saleType.summary}</p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
             <a class="button button-secondary" href="/sale-types/">همه انواع فروش</a>
           </div>
+          <span class="sale-method-watermark" aria-hidden="true">{modelNumber}</span>
         </div>
-        <aside class="content-summary-card">
-          <strong>{String(saleTypes.findIndex((item) => item.slug === saleType.slug) + 1).padStart(2, "0")}</strong>
-          <span>{saleType.title}</span>
+        <aside class="content-summary-card sale-spectrum-card">
+          <span>طیف فروش پروژه‌محور</span>
+          <svg class="sale-spectrum" viewBox="0 0 100 18" role="img" aria-label={`جایگاه ${saleType.title} روی طیف فروش`}>
+            <line x1="8" y1="9" x2="92" y2="9"></line>
+            {spectrumLabels.map((_, index) => (
+              <circle
+                class={index === activeSpectrumIndex ? "sale-spectrum-dot is-active" : "sale-spectrum-dot"}
+                cx={8 + index * 28}
+                cy="9"
+                r={index === activeSpectrumIndex ? "5.5" : "3.4"}
+              ></circle>
+            ))}
+          </svg>
+          <div class="sale-spectrum-labels">
+            {spectrumLabels.map((label, index) => (
+              <span class={index === activeSpectrumIndex ? "is-active" : ""}>{label}</span>
+            ))}
+          </div>
           <p>{saleType.definition}</p>
         </aside>
       </div>
@@ -78,21 +121,20 @@ const structuredData = [
 
     <section class="section">
       <div class="container detail-layout">
-        <aside class="detail-sidebar">
+        <aside class="detail-sidebar sale-decision-card">
           <h2>خلاصه تصمیم</h2>
           <dl class="compact-facts">
-            <div>
-              <dt>چرخه فروش</dt>
-              <dd>{saleType.cycle}</dd>
-            </div>
-            <div>
-              <dt>تمرکز فروشنده</dt>
-              <dd>{saleType.sellerFocus}</dd>
-            </div>
-            <div>
-              <dt>ریسک اصلی</dt>
-              <dd>{saleType.risk}</dd>
-            </div>
+            {decisionRows.map((row) => (
+              <div class="decision-row">
+                <dt>
+                  <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+                    <path d={row.iconPath}></path>
+                  </svg>
+                  <span>{row.label}</span>
+                </dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))}
           </dl>
           <h2>مدل‌های مرتبط</h2>
           <ul class="link-list">
@@ -102,7 +144,7 @@ const structuredData = [
           </ul>
         </aside>
 
-        <article class="detail-main">
+        <article class="detail-main sale-method-article">
           <section>
             <p class="content-eyebrow">تعریف</p>
             <h2>{saleType.title} چیست؟</h2>
@@ -124,9 +166,14 @@ const structuredData = [
 
           <section>
             <h2>نکات کلیدی برای تیم فروش</h2>
-            <ul class="numbered-list">
-              {saleType.keyTakeaways.map((item) => <li>{item}</li>)}
-            </ul>
+            <ol class="method-takeaway-list">
+              {saleType.keyTakeaways.map((item, index) => (
+                <li>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>{item}</p>
+                </li>
+              ))}
+            </ol>
           </section>
         </article>
       </div>
@@ -171,7 +218,7 @@ const structuredData = [
         <div class="section-heading">
           <h2>پرسش‌های متداول درباره {saleType.title}</h2>
         </div>
-        <div class="faq-list">
+        <div class="faq-list" data-single-open-faq>
           {saleType.faqs.map((item) => (
             <details>
               <summary>{item.question}</summary>
@@ -181,5 +228,46 @@ const structuredData = [
         </div>
       </div>
     </section>
+
+    <section class="section sale-method-bridge-section">
+      <div class="container">
+        <div class="section-heading centered">
+          <h2>این سبک فروش شماست؟</h2>
+          <p>اگر مدل فروش با زمان تصمیم‌گیری سازنده هماهنگ باشد، پیگیری پروژه از تماس سرد به فرصت واقعی نزدیک‌تر می‌شود.</p>
+          <div class="action-row centered-actions">
+            <a class="button button-primary" href="/#demo">ثبت درخواست دمو</a>
+            <a class="button button-secondary" href="/work-fields/">دیدن زمینه‌های کاری</a>
+          </div>
+        </div>
+        <div class="method-mini-grid">
+          {relatedSaleTypes.map((item) => (
+            <a class="method-mini-card" href={`/sale-types/${item.slug}/`}>
+              <span>{item.title}</span>
+              <svg class="sale-spectrum mini" viewBox="0 0 100 18" aria-hidden="true" focusable="false">
+                <line x1="8" y1="9" x2="92" y2="9"></line>
+                {spectrumLabels.map((_, index) => (
+                  <circle
+                    class={index === spectrumPositionBySlug[item.slug] ? "sale-spectrum-dot is-active" : "sale-spectrum-dot"}
+                    cx={8 + index * 28}
+                    cy="9"
+                    r={index === spectrumPositionBySlug[item.slug] ? "4.8" : "3"}
+                  ></circle>
+                ))}
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   </main>
+  <script is:inline>
+    document.querySelectorAll("[data-single-open-faq] details").forEach((detail) => {
+      detail.addEventListener("toggle", () => {
+        if (!detail.open) return;
+        detail.parentElement?.querySelectorAll("details").forEach((item) => {
+          if (item !== detail) item.removeAttribute("open");
+        });
+      });
+    });
+  </script>
 </BaseLayout>

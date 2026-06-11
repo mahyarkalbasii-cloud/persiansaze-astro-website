@@ -1,11 +1,34 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { absoluteUrl, site } from "@/content/home";
-import { aboutStats, aboutValues, assets } from "@/content/company";
+import { aboutStats, aboutValues } from "@/content/company";
 
-const title = "درباره پرشین‌سازه | منبع واحد حقیقت فروش پروژه‌محور";
+const title = "درباره پرشین‌سازه | زیرساخت فروش پروژه‌محور ساختمان";
 const description =
-  "پرشین‌سازه از سال ۱۳۸۶ برای کمک به فروش تأمین‌کنندگان صنعت ساختمان شکل گرفت و امروز داده زنده، ابزار فروش، آموزش و پشتیبانی را در یک زیرساخت پروژه‌محور ترکیب می‌کند.";
+  "پرشین‌سازه برای تامین‌کنندگان صنعت ساختمان، داده زنده پروژه‌ها، ابزار فروش، آموزش و پشتیبانی را در یک زیرساخت پروژه‌محور ترکیب می‌کند.";
+const companyPillars = [
+  {
+    title: "داده میدانی زنده",
+    body: "پروژه‌ها با موقعیت، مرحله ساخت، وضعیت به‌روزرسانی، تصویر و مسیر ارتباطی قابل بررسی می‌شوند.",
+  },
+  {
+    title: "ابزار تبدیل فرصت به اقدام",
+    body: "نقشه، فیلتر، صفحه پروژه، CRM و پیامک هدفمند کمک می‌کنند فرصت فروش در همان سیستم پیگیری شود.",
+  },
+  {
+    title: "آموزش و موفقیت مشتری",
+    body: "کاربر باید بداند کدام پروژه ارزش پیگیری دارد، چه زمانی تماس بگیرد و چطور فرصت را از دست ندهد.",
+  },
+  {
+    title: "تصمیم‌یار هوشمند",
+    body: "هوش مصنوعی روی داده اختصاصی و رفتار فروش قرار می‌گیرد تا فاصله بین مشاهده پروژه و تصمیم اقدام کوتاه‌تر شود.",
+  },
+];
+const storyPoints = [
+  "بازار ساخت‌وساز آگهی‌محور نیست و فرصت‌ها اغلب قبل از دیده شدن از بین می‌روند.",
+  "تامین‌کننده به منبعی نیاز دارد که مرحله، زمان فروش و مسیر تماس را کنار هم نشان دهد.",
+  "پرشین‌سازه از داده خام عبور کرده و روی تبدیل پروژه به workflow فروش تمرکز می‌کند.",
+];
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
@@ -18,24 +41,26 @@ const structuredData = {
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/about-us/" structuredData={structuredData}>
-  <main>
-    <section class="content-hero media-hero">
-      <div class="container content-hero-grid">
+  <main class="company-system-page">
+    <section class="content-hero company-story-hero">
+      <div class="container product-system-hero-grid">
         <div>
           <p class="content-eyebrow">درباره ما</p>
-          <h1>ما راهکار فروش پروژه‌محور برای بازار ساختمان می‌سازیم.</h1>
+          <h1>ما پرشین‌سازه را برای فروش دقیق‌تر در بازار پروژه‌های ساختمانی می‌سازیم.</h1>
           <p>
-            پرشین‌سازه از کار میدانی برای پیدا کردن پروژه‌های در حال ساخت شروع شد و امروز روی یک مسئله روشن متمرکز است:
-            کمک به تأمین‌کنندگان برای دیدن پروژه مناسب، در زمان مناسب و پیگیری منظم‌تر فرصت فروش.
+            پرشین‌سازه فقط بانک اطلاعات تماس یا فهرست پروژه نیست. ما زیرساختی می‌سازیم که تامین‌کننده بتواند پروژه
+            مناسب را در زمان درست ببیند، ارزیابی کند، ارتباط بگیرد و پیگیری را منظم ادامه دهد.
           </p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
-            <a class="button button-secondary" href="/contact-us/">تماس با ما</a>
+            <a class="button button-secondary" href="/product/">مشاهده محصول</a>
           </div>
         </div>
-        <figure class="image-panel hero-image-panel">
-          <img src={assets.aboutHero.src} alt={assets.aboutHero.alt} loading="eager" decoding="async" />
-        </figure>
+        <aside class="company-story-card">
+          <span>تمرکز ما</span>
+          <strong>داده زنده پروژه به اقدام فروش</strong>
+          <p>مخاطب اصلی پرشین‌سازه تامین‌کنندگان، تولیدکنندگان و فروشندگان B2B صنعت ساختمان هستند.</p>
+        </aside>
       </div>
     </section>
 
@@ -53,52 +78,30 @@ const structuredData = {
     </section>
 
     <section class="section">
-      <div class="container page-split">
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.homeOffice.src} alt={assets.homeOffice.alt} loading="lazy" decoding="async" />
-        </figure>
+      <div class="container product-two-column">
         <div class="section-copy">
-          <h2>از کجا و چرا شروع شد؟</h2>
+          <p class="content-eyebrow">مسئله‌ای که حل می‌کنیم</p>
+          <h2>فروش ساختمانی زمانی می‌برد که پروژه، مرحله و مسیر ارتباطی درست کنار هم دیده شوند.</h2>
           <p>
-            در بازار ساختمان، پروژه‌ها آگهی نمی‌دهند و تصمیم‌گیرنده‌ها همیشه در دسترس نیستند. سال‌ها فروش در این بازار به
-            جست‌وجوی خیابانی، شماره‌های پراکنده و شانس وابسته بود. پرشین‌سازه برای ساختن یک مسیر قابل اتکاتر شکل گرفت.
-          </p>
-          <p>
-            مسیر امروز ما روشن‌تر است: داده پروژه باید زنده، قابل تصمیم و قابل پیگیری باشد؛ نه فقط یک شماره تماس در یک فایل.
+            تیم فروش نمی‌تواند فقط با چند شماره تماس پراکنده، بازار پروژه‌های در حال ساخت را مدیریت کند. ارزش واقعی وقتی
+            ساخته می‌شود که داده پروژه زنده باشد، مرحله ساخت مشخص باشد و پیگیری از حالت فردی و شانسی خارج شود.
           </p>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container page-split">
-        <div class="section-copy">
-          <h2>یک راهکار همه‌جانبه برای تیم فروش</h2>
-          <p>
-            پرشین‌سازه داده، نقشه، فیلتر، CRM، پیامک، آموزش و پشتیبانی را کنار هم می‌گذارد تا فروشنده فقط پروژه را نبیند؛
-            بتواند آن را ارزیابی کند، ارتباط بگیرد و پیگیری را ادامه دهد.
-          </p>
-          <ul class="check-list">
-            <li>داده زنده و قابل به‌روزرسانی پروژه‌های در حال ساخت</li>
-            <li>ابزارهای اجرایی برای تبدیل داده به اقدام فروش</li>
-            <li>آموزش و پشتیبانی برای استفاده درست و سالم از محصول</li>
-          </ul>
-        </div>
-        <figure class="image-panel tall-image-panel">
-          <img src={assets.aboutTeam.src} alt={assets.aboutTeam.alt} loading="lazy" decoding="async" />
-        </figure>
+        <ul class="business-friction-list">
+          {storyPoints.map((item) => <li>{item}</li>)}
+        </ul>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
         <div class="section-heading">
-          <h2>ارزش‌هایی که مسیرمان را کنترل می‌کنند</h2>
-          <p>این ارزش‌ها برای شعار نیستند؛ مستقیماً روی کیفیت داده، پشتیبانی، آموزش و رفتار تیم با مشتری اثر می‌گذارند.</p>
+          <h2>پرشین‌سازه را روی چهار ستون می‌سازیم</h2>
+          <p>این ستون‌ها مسیر محصول، عملیات داده، آموزش و پشتیبانی ما را کنترل می‌کنند.</p>
         </div>
-        <div class="value-grid">
-          {aboutValues.map((item) => (
-            <article class="value-card">
+        <div class="execution-tool-grid company-pillar-grid">
+          {companyPillars.map((item) => (
+            <article class="execution-tool-card company-pillar-card">
               <h3>{item.title}</h3>
               <p>{item.body}</p>
             </article>
@@ -108,10 +111,45 @@ const structuredData = {
     </section>
 
     <section class="section">
+      <div class="container product-workflow-panel company-story-panel">
+        <div class="section-heading">
+          <h2>ما داده را تا رفتار فروش دنبال می‌کنیم</h2>
+          <p>
+            معیار ما فقط تعداد پروژه نیست؛ مهم این است که کاربر بتواند از پروژه، تصمیم عملیاتی بگیرد و نتیجه را در مسیر
+            فروش ثبت کند.
+          </p>
+        </div>
+        <ol class="product-workflow-list">
+          <li>
+            <span>01</span>
+            <p>پروژه در میدان شناسایی، کنترل و به‌روزرسانی می‌شود.</p>
+          </li>
+          <li>
+            <span>02</span>
+            <p>مرحله ساخت و تناسب آن با محصول تامین‌کننده قابل فهم می‌شود.</p>
+          </li>
+          <li>
+            <span>03</span>
+            <p>تیم فروش از مسیر درست تماس، پیامک، یادداشت و پیگیری اقدام می‌کند.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
       <div class="container">
-        <figure class="wide-image-panel">
-          <img src={assets.homeTeam.src} alt={assets.homeTeam.alt} loading="lazy" decoding="async" />
-        </figure>
+        <div class="section-heading">
+          <h2>ارزش‌هایی که مسیرمان را کنترل می‌کنند</h2>
+          <p>این ارزش‌ها مستقیم روی کیفیت داده، پشتیبانی، آموزش و رفتار تیم با مشتری اثر می‌گذارند.</p>
+        </div>
+        <div class="value-grid">
+          {aboutValues.map((item) => (
+            <article class="value-card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   </main>
