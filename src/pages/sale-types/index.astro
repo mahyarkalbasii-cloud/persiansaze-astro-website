@@ -70,7 +70,7 @@ const structuredData = [
           {saleTypes.map((saleType, index) => (
             <article class="content-card sale-method-card">
               <span class="sale-method-card-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-              <p class="content-eyebrow">{saleType.englishTitle}</p>
+              <p class="content-eyebrow">روایت متد فروش</p>
               <h2>{saleType.title}</h2>
               <p>{saleType.summary}</p>
               <svg class="sale-spectrum mini" viewBox="0 0 100 18" aria-label={`جایگاه ${saleType.title} روی طیف فروش`}>
