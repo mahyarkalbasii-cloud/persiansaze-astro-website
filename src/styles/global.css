@@ -3911,6 +3911,51 @@ details p {
   border-color: color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
 }
 
+.stage-timeline-section {
+  overflow: hidden;
+  background: #1a1714;
+  color: var(--primary-foreground);
+}
+
+.stage-timeline-shell {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.stage-timeline-copy {
+  display: grid;
+  max-width: 48rem;
+  gap: var(--space-3);
+}
+
+.stage-timeline-copy .content-eyebrow {
+  color: var(--claude-orange-soft);
+}
+
+.stage-timeline-copy h2 {
+  color: var(--primary-foreground);
+}
+
+.stage-timeline-copy p {
+  color: color-mix(in srgb, var(--primary-foreground) 78%, transparent);
+}
+
+.stage-timeline-visual {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.stage-timeline-visual picture,
+.stage-timeline-visual img {
+  display: block;
+}
+
+.stage-timeline-visual img {
+  width: 100%;
+  height: auto;
+}
+
 /* ریل عمودی مراحل — ستون‌فقرات مسی متصل‌کننده ۹ مرحله */
 .csx-spine .csx-spine-row {
   grid-template-columns: 3.5rem minmax(0, 1fr);
@@ -3991,6 +4036,22 @@ details p {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     overflow: hidden;
+  }
+
+  .stage-timeline-section {
+    padding-block: var(--space-12);
+  }
+
+  .stage-timeline-shell {
+    gap: var(--space-6);
+  }
+
+  .stage-timeline-copy h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .stage-timeline-visual {
+    max-width: min(100%, 26rem);
   }
 }
 
@@ -5218,7 +5279,7 @@ body .persian-number {
     gap: var(--space-12);
   }
 
-  .stage-spine {
+  .stage-rail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -5390,7 +5451,7 @@ body .persian-number {
     grid-template-columns: 1fr;
   }
 
-  .stage-spine {
+  .stage-rail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-2);
   }
@@ -5588,7 +5649,7 @@ body .persian-number {
 }
 
 @media (max-width: 340px) {
-  .stage-spine {
+  .stage-rail {
     grid-template-columns: 1fr;
   }
 
@@ -6758,7 +6819,7 @@ body.home-color-anthropic .stages-heading {
   text-align: center;
 }
 
-body.home-color-anthropic .stage-spine-wrap {
+body.home-color-anthropic .stage-rail-wrap {
   position: relative;
 }
 
@@ -6776,7 +6837,7 @@ body.home-color-anthropic #sales-flow .section-heading {
   text-align: center;
 }
 
-body.home-color-anthropic .stage-spine {
+body.home-color-anthropic .stage-rail {
   gap: var(--space-2);
 }
 
@@ -7711,11 +7772,11 @@ body.home-color-anthropic .field select:focus {
     display: none;
   }
 
-  body.home-color-anthropic .stage-spine-wrap::after {
+  body.home-color-anthropic .stage-rail-wrap::after {
     display: none;
   }
 
-  body.home-color-anthropic .stage-spine {
+  body.home-color-anthropic .stage-rail {
     display: flex;
     grid-template-columns: none;
     margin-inline: -0.5rem;
