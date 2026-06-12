@@ -1,9 +1,6 @@
 ---
-import "../styles/global.css";
-import SiteFooter from "@/components/SiteFooter.astro";
-import SiteHeader from "@/components/SiteHeader.astro";
-import PersianDigitsScript from "@/components/PersianDigitsScript.astro";
 import HeroRouteMap from "@/components/HeroRouteMap.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import {
   audiences,
   demo,
@@ -98,9 +95,6 @@ const durationSavings = pricing.durations.reduce<Record<string, number | null>>(
 const orderedFaqs = [faqs[0], faqs[1], faqs[3], faqs[2], faqs[4], faqs[7], faqs[8], faqs[9], faqs[10], faqs[11], faqs[12], faqs[6], faqs[5]].filter(
   (item): item is (typeof faqs)[number] => Boolean(item),
 );
-const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
-const canonicalOrigin = new URL(site.url).origin;
-const homeOgImageUrl = new URL("/assets/company/og-home.jpg", canonicalOrigin).href;
 const salesPipelineCardSets = [
   {
     count: "ورودی خام",
@@ -248,38 +242,7 @@ const schemaGraph = [
 ];
 ---
 
-<!doctype html>
-<html lang="fa-IR" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{metadata.title}</title>
-    <meta name="description" content={metadata.description} />
-    <meta name="keywords" content={metadata.keywords.join(", ")} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href={site.url} />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fa_IR" />
-    <meta property="og:url" content={site.url} />
-    <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={metadata.title} />
-    <meta property="og:description" content={metadata.description} />
-    <meta property="og:image" content={homeOgImageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="پرشین‌سازه - زیرساخت فروش پروژه‌محور" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={homeOgImageUrl} />
-    <meta name="twitter:title" content={metadata.title} />
-    <meta name="twitter:description" content={metadata.description} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
-  </head>
-  <body class="home-color-anthropic">
-    <SiteHeader home />
-
+<BaseLayout title={metadata.title} description={metadata.description} canonicalPath="/" structuredData={schemaGraph} homeHeader>
     <main class="home-page">
       <section id="hero" class="hero">
         <div class="container hero-grid">
@@ -1052,15 +1015,4 @@ const schemaGraph = [
       })();
     </script>
 
-    <SiteFooter />
-    <PersianDigitsScript />
-    {cfBeaconToken && (
-      <script
-        is:inline
-        defer
-        src="https://static.cloudflareinsights.com/beacon.min.js"
-        data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
-      />
-    )}
-  </body>
-</html>
+  </BaseLayout>
