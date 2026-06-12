@@ -401,7 +401,7 @@ export const utilityLinks: LinkItem[] = [
 ];
 
 export function absoluteUrl(path = "") {
-  return `${site.url}${path}`;
+  return new URL(path, site.url).toString();
 }
 
 export const ids = {

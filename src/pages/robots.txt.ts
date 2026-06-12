@@ -6,7 +6,6 @@ export function GET() {
     "Allow: /",
     "Disallow: /api/",
     "Disallow: /admin/",
-    "Disallow: /*?*",
     "",
     ...aiCrawlerUserAgents.flatMap((userAgent) => [
       `User-agent: ${userAgent}`,

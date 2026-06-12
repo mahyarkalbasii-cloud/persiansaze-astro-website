@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, site } from "@/content/home";
 
 type RuleTerm = {
@@ -153,6 +154,7 @@ const structuredData = {
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/rules/" structuredData={structuredData}>
+  <BreadcrumbSchema items={[{ name: "قوانین", path: "/rules/" }]} />
   <main class="rules-page">
     <section class="content-hero rules-hero">
       <div class="container content-hero-grid">

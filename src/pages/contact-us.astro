@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, demo, site } from "@/content/home";
 import { contactCards } from "@/content/company";
 import { workFields } from "@/content/construction";
@@ -36,6 +37,7 @@ const mapUrl =
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/contact-us/" structuredData={structuredData}>
+  <BreadcrumbSchema items={[{ name: "تماس با ما", path: "/contact-us/" }]} />
   <main class="contact-system-page">
     <section class="content-hero contact-operations-hero">
       <div class="container product-system-hero-grid">
