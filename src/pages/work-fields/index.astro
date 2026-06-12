@@ -1,13 +1,39 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import { absoluteUrl, site } from "@/content/home";
 import { constructionStages, stageTitleById, workFields, workSubcategories } from "@/content/construction";
 
 const title = "زمینه‌های کاری ساختمان | پرشین‌سازه";
 const description =
   "دسته‌بندی کامل زمینه‌های کاری، زیر‌دسته‌های محصول و خدمات ساختمانی، معادل مرحله ساخت، تعریف فنی و نکات مهم برای سازنده.";
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: title,
+    description,
+    url: absoluteUrl("/work-fields/"),
+    inLanguage: "fa-IR",
+    isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "فهرست زمینه‌های کاری ساختمان",
+    itemListElement: workFields.map((field, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: field.title,
+      url: absoluteUrl(`/work-fields/${field.slug}/`),
+      description: field.definition,
+    })),
+  },
+];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/work-fields/">
+<BaseLayout title={title} description={description} canonicalPath="/work-fields/" structuredData={structuredData}>
+  <BreadcrumbSchema items={[{ name: "زمینه‌های کاری", path: "/work-fields/" }]} />
   <main>
     <section class="content-hero work-index-hero">
       <div class="container content-hero-grid">

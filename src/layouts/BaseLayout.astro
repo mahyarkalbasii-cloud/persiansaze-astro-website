@@ -11,6 +11,7 @@ type Props = {
   canonicalPath?: string;
   ogImage?: string;
   structuredData?: unknown | unknown[];
+  noindex?: boolean;
   homeHeader?: boolean;
   bodyClass?: string;
 };
@@ -21,6 +22,7 @@ const {
   canonicalPath = "/",
   ogImage = "/assets/company/og-home.jpg",
   structuredData,
+  noindex = false,
   homeHeader = false,
   bodyClass = "home-color-anthropic",
 } = Astro.props;
@@ -38,8 +40,13 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <link rel="canonical" href={canonicalUrl} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
+    />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="preload" href="/fonts/estedad-arabic-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/estedad-arabic-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -1,13 +1,39 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import { absoluteUrl, site } from "@/content/home";
 import { cityProfiles } from "@/content/cities";
 
 const title = "شهرهای پوشش پرشین‌سازه | تهران، کرج و لواسان";
 const description =
   "صفحات شهری پرشین‌سازه برای تحلیل ساخت‌وساز تهران، کرج و لواسان: جمعیت، مسکن، پروانه ساخت، زیرساخت، ریسک شهری و فرصت فروش پروژه‌محور.";
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: title,
+    description,
+    url: absoluteUrl("/cities/"),
+    inLanguage: "fa-IR",
+    isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "فهرست شهرهای پوشش پرشین‌سازه",
+    itemListElement: cityProfiles.map((city, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: city.title,
+      url: absoluteUrl(`/cities/${city.slug}/`),
+      description: city.summary,
+    })),
+  },
+];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/cities/">
+<BaseLayout title={title} description={description} canonicalPath="/cities/" structuredData={structuredData}>
+  <BreadcrumbSchema items={[{ name: "شهرها", path: "/cities/" }]} />
   <main>
     <section class="content-hero city-index-hero">
       <div class="container content-hero-grid">
