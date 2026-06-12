@@ -5,7 +5,6 @@ import { saleTypes } from "@/content/sales";
 import { subscriptionPlans } from "@/content/subscriptions";
 
 export function GET() {
-  const lastModified = new Date().toISOString();
   const urls = [
     { path: "/", changefreq: "weekly", priority: "1.0" },
     { path: "/product/", changefreq: "monthly", priority: "0.9" },
@@ -19,13 +18,6 @@ export function GET() {
       changefreq: "monthly",
       priority: "0.8",
     })),
-    ...workFields.flatMap((field) =>
-      field.subcategories.map((subcategory) => ({
-        path: `/work-fields/${field.slug}/${subcategory.slug}/`,
-        changefreq: "monthly",
-        priority: "0.7",
-      }))
-    ),
     { path: "/cities/", changefreq: "weekly", priority: "0.9" },
     ...cityProfiles.map((city) => ({
       path: `/cities/${city.slug}/`,
@@ -57,7 +49,6 @@ ${urls
   .map(
     (item) => `  <url>
     <loc>${absoluteUrl(item.path)}</loc>
-    <lastmod>${lastModified}</lastmod>
     <changefreq>${item.changefreq}</changefreq>
     <priority>${item.priority}</priority>
   </url>`
