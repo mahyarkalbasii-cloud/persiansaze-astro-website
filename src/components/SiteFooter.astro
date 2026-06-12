@@ -4,7 +4,7 @@ import { constructionStages, workFields as constructionWorkFields } from "@/cont
 import { saleTypes as saleTypeContent } from "@/content/sales";
 
 const [primaryPages, footerSaleTypes, cityLinks, workFields, stageLinks] = footerLinkGroups;
-const reversedContacts = [...site.contacts].reverse();
+const footerContacts = [site.contacts[0], site.contacts[1]];
 const legalLink = utilityLinks[0];
 const bottomUtilityLinks = utilityLinks.slice(1, 5);
 const footerPrimaryPageLinks = primaryPages.links.filter((item) => item.href !== "#faq");
@@ -35,54 +35,16 @@ const enamadTrustUrl = "https://trustseal.enamad.ir/?id=20773&Code=d4SMDrR7ThsDS
 const enamadLogoUrl = "https://trustseal.enamad.ir/logo.aspx?id=20773&Code=d4SMDrR7ThsDSLl6AYMp";
 const enamadLogoFallbackUrl = "/assets/company/enamad-trust-seal.png";
 const enamadFallbackHandler = `this.onerror=null;this.src='${enamadLogoFallbackUrl}';`;
-const socialIconPaths = {
-  instagram: [
-    "M7 3.5h10A3.5 3.5 0 0 1 20.5 7v10a3.5 3.5 0 0 1-3.5 3.5H7A3.5 3.5 0 0 1 3.5 17V7A3.5 3.5 0 0 1 7 3.5Z",
-    "M8.8 12a3.2 3.2 0 1 0 6.4 0 3.2 3.2 0 0 0-6.4 0Z",
-    "M17.3 6.8h.01",
-  ],
-  linkedin: [
-    "M6.5 10v7.5",
-    "M6.5 6.7v.1",
-    "M10.5 17.5V10",
-    "M10.5 13.1c0-1.8 1.1-3.1 2.8-3.1 1.9 0 3.2 1.3 3.2 3.7v3.8",
-  ],
-  youtube: [
-    "M4.5 8.4A3 3 0 0 1 7.4 6.2c1.5-.1 3-.2 4.6-.2s3.1.1 4.6.2a3 3 0 0 1 2.9 2.2c.2 1.1.3 2.3.3 3.6s-.1 2.5-.3 3.6a3 3 0 0 1-2.9 2.2c-1.5.1-3 .2-4.6.2s-3.1-.1-4.6-.2a3 3 0 0 1-2.9-2.2c-.2-1.1-.3-2.3-.3-3.6s.1-2.5.3-3.6Z",
-    "m10.2 9 4.4 3-4.4 3V9Z",
-  ],
-  facebook: [
-    "M14.2 8h2V5h-2.5c-2.4 0-3.7 1.4-3.7 3.8V11H8v3h2v6h3.3v-6h2.5l.5-3h-3V9.1c0-.7.3-1.1.9-1.1Z",
-  ],
-  flipboard: [
-    "M5 5h14v14H5V5Z",
-    "M8 8h8v3H8V8Z",
-    "M8 11h5v3H8v-3Z",
-    "M8 14h3v3H8v-3Z",
-  ],
-  substack: [
-    "M6 5h12",
-    "M6 8.8h12",
-    "M7 12h10v7l-5-3-5 3v-7Z",
-  ],
-  medium: [
-    "M3.8 6.8h3.1l4.2 6.8 4.2-6.8h3v10.4h-2.5v-6.5l-4 6.5h-1.4l-4.1-6.5v6.5H3.8V6.8Z",
-  ],
-  link: [
-    "M10 13a5 5 0 0 0 7.1 0l1.4-1.4a5 5 0 0 0-7.1-7.1L10.6 5.3",
-    "M14 11a5 5 0 0 0-7.1 0l-1.4 1.4a5 5 0 0 0 7.1 7.1l.8-.8",
-  ],
-};
-const socialIconFor = (href: string, label: string) => {
+const socialIconKeyFor = (href: string, label: string) => {
   const source = `${href} ${label}`.toLowerCase();
-  if (source.includes("instagram")) return socialIconPaths.instagram;
-  if (source.includes("linkedin")) return socialIconPaths.linkedin;
-  if (source.includes("youtube")) return socialIconPaths.youtube;
-  if (source.includes("facebook")) return socialIconPaths.facebook;
-  if (source.includes("flipboard")) return socialIconPaths.flipboard;
-  if (source.includes("substack")) return socialIconPaths.substack;
-  if (source.includes("medium")) return socialIconPaths.medium;
-  return socialIconPaths.link;
+  if (source.includes("instagram")) return "instagram";
+  if (source.includes("linkedin")) return "linkedin";
+  if (source.includes("youtube")) return "youtube";
+  if (source.includes("facebook")) return "facebook";
+  if (source.includes("flipboard")) return "flipboard";
+  if (source.includes("substack")) return "substack";
+  if (source.includes("medium")) return "medium";
+  return "link";
 };
 ---
 
@@ -101,10 +63,10 @@ const socialIconFor = (href: string, label: string) => {
       <p class="sr-only">{footer.contactTitle}</p>
       <ul class="footer-contact-list">
         <li class="footer-contact-row footer-phone-row">
-          {reversedContacts.map((contact, index) => (
+          {footerContacts.map((contact, index) => (
             <>
               <a href={contact.href} dir="ltr">{contact.phone}</a>
-              {index < reversedContacts.length - 1 && <span aria-hidden="true">|</span>}
+              {index < footerContacts.length - 1 && <span aria-hidden="true">|</span>}
             </>
           ))}
         </li>
@@ -116,12 +78,15 @@ const socialIconFor = (href: string, label: string) => {
       <p class="sr-only">{footer.socialTitle}</p>
       <div class="social-row">
         {socialLinks.map((item) => (
-          <a href={item.href} target="_blank" rel="noopener noreferrer" aria-label={item.label}>
-            <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-              {socialIconFor(item.href, item.label).map((path) => (
-                <path d={path}></path>
-              ))}
-            </svg>
+          <a
+            class={`social-link social-link-${socialIconKeyFor(item.href, item.label)}`}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={item.label}
+            title={item.label}
+          >
+            <span class={`social-icon social-icon-${socialIconKeyFor(item.href, item.label)}`} aria-hidden="true"></span>
           </a>
         ))}
       </div>

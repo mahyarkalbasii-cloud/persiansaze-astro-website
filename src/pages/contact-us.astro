@@ -1,27 +1,36 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
-import { absoluteUrl, demo, site } from "@/content/home";
-import { contactCards } from "@/content/company";
-import { workFields } from "@/content/construction";
+import { absoluteUrl, site, socialLinks } from "@/content/home";
 
-const title = "تماس با ما | پرشین‌سازه";
-const description =
-  "راه‌های ارتباط با پرشین‌سازه برای درخواست دمو، مشاوره فروش پروژه‌محور، پشتیبانی اشتراک‌ها و مراجعه به دفتر تهران.";
-const contactRoutes = [
-  {
-    title: "درخواست دمو",
-    body: "برای بررسی تناسب پرشین‌سازه با محصول، بازار هدف و تیم فروش شما.",
-  },
-  {
-    title: "مشاوره انتخاب اشتراک",
-    body: "برای انتخاب پلن بر اساس متراژ هدف، مرحله ساخت، شهر و توان پیگیری فروش.",
-  },
-  {
-    title: "پشتیبانی مشتریان",
-    body: "برای سوال‌های مربوط به استفاده از محصول، پروژه‌ها، CRM، پیامک و آموزش.",
-  },
+const title = "تماس با ما | شرکت ارتباطات ماندگار پرشین | پرشین‌سازه";
+const description = "راه‌های ارتباط با پرشین‌سازه، شماره‌های تماس، آدرس شرکت، ایمیل و ساعت پاسخگویی.";
+
+const heroImage = {
+  src: "/assets/company/contact/contact-hero.webp",
+  alt: "تیم پرشین سازه در فضای کاری شرکت",
+};
+
+const mapUrl =
+  "https://www.google.com/maps/place/%D9%BE%D8%B1%D8%B4%DB%8C%D9%86+%D8%B3%D8%A7%D8%B2%D9%87%E2%80%AD/@35.7791964,51.3759454,18.94z/data=!4m6!3m5!1s0x3f8e07a2fa35dbff:0xa2adc10f4130c19e!8m2!3d35.7790528!4d51.3756886!16s%2Fg%2F11tmkkmrxh";
+
+const phoneLinks = [
+  site.contacts[2],
+  site.contacts[0],
+  site.contacts[1],
 ];
+
+const primarySocialLinks = socialLinks.filter((link) =>
+  ["اینستاگرام", "لینکدین", "یوتیوب"].includes(link.label),
+);
+
+const socialIconKeyFor = (href: string, label: string) => {
+  const source = `${href} ${label}`.toLowerCase();
+  if (source.includes("instagram")) return "instagram";
+  if (source.includes("linkedin")) return "linkedin";
+  return "youtube";
+};
+
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
@@ -30,125 +39,110 @@ const structuredData = {
   url: absoluteUrl("/contact-us/"),
   inLanguage: "fa-IR",
   isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
+  mainEntity: {
+    "@type": "Organization",
+    name: site.legalName,
+    url: site.url,
+    email: site.email,
+    address: {
+      "@type": "PostalAddress",
+      ...site.postalAddress,
+    },
+    openingHoursSpecification: site.openingHoursSpecification,
+    contactPoint: site.contacts.map((contact) => ({
+      "@type": "ContactPoint",
+      telephone: contact.telephone,
+      contactType: contact.contactType,
+      areaServed: "IR",
+      availableLanguage: ["fa"],
+    })),
+    sameAs: site.sameAs,
+  },
 };
-const demoWorkFieldOptions = workFields.map((field) => field.title);
-const mapUrl =
-  "https://www.google.com/maps/place/%D9%BE%D8%B1%D8%B4%DB%8C%D9%86+%D8%B3%D8%A7%D8%B2%D9%87%E2%80%AD/@35.7791964,51.3759454,18.94z/data=!4m6!3m5!1s0x3f8e07a2fa35dbff:0xa2adc10f4130c19e!8m2!3d35.7790528!4d51.3756886!16s%2Fg%2F11tmkkmrxh";
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/contact-us/" structuredData={structuredData}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/contact-us/"
+  ogImage="/assets/company/contact/contact-hero.webp"
+  structuredData={structuredData}
+>
   <BreadcrumbSchema items={[{ name: "تماس با ما", path: "/contact-us/" }]} />
-  <main class="contact-system-page">
-    <section class="content-hero contact-operations-hero">
-      <div class="container product-system-hero-grid">
-        <div>
+  <main class="contact-system-page contact-source-page">
+    <section class="content-hero contact-operations-hero contact-hero">
+      <div class="container contact-hero-grid">
+        <div class="contact-hero-copy">
           <p class="content-eyebrow">تماس با ما</p>
-          <h1>برای دمو، مشاوره اشتراک یا پشتیبانی فروش پروژه‌محور با ما صحبت کنید.</h1>
+          <h1>راه‌های ارتباط با پرشین سازه</h1>
           <p>
-            اگر می‌خواهید بدانید پرشین‌سازه برای بازار، محصول و تیم فروش شما مناسب است یا نه، مسیر درست از گفت‌وگوی
-            کوتاه درباره محصول، محدوده فروش، مرحله‌های هدف و ظرفیت پیگیری شروع می‌شود.
+            ما در روزهای کاری پاسخگوی شما هستیم. با ما تماس بگیرید و در شبکه‌های اجتماعی همراه‌مان شوید.
           </p>
           <div class="action-row">
-            <a class="button button-primary" href="#contact-form">ثبت درخواست دمو</a>
-            <a class="button button-secondary" href={site.contacts[0].href}>{site.contacts[0].phone}</a>
+            <a class="button button-primary" href={site.contacts[1].href}>تماس با شرکت</a>
+            <a class="button button-secondary" href={mapUrl} target="_blank" rel="noreferrer">مشاهده روی نقشه</a>
           </div>
         </div>
-        <aside class="contact-hero-card">
-          <span>مسیر سریع تماس</span>
-          <strong>{site.contacts[0].phone}</strong>
-          <p>{site.openingHoursText}</p>
-        </aside>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <h2>برای چه موضوعی تماس می‌گیرید؟</h2>
-          <p>انتخاب مسیر درست کمک می‌کند گفت‌وگو سریع‌تر به تصمیم عملی برسد.</p>
-        </div>
-        <div class="execution-tool-grid contact-route-grid">
-          {contactRoutes.map((item) => (
-            <article class="execution-tool-card contact-route-card">
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
+        <figure class="image-panel contact-hero-image">
+          <img src={heroImage.src} alt={heroImage.alt} width="800" height="400" loading="eager" decoding="async" />
+        </figure>
       </div>
     </section>
 
     <section class="section contact-details-section">
-      <div class="container contact-layout contact-system-layout">
-        <div class="contact-main-panel">
-          <div class="section-heading">
-            <h2>راه‌های ارتباط با پرشین‌سازه</h2>
-            <p>شماره‌ها، ایمیل و مسیرهای اصلی تماس را اینجا می‌بینید.</p>
-          </div>
-          <div class="contact-card-grid">
-            {contactCards.map((item) => (
-              <article class="contact-card">
-                <h3>{item.title}</h3>
-                <a href={item.href}>{item.body}</a>
-              </article>
-            ))}
-          </div>
+      <div class="container">
+        <div class="section-heading">
+          <p class="content-eyebrow">مسیرهای تماس</p>
+          <h2>شماره‌ها و اطلاعات اصلی</h2>
         </div>
 
-        <aside class="contact-info-panel contact-office-panel">
-          <div class="contact-info-block">
-            <h2>دفتر تهران</h2>
-            <p>{site.address}</p>
-            <a href={mapUrl} target="_blank" rel="noreferrer">مشاهده روی نقشه</a>
-          </div>
-          <div class="contact-info-block">
-            <h2>ساعت پاسخگویی</h2>
-            <p>{site.openingHoursText}</p>
-          </div>
-          <div class="contact-info-block">
-            <h2>قبل از دمو آماده کنید</h2>
-            <p>محصول یا خدمت اصلی، شهرهای هدف، مرحله ساخت مناسب و ظرفیت پیگیری تیم فروش را مشخص کنید.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="contact-form" class="section demo-section">
-      <div class="container">
-        <div class="demo-shell contact-demo-shell">
-          <div class="demo-copy">
-            <h2>درخواست دمو یا مشاوره فروش</h2>
-            <p>
-              اطلاعات اولیه را ثبت کنید تا مسیر مناسب بررسی محصول، اشتراک و استفاده از داده پروژه‌ها با شما هماهنگ شود.
-            </p>
-          </div>
-
-          <form class="demo-form contact-form" action={`mailto:${site.email}`} method="post" enctype="text/plain">
-            <div class="form-grid">
-              <label class="field">
-                <span>{demo.form.name}</span>
-                <input name="name" autocomplete="name" />
-              </label>
-              <label class="field">
-                <span>{demo.form.phone}</span>
-                <input name="phone" autocomplete="tel" inputmode="tel" dir="ltr" />
-              </label>
-              <label class="field">
-                <span>{demo.form.company}</span>
-                <input name="company" autocomplete="organization" />
-              </label>
-              <label class="field">
-                <span>{demo.form.supplier}</span>
-                <select name="supplier">
-                  <option value="">{demo.form.choose}</option>
-                  {demoWorkFieldOptions.map((option) => (
-                    <option value={option}>{option}</option>
-                  ))}
-                </select>
-              </label>
+        <div class="contact-method-grid">
+          <article class="contact-method-card contact-phone-card">
+            <span>شماره تماس</span>
+            <div class="contact-phone-list">
+              {phoneLinks.map((contact, index) => (
+                <>
+                  <a href={contact.href}>{contact.phone}</a>
+                  {index < phoneLinks.length - 1 && <span class="contact-phone-separator" aria-hidden="true">|</span>}
+                </>
+              ))}
             </div>
-            <button class="button button-primary" type="submit">ثبت درخواست تماس</button>
-          </form>
+          </article>
+
+          <article class="contact-method-card contact-email-card">
+            <span>ایمیل</span>
+            <a href={`mailto:${site.email}`} dir="ltr">{site.email}</a>
+          </article>
+
+          <article class="contact-method-card contact-social-card">
+            <span>شبکه‌های اجتماعی</span>
+            <div class="contact-social-row" aria-label="شبکه‌های اجتماعی پرشین سازه">
+              {primarySocialLinks.map((link) => (
+                <a
+                  class={`contact-social-link contact-social-link-${socialIconKeyFor(link.href, link.label)}`}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={link.label}
+                  title={link.label}
+                >
+                  <span class={`contact-social-icon contact-social-icon-${socialIconKeyFor(link.href, link.label)}`} aria-hidden="true"></span>
+                </a>
+              ))}
+            </div>
+          </article>
+
+          <article class="contact-method-card contact-address-card">
+            <span>آدرس شرکت</span>
+            <p>{site.address}</p>
+            <a class="contact-map-link" href={mapUrl} target="_blank" rel="noreferrer">مشاهده روی نقشه</a>
+          </article>
+
+          <article class="contact-method-card contact-hours-card">
+            <span>ساعت پاسخگویی</span>
+            <p>{site.openingHoursText}</p>
+          </article>
         </div>
       </div>
     </section>
