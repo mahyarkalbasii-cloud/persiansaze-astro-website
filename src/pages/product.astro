@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProductFlowLive from "@/components/ProductFlowLive.astro";
 import { absoluteUrl, site } from "@/content/home";
 
 const title = "محصول پرشین‌سازه | زیرساخت فروش پروژه‌محور ساختمان";
@@ -157,11 +158,14 @@ const structuredData = {
       </div>
     </section>
 
-    <section id="workflow" class="section">
+    <section id="workflow" class="section product-flow-section">
       <div class="container product-workflow-panel">
         <div class="section-heading">
           <h2>جریان عملیاتی محصول</h2>
           <p>workflow واقعی کاربر باید از جست‌وجو شروع شود و به ثبت نتیجه و پیگیری بعدی برسد.</p>
+        </div>
+        <div class="product-flow-frame">
+          <ProductFlowLive />
         </div>
         <ol class="product-workflow-list">
           {workflow.map((item, index) => (
@@ -240,3 +244,32 @@ const structuredData = {
     </section>
   </main>
 </BaseLayout>
+
+<style>
+  /* جزیره تیره ۱ — زمینه #1A1714 لازم است: لایه نور کامپوننت mix-blend-mode:screen دارد و فقط روی تیره می‌درخشد */
+  .product-flow-section.section {
+    background: #1a1714;
+    border-top-color: rgba(232, 168, 124, 0.18);
+  }
+
+  .product-flow-section .product-workflow-panel {
+    border-color: rgba(232, 168, 124, 0.28);
+    background: linear-gradient(145deg, rgba(192, 87, 59, 0.14), rgba(26, 23, 20, 0));
+    box-shadow: none;
+  }
+
+  .product-flow-section .section-heading h2 {
+    color: #f7ede2;
+  }
+
+  .product-flow-section .section-heading p {
+    color: rgba(247, 237, 226, 0.72);
+  }
+
+  /* ظرف بیرونی: فقط اندازه و گوشه‌گرد — کامپوننت خودش border-radius:inherit دارد */
+  .product-flow-frame {
+    max-width: 64rem;
+    margin-inline: auto;
+    border-radius: var(--radius-lg);
+  }
+</style>
