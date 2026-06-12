@@ -1,0 +1,21 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  canonicalURL?: string;
+  ogImage?: string;
+  structuredData?: unknown | unknown[];
+  noindex?: boolean;
+  homeHeader?: boolean;
+  bodyClass?: string;
+};
+
+const props = Astro.props as Props;
+---
+
+<BaseLayout {...props}>
+  <slot />
+</BaseLayout>

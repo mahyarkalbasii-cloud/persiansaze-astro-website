@@ -2,8 +2,15 @@
 import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
 import PersianDigitsScript from "@/components/PersianDigitsScript.astro";
+import { cityProfiles } from "@/content/cities";
+import { constructionStages, workFields } from "@/content/construction";
+import { projectNeighborhoodRoutes, growthStageRoutes } from "@/content/growthSilos";
 import { site } from "@/content/home";
+import { saleTypes } from "@/content/sales";
+import { subscriptionPlans } from "@/content/subscriptions";
 import "../styles/global.css";
+
+type JsonLdObject = Record<string, unknown>;
 
 type Props = {
   title: string;
@@ -20,15 +27,45 @@ type Props = {
 const {
   title,
   description,
+  canonicalPath,
+  canonicalURL: canonicalURLProp,
   ogImage = "/assets/company/og-home.jpg",
   structuredData,
   noindex = false,
   homeHeader = false,
   bodyClass = "home-color-anthropic",
 } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const canonicalURL = canonicalURLProp ?? new URL(canonicalPath ?? Astro.url.pathname, Astro.site).toString();
 const canonicalOrigin = new URL(canonicalURL).origin;
 const ogImageUrl = new URL(ogImage, canonicalOrigin).href;
+const organizationKnowsAbout = [
+  "Construction Intelligence",
+  "B2B Sales Leads",
+  "Tehran Real Estate Development",
+  "Construction Stages",
+];
+const subscriptionTierNames: Record<string, string> = {
+  bonyan: "Bonyan",
+  royan: "Rouyan",
+  taban: "Taban",
+};
+const subscriptionOffers = subscriptionPlans
+  .filter((plan) => Object.prototype.hasOwnProperty.call(subscriptionTierNames, plan.slug))
+  .map((plan) => {
+    const tierName = subscriptionTierNames[plan.slug] ?? plan.name;
+
+    return {
+      "@type": "Offer",
+      name: `${tierName} subscription tier`,
+      url: new URL(`/subscriptions/${plan.slug}/`, site.url).href,
+      itemOffered: {
+        "@type": "Service",
+        name: `${site.alternateName} ${tierName}`,
+        serviceType: "B2B construction intelligence subscription",
+        provider: { "@id": `${site.url}/#organization` },
+      },
+    };
+  });
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -41,6 +78,8 @@ const organizationSchema = {
     "PersianSaze is a B2B SaaS and construction data intelligence platform for suppliers selling to active construction projects.",
   industry: "Construction intelligence",
   areaServed: ["Tehran", "Karaj", "Lavasan"],
+  knowsAbout: organizationKnowsAbout,
+  makesOffer: subscriptionOffers,
   serviceArea: ["Tehran", "Karaj", "Lavasan"].map((name) => ({
     "@type": "City",
     name,
@@ -55,13 +94,94 @@ const organizationSchema = {
     availableLanguage: ["fa-IR", "Persian"],
   })),
 };
+const staticSegmentLabels = [
+  ["about-us", "درباره ما"],
+  ["cities", "شهرها"],
+  ["construction-stages", "مراحل ساخت"],
+  ["contact-us", "تماس با ما"],
+  ["education", "آموزش"],
+  ["product", "محصول"],
+  ["projects", "پروژه‌ها"],
+  ["rules", "قوانین"],
+  ["sale-types", "انواع فروش"],
+  ["stages", "مراحل ساخت"],
+  ["subscriptions", "اشتراک‌ها"],
+  ["work-fields", "زمینه‌های کاری"],
+] as const;
+const dynamicSegmentLabels = [
+  ...cityProfiles.map((city) => [city.slug, city.title] as const),
+  ...constructionStages.map((stage) => [stage.slug, stage.title] as const),
+  ...workFields.flatMap((field) => [
+    [field.slug, field.title] as const,
+    ...field.subcategories.map((subcategory) => [subcategory.slug, subcategory.title] as const),
+  ]),
+  ...saleTypes.map((saleType) => [saleType.slug, saleType.title] as const),
+  ...subscriptionPlans.map((plan) => [plan.slug, plan.name] as const),
+  ...projectNeighborhoodRoutes.flatMap((route) => [
+    [route.city, route.cityName] as const,
+    [route.neighborhood, route.neighborhoodName] as const,
+  ]),
+  ...growthStageRoutes.map((route) => [route.stage, route.stageName] as const),
+];
+const breadcrumbLabelBySegment = new Map<string, string>([...staticSegmentLabels, ...dynamicSegmentLabels]);
+const decodePathSegment = (segment: string) => {
+  try {
+    return decodeURIComponent(segment);
+  } catch {
+    return segment;
+  }
+};
+const formatPathSegment = (segment: string) =>
+  breadcrumbLabelBySegment.get(segment) ??
+  decodePathSegment(segment)
+    .replace(/-/g, " ")
+    .replace(/\b[a-z]/g, (char) => char.toUpperCase());
+const currentPathSegments = Astro.url.pathname.split("/").filter(Boolean);
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: site.name,
+      item: site.url,
+    },
+    ...currentPathSegments.map((segment, index) => {
+      const path = `/${currentPathSegments.slice(0, index + 1).join("/")}/`;
+
+      return {
+        "@type": "ListItem",
+        position: index + 2,
+        name: formatPathSegment(segment),
+        item: new URL(path, Astro.site).toString(),
+      };
+    }),
+  ],
+};
 const propSchemaItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
-const hasOrganizationSchema = propSchemaItems.some((schema) => {
-  if (!schema || typeof schema !== "object") return false;
-  const schemaType = (schema as Record<string, unknown>)["@type"];
-  return schemaType === "Organization" || (Array.isArray(schemaType) && schemaType.includes("Organization"));
+const isJsonLdObject = (schema: unknown): schema is JsonLdObject =>
+  Boolean(schema) && typeof schema === "object" && !Array.isArray(schema);
+const isSchemaType = (schema: unknown, type: string) => {
+  if (!isJsonLdObject(schema)) return false;
+  const schemaType = schema["@type"];
+  return schemaType === type || (Array.isArray(schemaType) && schemaType.includes(type));
+};
+const hasOrganizationSchema = propSchemaItems.some((schema) => isSchemaType(schema, "Organization"));
+const hasBreadcrumbSchema = propSchemaItems.some((schema) => isSchemaType(schema, "BreadcrumbList"));
+const enhancedPropSchemaItems = propSchemaItems.map((schema) => {
+  if (!isSchemaType(schema, "Organization") || !isJsonLdObject(schema)) return schema;
+
+  return {
+    ...schema,
+    knowsAbout: organizationKnowsAbout,
+    makesOffer: subscriptionOffers,
+  };
 });
-const schemaItems = hasOrganizationSchema ? propSchemaItems : [organizationSchema, ...propSchemaItems];
+const schemaItems = [
+  ...(hasOrganizationSchema ? enhancedPropSchemaItems : [organizationSchema, ...enhancedPropSchemaItems]),
+  ...(hasBreadcrumbSchema ? [] : [breadcrumbSchema]),
+];
 const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
@@ -76,7 +196,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       name="robots"
       content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
     />
-    {!noindex && <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />}
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
     <link rel="preload" href="/fonts/estedad-arabic-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/estedad-arabic-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
