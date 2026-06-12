@@ -11,9 +11,19 @@ type Props = {
   canonicalPath?: string;
   ogImage?: string;
   structuredData?: unknown | unknown[];
+  homeHeader?: boolean;
+  bodyClass?: string;
 };
 
-const { title, description, canonicalPath = "/", ogImage = "/assets/company/og-home.jpg", structuredData } = Astro.props;
+const {
+  title,
+  description,
+  canonicalPath = "/",
+  ogImage = "/assets/company/og-home.jpg",
+  structuredData,
+  homeHeader = false,
+  bodyClass = "home-color-anthropic",
+} = Astro.props;
 const canonicalUrl = new URL(canonicalPath, site.url).toString();
 const canonicalOrigin = new URL(canonicalUrl).origin;
 const ogImageUrl = new URL(ogImage, canonicalOrigin).href;
@@ -51,8 +61,8 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
   </head>
-  <body class="home-color-anthropic">
-    <SiteHeader />
+  <body class={bodyClass}>
+    <SiteHeader home={homeHeader} />
     <slot />
     <SiteFooter />
     <PersianDigitsScript />
