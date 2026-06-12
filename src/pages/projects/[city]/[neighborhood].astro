@@ -1,0 +1,115 @@
+---
+import ProjectListCard from "@/components/ProjectListCard.astro";
+import { projectNeighborhoodRoutes, type ProjectNeighborhoodRoute } from "@/content/growthSilos";
+import { site } from "@/content/home";
+import Layout from "@/layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return projectNeighborhoodRoutes.map((route) => ({
+    params: { city: route.city, neighborhood: route.neighborhood },
+    props: { route },
+  }));
+}
+
+const { route } = Astro.props as { route: ProjectNeighborhoodRoute };
+const canonicalPath = `/projects/${route.city}/${route.neighborhood}/`;
+const canonicalURL = new URL(canonicalPath, Astro.site).toString();
+const title = `پروژه‌های در حال ساخت ${route.neighborhoodName} | ${route.cityName} | پرشین‌سازه`;
+const description = `${route.headline}: ${route.description}`;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: title,
+  description,
+  url: canonicalURL,
+  inLanguage: "fa-IR",
+  isPartOf: { "@id": `${site.url}/#website` },
+  about: [
+    { "@type": "Thing", name: "Construction Intelligence" },
+    { "@type": "Thing", name: "B2B Sales Leads" },
+    { "@type": "Place", name: route.neighborhoodName },
+  ],
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: route.projects.map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Project",
+        name: project.title,
+        location: project.location,
+        description: `${project.title} در مرحله ${project.stage}`,
+      },
+    })),
+  },
+};
+---
+
+<Layout title={title} description={description} canonicalURL={canonicalURL} structuredData={structuredData}>
+  <main>
+    <section class="content-hero city-file-hero">
+      <div class="container content-hero-grid city-file-hero-grid">
+        <div class="city-file-hero-copy">
+          <nav class="breadcrumb" aria-label="مسیر صفحه">
+            <a href="/">پرشین‌سازه</a>
+            <span aria-hidden="true">‹</span>
+            <span>{route.cityName}</span>
+            <span aria-hidden="true">‹</span>
+            <span>{route.neighborhoodName}</span>
+          </nav>
+          <p class="content-eyebrow">پروژه‌های محله‌ای</p>
+          <h1>{route.headline}</h1>
+          <p>{route.description}</p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/subscriptions/">مشاهده اشتراک‌ها</a>
+          </div>
+        </div>
+        <aside class="content-summary-card city-pin-card">
+          <span class="city-pin" aria-hidden="true">
+            <span>{route.neighborhoodName}</span>
+          </span>
+          <strong>{route.neighborhoodName}</strong>
+          <span>{route.cityName}</span>
+          <p>سیگنال محله‌ای برای اولویت‌بندی فروش و تشخیص زمان مناسب تماس با سازنده.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container detail-layout">
+        <aside class="detail-sidebar">
+          <h2>سیگنال‌های این محدوده</h2>
+          <dl class="compact-facts">
+            <div>
+              <dt>{route.projects.length}</dt>
+              <dd>نمونه پروژه قابل نمایش</dd>
+            </div>
+            <div>
+              <dt>{route.cityName}</dt>
+              <dd>شهر هدف</dd>
+            </div>
+            <div>
+              <dt>{route.neighborhoodName}</dt>
+              <dd>محله هدف</dd>
+            </div>
+          </dl>
+          <a class="text-link" href="/#demo">دسترسی کامل با دمو ←</a>
+        </aside>
+
+        <article class="detail-main">
+          <section>
+            <h2>لیست نمونه پروژه‌های {route.neighborhoodName}</h2>
+            <p>
+              این فهرست نمای اولیه‌ای از پروژه‌های قابل رصد در این محدوده است؛ برای هر فرصت، مرحله ساخت، سازنده و موقعیت
+              به تیم فروش کمک می‌کند زمان تماس و پیشنهاد مناسب‌تری انتخاب کند.
+            </p>
+            <div class="related-grid">
+              {route.projects.map((project) => <ProjectListCard {...project} />)}
+            </div>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+</Layout>

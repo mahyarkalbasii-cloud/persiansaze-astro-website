@@ -1,0 +1,36 @@
+---
+import type { ProjectListItem } from "@/content/growthSilos";
+
+type Props = ProjectListItem;
+
+const {
+  title,
+  builder,
+  stage,
+  location,
+  locked = true,
+  ctaHref = "/subscriptions/",
+  ctaLabel = "قفل / ارتقا",
+} = Astro.props as Props;
+---
+
+<article class="related-card project-list-card">
+  <h3>{title}</h3>
+  <dl class="compact-facts">
+    <div>
+      <dt>سازنده</dt>
+      <dd>{builder}</dd>
+    </div>
+    <div>
+      <dt>مرحله</dt>
+      <dd>{stage}</dd>
+    </div>
+    <div>
+      <dt>موقعیت</dt>
+      <dd>{location}</dd>
+    </div>
+  </dl>
+  <a class="button button-secondary" href={ctaHref} aria-label={`${ctaLabel}: ${title}`}>
+    {locked ? "قفل / ارتقا" : ctaLabel}
+  </a>
+</article>

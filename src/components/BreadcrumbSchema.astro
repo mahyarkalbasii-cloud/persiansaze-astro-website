@@ -1,6 +1,4 @@
 ---
-import { site } from "@/content/home";
-
 type BreadcrumbItem = {
   name: string;
   path: string;
@@ -10,19 +8,5 @@ type Props = {
   items: BreadcrumbItem[];
 };
 
-const homeItem = { name: site.name, path: "/" };
-const pageItems = Astro.props.items ?? [];
-const items = pageItems[0]?.path === "/" ? pageItems : [homeItem, ...pageItems];
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: items.map((item, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    name: item.name,
-    item: new URL(item.path, site.url).toString(),
-  })),
-};
+Astro.props as Props;
 ---
-
-<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
