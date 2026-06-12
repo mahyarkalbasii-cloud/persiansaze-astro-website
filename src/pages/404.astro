@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const title = "صفحه پیدا نشد | پرشین‌سازه";
+const description = "این آدرس در پرشین‌سازه پیدا نشد. از مسیرهای اصلی سایت ادامه دهید یا درخواست دمو ثبت کنید.";
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/">
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-copy">
+          <h1>صفحه پیدا نشد</h1>
+          <p>
+            این آدرس دیگر در دسترس نیست یا اشتباه وارد شده است. از مسیرهای اصلی پرشین‌سازه ادامه دهید.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/">صفحه اصلی</a>
+            <a class="button button-secondary" href="/cities/">شهرها</a>
+            <a class="button button-secondary" href="/product/">محصول</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
