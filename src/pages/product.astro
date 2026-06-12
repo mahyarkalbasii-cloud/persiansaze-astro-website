@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import ProductHeroFlow from "@/components/ProductHeroFlow.astro";
 import ProductFlowLive from "@/components/ProductFlowLive.astro";
 import SectionHeader from "@/components/SectionHeader.astro";
@@ -111,6 +112,7 @@ const structuredData = {
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/product/" structuredData={structuredData}>
+  <BreadcrumbSchema items={[{ name: "محصول", path: "/product/" }]} />
   <main class="product-system-page">
     <section class="content-hero product-system-hero">
       <div class="container product-system-hero-grid">

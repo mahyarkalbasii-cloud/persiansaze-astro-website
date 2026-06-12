@@ -13,11 +13,14 @@ export function GET() {
     { path: "/contact-us/", changefreq: "monthly", priority: "0.7" },
     { path: "/rules/", changefreq: "monthly", priority: "0.5" },
     { path: "/work-fields/", changefreq: "weekly", priority: "0.9" },
-    ...workFields.map((field) => ({
-      path: `/work-fields/${field.slug}/`,
-      changefreq: "monthly",
-      priority: "0.8",
-    })),
+    ...workFields.flatMap((field) => [
+      { path: `/work-fields/${field.slug}/`, changefreq: "monthly", priority: "0.8" },
+      ...field.subcategories.map((sub) => ({
+        path: `/work-fields/${field.slug}/${sub.slug}/`,
+        changefreq: "monthly",
+        priority: "0.7",
+      })),
+    ]),
     { path: "/cities/", changefreq: "weekly", priority: "0.9" },
     ...cityProfiles.map((city) => ({
       path: `/cities/${city.slug}/`,

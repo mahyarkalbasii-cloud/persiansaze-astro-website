@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { cityProfiles, type CityProfile } from "@/content/cities";
 import { constructionStages, workFields } from "@/content/construction";
 import { site } from "@/content/home";
@@ -44,6 +45,12 @@ const placeSchema = {
 ---
 
 <BaseLayout title={title} description={description} canonicalPath={`/cities/${city.slug}/`}>
+  <BreadcrumbSchema
+    items={[
+      { name: "شهرها", path: "/cities/" },
+      { name: city.title, path: `/cities/${city.slug}/` },
+    ]}
+  />
   <main>
     <section class="content-hero city-file-hero">
       <div class="container content-hero-grid city-file-hero-grid">

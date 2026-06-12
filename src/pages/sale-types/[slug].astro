@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { barterRiskRows, saleTypes, type SaleType } from "@/content/sales";
 
@@ -78,6 +79,12 @@ const structuredData = [
   canonicalPath={`/sale-types/${saleType.slug}/`}
   structuredData={structuredData}
 >
+  <BreadcrumbSchema
+    items={[
+      { name: "انواع فروش", path: "/sale-types/" },
+      { name: saleType.title, path: `/sale-types/${saleType.slug}/` },
+    ]}
+  />
   <main>
     <section class="content-hero sale-method-hero">
       <div class="container content-hero-grid sale-method-hero-grid">

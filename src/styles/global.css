@@ -2065,6 +2065,31 @@ details p {
   stroke: none;
 }
 
+.footer-trust-badge {
+  display: inline-grid;
+  justify-self: center;
+  place-items: center;
+  inline-size: 8.5rem;
+  min-block-size: 9rem;
+  margin-block-start: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--ps-ink-800);
+  border-radius: var(--radius-lg);
+  background: var(--ps-ink-900);
+  color: var(--ps-ink-300);
+  text-decoration: none;
+}
+
+.footer-trust-badge:hover {
+  border-color: color-mix(in srgb, var(--claude-orange) 48%, var(--ps-ink-800));
+}
+
+.footer-trust-badge img {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
 .footer-links-panel {
   grid-area: links;
   grid-template-areas: "primary work stages";

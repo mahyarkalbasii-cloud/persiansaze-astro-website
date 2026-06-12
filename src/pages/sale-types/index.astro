@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { saleTypeComparison, saleTypes, saleTypesIntro } from "@/content/sales";
 
@@ -44,6 +45,7 @@ const structuredData = [
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/sale-types/" structuredData={structuredData}>
+  <BreadcrumbSchema items={[{ name: "انواع فروش", path: "/sale-types/" }]} />
   <main>
     <section class="content-hero sale-index-hero">
       <div class="container content-hero-grid">

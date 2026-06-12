@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
 
@@ -53,6 +54,7 @@ const structuredData = [
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/subscriptions/" structuredData={structuredData}>
+  <BreadcrumbSchema items={[{ name: "اشتراک‌ها", path: "/subscriptions/" }]} />
   <main>
     <section class="content-hero subscription-hero subscription-index-hero">
       <div class="container content-hero-grid">
