@@ -92,26 +92,39 @@ const structuredData = [
       </div>
     </section>
 
+    <section class="section stage-timeline-section" data-hybrid-mount="stage-timeline" hidden></section>
+
     <section class="section">
-      <div class="container stage-list stage-cycle-list">
+      <div class="container stage-list stage-cycle-list csx-spine">
         {constructionStages.map((stage, index) => {
           const relatedFields = getWorkFieldsForStage(stage.id);
           const relatedSubcategories = getWorkSubcategoriesForStage(stage.id);
+          const visibleSubcategories = relatedSubcategories.slice(0, 6);
+          const hiddenCount = relatedSubcategories.length - visibleSubcategories.length;
           return (
-            <article class="stage-row">
-              <span class="stage-index">{String(index + 1).padStart(2, "0")}</span>
-              <div>
+            <article class="stage-row csx-spine-row">
+              <div class="csx-spine-node">
+                <span class="stage-index">{String(index + 1).padStart(2, "0")}</span>
+              </div>
+              <div class="csx-spine-card">
                 <p class="content-eyebrow">{stage.sourcePhase}</p>
                 <h2>{stage.title}</h2>
-                <p>{stage.definition}</p>
-                <p><strong>زمان فروش:</strong> {stage.buyerTiming}</p>
+                <p class="stage-definition">{stage.definition}</p>
+                <p class="stage-timing"><strong>زمان فروش:</strong> {stage.buyerTiming}</p>
                 <p><strong>پوشش محتوایی:</strong> {relatedFields.length} دسته و {relatedSubcategories.length} زیر‌دسته مرتبط</p>
                 <ul class="tag-list">
-                  {relatedSubcategories.map((subcategory) => (
+                  {visibleSubcategories.map((subcategory) => (
                     <li>
                       <a href={`/work-fields/${subcategory.parentSlug}/${subcategory.slug}/`}>{subcategory.title}</a>
                     </li>
                   ))}
+                  {hiddenCount > 0 && (
+                    <li>
+                      <a class="tag-more" href={`/construction-stages/${stage.slug}/`}>
+                        {`و ${hiddenCount} مورد دیگر ←`}
+                      </a>
+                    </li>
+                  )}
                 </ul>
                 <a class="text-link" href={`/construction-stages/${stage.slug}/`}>
                   مشاهده صفحه کامل مرحله ←

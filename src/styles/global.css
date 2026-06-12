@@ -3239,6 +3239,10 @@ details p {
   box-shadow: var(--shadow-xs);
 }
 
+.stage-index .persian-number {
+  color: var(--primary-foreground);
+}
+
 .stage-index {
   display: inline-grid;
   width: 3rem;
@@ -3248,7 +3252,7 @@ details p {
   border-radius: var(--radius-md);
   background: var(--primary);
   color: var(--primary-foreground);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-weight: 800;
 }
 
@@ -3905,6 +3909,89 @@ details p {
 
 .stage-cycle-list .stage-row {
   border-color: color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+}
+
+/* ریل عمودی مراحل — ستون‌فقرات مسی متصل‌کننده ۹ مرحله */
+.csx-spine .csx-spine-row {
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  gap: var(--space-5);
+  border: none;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+
+.csx-spine-node {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.csx-spine-node::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  margin-inline-start: -1px;
+  width: 2px;
+  background: color-mix(in srgb, var(--claude-orange) 45%, var(--border));
+}
+
+.csx-spine .csx-spine-row:first-child .csx-spine-node::before {
+  inset-block-start: 1.5rem;
+}
+
+.csx-spine .csx-spine-row:last-child .csx-spine-node::before {
+  inset-block-end: calc(100% - 1.5rem);
+}
+
+.csx-spine-node .stage-index {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 0 4px var(--background);
+}
+
+.csx-spine-card {
+  min-width: 0;
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-xs);
+}
+
+.stage-timing {
+  margin-block: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-inline-start: 3px solid var(--claude-orange);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--claude-orange-soft) 28%, var(--surface));
+}
+
+.tag-list .tag-more {
+  border-style: dashed;
+  color: var(--claude-orange);
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .csx-spine .csx-spine-row {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .csx-spine-node .stage-index {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .stage-definition {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
 }
 
 .company-pillar-grid,
@@ -5131,7 +5218,7 @@ body .persian-number {
     gap: var(--space-12);
   }
 
-  .stage-rail {
+  .stage-spine {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -5303,7 +5390,7 @@ body .persian-number {
     grid-template-columns: 1fr;
   }
 
-  .stage-rail {
+  .stage-spine {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-2);
   }
@@ -5501,7 +5588,7 @@ body .persian-number {
 }
 
 @media (max-width: 340px) {
-  .stage-rail {
+  .stage-spine {
     grid-template-columns: 1fr;
   }
 
@@ -6671,7 +6758,7 @@ body.home-color-anthropic .stages-heading {
   text-align: center;
 }
 
-body.home-color-anthropic .stage-rail-wrap {
+body.home-color-anthropic .stage-spine-wrap {
   position: relative;
 }
 
@@ -6689,7 +6776,7 @@ body.home-color-anthropic #sales-flow .section-heading {
   text-align: center;
 }
 
-body.home-color-anthropic .stage-rail {
+body.home-color-anthropic .stage-spine {
   gap: var(--space-2);
 }
 
@@ -7624,11 +7711,11 @@ body.home-color-anthropic .field select:focus {
     display: none;
   }
 
-  body.home-color-anthropic .stage-rail-wrap::after {
+  body.home-color-anthropic .stage-spine-wrap::after {
     display: none;
   }
 
-  body.home-color-anthropic .stage-rail {
+  body.home-color-anthropic .stage-spine {
     display: flex;
     grid-template-columns: none;
     margin-inline: -0.5rem;
