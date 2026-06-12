@@ -9,6 +9,7 @@ type Props = {
   title: string;
   description: string;
   canonicalPath?: string;
+  canonicalURL?: string;
   ogImage?: string;
   structuredData?: unknown | unknown[];
   noindex?: boolean;
@@ -19,17 +20,53 @@ type Props = {
 const {
   title,
   description,
-  canonicalPath = "/",
+  canonicalPath,
+  canonicalURL: canonicalURLProp,
   ogImage = "/assets/company/og-home.jpg",
   structuredData,
   noindex = false,
   homeHeader = false,
   bodyClass = "home-color-anthropic",
 } = Astro.props;
-const canonicalUrl = new URL(canonicalPath, site.url).toString();
-const canonicalOrigin = new URL(canonicalUrl).origin;
+const canonicalURL = canonicalURLProp ?? new URL(canonicalPath ?? Astro.url.pathname, site.url).toString();
+const canonicalOrigin = new URL(canonicalURL).origin;
 const ogImageUrl = new URL(ogImage, canonicalOrigin).href;
-const schemaItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${site.url}/#organization`,
+  name: "PersianSaze",
+  legalName: site.legalName,
+  alternateName: [site.name, site.alternateName],
+  url: site.url,
+  description:
+    "PersianSaze is a B2B SaaS and construction data intelligence platform for suppliers selling to active construction projects.",
+  industry: "Construction intelligence",
+  areaServed: ["Tehran", "Karaj", "Lavasan"].map((name) => ({
+    "@type": "City",
+    name,
+  })),
+  serviceArea: ["Tehran", "Karaj", "Lavasan"].map((name) => ({
+    "@type": "City",
+    name,
+  })),
+  sameAs: site.sameAs,
+  contactPoint: site.contacts.map((contact) => ({
+    "@type": "ContactPoint",
+    name: contact.label,
+    telephone: contact.telephone,
+    contactType: contact.contactType,
+    areaServed: "IR",
+    availableLanguage: ["fa-IR", "Persian"],
+  })),
+};
+const propSchemaItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
+const hasOrganizationSchema = propSchemaItems.some((schema) => {
+  if (!schema || typeof schema !== "object") return false;
+  const schemaType = (schema as Record<string, unknown>)["@type"];
+  return schemaType === "Organization" || (Array.isArray(schemaType) && schemaType.includes("Organization"));
+});
+const schemaItems = hasOrganizationSchema ? propSchemaItems : [organizationSchema, ...propSchemaItems];
 const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
@@ -44,7 +81,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       name="robots"
       content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
     />
-    {!noindex && <link rel="canonical" href={canonicalUrl} />}
+    {!noindex && <link rel="canonical" href={canonicalURL} />}
     <link rel="preload" href="/fonts/estedad-arabic-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/estedad-arabic-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
@@ -52,7 +89,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fa_IR" />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

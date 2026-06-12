@@ -2041,28 +2041,66 @@ details p {
   place-items: center;
   border: 1px solid var(--ps-ink-800);
   border-radius: var(--radius-md);
-  background: var(--ps-ink-900);
-  color: var(--ps-ink-300);
+  background: var(--social-bg, var(--ps-ink-900));
+  color: var(--social-color, var(--ps-ink-300));
 }
 
 .social-row a:hover {
-  border-color: color-mix(in srgb, var(--claude-orange) 52%, var(--ps-ink-800));
-  color: var(--ps-ink-50);
+  border-color: color-mix(in srgb, var(--social-color, var(--claude-orange)) 52%, var(--ps-ink-800));
+  background: color-mix(in srgb, var(--social-bg, var(--ps-ink-900)) 82%, var(--social-color, var(--claude-orange)));
 }
 
-.social-row svg {
+.social-icon,
+.contact-social-icon {
+  display: block;
   width: 1.15rem;
   height: 1.15rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
+  background: currentColor;
+  -webkit-mask: var(--social-icon) center / contain no-repeat;
+  mask: var(--social-icon) center / contain no-repeat;
 }
 
-.social-row a[href*="medium"] svg {
-  fill: currentColor;
-  stroke: none;
+.social-link-instagram,
+.contact-social-link-instagram {
+  --social-color: #e4405f;
+  --social-icon: url("/assets/social/instagram.svg");
+}
+
+.social-link-linkedin,
+.contact-social-link-linkedin {
+  --social-color: #0a66c2;
+  --social-icon: url("/assets/social/linkedin.svg");
+}
+
+.social-link-youtube,
+.contact-social-link-youtube {
+  --social-color: #ff0000;
+  --social-icon: url("/assets/social/youtube.svg");
+}
+
+.social-link-facebook,
+.contact-social-link-facebook {
+  --social-color: #0866ff;
+  --social-icon: url("/assets/social/facebook.svg");
+}
+
+.social-link-flipboard,
+.contact-social-link-flipboard {
+  --social-color: #f52828;
+  --social-icon: url("/assets/social/flipboard.svg");
+}
+
+.social-link-substack,
+.contact-social-link-substack {
+  --social-color: #ff6719;
+  --social-icon: url("/assets/social/substack.svg");
+}
+
+.social-link-medium,
+.contact-social-link-medium {
+  --social-color: #000000;
+  --social-bg: #ffffff;
+  --social-icon: url("/assets/social/medium.svg");
 }
 
 .footer-trust-badge {
@@ -3874,6 +3912,170 @@ details p {
     linear-gradient(145deg, color-mix(in srgb, var(--surface) 72%, var(--claude-orange-soft)), var(--surface));
 }
 
+.about-hero-grid,
+.about-story-grid {
+  display: grid;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.about-source-page h1,
+.about-source-page h2 {
+  text-wrap: pretty;
+}
+
+.about-hero-grid {
+  grid-template-columns: minmax(0, 0.95fr) minmax(24rem, 1.05fr);
+}
+
+.about-hero-copy {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--space-5);
+}
+
+.about-hero-copy > * {
+  margin-block: 0;
+}
+
+.about-hero-image {
+  aspect-ratio: 2 / 1;
+}
+
+.about-story-grid {
+  grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.72fr);
+}
+
+.about-story-grid-reverse {
+  grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.08fr);
+}
+
+.about-story-grid .section-copy {
+  margin-bottom: 0;
+}
+
+.about-story-grid .section-copy p + p {
+  margin-top: var(--space-2);
+}
+
+.about-real-photo-panel {
+  aspect-ratio: 4 / 3;
+  min-height: clamp(18rem, 28vw, 24rem);
+}
+
+.about-real-photo-panel img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-legal-note {
+  border-top: 1px solid color-mix(in srgb, var(--claude-orange-soft) 52%, var(--border));
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 800;
+  padding-top: var(--space-4);
+}
+
+.about-events-grid,
+.about-team-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.5rem), 1fr));
+  gap: var(--space-4);
+}
+
+.about-team-gallery {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.about-photo-card {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 38%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-xs);
+}
+
+.about-photo-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.about-team-gallery .about-photo-card:first-child img {
+  aspect-ratio: 1 / 1;
+}
+
+.about-team-gallery .about-photo-card {
+  aspect-ratio: 1 / 1;
+}
+
+.about-team-gallery .about-photo-card img {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
+.about-photo-card h3 {
+  font-size: var(--text-base);
+  padding: var(--space-4);
+}
+
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.about-value-group {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 38%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+  box-shadow: var(--shadow-xs);
+}
+
+.about-value-group h3 {
+  font-size: var(--text-xl);
+}
+
+.about-value-list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.about-value-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 4.5rem;
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 30%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface) 78%, var(--surface-subtle));
+  padding: var(--space-3);
+}
+
+.about-value-item img {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 3.5rem;
+  filter: brightness(0) saturate(100%) invert(56%) sepia(28%) saturate(1011%) hue-rotate(327deg) brightness(91%)
+    contrast(88%);
+  object-fit: contain;
+}
+
+.about-value-item span {
+  color: var(--foreground);
+  font-weight: 850;
+  line-height: var(--leading-normal);
+}
+
 .contact-system-layout {
   align-items: stretch;
 }
@@ -3891,6 +4093,183 @@ details p {
 .contact-office-panel .contact-info-block:first-child {
   border-top: 0;
   padding-top: 0;
+}
+
+.contact-source-page h1,
+.contact-source-page h2 {
+  text-wrap: pretty;
+}
+
+.contact-hero-grid {
+  display: grid;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.contact-hero-grid {
+  grid-template-columns: minmax(0, 0.92fr) minmax(24rem, 1.08fr);
+}
+
+.contact-hero-copy {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--space-5);
+}
+
+.contact-hero-copy > * {
+  margin-block: 0;
+}
+
+.contact-hero-image {
+  aspect-ratio: 2 / 1;
+}
+
+.contact-method-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: stretch;
+  gap: var(--space-4);
+}
+
+.contact-method-card {
+  display: grid;
+  align-content: start;
+  grid-column: span 2;
+  gap: var(--space-2);
+  min-height: 7rem;
+  border: 1px solid color-mix(in srgb, var(--claude-orange-soft) 38%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-xs);
+}
+
+.contact-method-card-wide {
+  grid-column: span 2;
+}
+
+.contact-method-card span {
+  color: color-mix(in srgb, var(--claude-orange) 72%, var(--muted-foreground));
+  font-size: var(--text-sm);
+  font-weight: 900;
+}
+
+.contact-method-card a {
+  color: var(--foreground);
+  font-size: var(--text-lg);
+  font-weight: 850;
+  line-height: var(--leading-normal);
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.contact-method-card a:hover {
+  color: color-mix(in srgb, var(--claude-orange) 78%, var(--foreground));
+}
+
+.contact-address-card,
+.contact-hours-card {
+  grid-column: span 3;
+}
+
+.contact-phone-card,
+.contact-email-card,
+.contact-social-card,
+.contact-address-card,
+.contact-hours-card {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--space-4);
+}
+
+.contact-phone-card,
+.contact-social-card {
+  grid-template-columns: 1fr;
+}
+
+.contact-address-card {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.contact-address-card p,
+.contact-hours-card p {
+  line-height: var(--leading-normal);
+}
+
+.contact-phone-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+.contact-phone-list a {
+  white-space: nowrap;
+}
+
+.contact-phone-separator {
+  color: color-mix(in srgb, var(--claude-orange) 44%, var(--border-strong));
+  font-weight: 800;
+}
+
+.contact-method-card p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-weight: 700;
+  line-height: var(--leading-relaxed);
+}
+
+.contact-social-card {
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 86%, var(--claude-orange-soft)), var(--surface));
+}
+
+.contact-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.contact-social-row a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  min-height: 2.35rem;
+  border: 1px solid color-mix(in srgb, var(--social-color, var(--claude-orange)) 34%, var(--border));
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--social-color, var(--claude-orange)) 10%, var(--surface));
+  color: var(--social-color, var(--foreground));
+  padding: 0;
+  text-decoration: none;
+}
+
+.contact-social-row a:hover {
+  border-color: color-mix(in srgb, var(--social-color, var(--claude-orange)) 58%, var(--border));
+  background: color-mix(in srgb, var(--social-color, var(--claude-orange)) 16%, var(--surface));
+}
+
+.contact-social-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+@media (min-width: 1101px) {
+  .contact-phone-list,
+  .contact-social-row {
+    flex-wrap: nowrap;
+  }
+}
+
+.contact-map-link {
+  justify-self: start;
+  min-height: 2.35rem;
+  border: 1px solid color-mix(in srgb, var(--claude-orange) 36%, var(--border));
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--claude-orange-soft) 34%, var(--surface));
+  padding: 0.45rem 0.9rem;
 }
 
 /* Phase 0 / Template A: sale method narrative */
@@ -4585,6 +4964,36 @@ body .persian-number {
 }
 
 @media (max-width: 1100px) {
+  .about-hero-grid,
+  .about-story-grid,
+  .about-story-grid-reverse,
+  .contact-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero-image {
+    order: -1;
+  }
+
+  .contact-hero-image {
+    order: -1;
+  }
+
+  .contact-social-row {
+    justify-content: flex-start;
+  }
+
+  .contact-method-card,
+  .contact-address-card,
+  .contact-hours-card {
+    grid-column: auto;
+  }
+
+  .about-values-grid,
+  .about-team-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .hero-grid,
 .two-column,
 .problem-section .two-column,
@@ -4688,6 +5097,7 @@ body .persian-number {
 .product-pillar-track,
 .company-pillar-grid,
 .contact-route-grid,
+.contact-method-grid,
 .subcategory-grid,
 .sale-method-grid,
 .related-grid,
@@ -4733,6 +5143,23 @@ body .persian-number {
 
   .container {
     width: min(100% - 1rem, 80rem);
+  }
+
+  .about-hero {
+    padding-block: var(--space-10);
+  }
+
+  .about-values-grid,
+  .about-team-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .about-events-grid .about-photo-card img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about-value-item {
+    min-height: 4rem;
   }
 
   .demo-shell {
@@ -4860,6 +5287,7 @@ body .persian-number {
 .process-grid,
 .education-grid,
 .contact-card-grid,
+.contact-method-grid,
 .metric-strip,
 .metric-strip.compact,
 .home-page #faq .faq-list {
@@ -4873,6 +5301,22 @@ body .persian-number {
 
   .contact-main-panel .contact-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact-method-card-wide {
+    grid-column: auto;
+  }
+
+  .contact-phone-card,
+  .contact-email-card,
+  .contact-social-card,
+  .contact-address-card,
+  .contact-hours-card {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-social-row {
+    justify-content: flex-start;
   }
 
   .stage-tile {
@@ -4901,6 +5345,39 @@ body .persian-number {
   .hero-image-panel {
     aspect-ratio: 2 / 1;
     min-height: 0;
+  }
+
+  .contact-hero-image {
+    aspect-ratio: 2 / 1;
+  }
+
+  .company-system-page .about-hero-image,
+  .company-system-page .about-real-photo-panel,
+  .contact-system-page .contact-hero-image {
+    aspect-ratio: 2 / 1;
+  }
+
+  .about-source-page .about-real-photo-panel {
+    min-height: 0;
+  }
+
+  .about-source-page .about-real-photo-panel img,
+  .contact-source-page .contact-hero-image img {
+    object-fit: contain;
+    background: var(--surface);
+  }
+
+  .about-source-page .about-photo-card,
+  .about-source-page .about-team-gallery .about-photo-card {
+    aspect-ratio: auto;
+  }
+
+  .about-source-page .about-photo-card img,
+  .about-source-page .about-team-gallery .about-photo-card img {
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    background: var(--surface);
   }
 
   .tall-image-panel,
@@ -4978,6 +5455,25 @@ body .persian-number {
   .button,
   .header-actions a {
     width: 100%;
+  }
+
+  .about-hero-copy,
+  .contact-hero-copy {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .about-hero-copy > .action-row,
+  .contact-hero-copy > .action-row {
+    justify-content: center;
+    justify-self: center;
+    width: min(100%, 22rem);
+  }
+
+  .about-hero-copy > .action-row .button,
+  .contact-hero-copy > .action-row .button {
+    justify-content: center;
+    max-width: 22rem;
   }
 
   body.home-color-anthropic .header-actions a,

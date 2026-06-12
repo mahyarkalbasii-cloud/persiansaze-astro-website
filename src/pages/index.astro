@@ -130,6 +130,18 @@ const salesPipelineStages = salesFlow.stages.map((stage, index) => ({
   count: salesPipelineCardSets[index]?.count ?? "",
   cards: salesPipelineCardSets[index]?.cards ?? [],
 }));
+const faqPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: orderedFaqs.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
 const schemaGraph = [
   {
     "@context": "https://schema.org",
@@ -140,6 +152,17 @@ const schemaGraph = [
     alternateName: site.alternateName,
     url: site.url,
     description: site.description,
+    disambiguatingDescription:
+      "PersianSaze is a B2B SaaS and construction data intelligence platform for suppliers selling to active construction projects in Tehran, Karaj, and Lavasan.",
+    industry: "Construction intelligence",
+    areaServed: ["Tehran", "Karaj", "Lavasan"].map((name) => ({
+      "@type": "City",
+      name,
+    })),
+    serviceArea: ["Tehran", "Karaj", "Lavasan"].map((name) => ({
+      "@type": "City",
+      name,
+    })),
     foundingDate: site.foundingDate,
     email: site.email,
     telephone: primaryContact.telephone,
@@ -227,18 +250,7 @@ const schemaGraph = [
       url: `${site.url}/subscriptions/`,
     },
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: orderedFaqs.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  },
+  faqPageSchema,
 ];
 ---
 
