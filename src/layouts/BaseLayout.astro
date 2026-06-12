@@ -8,7 +8,7 @@ import { projectNeighborhoodRoutes, growthStageRoutes } from "@/content/growthSi
 import { site } from "@/content/home";
 import { saleTypes } from "@/content/sales";
 import { subscriptionPlans } from "@/content/subscriptions";
-import "../styles/global.css";
+import "@/styles/global.css";
 
 type JsonLdObject = Record<string, unknown>;
 
@@ -220,7 +220,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
   </head>
-  <body class={bodyClass}>
+  <body class:list={[bodyClass, "font-sans antialiased text-foreground"]}>
     <SiteHeader home={homeHeader} />
     <slot />
     <SiteFooter />
