@@ -91,21 +91,19 @@ const structuredData = [
   <BreadcrumbSchema items={[{ name: "اشتراک‌ها", path: "/subscriptions/" }]} />
   <main class="subscription-system-page">
     <section class="content-hero subscription-hero subscription-index-hero">
-      <div class="container subscription-hero-grid">
-        <div class="subscription-hero-copy">
-          <p class="content-eyebrow">اشتراک‌ها</p>
-          <h1>اشتراک‌ها معماری تجاری دسترسی به بازار پروژه‌ها هستند</h1>
-          <p>
-            هر پلن فقط قیمت یا تعداد پروژه نیست؛ محدوده‌ای از بازار، سطحی از فرصت و میزان ورود تیم فروش شما به جریان
-            پروژه‌های ساختمانی را تعریف می‌کند.
-          </p>
-          <div class="action-row">
-            <a class="button button-primary" href="/#demo">درخواست دمو</a>
-            <a class="button button-secondary" href="#comparison">مقایسه ویژگی‌ها</a>
-          </div>
-        </div>
-        <div class="subscription-hero-stage">
+      <div class="container content-hero-grid stage-hero-grid subscription-hero-grid">
+        <p class="content-eyebrow">اشتراک‌ها</p>
+        <h1>اشتراک‌ها معماری تجاری دسترسی به بازار پروژه‌ها هستند</h1>
+        <div class="stage-hero-visual subscription-hero-stage" aria-label="نمای پوشش اشتراک‌های پرشین‌سازه روی نقشه پروژه‌ها">
           <SubscriptionCoverageMap planCount={planCount} neighborhoodCount={neighborhoodCount} />
+        </div>
+        <p class="stage-hero-lede subscription-hero-lede">
+          هر پلن فقط قیمت یا تعداد پروژه نیست؛ محدوده‌ای از بازار، سطحی از فرصت و میزان ورود تیم فروش شما به جریان
+          پروژه‌های ساختمانی را تعریف می‌کند.
+        </p>
+        <div class="action-row">
+          <a class="button button-primary" href="/#demo">درخواست دمو</a>
+          <a class="button button-secondary" href="#comparison">مقایسه ویژگی‌ها</a>
         </div>
       </div>
     </section>

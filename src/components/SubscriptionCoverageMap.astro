@@ -36,7 +36,7 @@ const planMeters = [
     decoding="async"
   />
 
-  <svg class="scm-fx" viewBox="0 0 1792 1024" aria-hidden="true" focusable="false">
+  <svg class="scm-fx" viewBox="0 0 1792 1024" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
     <defs>
       <radialGradient id="scm-hotspot" cx="50%" cy="50%" r="50%">
         <stop offset="0%" stop-color="#fff1dc" stop-opacity="0.95" />
@@ -82,7 +82,9 @@ const planMeters = [
   .scm-stage {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 1792 / 1024;
+    inline-size: 100%;
+    block-size: 100%;
+    aspect-ratio: 1672 / 941;
     background: #11100f;
     isolation: isolate;
   }
@@ -339,17 +341,13 @@ const planMeters = [
   }
 
   @media (max-width: 767px) {
-    .scm-stage {
-      aspect-ratio: 4 / 3;
-    }
-
     .scm-stage img {
-      object-position: 61% 50%;
+      object-position: 58% 50%;
     }
 
     .scm-fx {
-      transform: scale(1.28);
-      transform-origin: 68% 50%;
+      transform: scale(1.08);
+      transform-origin: 58% 50%;
     }
 
     .scm-plan-stack {
@@ -357,7 +355,7 @@ const planMeters = [
     }
 
     .scm-readout {
-      max-inline-size: calc(100% - 1.5rem);
+      display: none;
     }
   }
 
