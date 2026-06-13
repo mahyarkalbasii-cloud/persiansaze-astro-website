@@ -3343,6 +3343,34 @@ details p {
   block-size: auto;
 }
 
+.stage-hero-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.stage-hero-grid > * {
+  margin-block: 0;
+}
+
+.stage-hero-grid > .content-eyebrow,
+.stage-hero-grid > h1,
+.stage-hero-grid > .stage-hero-lede,
+.stage-hero-grid > .action-row {
+  margin: 0;
+}
+
+.stage-hero-visual {
+  overflow: hidden;
+  max-inline-size: min(100%, 42vh);
+  margin-inline: auto;
+  border: 1px solid color-mix(in srgb, var(--claude-orange) 18%, var(--border));
+  border-radius: 1.125rem;
+  background: #11100f;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--surface) 12%, transparent),
+    0 1.5rem 3rem -2.15rem color-mix(in srgb, var(--foreground) 48%, transparent);
+}
+
 @media (max-width: 767px) {
   .product-hero-stage {
     aspect-ratio: 941 / 1250;
@@ -3379,6 +3407,39 @@ details p {
   }
 
   .product-system-hero-grid > .action-row {
+    grid-area: ctas;
+  }
+
+  .stage-hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-areas:
+      "eyebrow stage"
+      "title stage"
+      "lede stage"
+      "ctas stage";
+    align-items: center;
+    column-gap: 3rem;
+  }
+
+  .stage-hero-grid > .content-eyebrow {
+    grid-area: eyebrow;
+  }
+
+  .stage-hero-grid > h1 {
+    grid-area: title;
+  }
+
+  .stage-hero-visual {
+    grid-area: stage;
+    max-inline-size: 100%;
+    margin-inline: 0;
+  }
+
+  .stage-hero-lede {
+    grid-area: lede;
+  }
+
+  .stage-hero-grid > .action-row {
     grid-area: ctas;
   }
 }
@@ -3911,50 +3972,6 @@ details p {
   border-color: color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
 }
 
-.stage-timeline-section {
-  overflow: hidden;
-  background: #1a1714;
-  color: var(--primary-foreground);
-}
-
-.stage-timeline-shell {
-  display: grid;
-  gap: var(--space-8);
-}
-
-.stage-timeline-copy {
-  display: grid;
-  max-width: 54rem;
-  gap: var(--space-3);
-  margin-inline: auto;
-  text-align: center;
-}
-
-.stage-timeline-copy .content-eyebrow {
-  color: var(--claude-orange-soft);
-}
-
-.stage-timeline-copy h2 {
-  color: var(--primary-foreground);
-}
-
-.stage-timeline-copy p {
-  color: color-mix(in srgb, var(--primary-foreground) 78%, transparent);
-}
-
-.stage-timeline-visual {
-  overflow: hidden;
-  width: 100%;
-  max-width: min(100%, 58rem);
-  margin-inline: auto;
-  border: 1px solid color-mix(in srgb, var(--claude-orange) 18%, var(--border));
-  border-radius: 1.125rem;
-  background: #11100f;
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--surface) 12%, transparent),
-    0 1.5rem 3rem -2.15rem color-mix(in srgb, var(--foreground) 48%, transparent);
-}
-
 /* ریل عمودی مراحل — ستون‌فقرات مسی متصل‌کننده ۹ مرحله */
 .csx-spine .csx-spine-row {
   grid-template-columns: 3.5rem minmax(0, 1fr);
@@ -4037,21 +4054,6 @@ details p {
     overflow: hidden;
   }
 
-  .stage-timeline-section {
-    padding-block: var(--space-12);
-  }
-
-  .stage-timeline-shell {
-    gap: var(--space-6);
-  }
-
-  .stage-timeline-copy h2 {
-    font-size: var(--text-2xl);
-  }
-
-  .stage-timeline-visual {
-    max-width: min(100%, 30rem);
-  }
 }
 
 .company-pillar-grid,

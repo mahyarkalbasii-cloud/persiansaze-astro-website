@@ -7,7 +7,6 @@ import {
   constructionStages,
   getWorkFieldsForStage,
   getWorkSubcategoriesForStage,
-  workSubcategories,
 } from "@/content/construction";
 
 const title = "مراحل ساخت ساختمان | پرشین‌سازه";
@@ -61,24 +60,20 @@ const structuredData = [
   <BreadcrumbSchema items={[{ name: "مراحل ساخت", path: "/construction-stages/" }]} />
   <main>
     <section class="content-hero stage-index-hero">
-      <div class="container content-hero-grid">
-        <div>
-          <p class="content-eyebrow">مراحل ساخت</p>
-          <h1>مراحل ساخت را به پنجره‌های فروش تبدیل کنید</h1>
-          <p>
-            هر مرحله ساخت فقط یک وضعیت فنی نیست؛ برای تامین‌کننده یعنی زمان متفاوتی برای ورود، معرفی محصول، مذاکره یا
-            پیگیری. این صفحه رابطه مرحله، زمینه کاری و زیر‌دسته محصول را شفاف می‌کند.
-          </p>
-          <div class="action-row">
-            <a class="button button-primary" href="/#demo">درخواست دمو</a>
-            <a class="button button-secondary" href="/work-fields/">مشاهده زمینه‌های کاری</a>
-          </div>
+      <div class="container content-hero-grid stage-hero-grid">
+        <p class="content-eyebrow">مراحل ساخت</p>
+        <h1>مراحل ساخت را به پنجره‌های فروش تبدیل کنید</h1>
+        <div class="stage-hero-visual" aria-label="تایم‌لاین تصویری مراحل ساخت">
+          <StagesTimelineHybrid />
         </div>
-        <aside class="content-summary-card">
-          <strong>{constructionStages.length}</strong>
-          <span>مرحله ساخت</span>
-          <p>{workSubcategories.length} زیر‌دسته محصول و خدمت به این مراحل وصل شده‌اند</p>
-        </aside>
+        <p class="stage-hero-lede">
+          هر مرحله ساخت فقط یک وضعیت فنی نیست؛ برای تامین‌کننده یعنی زمان متفاوتی برای ورود، معرفی محصول، مذاکره یا
+          پیگیری. این صفحه رابطه مرحله، زمینه کاری و زیر‌دسته محصول را شفاف می‌کند.
+        </p>
+        <div class="action-row">
+          <a class="button button-primary" href="/#demo">درخواست دمو</a>
+          <a class="button button-secondary" href="/work-fields/">مشاهده زمینه‌های کاری</a>
+        </div>
       </div>
     </section>
 
@@ -90,21 +85,6 @@ const structuredData = [
             <p>{item.body}</p>
           </article>
         ))}
-      </div>
-    </section>
-
-    <section class="section stage-timeline-section" data-hybrid-mount="stage-timeline" aria-labelledby="stage-timeline-title">
-      <div class="container stage-timeline-shell">
-        <div class="stage-timeline-copy">
-          <p class="content-eyebrow">نقشه مراحل ساخت</p>
-          <h2 id="stage-timeline-title">از طراحی و اخذ جواز تا پایان کار، مسیر را یک‌جا ببینید</h2>
-          <p>
-            این تایم‌لاین تصویر کلی ۹ مرحله ساخت را نشان می‌دهد تا مسیر پروژه قبل از ورود به جزئیات هر مرحله روشن باشد.
-          </p>
-        </div>
-        <div class="stage-timeline-visual" aria-label="تایم‌لاین تصویری مراحل ساخت">
-          <StagesTimelineHybrid />
-        </div>
       </div>
     </section>
 
