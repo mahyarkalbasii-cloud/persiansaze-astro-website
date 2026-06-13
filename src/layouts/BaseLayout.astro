@@ -36,7 +36,8 @@ const {
   homeHeader = false,
   bodyClass = "home-color-anthropic",
 } = Astro.props;
-const canonicalURL = canonicalURLProp ?? new URL(canonicalPath ?? Astro.url.pathname, Astro.site).toString();
+const canonicalBase = Astro.site ?? Astro.url.origin;
+const canonicalURL = canonicalURLProp ?? new URL(canonicalPath ?? Astro.url.pathname, canonicalBase).toString();
 const canonicalOrigin = new URL(canonicalURL).origin;
 const ogImageUrl = new URL(ogImage, canonicalOrigin).href;
 const organizationKnowsAbout = [

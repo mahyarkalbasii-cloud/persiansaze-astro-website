@@ -1,4 +1,5 @@
 ---
+import RelatedAreas from "@/components/RelatedAreas.astro";
 import { projectNeighborhoodRoutes, type ProjectNeighborhoodRoute } from "@/content/growthSilos";
 import { site } from "@/content/home";
 import Layout from "@/layouts/Layout.astro";
@@ -77,7 +78,7 @@ const structuredData = [
 ];
 ---
 
-<Layout title={title} description={description} canonicalURL={canonicalURL} structuredData={structuredData}>
+<Layout title={title} description={description} canonicalPath={canonicalPath} structuredData={structuredData}>
   <main>
     <section class="content-hero city-file-hero">
       <div class="container content-hero-grid city-file-hero-grid">
@@ -165,6 +166,8 @@ const structuredData = [
               <a class="button button-secondary" href={cityPath}>بازگشت به خوشه {route.cityName}</a>
             </div>
           </section>
+
+          <RelatedAreas current={route} routes={projectNeighborhoodRoutes} />
         </article>
       </div>
     </section>

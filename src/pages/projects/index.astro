@@ -10,7 +10,15 @@ const canonicalPath = "/projects/";
 const cityCards = projectCities.map((city) => ({
   ...city,
   neighborhoods: getProjectNeighborhoodsByProjectCity(city.slug),
-}));
+})).filter((city) => city.neighborhoods.length > 0);
+const totalNeighborhoods = cityCards.reduce((total, city) => total + city.neighborhoods.length, 0);
+const neighborhoodListItems = cityCards.flatMap((city) =>
+  city.neighborhoods.map((neighborhood) => ({
+    city,
+    neighborhood,
+    href: `/projects/${city.slug}/${neighborhood.slug}/`,
+  })),
+);
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -21,14 +29,21 @@ const structuredData = {
   isPartOf: { "@id": `${site.url}/#website` },
   mainEntity: {
     "@type": "ItemList",
-    itemListElement: cityCards.map((city, index) => ({
+    name: "PersianSaze project location directory",
+    itemListElement: neighborhoodListItems.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: city.name,
-      url: new URL(`/projects/${city.slug}/`, Astro.site).toString(),
-      description: city.summary,
+      name: `${item.neighborhood.name} - ${item.city.name}`,
+      url: new URL(item.href, Astro.site).toString(),
+      description: item.neighborhood.focus,
     })),
   },
+  hasPart: cityCards.map((city) => ({
+    "@type": "CollectionPage",
+    name: city.name,
+    url: new URL(`/projects/${city.slug}/`, Astro.site).toString(),
+    description: city.summary,
+  })),
 };
 ---
 
@@ -48,7 +63,7 @@ const structuredData = {
           </div>
         </div>
         <aside class="content-summary-card city-index-summary">
-          <strong>{cityCards.reduce((total, city) => total + city.neighborhoods.length, 0)}</strong>
+          <strong>{totalNeighborhoods}</strong>
           <span>صفحه محله‌ای</span>
           <p>خوشه‌بندی شده بر اساس شهر، کریدور ساختمانی و تقاضای فنی تامین‌کنندگان</p>
         </aside>
@@ -56,30 +71,64 @@ const structuredData = {
     </section>
 
     <section class="section project-index-section">
-      <div class="container">
-        <div class="project-city-grid">
+      <div class="container project-directory-layout">
+        <aside class="project-directory-summary">
+          <p class="content-eyebrow">HTML Sitemap</p>
+          <h2>فهرست کامل مناطق تحت پوشش</h2>
+          <p>
+            این صفحه همه مسیرهای محله‌ای را از یک نقطه به هم وصل می‌کند؛ هم برای کاربر انسانی، هم برای خزنده‌های گوگل و موتورهای GEO.
+          </p>
+          <dl class="project-city-meta">
+            <div>
+              <dt>شهر و کریدور</dt>
+              <dd class="project-city-count"><strong>{cityCards.length}</strong><span>خوشه فعال</span></dd>
+            </div>
+            <div>
+              <dt>صفحه محله‌ای</dt>
+              <dd class="project-city-count"><strong>{totalNeighborhoods}</strong><span>لینک مستقیم</span></dd>
+            </div>
+          </dl>
+          <nav class="project-directory-city-nav" aria-label="پرش به خوشه‌های شهری">
+            {cityCards.map((city) => (
+              <a href={`#projects-${city.slug}`}>
+                <span>{city.name}</span>
+                <strong>{city.neighborhoods.length}</strong>
+              </a>
+            ))}
+          </nav>
+        </aside>
+
+        <div class="project-directory-main">
           {cityCards.map((city) => (
-            <article class={`project-city-card ${["tehran", "karaj", "lavasan"].includes(city.slug) ? "is-primary" : ""}`}>
+            <section class="project-directory-panel" id={`projects-${city.slug}`} aria-labelledby={`projects-${city.slug}-title`}>
               <p class="content-eyebrow">{city.province}</p>
-              <h2>{city.name}</h2>
+              <h2 id={`projects-${city.slug}-title`}>{city.name}</h2>
               <p>{city.summary}</p>
-              <dl class="project-city-meta">
-                <div>
-                  <dt>محدوده‌های فعال</dt>
-                  <dd class="project-city-count"><strong>{city.neighborhoods.length}</strong><span>صفحه محله‌ای متصل</span></dd>
-                </div>
-                <div>
-                  <dt>تمرکز جست‌وجو</dt>
-                  <dd class="project-city-focus"><strong>{city.seoFocus}</strong></dd>
-                </div>
-              </dl>
-              <ul class="project-city-preview-list">
-                {city.neighborhoods.slice(0, 4).map((neighborhood) => (
-                  <li><span>{neighborhood.name}</span></li>
+              <a class="text-link project-city-direct-link" href={`/projects/${city.slug}/`}>
+                مشاهده صفحه خوشه {city.name}
+              </a>
+              <div class="project-neighborhood-grid">
+                {city.neighborhoods.map((neighborhood) => (
+                  <article class="project-neighborhood-card">
+                    <div class="project-neighborhood-card-copy">
+                      <p class="content-eyebrow">{city.name}</p>
+                      <h3>
+                        <a href={`/projects/${city.slug}/${neighborhood.slug}/`}>{neighborhood.name}</a>
+                      </h3>
+                      <p><strong>{neighborhood.focus}</strong></p>
+                    </div>
+                    <ul class="project-signal-list">
+                      {neighborhood.demandSignals.slice(0, 3).map((signal) => (
+                        <li>{signal}</li>
+                      ))}
+                    </ul>
+                    <a class="text-link" href={`/projects/${city.slug}/${neighborhood.slug}/`}>
+                      تحلیل پروژه‌های {neighborhood.name}
+                    </a>
+                  </article>
                 ))}
-              </ul>
-              <a class="text-link" href={`/projects/${city.slug}/`}>مشاهده محدوده‌های {city.name} →</a>
-            </article>
+              </div>
+            </section>
           ))}
         </div>
       </div>

@@ -1,0 +1,56 @@
+---
+import type { ProjectNeighborhoodRoute } from "@/content/growthSilos";
+
+type Props = {
+  current: ProjectNeighborhoodRoute;
+  routes: ProjectNeighborhoodRoute[];
+  limit?: number;
+};
+
+const { current, routes, limit = 4 } = Astro.props as Props;
+const sameCityRoutesWithCurrent = routes.filter((route) => route.city === current.city);
+const currentCityIndex = sameCityRoutesWithCurrent.findIndex((route) => route.neighborhood === current.neighborhood);
+const nearbyCityRoutes =
+  currentCityIndex >= 0
+    ? [
+        ...sameCityRoutesWithCurrent.slice(currentCityIndex + 1),
+        ...sameCityRoutesWithCurrent.slice(0, currentCityIndex),
+      ].filter((route) => route.neighborhood !== current.neighborhood)
+    : sameCityRoutesWithCurrent.filter((route) => route.neighborhood !== current.neighborhood);
+const sameMarketRoutes = routes.filter(
+  (route) =>
+    route.marketCategory === current.marketCategory &&
+    route.neighborhood !== current.neighborhood &&
+    route.city !== current.city,
+);
+const fallbackRoutes = routes.filter((route) => route.neighborhood !== current.neighborhood);
+const relatedRoutes = Array.from(
+  new Map(
+    [...nearbyCityRoutes, ...sameMarketRoutes, ...fallbackRoutes].map((route) => [
+      `${route.city}/${route.neighborhood}`,
+      route,
+    ]),
+  ).values(),
+).slice(0, limit);
+---
+
+{relatedRoutes.length > 0 && (
+  <section class="related-areas-section" aria-labelledby="related-areas-title">
+    <div class="related-areas-head">
+      <p class="content-eyebrow">Internal Links</p>
+      <h2 id="related-areas-title">محله‌های مرتبط</h2>
+      <p>
+        برای کامل‌تر شدن مسیر خزش و مقایسه بازار، چند محدوده نزدیک یا هم‌خانواده با {current.neighborhoodName} را ببینید.
+      </p>
+    </div>
+    <div class="related-areas-grid">
+      {relatedRoutes.map((route) => (
+        <a class="related-area-card" href={`/projects/${route.city}/${route.neighborhood}/`}>
+          <span>{route.cityName}</span>
+          <strong>{route.neighborhoodName}</strong>
+          <small>{route.focus}</small>
+        </a>
+      ))}
+    </div>
+  </section>
+)}
