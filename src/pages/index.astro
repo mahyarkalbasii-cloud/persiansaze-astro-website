@@ -17,6 +17,7 @@ import {
 } from "@/content/home";
 import { constructionStages, workFields } from "@/content/construction";
 import { saleTypes } from "@/content/sales";
+import { parseTomanPrice, toIrrPrice } from "@/content/subscriptions";
 import { Image } from "astro:assets";
 
 const primaryContact = site.contacts[0];
@@ -63,13 +64,6 @@ const audienceIconPaths: Record<string, string[]> = {
 };
 const demoWorkFieldOptions = workFields.map((field) => field.title);
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
-const toNumericPrice = (value: string) =>
-  Number(
-    String(value)
-      .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
-      .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
-      .replace(/[^\d]/g, ""),
-  );
 const getPlanPrice = (prices: Record<string, string>, durationId: string) => prices[durationId] ?? "";
 const durationSavings = pricing.durations.reduce<Record<string, number | null>>((acc, duration) => {
   if (duration.id === defaultDuration) {
@@ -81,8 +75,8 @@ const durationSavings = pricing.durations.reduce<Record<string, number | null>>(
   const baseMonths = Number(defaultDuration);
   const savings = pricing.plans
     .map((plan) => {
-      const basePrice = toNumericPrice(getPlanPrice(plan.prices, defaultDuration)) * (months / baseMonths);
-      const durationPrice = toNumericPrice(getPlanPrice(plan.prices, duration.id));
+      const basePrice = parseTomanPrice(getPlanPrice(plan.prices, defaultDuration)) * (months / baseMonths);
+      const durationPrice = parseTomanPrice(getPlanPrice(plan.prices, duration.id));
 
       if (!basePrice || !durationPrice || durationPrice >= basePrice) return null;
       return Math.round((1 - durationPrice / basePrice) * 100);
@@ -96,6 +90,30 @@ const durationSavings = pricing.durations.reduce<Record<string, number | null>>(
 const orderedFaqs = [faqs[0], faqs[1], faqs[3], faqs[2], faqs[4], faqs[7], faqs[8], faqs[9], faqs[10], faqs[11], faqs[12], faqs[6], faqs[5]].filter(
   (item): item is (typeof faqs)[number] => Boolean(item),
 );
+const subscriptionOfferSchemas = pricing.plans.map((plan) => {
+  const price = toIrrPrice(plan.prices[defaultDuration]);
+
+  return {
+    "@type": "Offer",
+    name: `اشتراک ${plan.name} ${defaultDuration} ماهه`,
+    url: `${site.url}/subscriptions/${plan.slug}/`,
+    price,
+    priceCurrency: "IRR",
+    availability: "https://schema.org/InStock",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      name: "قیمت اشتراک سه‌ماهه",
+      price,
+      priceCurrency: "IRR",
+      unitText: `${defaultDuration} months`,
+    },
+    itemOffered: {
+      "@type": "Service",
+      name: `اشتراک ${site.name} ${plan.name}`,
+      serviceType: "B2B construction intelligence subscription",
+    },
+  };
+});
 const salesPipelineCardSets = [
   {
     count: "ورودی خام",
@@ -241,12 +259,7 @@ const schemaGraph = [
     inLanguage: "fa-IR",
     description: site.description,
     publisher: { "@id": ids.organization },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "IRR",
-      availability: "https://schema.org/InStock",
-      url: `${site.url}/subscriptions/`,
-    },
+    offers: subscriptionOfferSchemas,
   },
   faqPageSchema,
 ];
@@ -263,7 +276,7 @@ const schemaGraph = [
             </h1>
           </div>
 
-          <div class="hero-detail-block">
+          <section class="hero-detail-block" aria-label="About Persian Saze">
             <p>{hero.body}</p>
             <div class="action-row hero-action-row">
               <a class="button button-primary hero-demo-cta" href="#demo">{hero.demoCta}</a>
@@ -273,7 +286,7 @@ const schemaGraph = [
               <span class="hero-trust-dot" aria-hidden="true"></span>
               پوشش میدانی تهران، کرج و لواسان
             </p>
-          </div>
+          </section>
 
           <div class="media-placeholder hero-placeholder hero-bento">
             <div class="hero-bento-scene" data-anim-scope>
@@ -384,21 +397,22 @@ const schemaGraph = [
           </div>
 
           <div class="stage-rail-wrap">
-            <div class="stage-rail" role="tablist" aria-label="مراحل ساخت">
+            <ol class="stage-rail" aria-label="مراحل ساخت">
               {homeStageCards.map((stage, index) => (
-                <button
-                  class={index === 0 ? "stage-tile active" : "stage-tile"}
-                  type="button"
-                  role="tab"
-                  aria-selected={index === 0 ? "true" : "false"}
-                  aria-controls="stage-info-panel"
-                  data-stage-index={index}
-                >
-                  <span class="stage-tile-number">{stage.indexLabel}</span>
-                  <strong>{stage.title}</strong>
-                </button>
+                <li>
+                  <button
+                    class={index === 0 ? "stage-tile active" : "stage-tile"}
+                    type="button"
+                    aria-pressed={index === 0 ? "true" : "false"}
+                    aria-controls="stage-info-panel"
+                    data-stage-index={index}
+                  >
+                    <span class="stage-tile-number">{stage.indexLabel}</span>
+                    <strong>{stage.title}</strong>
+                  </button>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
 
           <article class="stage-info-card" id="stage-info-panel" aria-live="polite" data-stage-panel>
@@ -468,11 +482,12 @@ const schemaGraph = [
               buttons.forEach((button, buttonIndex) => {
                 const isActive = buttonIndex === index;
                 button.classList.toggle("active", isActive);
-                button.setAttribute("aria-selected", isActive ? "true" : "false");
+                button.setAttribute("aria-pressed", isActive ? "true" : "false");
               });
 
               if (window.matchMedia("(max-width: 720px)").matches) {
-                buttons[index]?.scrollIntoView({
+                const scrollTarget = buttons[index]?.closest("li") || buttons[index];
+                scrollTarget?.scrollIntoView({
                   behavior: reduceMotion ? "auto" : "smooth",
                   inline: "center",
                   block: "nearest",

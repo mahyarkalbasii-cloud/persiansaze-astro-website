@@ -8,7 +8,7 @@ import { projectNeighborhoodRoutes, growthStageRoutes } from "@/content/growthSi
 import { site } from "@/content/home";
 import { projectCities } from "@/content/neighborhoods";
 import { saleTypes } from "@/content/sales";
-import { subscriptionPlans } from "@/content/subscriptions";
+import { defaultSubscriptionDuration, subscriptionPlans, toIrrPrice } from "@/content/subscriptions";
 import "@/styles/global.css";
 
 type JsonLdObject = Record<string, unknown>;
@@ -46,28 +46,33 @@ const organizationKnowsAbout = [
   "Tehran Real Estate Development",
   "Construction Stages",
 ];
-const subscriptionTierNames: Record<string, string> = {
-  bonyan: "Bonyan",
-  royan: "Rouyan",
-  taban: "Taban",
-};
-const subscriptionOffers = subscriptionPlans
-  .filter((plan) => Object.prototype.hasOwnProperty.call(subscriptionTierNames, plan.slug))
-  .map((plan) => {
-    const tierName = subscriptionTierNames[plan.slug] ?? plan.name;
+const defaultSubscriptionDurationLabel = `${defaultSubscriptionDuration} months`;
+const subscriptionOffers = subscriptionPlans.map((plan) => {
+  const price = toIrrPrice(plan.prices[defaultSubscriptionDuration]);
 
-    return {
-      "@type": "Offer",
-      name: `${tierName} subscription tier`,
-      url: new URL(`/subscriptions/${plan.slug}/`, site.url).href,
-      itemOffered: {
-        "@type": "Service",
-        name: `${site.alternateName} ${tierName}`,
-        serviceType: "B2B construction intelligence subscription",
-        provider: { "@id": `${site.url}/#organization` },
-      },
-    };
-  });
+  return {
+    "@type": "Offer",
+    name: `اشتراک ${plan.name} ${defaultSubscriptionDuration} ماهه`,
+    url: new URL(`/subscriptions/${plan.slug}/`, site.url).href,
+    price,
+    priceCurrency: "IRR",
+    availability: "https://schema.org/InStock",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      name: "قیمت اشتراک سه‌ماهه",
+      price,
+      priceCurrency: "IRR",
+      unitText: defaultSubscriptionDurationLabel,
+    },
+    itemOffered: {
+      "@type": "Service",
+      name: `اشتراک ${site.name} ${plan.name}`,
+      alternateName: `${site.alternateName} ${plan.slug}`,
+      serviceType: "B2B construction intelligence subscription",
+      provider: { "@id": `${site.url}/#organization` },
+    },
+  };
+});
 const serviceAreaNames = Array.from(new Set(["Tehran", "Karaj", "Lavasan", ...projectCities.map((city) => city.name)]));
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -83,6 +88,7 @@ const organizationSchema = {
   areaServed: serviceAreaNames,
   knowsAbout: organizationKnowsAbout,
   makesOffer: subscriptionOffers,
+  telephone: site.contacts[0]?.telephone,
   serviceArea: serviceAreaNames.map((name) => ({
     "@type": "City",
     name,

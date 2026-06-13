@@ -3,13 +3,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import SubscriptionCoverageMap from "@/components/SubscriptionCoverageMap.astro";
 import { absoluteUrl, site } from "@/content/home";
-import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
+import { defaultSubscriptionDuration, pricing, subscriptionComparisonRows, subscriptionPlans, toIrrPrice } from "@/content/subscriptions";
 import { Image } from "astro:assets";
 
 const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
 const description =
   "مقایسه اشتراک‌های پرشین‌سازه برای دسترسی به پروژه‌های ساختمانی: بنیان، رویان، تابان و تابان پلاس با قیمت، پوشش بازار و ویژگی‌های هر پلن.";
-const defaultDuration = "3" as const;
+const defaultDuration = defaultSubscriptionDuration;
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
 const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
 const toNumericPrice = (value: string) =>
@@ -53,6 +53,30 @@ const subscriptionPrinciples = [
     body: "پلن مناسب به فروش تراکنشی یا مشاوره‌ای، محدوده فعالیت، توان پیگیری و ارزش پروژه هدف وابسته است.",
   },
 ];
+const subscriptionOfferSchemas = subscriptionPlans.map((plan) => {
+  const price = toIrrPrice(plan.prices[defaultDuration]);
+
+  return {
+    "@type": "Offer",
+    name: `اشتراک ${plan.name} ${defaultDuration} ماهه`,
+    url: absoluteUrl(`/subscriptions/${plan.slug}/`),
+    price,
+    priceCurrency: "IRR",
+    availability: "https://schema.org/InStock",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      name: "قیمت اشتراک سه‌ماهه",
+      price,
+      priceCurrency: "IRR",
+      unitText: `${defaultDuration} months`,
+    },
+    itemOffered: {
+      "@type": "Service",
+      name: `اشتراک ${site.name} ${plan.name}`,
+      serviceType: "B2B construction intelligence subscription",
+    },
+  };
+});
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -62,11 +86,24 @@ const structuredData = [
     url: absoluteUrl("/subscriptions/"),
     inLanguage: "fa-IR",
     isPartOf: { "@type": "WebSite", name: site.name, url: site.url },
-    about: subscriptionPlans.map((plan) => ({
+    about: subscriptionPlans.map((plan, index) => ({
       "@type": "Service",
       name: `اشتراک ${plan.name}`,
       description: plan.metaDescription,
+      offers: subscriptionOfferSchemas[index],
     })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: site.name,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: site.url,
+    inLanguage: "fa-IR",
+    description: site.description,
+    publisher: { "@type": "Organization", name: site.name, url: site.url },
+    offers: subscriptionOfferSchemas,
   },
   {
     "@context": "https://schema.org",
