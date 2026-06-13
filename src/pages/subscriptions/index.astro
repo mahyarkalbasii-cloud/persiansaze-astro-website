@@ -1,8 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import SubscriptionCoverageMap from "@/components/SubscriptionCoverageMap.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
+import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
 const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
@@ -11,6 +13,9 @@ const description =
 const defaultDuration = "3" as const;
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
 const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
+const neighborhoodEntries = await getCollection("neighborhoods");
+const neighborhoodCount = toPersianDigits(neighborhoodEntries.length);
+const planCount = toPersianDigits(subscriptionPlans.length);
 const toNumericPrice = (value: string) =>
   Number(
     String(value)
@@ -84,10 +89,10 @@ const structuredData = [
 
 <BaseLayout title={title} description={description} canonicalPath="/subscriptions/" structuredData={structuredData}>
   <BreadcrumbSchema items={[{ name: "اشتراک‌ها", path: "/subscriptions/" }]} />
-  <main>
+  <main class="subscription-system-page">
     <section class="content-hero subscription-hero subscription-index-hero">
-      <div class="container content-hero-grid">
-        <div>
+      <div class="container subscription-hero-grid">
+        <div class="subscription-hero-copy">
           <p class="content-eyebrow">اشتراک‌ها</p>
           <h1>اشتراک‌ها معماری تجاری دسترسی به بازار پروژه‌ها هستند</h1>
           <p>
@@ -99,11 +104,9 @@ const structuredData = [
             <a class="button button-secondary" href="#comparison">مقایسه ویژگی‌ها</a>
           </div>
         </div>
-        <aside class="content-summary-card subscription-summary-card">
-          <strong>{subscriptionPlans.length}</strong>
-          <span>مسیر دسترسی به بازار پروژه‌ها</span>
-          <p>قیمت‌ها بر اساس اشتراک سه‌ماهه نمایش داده شده‌اند و هر پلن به صفحه جزئیات خودش وصل است.</p>
-        </aside>
+        <div class="subscription-hero-stage">
+          <SubscriptionCoverageMap planCount={planCount} neighborhoodCount={neighborhoodCount} />
+        </div>
       </div>
     </section>
 
