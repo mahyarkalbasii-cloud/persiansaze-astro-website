@@ -1,0 +1,213 @@
+---
+const heroImage = {
+  src: "/assets/company/about/hero.webp",
+  alt: "عکس گروهی پرشین سازه",
+};
+
+const storyParagraphs = [
+  "زمانی که کارمان را آغاز کردیم، ضمیمه‌های نیازمندی‌های روزنامه‌ها منبع اصلی آگهی‌ها بودند. اما ساختمان‌سازها و سرنخ‌ها که آگهی نمی‌دادند و نمی‌شد آنها را راحت پیدا کرد.",
+  "هر کسب‌وکاری نیروهای بازاریابی خود را داشت تا در سطح شهر و کوچه به کوچه بچرخند، ساختمان‌های در حال ساخت را پیدا کنند و اگر شانس همراه‌شان بود، سازنده و شماره‌ش را گیر بیاورند.",
+  "این کار نه تنها هزینه‌بر بود، بلکه زمان زیادی هم می‌برد. اینجا بود که ما به این فکر کردیم بانک اطلاعات را راه بیاندازیم و نه فقط شماره تماس سازندگان، بلکه همه‌ی اطلاعات ساختمان‌ها را ارائه کنیم و مراحل پیشرفت‌شان را در بازه‌های زمانی کوتاه به‌روز کنیم تا شما بتوانید متناسب با محصول خودتان در زمان مناسب سراغ سرنخ‌ها بروید.",
+];
+
+const solutionParagraphs = [
+  "امروز با داشتن امکانات و ویژگی‌های مختلف و مکمل، افتخار این را داریم که به عنوان جامع‌ترین بانک اطلاعات، سرنخ‌های فروش را آماده و به‌روز در اختیار شما بگذاریم و با ارائه‌ی فرآیندهای فروش و ارتباط با مشتری، پنل ساده و امکانات و ویژگی‌های کاربردی مختلف، کار شما را برای پیگیری و به سرانجام رساندن فروش تسهیل کنیم.",
+  "سامانه‌ی مدیریت ارتباط با مشتریان (CRM)، پنل تبلیغاتی پیامکی، کارگاه‌های آموزشی مارکتینگ و فروش و پشتیبانی بی‌وقفه و کامل بخشی از تعهد ما به شماست.",
+];
+
+const eventGallery = [
+  {
+    title: "جشن روز دختر",
+    src: "/assets/company/about/event-girls-day.webp",
+    alt: "جشن روز دختر در پرشین سازه",
+  },
+  {
+    title: "جشن نوروز",
+    src: "/assets/company/about/event-nowruz.webp",
+    alt: "عکس گروهی نوروز ۱۴۰۲ پرشین سازه",
+  },
+  {
+    title: "تولد همکاران",
+    src: "/assets/company/about/event-birthday.webp",
+    alt: "تولد اعضای تیم پرشین سازه",
+  },
+  {
+    title: "کارگاه تجربه مشتری",
+    src: "/assets/company/about/event-cx.webp",
+    alt: "کارگاه تجربه مشتری پرشین سازه",
+  },
+  {
+    title: "سالگرد پرشین سازه",
+    src: "/assets/company/about/event-anniversary.webp",
+    alt: "سالگرد پرشین سازه",
+  },
+];
+
+const valueGroups = [
+  {
+    title: "شفافیت",
+    items: [
+      { title: "راستگویی", icon: "/assets/company/about/value-honest.webp", alt: "راستگویی" },
+      { title: "مدیریت فرآیند", icon: "/assets/company/about/value-process.webp", alt: "مدیریت فرآیند" },
+      { title: "یکپارچگی", icon: "/assets/company/about/value-integrity.webp", alt: "یکپارچگی" },
+    ],
+  },
+  {
+    title: "رشد فردی",
+    items: [
+      { title: "یادگیری", icon: "/assets/company/about/value-learning.webp", alt: "یادگیری" },
+      { title: "انگیزه", icon: "/assets/company/about/value-motivation.webp", alt: "انگیزه" },
+      { title: "خلاقیت", icon: "/assets/company/about/value-creativity.webp", alt: "خلاقیت" },
+    ],
+  },
+  {
+    title: "انسانیت",
+    items: [
+      { title: "همدلی", icon: "/assets/company/about/value-empathy.webp", alt: "همدلی" },
+      { title: "تعادل کار و زندگی", icon: "/assets/company/about/value-balance.webp", alt: "تعادل کار و زندگی" },
+      { title: "پشتیبانی", icon: "/assets/company/about/value-support.webp", alt: "پشتیبانی" },
+    ],
+  },
+];
+
+const teamGallery = [
+  {
+    src: "/assets/company/about/team-wide.webp",
+    alt: "تیم پرشین سازه",
+  },
+  {
+    src: "/assets/company/about/team-support.webp",
+    alt: "تیم پشتیبانی پرشین سازه",
+  },
+  {
+    src: "/assets/company/about/team-sales.webp",
+    alt: "تیم فروش پرشین سازه",
+  },
+  {
+    src: "/assets/company/about/team-tech.webp",
+    alt: "تیم فنی پرشین سازه",
+  },
+];
+---
+
+<section class="section about-contact-intro">
+  <div class="container about-story-grid">
+    <div class="section-copy">
+      <p class="content-eyebrow">درباره پرشین‌سازه</p>
+      <h2>ما راهکار فروش شما هستیم</h2>
+      <p>
+        ما یک تیم حرفه‌ای و باتجربه هستیم که ماموریت و هدف‌مان کمک به افزایش فروش کسب‌وکارهای صنعت ساختمان است. از
+        سال ۱۳۸۶ و به عنوان اولین بانک اطلاعات ساختمان‌های در حال ساخت، فعالیت خودمان را به طور میدانی و از شهر
+        تهران شروع کردیم و در این ۱۸ سال نه تنها کرج و شهرهای پیرامون را نیز اضافه کردیم، بلکه با ساختن یک سیستم
+        آنلاین جامع و کامل، تلاش کردیم تا جای ممکن کار شما را ساده کنیم.
+      </p>
+      <div class="action-row">
+        <a class="button button-primary" href="/#demo">درخواست دمو</a>
+        <a class="button button-secondary" href="/product/">مشاهده محصول</a>
+      </div>
+    </div>
+    <figure class="image-panel about-real-photo-panel">
+      <img src={heroImage.src} alt={heroImage.alt} width="800" height="400" loading="lazy" decoding="async" />
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container about-story-grid">
+    <div class="section-copy">
+      <p class="content-eyebrow">از کجا و چرا؟</p>
+      <h2>از خیابان‌های تهران شروع کردیم</h2>
+      {storyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <figure class="image-panel about-real-photo-panel">
+      <img
+        src="/assets/company/about/team-wide.webp"
+        alt="تیم پرشین سازه"
+        width="800"
+        height="400"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container about-story-grid about-story-grid-reverse">
+    <figure class="image-panel about-real-photo-panel">
+      <img
+        src="/assets/company/about/team-sales.webp"
+        alt="تیم فروش پرشین سازه"
+        width="600"
+        height="600"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+    <div class="section-copy">
+      <p class="content-eyebrow">پرشین سازه: یک راهکار همه‌جانبه</p>
+      <h2>راهکار کامل فروش ساختمان</h2>
+      {solutionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      <p class="about-legal-note">
+        شماره ثبت ۲۹۵۵۵۵ و مجوز رسمی از وزارت فرهنگ و ارشاد اسلامی به شماره ۸/۴۳۹۷/۳۴۳۰
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="content-eyebrow">رویدادها و برنامه‌ها</p>
+      <h2>رویدادهای پرشین سازه</h2>
+    </div>
+    <div class="about-events-grid">
+      {eventGallery.map((item) => (
+        <article class="about-photo-card">
+          <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+          <h3>{item.title}</h3>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="content-eyebrow">ارزش‌های ما</p>
+      <h2>ارزش‌های ما</h2>
+    </div>
+    <div class="about-values-grid">
+      {valueGroups.map((group) => (
+        <article class="about-value-group">
+          <h3>{group.title}</h3>
+          <div class="about-value-list">
+            {group.items.map((item) => (
+              <div class="about-value-item">
+                <img src={item.icon} alt={item.alt} width="56" height="56" loading="lazy" decoding="async" />
+                <span>{item.title}</span>
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-heading">
+      <p class="content-eyebrow">تیم پرشین سازه</p>
+      <h2>تیم پرشین سازه</h2>
+    </div>
+    <div class="about-team-gallery">
+      {teamGallery.map((item) => (
+        <article class="about-photo-card">
+          <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

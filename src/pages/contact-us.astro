@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import CompanyAboutSections from "@/components/CompanyAboutSections.astro";
 import { absoluteUrl, site, socialLinks } from "@/content/home";
 
 const title = "تماس با ما | شرکت ارتباطات ماندگار پرشین | پرشین‌سازه";
-const description = "راه‌های ارتباط با پرشین‌سازه، شماره‌های تماس، آدرس شرکت، ایمیل و ساعت پاسخگویی.";
+const description =
+  "راه‌های ارتباط با پرشین‌سازه، شماره‌های تماس، آدرس شرکت، ایمیل، ساعت پاسخگویی و معرفی تیم و مسیر شکل‌گیری پرشین‌سازه.";
 
 const heroImage = {
   src: "/assets/company/contact/contact-hero.webp",
@@ -69,7 +71,7 @@ const structuredData = {
   structuredData={structuredData}
 >
   <BreadcrumbSchema items={[{ name: "تماس با ما", path: "/contact-us/" }]} />
-  <main class="contact-system-page contact-source-page">
+  <main class="contact-system-page contact-source-page about-source-page">
     <section class="content-hero contact-operations-hero contact-hero">
       <div class="container contact-hero-grid">
         <div class="contact-hero-copy">
@@ -146,5 +148,7 @@ const structuredData = {
         </div>
       </div>
     </section>
+
+    <CompanyAboutSections />
   </main>
 </BaseLayout>
