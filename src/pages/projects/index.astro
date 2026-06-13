@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import CityHubMap from "@/components/CityHubMap.astro";
 import { site } from "@/content/home";
 import { projectHubCities, projectNeighborhoodBySlug, type ProjectHubCity } from "@/content/neighborhoods";
 import { getCollection, type CollectionEntry } from "astro:content";
@@ -59,22 +60,26 @@ const structuredData = {
   <main>
     <section class="content-hero city-index-hero">
       <div class="container content-hero-grid">
-        <div>
+        <div class="city-hub-hero-copy">
           <p class="content-eyebrow">City Hubs</p>
           <h1>شهر را انتخاب کنید، بعد محله‌های فعال همان شهر را ببینید</h1>
+        </div>
+        <div class="city-hub-hero-visual">
+          <CityHubMap />
+        </div>
+        <div class="city-hub-hero-support">
           <p>
             ساختار جدید پروژه‌ها به مدل هاب و اسپوک وصل شده است: اول شهر، بعد محله. این مسیر هم برای کاربر شفاف‌تر است، هم برای گوگل و موتورهای GEO قابل‌فهم‌تر.
           </p>
+          <div class="city-hub-hero-metrics" aria-label="خلاصه پوشش شهری">
+            <span><strong>{cityCards.length}</strong> هاب شهری اصلی</span>
+            <span><strong>{totalNeighborhoods}</strong> محدوده پروژه‌محور</span>
+          </div>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
             <a class="button button-secondary" href="/product/">مشاهده محصول</a>
           </div>
         </div>
-        <aside class="content-summary-card city-index-summary">
-          <strong>{cityCards.length}</strong>
-          <span>هاب شهری اصلی</span>
-          <p>{totalNeighborhoods} صفحه محله‌ای زیر این سه مسیر شهری سازمان‌دهی شده‌اند.</p>
-        </aside>
       </div>
     </section>
 

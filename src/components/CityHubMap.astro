@@ -1,0 +1,87 @@
+---
+import cityHubDesktopImage from "@/assets/images/cities/city-hub-map-desktop.webp";
+import cityHubMobileImage from "@/assets/images/cities/city-hub-map-mobile.webp";
+import { Image } from "astro:assets";
+---
+
+<div class="city-hub-map" aria-label="نقشه پوشش شهری پرشین‌سازه در تهران، کرج و لواسان">
+  <Image
+    class="city-hub-map-image city-hub-map-image-desktop"
+    src={cityHubDesktopImage}
+    alt="نقشه تیره پوشش شهرهای تهران، کرج و لواسان با مسیرهای متصل و پین‌های پروژه"
+    width="1586"
+    height="992"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+  <Image
+    class="city-hub-map-image city-hub-map-image-mobile"
+    src={cityHubMobileImage}
+    alt="نقشه عمودی پوشش شهرهای تهران، کرج و لواسان با مسیرهای متصل و پین‌های پروژه"
+    width="887"
+    height="1774"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+</div>
+
+<style>
+  .city-hub-map {
+    position: relative;
+    overflow: hidden;
+    inline-size: 100%;
+    aspect-ratio: 1586 / 992;
+    border: 1px solid rgb(255 176 112 / 16%);
+    border-radius: 1.125rem;
+    background: #0f0e0d;
+    box-shadow:
+      0 1.35rem 3.4rem -2.35rem rgb(19 17 15 / 58%),
+      inset 0 1px 0 rgb(255 255 255 / 7%);
+    isolation: isolate;
+  }
+
+  .city-hub-map::after {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 58% 56%, rgb(255 135 66 / 16%), transparent 28%),
+      linear-gradient(180deg, transparent 62%, rgb(0 0 0 / 18%));
+    content: "";
+    pointer-events: none;
+  }
+
+  .city-hub-map :global(.city-hub-map-image) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .city-hub-map :global(.city-hub-map-image-mobile) {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .city-hub-map {
+      aspect-ratio: 887 / 1774;
+      border-radius: 1rem;
+    }
+
+    .city-hub-map::after {
+      background:
+        radial-gradient(circle at 55% 48%, rgb(255 135 66 / 14%), transparent 24%),
+        linear-gradient(180deg, transparent 68%, rgb(0 0 0 / 16%));
+    }
+
+    .city-hub-map :global(.city-hub-map-image-desktop) {
+      display: none;
+    }
+
+    .city-hub-map :global(.city-hub-map-image-mobile) {
+      display: block;
+    }
+  }
+</style>
