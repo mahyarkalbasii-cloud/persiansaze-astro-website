@@ -522,7 +522,8 @@ li + li {
   gap: var(--space-1);
 }
 
-.nav a,
+.nav > a,
+.nav-mega-trigger,
 .header-phone {
   color: var(--muted-foreground);
   font-size: var(--text-sm);
@@ -552,16 +553,130 @@ li + li {
   white-space: nowrap;
 }
 
-.nav a {
+.nav > a {
   border-radius: var(--radius-md);
   padding: 0.45rem 0.6rem;
   white-space: nowrap;
 }
 
-.nav a:hover,
+.nav > a:hover,
 .header-phone:hover {
   background: var(--accent);
   color: var(--foreground);
+}
+
+.nav-mega {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-mega-trigger {
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  padding: 0.45rem 0.6rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-mega:hover .nav-mega-trigger,
+.nav-mega:focus-within .nav-mega-trigger {
+  background: var(--accent);
+  color: var(--foreground);
+}
+
+.nav-mega-panel {
+  position: absolute;
+  inset-block-start: calc(100% + 0.8rem);
+  left: 50%;
+  z-index: 90;
+  display: grid;
+  width: min(42rem, calc(100vw - 2rem));
+  grid-template-columns: minmax(13rem, 0.9fr) minmax(0, 1.35fr);
+  gap: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--background) 94%, transparent);
+  padding: var(--space-3);
+  box-shadow: 0 1.4rem 3.4rem -2.2rem rgb(20 20 20 / 44%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 0.35rem);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+}
+
+.nav-mega:hover .nav-mega-panel,
+.nav-mega:focus-within .nav-mega-panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.nav-mega-featured,
+.nav-mega-links a {
+  display: grid;
+  gap: 0.28rem;
+  border: 1px solid color-mix(in srgb, var(--home-brass) 22%, var(--border));
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--space-4);
+  text-decoration: none;
+  direction: rtl;
+  text-align: right;
+}
+
+.nav-mega-featured {
+  align-content: start;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--claude-orange-soft) 24%, var(--surface)), var(--surface));
+}
+
+.nav-mega-featured span,
+.nav-mega-links span {
+  color: color-mix(in srgb, var(--claude-orange) 68%, var(--home-brass));
+  font-size: var(--text-xs);
+  font-weight: 900;
+}
+
+.nav-mega-featured strong,
+.nav-mega-links strong {
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 900;
+  line-height: var(--leading-normal);
+}
+
+.nav-mega-featured small {
+  color: var(--muted-foreground);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  line-height: var(--leading-relaxed);
+}
+
+.nav-mega-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.nav-mega-links a {
+  padding: var(--space-3);
+}
+
+.nav-mega-featured:hover,
+.nav-mega-links a:hover {
+  border-color: color-mix(in srgb, var(--claude-orange) 44%, var(--border));
+  background: color-mix(in srgb, var(--surface) 72%, var(--claude-orange-soft));
 }
 
 .header-actions {
@@ -5107,6 +5222,56 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   text-align: right;
 }
 
+.project-directory-summary h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 1.05rem + 0.5vw, 1.65rem);
+  line-height: var(--leading-tight);
+}
+
+.project-directory-summary > p:not(.content-eyebrow) {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.project-directory-city-nav {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.project-directory-city-nav a {
+  display: flex;
+  min-height: 2.8rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--home-brass) 22%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface) 82%, var(--home-panel));
+  padding: 0.65rem 0.8rem;
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.project-directory-city-nav a:hover {
+  border-color: color-mix(in srgb, var(--claude-orange) 40%, var(--border));
+  background: color-mix(in srgb, var(--claude-orange-soft) 20%, var(--surface));
+}
+
+.project-directory-city-nav strong {
+  display: inline-grid;
+  min-width: 2rem;
+  min-height: 2rem;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--foreground);
+  color: var(--background);
+  font-size: var(--text-xs);
+}
+
 .project-directory-main {
   min-width: 0;
 }
@@ -5138,6 +5303,11 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   line-height: var(--leading-relaxed);
   direction: rtl;
   text-align: right;
+}
+
+.project-city-direct-link {
+  justify-self: start;
+  margin-block-start: var(--space-1);
 }
 
 .project-neighborhood-grid {
@@ -5172,11 +5342,21 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   margin: 0;
 }
 
-.project-neighborhood-card h2 {
+.project-neighborhood-card h2,
+.project-neighborhood-card h3 {
   min-height: 3.4rem;
   font-size: clamp(1.2rem, 1rem + 0.45vw, 1.5rem);
   line-height: var(--leading-tight);
   text-align: right;
+}
+
+.project-neighborhood-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-neighborhood-card h3 a:hover {
+  color: var(--primary);
 }
 
 .project-neighborhood-card p {
@@ -5350,6 +5530,77 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
 
 .city-project-cluster-grid {
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+
+.related-areas-section {
+  display: grid;
+  gap: var(--space-5);
+  margin-block-start: var(--space-8);
+  border-top: 1px solid color-mix(in srgb, var(--home-brass) 24%, var(--border));
+  padding-block-start: var(--space-7);
+}
+
+.related-areas-head {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.related-areas-head h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 1.08rem + 0.7vw, 1.85rem);
+  line-height: var(--leading-tight);
+}
+
+.related-areas-head p:not(.content-eyebrow) {
+  max-width: 44rem;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.related-areas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.related-area-card {
+  display: grid;
+  min-height: 11rem;
+  align-content: start;
+  gap: var(--space-2);
+  border: 1px solid color-mix(in srgb, var(--home-brass) 24%, var(--border));
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 88%, var(--home-panel)), var(--surface));
+  padding: var(--space-5);
+  color: var(--foreground);
+  text-decoration: none;
+  box-shadow: var(--shadow-xs);
+}
+
+.related-area-card:hover {
+  border-color: color-mix(in srgb, var(--claude-orange) 42%, var(--border));
+  background: color-mix(in srgb, var(--claude-orange-soft) 18%, var(--surface));
+}
+
+.related-area-card span {
+  color: color-mix(in srgb, var(--claude-orange) 68%, var(--home-brass));
+  font-size: var(--text-xs);
+  font-weight: 900;
+}
+
+.related-area-card strong {
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+}
+
+.related-area-card small {
+  color: var(--muted-foreground);
+  font-size: var(--text-sm);
+  font-weight: 650;
+  line-height: var(--leading-relaxed);
 }
 
 /* Phase 0 / Template C: work-field stage fit */
@@ -6293,7 +6544,8 @@ body.home-color-anthropic .site-header .nav {
   gap: 0.08rem;
 }
 
-body.home-color-anthropic .site-header .nav a {
+body.home-color-anthropic .site-header .nav > a,
+body.home-color-anthropic .site-header .nav-mega-trigger {
   border-radius: 0.72rem;
   padding: 0.52rem 0.46rem;
   color: color-mix(in srgb, var(--muted-foreground) 82%, var(--primary));
@@ -6305,7 +6557,9 @@ body.home-color-anthropic .site-header .nav a {
     transform 160ms ease;
 }
 
-body.home-color-anthropic .site-header .nav a:hover {
+body.home-color-anthropic .site-header .nav > a:hover,
+body.home-color-anthropic .site-header .nav-mega:hover .nav-mega-trigger,
+body.home-color-anthropic .site-header .nav-mega:focus-within .nav-mega-trigger {
   background: rgb(255 250 243 / 54%);
   color: var(--primary);
   transform: translateY(-1px);
@@ -6546,6 +6800,48 @@ body.home-color-anthropic .mobile-nav-links a {
 
 body.home-color-anthropic .mobile-nav-links a:hover {
   background: var(--surface-subtle);
+}
+
+body.home-color-anthropic .mobile-nav-group {
+  display: grid;
+  gap: 0.65rem;
+  border-block: 1px solid var(--border);
+  padding-block: 0.75rem;
+}
+
+body.home-color-anthropic .mobile-nav-links .mobile-nav-primary-link {
+  color: var(--foreground);
+}
+
+body.home-color-anthropic .mobile-nav-sublinks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+body.home-color-anthropic .mobile-nav-sublinks a {
+  display: grid;
+  min-height: 4.4rem;
+  align-content: center;
+  gap: 0.18rem;
+  border: 1px solid color-mix(in srgb, var(--home-brass) 22%, var(--border));
+  border-radius: 0.82rem;
+  background: var(--surface);
+  padding: 0.65rem 0.75rem;
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+body.home-color-anthropic .mobile-nav-sublinks a span {
+  color: color-mix(in srgb, var(--claude-orange) 68%, var(--home-brass));
+  font-size: var(--text-xs);
+  font-weight: 900;
+}
+
+body.home-color-anthropic .mobile-nav-sublinks a strong {
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 900;
 }
 
 body.home-color-anthropic .mobile-nav-actions {
@@ -8285,7 +8581,8 @@ body.home-color-anthropic .field select:focus {
 @media (prefers-reduced-motion: reduce) {
   body.home-color-anthropic .site-header,
   body.home-color-anthropic .site-header-inner,
-  body.home-color-anthropic .site-header .nav a,
+  body.home-color-anthropic .site-header .nav > a,
+  body.home-color-anthropic .site-header .nav-mega-trigger,
   body.home-color-anthropic .site-header .header-phone,
   body.home-color-anthropic .button,
   body.home-color-anthropic .feature-strip article,
@@ -8957,6 +9254,17 @@ body.home-color-anthropic > main:not(.home-page) .data-table th {
     gap: var(--space-6);
   }
 
+}
+
+@media (max-width: 720px) {
+  .related-areas-grid,
+  body.home-color-anthropic .mobile-nav-sublinks {
+    grid-template-columns: 1fr;
+  }
+
+  .related-area-card {
+    min-height: 0;
+  }
 }
 
 @media (max-width: 420px) {
