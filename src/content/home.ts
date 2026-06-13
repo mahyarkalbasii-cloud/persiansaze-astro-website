@@ -376,6 +376,9 @@ export const footerLinkGroups: FooterLinkGroup[] = [
       { label: "ساخت‌وساز تهران", href: "/cities/tehran/" },
       { label: "ساخت‌وساز کرج", href: "/cities/karaj/" },
       { label: "ساخت‌وساز لواسان", href: "/cities/lavasan/" },
+      { label: "پروژه‌های تهران", href: "/projects/tehran/" },
+      { label: "پروژه‌های کرج", href: "/projects/karaj/" },
+      { label: "پروژه‌های لواسان", href: "/projects/lavasan/" },
       { label: "همه شهرها ←", href: "/cities/" },
     ],
   },
@@ -391,7 +394,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 
 export const utilityLinks: LinkItem[] = [
   { label: "قوانین و مقررات", href: "/rules/" },
-  { label: "نقشه پروژه‌ها", href: "/cities/" },
+  { label: "نقشه پروژه‌ها", href: "/projects/" },
   { label: "فیلتر مرحله ساخت", href: "/construction-stages/" },
   { label: "CRM سبک فروش پروژه‌ای", href: "/product/#features" },
   { label: "AI تصمیم‌یار", href: "/product/" },

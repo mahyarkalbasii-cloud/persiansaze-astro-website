@@ -1,0 +1,84 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { site } from "@/content/home";
+import { getProjectNeighborhoodsByProjectCity, projectCities } from "@/content/neighborhoods";
+
+const title = "پروژه‌های در حال ساخت بر اساس شهر و محله | پرشین‌سازه";
+const description =
+  "فهرست شهرها، محله‌ها و محدوده‌های پروژه‌محور پرشین‌سازه برای تامین‌کنندگان ساختمانی که می‌خواهند فرصت‌های فعال را بر اساس موقعیت و مرحله ساخت رصد کنند.";
+const canonicalPath = "/projects/";
+const cityCards = projectCities.map((city) => ({
+  ...city,
+  neighborhoods: getProjectNeighborhoodsByProjectCity(city.slug),
+}));
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: title,
+  description,
+  url: new URL(canonicalPath, Astro.site).toString(),
+  inLanguage: "fa-IR",
+  isPartOf: { "@id": `${site.url}/#website` },
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: cityCards.map((city, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: city.name,
+      url: new URL(`/projects/${city.slug}/`, Astro.site).toString(),
+      description: city.summary,
+    })),
+  },
+};
+---
+
+<Layout title={title} description={description} canonicalPath={canonicalPath} structuredData={structuredData}>
+  <main>
+    <section class="content-hero city-index-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">پروژه‌ها</p>
+          <h1>پروژه‌های ساختمانی را شهر و محله به محله دنبال کنید</h1>
+          <p>
+            این نقشه محتوایی، شهرها و محدوده‌های پروژه‌محور پرشین‌سازه را به صفحه‌های محله‌ای متصل می‌کند تا تامین‌کننده بتواند بازار هدف را دقیق‌تر انتخاب کند.
+          </p>
+          <div class="action-row">
+            <a class="button button-primary" href="/#demo">درخواست دمو</a>
+            <a class="button button-secondary" href="/cities/">پرونده‌های شهری</a>
+          </div>
+        </div>
+        <aside class="content-summary-card city-index-summary">
+          <strong>{cityCards.reduce((total, city) => total + city.neighborhoods.length, 0)}</strong>
+          <span>صفحه محله‌ای</span>
+          <p>خوشه‌بندی شده بر اساس شهر، کریدور ساختمانی و تقاضای فنی تامین‌کنندگان</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="content-card-grid city-file-card-grid">
+          {cityCards.map((city) => (
+            <article class="content-card city-file-card">
+              <span class="city-card-pin" aria-hidden="true"></span>
+              <p class="content-eyebrow">{city.province}</p>
+              <h2>{city.name}</h2>
+              <p>{city.summary}</p>
+              <dl class="compact-facts city-card-metrics">
+                <div>
+                  <dt>محدوده‌های فعال</dt>
+                  <dd><strong>{city.neighborhoods.length}</strong><span>صفحه محله‌ای متصل</span></dd>
+                </div>
+                <div>
+                  <dt>تمرکز جست‌وجو</dt>
+                  <dd><strong>{city.seoFocus}</strong></dd>
+                </div>
+              </dl>
+              <a class="text-link" href={`/projects/${city.slug}/`}>مشاهده محدوده‌های {city.name} ←</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -9,6 +9,34 @@ const description =
   "مقایسه اشتراک‌های پرشین‌سازه برای دسترسی به پروژه‌های ساختمانی: بنیان، رویان، تابان و تابان پلاس با قیمت، پوشش بازار و ویژگی‌های هر پلن.";
 const defaultDuration = "3" as const;
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
+const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
+const toNumericPrice = (value: string) =>
+  Number(
+    String(value)
+      .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+      .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+      .replace(/[^\d]/g, ""),
+  );
+const getPlanPrice = (prices: Record<string, string>, durationId: string) => prices[durationId] ?? "";
+const durationSavings = pricing.durations.reduce<Record<string, number | null>>((acc, duration) => {
+  if (duration.id === defaultDuration) {
+    acc[duration.id] = null;
+    return acc;
+  }
+  const months = Number(duration.id);
+  const baseMonths = Number(defaultDuration);
+  const savings = pricing.plans
+    .map((plan) => {
+      const basePrice = toNumericPrice(getPlanPrice(plan.prices, defaultDuration)) * (months / baseMonths);
+      const durationPrice = toNumericPrice(getPlanPrice(plan.prices, duration.id));
+      if (!basePrice || !durationPrice || durationPrice >= basePrice) return null;
+      return Math.round((1 - durationPrice / basePrice) * 100);
+    })
+    .filter((saving): saving is number => saving !== null);
+  const uniqueSavings = [...new Set(savings)];
+  acc[duration.id] = savings.length === pricing.plans.length && uniqueSavings.length === 1 ? uniqueSavings[0] : null;
+  return acc;
+}, {});
 const subscriptionPrinciples = [
   {
     title: "پلن یعنی میدان فروش",
@@ -89,27 +117,116 @@ const structuredData = [
       </div>
     </section>
 
-    <section class="section">
+    <section id="plans" class="section">
       <div class="container">
-        <div class="subscription-plan-strip">
-          {subscriptionPlans.map((plan, index) => (
-            <article class="subscription-plan-mini">
-              <span class="subscription-plan-index">{String(index + 1).padStart(2, "0")}</span>
-              <h2>{plan.name}</h2>
-              <p>{plan.subtitle}</p>
-              <strong class="subscription-mini-price">
-                <span>{plan.prices[defaultDuration]}</span>
-                <span>{pricing.currency}</span>
+        <div class="duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
+          {pricing.durations.map((duration) => (
+            <button
+              class={duration.id === defaultDuration ? "active" : ""}
+              type="button"
+              role="tab"
+              aria-selected={duration.id === defaultDuration ? "true" : "false"}
+              aria-pressed={duration.id === defaultDuration ? "true" : "false"}
+              data-plan-duration={duration.id}
+            >
+              <span class="duration-number">{duration.id}</span>
+              {durationSavings[duration.id] && (
+                <span class="duration-saving">٪{toPersianDigits(durationSavings[duration.id] ?? 0)} صرفه‌جویی</span>
+              )}
+              <span class="duration-unit">ماهه</span>
+            </button>
+          ))}
+        </div>
+
+        <div class="pricing-grid">
+          {subscriptionPlans.map((plan) => (
+            <article class={`pricing-card plan-${plan.slug} ${plan.slug === "taban" ? "featured" : ""}`}>
+              {plan.slug === "taban" && <span class="plan-badge">پیشنهاد اصلی</span>}
+              <header class="plan-card-head">
+                <div class="plan-icon-shell">
+                  <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+                </div>
+                <h2>{plan.name}</h2>
+              </header>
+              <strong class="price">
+                <span class="price-number" data-plan-price data-prices={JSON.stringify(plan.prices)}>
+                  {plan.prices[defaultDuration]}
+                </span>
+                <span class="price-currency">{pricing.currency}</span>
               </strong>
-              <span class="subscription-mini-scope">{plan.landLine} · {pricing.stagesIncluded}</span>
-              <div class="coverage-meter" aria-label={`${pricing.coverage} ${plan.coverageLabel}`}>
-                {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
+              <p class="plan-scope">
+                <span>{plan.landLine}</span>
+                <span class="plan-scope-separator" aria-hidden="true">-</span>
+                <span>{pricing.stagesIncluded}</span>
+              </p>
+              <ul class="plan-highlights">
+                {plan.highlights.map((item) => <li>{item}</li>)}
+              </ul>
+              <div class="market-coverage" aria-label={pricing.coverage}>
+                <div class="coverage-label-row">
+                  <strong>{pricing.coverage}</strong>
+                </div>
+                <div class="coverage-meter" aria-hidden="true">
+                  {coverageDots.map((dot) => <i class={dot < plan.coverageLevel ? "filled" : ""}></i>)}
+                </div>
+                <span class="coverage-caption">پوشش {plan.coverageLabel} سطح بازار</span>
               </div>
-              <a class="text-link" href={`/subscriptions/${plan.slug}/`}>{plan.cta} ←</a>
+              <p class="plan-addon">
+                <span>هر مرحله اضافه:</span>
+                <span class="addon-price">
+                  <span>{plan.addonPrice}</span>
+                  <span>{pricing.currency}</span>
+                </span>
+              </p>
+              <a class={`button ${plan.slug === "taban" ? "button-primary" : "button-secondary"}`} href={`/subscriptions/${plan.slug}/`}>{plan.cta}</a>
             </article>
           ))}
         </div>
       </div>
+
+      <script is:inline>
+        (() => {
+          const plansSection = document.getElementById("plans");
+          if (!plansSection) return;
+          const durationTabs = plansSection.querySelector(".duration-tabs");
+          const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
+          const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+          const setDuration = (duration, animate = true) => {
+            durationTabs?.setAttribute("data-active-duration", duration);
+            buttons.forEach((button) => {
+              const isActive = button.getAttribute("data-plan-duration") === duration;
+              button.classList.toggle("active", isActive);
+              button.setAttribute("aria-selected", String(isActive));
+              button.setAttribute("aria-pressed", String(isActive));
+            });
+            priceNodes.forEach((node) => {
+              const prices = JSON.parse(node.getAttribute("data-prices") || "{}");
+              if (prices[duration]) {
+                if (reduceMotion || !animate) {
+                  node.textContent = prices[duration];
+                  return;
+                }
+                node.classList.add("is-updating");
+                window.setTimeout(() => {
+                  node.textContent = prices[duration];
+                  node.classList.remove("is-updating");
+                }, 100);
+              }
+            });
+          };
+
+          buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              const duration = button.getAttribute("data-plan-duration");
+              if (duration) setDuration(duration);
+            });
+          });
+
+          setDuration(durationTabs?.getAttribute("data-active-duration") || "3", false);
+        })();
+      </script>
     </section>
 
     <section id="comparison" class="section">
@@ -125,7 +242,8 @@ const structuredData = [
                 <th>قابلیت</th>
                 {subscriptionPlans.map((plan) => (
                   <th>
-                    <a href={`/subscriptions/${plan.slug}/`}>
+                    <a href={`/subscriptions/${plan.slug}/`} class="subx-th-link">
+                      <span class="subx-th-icon"><img src={plan.iconSrc} alt="" loading="lazy" decoding="async" /></span>
                       <span>{plan.name}</span>
                       <small>{plan.subtitle}</small>
                     </a>
@@ -145,7 +263,12 @@ const structuredData = [
               {subscriptionComparisonRows.map((row) => (
                 <tr>
                   <td><strong>{row.label}</strong></td>
-                  {subscriptionPlans.map((plan) => <td>{row.values[plan.id]}</td>)}
+                  {subscriptionPlans.map((plan) => {
+                    const value = row.values[plan.id];
+                    if (value === "دارد") return <td><span class="subx-yes" title="دارد"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="sr-only">دارد</span></span></td>;
+                    if (value === "ندارد") return <td><span class="subx-no" title="ندارد"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="sr-only">ندارد</span></span></td>;
+                    return <td>{value}</td>;
+                  })}
                 </tr>
               ))}
               <tr>

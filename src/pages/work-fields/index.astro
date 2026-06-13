@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import WorkFieldsAtlasHybrid from "@/components/WorkFieldsAtlasHybrid.astro";
 import { absoluteUrl, site } from "@/content/home";
-import { constructionStages, stageTitleById, workFields, workSubcategories } from "@/content/construction";
+import { constructionStages, stageTitleById, workFields } from "@/content/construction";
 
 const title = "زمینه‌های کاری ساختمان | پرشین‌سازه";
 const description =
@@ -49,11 +50,9 @@ const structuredData = [
             <a class="button button-secondary" href="/construction-stages/">مشاهده مراحل ساخت</a>
           </div>
         </div>
-        <aside class="content-summary-card work-index-summary">
-          <strong>{workFields.length}</strong>
-          <span>گروه کاری ساختاریافته</span>
-          <p>{workSubcategories.length} زیر‌دسته محصول و خدمت در {constructionStages.length} مرحله ساخت</p>
-        </aside>
+        <div class="work-index-visual" aria-label="اطلس تصویری زمینه‌های کاری ساختمان">
+          <WorkFieldsAtlasHybrid />
+        </div>
       </div>
     </section>
 
