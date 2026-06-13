@@ -75,7 +75,7 @@ const neighborhoodItemListSchema = {
         <div class="city-file-hero-copy">
           <nav class="breadcrumb" aria-label="مسیر صفحه">
             <a href="/cities/">شهرها</a>
-            <span aria-hidden="true">‹</span>
+            <span aria-hidden="true">›</span>
             <span>{city.title}</span>
           </nav>
           <p class="content-eyebrow">{city.province}</p>
@@ -144,13 +144,13 @@ const neighborhoodItemListSchema = {
               <p>
                 این خوشه‌ها مسیر ورود تامین‌کننده به بازار محلی را روشن می‌کنند: شهر یا کریدور، محله هدف، تیپ ساخت‌وساز و سیگنال‌های خرید هر پروژه.
               </p>
-              <div class="content-card-grid city-file-card-grid">
+              <div class="project-city-grid city-project-cluster-grid">
                 {projectCityGroups.map((projectCity) => (
-                  <article class="content-card city-file-card">
+                  <article class="project-city-card is-compact">
                     <p class="content-eyebrow">{projectCity.province}</p>
                     <h2>{projectCity.name}</h2>
                     <p>{projectCity.summary}</p>
-                    <ul class="template-chip-list">
+                    <ul class="project-city-preview-list">
                       {projectCity.neighborhoods.slice(0, 8).map((neighborhood) => (
                         <li>
                           <a href={`/projects/${projectCity.slug}/${neighborhood.slug}/`}>{neighborhood.name}</a>
@@ -158,7 +158,7 @@ const neighborhoodItemListSchema = {
                       ))}
                     </ul>
                     <a class="text-link" href={`/projects/${projectCity.slug}/`}>
-                      همه محدوده‌های {projectCity.name} ←
+                      همه محدوده‌های {projectCity.name} →
                     </a>
                   </article>
                 ))}

@@ -56,7 +56,7 @@ const structuredData = {
         <div class="stage-page-intro">
           <nav class="breadcrumb" aria-label="مسیر صفحه">
             <a href="/construction-stages/">مراحل ساخت</a>
-            <span aria-hidden="true">←</span>
+            <span aria-hidden="true">→</span>
             <span>{stage.title}</span>
           </nav>
           <p class="content-eyebrow">مرحله ساخت</p>
@@ -140,7 +140,7 @@ const structuredData = {
                         </li>
                       ))}
                   </ul>
-                  <a class="text-link" href={`/work-fields/${field.slug}/`}>جزئیات زمینه کاری ←</a>
+                  <a class="text-link" href={`/work-fields/${field.slug}/`}>جزئیات زمینه کاری →</a>
                 </article>
               ))}
             </div>
@@ -154,7 +154,7 @@ const structuredData = {
                   <h3>{subcategory.title}</h3>
                   <p>{subcategory.parentTitle}</p>
                   <p>{toPersianDigits(subcategory.definition)}</p>
-                  <a class="text-link" href={`/work-fields/${subcategory.parentSlug}/${subcategory.slug}/`}>صفحه زیر‌دسته ←</a>
+                  <a class="text-link" href={`/work-fields/${subcategory.parentSlug}/${subcategory.slug}/`}>صفحه زیر‌دسته →</a>
                 </article>
               ))}
             </div>

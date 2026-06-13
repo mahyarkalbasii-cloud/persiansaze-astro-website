@@ -368,7 +368,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   },
   {
     title: "نوع فروش",
-    links: [{ label: "همه انواع فروش ←", href: "/sale-types/" }],
+    links: [{ label: "همه انواع فروش →", href: "/sale-types/" }],
   },
   {
     title: "شهرها",
@@ -376,19 +376,16 @@ export const footerLinkGroups: FooterLinkGroup[] = [
       { label: "ساخت‌وساز تهران", href: "/cities/tehran/" },
       { label: "ساخت‌وساز کرج", href: "/cities/karaj/" },
       { label: "ساخت‌وساز لواسان", href: "/cities/lavasan/" },
-      { label: "پروژه‌های تهران", href: "/projects/tehran/" },
-      { label: "پروژه‌های کرج", href: "/projects/karaj/" },
-      { label: "پروژه‌های لواسان", href: "/projects/lavasan/" },
-      { label: "همه شهرها ←", href: "/cities/" },
+      { label: "همه شهرها →", href: "/cities/" },
     ],
   },
   {
     title: "زمینه‌های کاری",
-    links: [{ label: "همه زمینه‌های کاری ←", href: "/work-fields/" }],
+    links: [{ label: "همه زمینه‌های کاری →", href: "/work-fields/" }],
   },
   {
     title: "مراحل ساخت",
-    links: [{ label: "همه مراحل ساخت ←", href: "/construction-stages/" }],
+    links: [{ label: "همه مراحل ساخت →", href: "/construction-stages/" }],
   },
 ];
 
