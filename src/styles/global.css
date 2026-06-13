@@ -3614,6 +3614,10 @@ details p {
     aspect-ratio: 941 / 1250;
     border-radius: var(--radius-lg);
   }
+
+  .subscription-hero-stage .scm-stage img {
+    object-position: 62% 50%;
+  }
 }
 
 @media (min-width: 768px) {

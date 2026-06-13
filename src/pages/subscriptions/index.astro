@@ -4,7 +4,6 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import SubscriptionCoverageMap from "@/components/SubscriptionCoverageMap.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
-import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
 const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
@@ -13,9 +12,6 @@ const description =
 const defaultDuration = "3" as const;
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
 const toPersianDigits = (value: string | number) => String(value).replace(/\d/g, (digit) => "۰۱۲۳۴۵۶۷۸۹"[Number(digit)]);
-const neighborhoodEntries = await getCollection("neighborhoods");
-const neighborhoodCount = toPersianDigits(neighborhoodEntries.length);
-const planCount = toPersianDigits(subscriptionPlans.length);
 const toNumericPrice = (value: string) =>
   Number(
     String(value)
@@ -95,7 +91,7 @@ const structuredData = [
         <p class="content-eyebrow">اشتراک‌ها</p>
         <h1>اشتراک‌ها معماری تجاری دسترسی به بازار پروژه‌ها هستند</h1>
         <div class="stage-hero-visual subscription-hero-stage" aria-label="نمای پوشش اشتراک‌های پرشین‌سازه روی نقشه پروژه‌ها">
-          <SubscriptionCoverageMap planCount={planCount} neighborhoodCount={neighborhoodCount} />
+          <SubscriptionCoverageMap />
         </div>
         <p class="stage-hero-lede subscription-hero-lede">
           هر پلن فقط قیمت یا تعداد پروژه نیست؛ محدوده‌ای از بازار، سطحی از فرصت و میزان ورود تیم فروش شما به جریان
