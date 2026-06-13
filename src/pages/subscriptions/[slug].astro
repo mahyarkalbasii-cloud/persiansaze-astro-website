@@ -2,7 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, site } from "@/content/home";
-import { pricing, subscriptionPlans, type SubscriptionPlan } from "@/content/subscriptions";
+import { defaultSubscriptionDuration, pricing, subscriptionPlans, toIrrPrice, type SubscriptionPlan } from "@/content/subscriptions";
 
 export function getStaticPaths() {
   return subscriptionPlans.map((plan) => ({
@@ -14,10 +14,9 @@ export function getStaticPaths() {
 const { plan } = Astro.props as { plan: SubscriptionPlan };
 const relatedPlans = subscriptionPlans.filter((item) => item.slug !== plan.slug);
 const planPosition = subscriptionPlans.findIndex((item) => item.slug === plan.slug) + 1;
-const defaultDuration = "3" as const;
+const defaultDuration = defaultSubscriptionDuration;
 const coverageDots = Array.from({ length: 4 }, (_, index) => index);
-const toLatinNumber = (value: string) =>
-  value.replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit))).replace(/,/g, "");
+const defaultPrice = toIrrPrice(plan.prices[defaultDuration]);
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -29,10 +28,18 @@ const structuredData = [
     provider: { "@type": "Organization", name: site.name, url: site.url },
     offers: {
       "@type": "Offer",
-      price: toLatinNumber(plan.prices[defaultDuration]),
+      name: `اشتراک ${plan.name} ${defaultDuration} ماهه`,
+      price: defaultPrice,
       priceCurrency: "IRR",
       availability: "https://schema.org/InStock",
       url: absoluteUrl(`/subscriptions/${plan.slug}/`),
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        name: "قیمت اشتراک سه‌ماهه",
+        price: defaultPrice,
+        priceCurrency: "IRR",
+        unitText: `${defaultDuration} months`,
+      },
     },
   },
 ];

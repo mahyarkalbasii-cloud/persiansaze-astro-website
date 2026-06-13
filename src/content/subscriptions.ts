@@ -39,6 +39,18 @@ export type SubscriptionComparisonRow = {
   values: Record<string, string>;
 };
 
+export const defaultSubscriptionDuration: SubscriptionDuration = "3";
+
+export const parseTomanPrice = (value: string) =>
+  Number(
+    String(value)
+      .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+      .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)))
+      .replace(/[^\d]/g, ""),
+  );
+
+export const toIrrPrice = (value: string) => parseTomanPrice(value) * 10;
+
 export const subscriptionPlans: SubscriptionPlan[] = [
   {
     id: "bonyan",
