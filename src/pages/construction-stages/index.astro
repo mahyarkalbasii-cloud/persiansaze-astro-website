@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import StagesTimelineHybrid from "@/components/StagesTimelineHybrid.astro";
 import { absoluteUrl, site } from "@/content/home";
 import {
   constructionStages,
@@ -102,22 +103,7 @@ const structuredData = [
           </p>
         </div>
         <div class="stage-timeline-visual" aria-label="تایم‌لاین تصویری مراحل ساخت">
-          <picture>
-            <source
-              media="(max-width: 767px)"
-              srcset="/images/construction-stages/stage-timeline-mobile.webp"
-              width="941"
-              height="1672"
-            />
-            <img
-              src="/images/construction-stages/stage-timeline-desktop.webp"
-              width="1672"
-              height="941"
-              alt="تایم‌لاین تصویری ۹ مرحله ساخت از طراحی و اخذ جواز تا ظریف کاری و پایان کار"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
+          <StagesTimelineHybrid />
         </div>
       </div>
     </section>
