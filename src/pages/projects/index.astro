@@ -55,26 +55,30 @@ const structuredData = {
       </div>
     </section>
 
-    <section class="section">
+    <section class="section project-index-section">
       <div class="container">
-        <div class="content-card-grid city-file-card-grid">
+        <div class="project-city-grid">
           {cityCards.map((city) => (
-            <article class="content-card city-file-card">
-              <span class="city-card-pin" aria-hidden="true"></span>
+            <article class={`project-city-card ${["tehran", "karaj", "lavasan"].includes(city.slug) ? "is-primary" : ""}`}>
               <p class="content-eyebrow">{city.province}</p>
               <h2>{city.name}</h2>
               <p>{city.summary}</p>
-              <dl class="compact-facts city-card-metrics">
+              <dl class="project-city-meta">
                 <div>
                   <dt>محدوده‌های فعال</dt>
-                  <dd><strong>{city.neighborhoods.length}</strong><span>صفحه محله‌ای متصل</span></dd>
+                  <dd class="project-city-count"><strong>{city.neighborhoods.length}</strong><span>صفحه محله‌ای متصل</span></dd>
                 </div>
                 <div>
                   <dt>تمرکز جست‌وجو</dt>
-                  <dd><strong>{city.seoFocus}</strong></dd>
+                  <dd class="project-city-focus"><strong>{city.seoFocus}</strong></dd>
                 </div>
               </dl>
-              <a class="text-link" href={`/projects/${city.slug}/`}>مشاهده محدوده‌های {city.name} ←</a>
+              <ul class="project-city-preview-list">
+                {city.neighborhoods.slice(0, 4).map((neighborhood) => (
+                  <li><span>{neighborhood.name}</span></li>
+                ))}
+              </ul>
+              <a class="text-link" href={`/projects/${city.slug}/`}>مشاهده محدوده‌های {city.name} →</a>
             </article>
           ))}
         </div>

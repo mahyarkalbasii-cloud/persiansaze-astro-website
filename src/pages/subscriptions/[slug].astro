@@ -56,7 +56,7 @@ const structuredData = [
         <div>
           <nav class="breadcrumb" aria-label="مسیر صفحه">
             <a href="/subscriptions/">اشتراک‌ها</a>
-            <span aria-hidden="true">‹</span>
+            <span aria-hidden="true">›</span>
             <span>{plan.name}</span>
           </nav>
           <p class="content-eyebrow">اشتراک {plan.name}</p>
@@ -172,7 +172,7 @@ const structuredData = [
             <a class="related-card" href={`/subscriptions/${item.slug}/`}>
               <h3>{item.name}</h3>
               <p>{item.subtitle}</p>
-              <span class="text-link">جزئیات ←</span>
+              <span class="text-link">جزئیات →</span>
             </a>
           ))}
         </div>
