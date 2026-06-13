@@ -5018,16 +5018,21 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
 }
 
 /* Phase 0 / Template B: city dossier */
-.city-file-hero,
-.city-index-hero {
+.city-file-hero {
   position: relative;
   overflow: hidden;
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--surface-subtle) 82%, var(--background)), var(--surface-subtle));
 }
 
-.city-file-hero::before,
-.city-index-hero::before {
+.city-index-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface-subtle) 84%, var(--background)));
+}
+
+.city-file-hero::before {
   position: absolute;
   inset: 0;
   background:
@@ -5047,9 +5052,11 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
 }
 
 .city-index-hero .content-hero-grid {
-  grid-template-columns: minmax(0, 0.88fr) minmax(26rem, 1.12fr);
+  grid-template-columns: 1.1fr 0.9fr;
   grid-template-rows: auto auto;
   align-items: center;
+  column-gap: 3rem;
+  row-gap: 1.5rem;
 }
 
 .city-hub-hero-copy,
@@ -5061,6 +5068,8 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   grid-column: 2;
   grid-row: 1 / span 2;
   inline-size: 100%;
+  max-inline-size: 100%;
+  margin-inline: 0;
 }
 
 .city-hub-hero-support {
@@ -6107,6 +6116,7 @@ body .persian-number {
 
   .city-index-hero .content-hero-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-5);
   }
 
   .city-hub-hero-copy,
@@ -6122,8 +6132,9 @@ body .persian-number {
   }
 
   .city-hub-hero-visual {
-    max-width: 46rem;
+    max-inline-size: min(100%, 42vh);
     justify-self: center;
+    margin-inline: auto;
   }
 
   .site-header-inner {
