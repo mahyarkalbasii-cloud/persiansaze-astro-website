@@ -5882,13 +5882,13 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
 
   .work-index-visual {
     order: 3;
-    aspect-ratio: 941 / 1250;
+    aspect-ratio: 941 / 1672;
     border-radius: var(--radius-lg);
   }
 
   .work-index-visual .wfa-stage {
-    inset: -8% 0 auto;
-    block-size: auto;
+    inset: 0;
+    block-size: 100%;
     aspect-ratio: 941 / 1672;
   }
 
