@@ -61,7 +61,7 @@ const structuredData = {
     <section class="content-hero city-index-hero">
       <div class="container content-hero-grid">
         <div class="city-hub-hero-copy">
-          <p class="content-eyebrow">City Hubs</p>
+          <p class="content-eyebrow">شهرها</p>
           <h1>شهر را انتخاب کنید، بعد محله‌های فعال همان شهر را ببینید</h1>
         </div>
         <div class="city-hub-hero-visual">
@@ -69,12 +69,8 @@ const structuredData = {
         </div>
         <div class="city-hub-hero-support">
           <p>
-            ساختار جدید پروژه‌ها به مدل هاب و اسپوک وصل شده است: اول شهر، بعد محله. این مسیر هم برای کاربر شفاف‌تر است، هم برای گوگل و موتورهای GEO قابل‌فهم‌تر.
+            پرشین‌سازه پوشش پروژه‌محور را در {cityCards.length} هاب شهری تهران، کرج و لواسان و {totalNeighborhoods} محدوده فعال ساخت‌وساز سامان‌دهی کرده تا مسیر انتخاب شهر، بررسی محله و ورود تیم فروش به فرصت‌ها روشن و سریع باشد.
           </p>
-          <div class="city-hub-hero-metrics" aria-label="خلاصه پوشش شهری">
-            <span><strong>{cityCards.length}</strong> هاب شهری اصلی</span>
-            <span><strong>{totalNeighborhoods}</strong> محدوده پروژه‌محور</span>
-          </div>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
             <a class="button button-secondary" href="/product/">مشاهده محصول</a>
@@ -86,7 +82,6 @@ const structuredData = {
     <section class="section project-index-section" aria-labelledby="project-city-hub-title">
       <div class="container">
         <div class="section-heading project-hub-heading">
-          <p class="content-eyebrow">HTML Sitemap</p>
           <h2 id="project-city-hub-title">شهرهای تحت پوشش پرشین‌سازه</h2>
           <p>
             هر کارت یک مسیر مادر است و کاربر را به فهرست محله‌ها و محدوده‌های پروژه‌محور همان شهر می‌برد.
@@ -98,7 +93,6 @@ const structuredData = {
             <a class="project-city-card project-hub-card" href={`/projects/${city.slug}/`}>
               <div class="project-hub-card-top">
                 <p class="content-eyebrow">{city.province}</p>
-                <span>{city.neighborhoods.length} محدوده</span>
               </div>
               <h2>{city.cardName}</h2>
               <p>{city.summary}</p>

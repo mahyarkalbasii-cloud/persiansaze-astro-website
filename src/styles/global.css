@@ -5087,33 +5087,6 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   margin-top: var(--space-2);
 }
 
-.city-hub-hero-metrics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.city-hub-hero-metrics span {
-  display: inline-flex;
-  min-height: 2.7rem;
-  align-items: center;
-  gap: 0.45rem;
-  border: 1px solid color-mix(in srgb, var(--claude-orange) 26%, var(--border));
-  border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--surface) 82%, var(--claude-orange-soft));
-  color: var(--muted-foreground);
-  padding: 0.45rem 0.78rem;
-  font-size: var(--text-sm);
-  font-weight: 800;
-}
-
-.city-hub-hero-metrics strong {
-  color: var(--foreground);
-  font-family: var(--font-mono);
-  font-size: var(--text-md);
-  line-height: 1;
-}
-
 .city-file-hero-copy {
   display: grid;
   justify-items: start;
@@ -5750,19 +5723,6 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
 
 .project-hub-card-top .content-eyebrow {
   margin: 0;
-}
-
-.project-hub-card-top span {
-  display: inline-flex;
-  min-height: 2rem;
-  align-items: center;
-  border: 1px solid color-mix(in srgb, var(--claude-orange) 28%, var(--border));
-  border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--claude-orange-soft) 22%, var(--surface));
-  color: var(--foreground);
-  padding: 0.32rem 0.7rem;
-  font-size: var(--text-xs);
-  font-weight: 850;
 }
 
 .city-project-cluster-grid {
