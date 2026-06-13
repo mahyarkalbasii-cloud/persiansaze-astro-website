@@ -523,7 +523,6 @@ li + li {
 }
 
 .nav > a,
-.nav-mega-trigger,
 .header-phone {
   color: var(--muted-foreground);
   font-size: var(--text-sm);
@@ -563,120 +562,6 @@ li + li {
 .header-phone:hover {
   background: var(--accent);
   color: var(--foreground);
-}
-
-.nav-mega {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.nav-mega-trigger {
-  border: 0;
-  border-radius: var(--radius-md);
-  background: transparent;
-  padding: 0.45rem 0.6rem;
-  color: var(--muted-foreground);
-  cursor: pointer;
-  font-family: inherit;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.nav-mega:hover .nav-mega-trigger,
-.nav-mega:focus-within .nav-mega-trigger {
-  background: var(--accent);
-  color: var(--foreground);
-}
-
-.nav-mega-panel {
-  position: absolute;
-  inset-block-start: calc(100% + 0.8rem);
-  left: 50%;
-  z-index: 90;
-  display: grid;
-  width: min(42rem, calc(100vw - 2rem));
-  grid-template-columns: minmax(13rem, 0.9fr) minmax(0, 1.35fr);
-  gap: var(--space-3);
-  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
-  border-radius: var(--radius-lg);
-  background: color-mix(in srgb, var(--background) 94%, transparent);
-  padding: var(--space-3);
-  box-shadow: 0 1.4rem 3.4rem -2.2rem rgb(20 20 20 / 44%);
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 0.35rem);
-  transition:
-    opacity 160ms ease,
-    transform 160ms ease;
-  backdrop-filter: blur(18px) saturate(1.08);
-  -webkit-backdrop-filter: blur(18px) saturate(1.08);
-}
-
-.nav-mega:hover .nav-mega-panel,
-.nav-mega:focus-within .nav-mega-panel {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, 0);
-}
-
-.nav-mega-featured,
-.nav-mega-links a {
-  display: grid;
-  gap: 0.28rem;
-  border: 1px solid color-mix(in srgb, var(--home-brass) 22%, var(--border));
-  border-radius: var(--radius-md);
-  background: var(--surface);
-  padding: var(--space-4);
-  text-decoration: none;
-  direction: rtl;
-  text-align: right;
-}
-
-.nav-mega-featured {
-  align-content: start;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--claude-orange-soft) 24%, var(--surface)), var(--surface));
-}
-
-.nav-mega-featured span,
-.nav-mega-links span {
-  color: color-mix(in srgb, var(--claude-orange) 68%, var(--home-brass));
-  font-size: var(--text-xs);
-  font-weight: 900;
-}
-
-.nav-mega-featured strong,
-.nav-mega-links strong {
-  color: var(--foreground);
-  font-size: var(--text-sm);
-  font-weight: 900;
-  line-height: var(--leading-normal);
-}
-
-.nav-mega-featured small {
-  color: var(--muted-foreground);
-  font-size: var(--text-xs);
-  font-weight: 650;
-  line-height: var(--leading-relaxed);
-}
-
-.nav-mega-links {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-2);
-}
-
-.nav-mega-links a {
-  padding: var(--space-3);
-}
-
-.nav-mega-featured:hover,
-.nav-mega-links a:hover {
-  border-color: color-mix(in srgb, var(--claude-orange) 44%, var(--border));
-  background: color-mix(in srgb, var(--surface) 72%, var(--claude-orange-soft));
 }
 
 .header-actions {
@@ -6544,8 +6429,7 @@ body.home-color-anthropic .site-header .nav {
   gap: 0.08rem;
 }
 
-body.home-color-anthropic .site-header .nav > a,
-body.home-color-anthropic .site-header .nav-mega-trigger {
+body.home-color-anthropic .site-header .nav > a {
   border-radius: 0.72rem;
   padding: 0.52rem 0.46rem;
   color: color-mix(in srgb, var(--muted-foreground) 82%, var(--primary));
@@ -6557,9 +6441,7 @@ body.home-color-anthropic .site-header .nav-mega-trigger {
     transform 160ms ease;
 }
 
-body.home-color-anthropic .site-header .nav > a:hover,
-body.home-color-anthropic .site-header .nav-mega:hover .nav-mega-trigger,
-body.home-color-anthropic .site-header .nav-mega:focus-within .nav-mega-trigger {
+body.home-color-anthropic .site-header .nav > a:hover {
   background: rgb(255 250 243 / 54%);
   color: var(--primary);
   transform: translateY(-1px);
@@ -6800,48 +6682,6 @@ body.home-color-anthropic .mobile-nav-links a {
 
 body.home-color-anthropic .mobile-nav-links a:hover {
   background: var(--surface-subtle);
-}
-
-body.home-color-anthropic .mobile-nav-group {
-  display: grid;
-  gap: 0.65rem;
-  border-block: 1px solid var(--border);
-  padding-block: 0.75rem;
-}
-
-body.home-color-anthropic .mobile-nav-links .mobile-nav-primary-link {
-  color: var(--foreground);
-}
-
-body.home-color-anthropic .mobile-nav-sublinks {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
-}
-
-body.home-color-anthropic .mobile-nav-sublinks a {
-  display: grid;
-  min-height: 4.4rem;
-  align-content: center;
-  gap: 0.18rem;
-  border: 1px solid color-mix(in srgb, var(--home-brass) 22%, var(--border));
-  border-radius: 0.82rem;
-  background: var(--surface);
-  padding: 0.65rem 0.75rem;
-  font-size: var(--text-sm);
-  line-height: var(--leading-normal);
-}
-
-body.home-color-anthropic .mobile-nav-sublinks a span {
-  color: color-mix(in srgb, var(--claude-orange) 68%, var(--home-brass));
-  font-size: var(--text-xs);
-  font-weight: 900;
-}
-
-body.home-color-anthropic .mobile-nav-sublinks a strong {
-  color: var(--foreground);
-  font-size: var(--text-sm);
-  font-weight: 900;
 }
 
 body.home-color-anthropic .mobile-nav-actions {
@@ -8582,7 +8422,6 @@ body.home-color-anthropic .field select:focus {
   body.home-color-anthropic .site-header,
   body.home-color-anthropic .site-header-inner,
   body.home-color-anthropic .site-header .nav > a,
-  body.home-color-anthropic .site-header .nav-mega-trigger,
   body.home-color-anthropic .site-header .header-phone,
   body.home-color-anthropic .button,
   body.home-color-anthropic .feature-strip article,
@@ -9257,8 +9096,7 @@ body.home-color-anthropic > main:not(.home-page) .data-table th {
 }
 
 @media (max-width: 720px) {
-  .related-areas-grid,
-  body.home-color-anthropic .mobile-nav-sublinks {
+  .related-areas-grid {
     grid-template-columns: 1fr;
   }
 

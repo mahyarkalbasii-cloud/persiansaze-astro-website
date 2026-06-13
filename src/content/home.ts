@@ -102,9 +102,9 @@ export const navigation: LinkItem[] = [
   { label: "محصول", href: "/product/" },
   { label: "زمینه‌های کاری", href: "/work-fields/" },
   { label: "مراحل ساخت", href: "/construction-stages/" },
+  { label: "شهرهای تحت پوشش", href: "/projects/" },
   { label: "اشتراک‌ها", href: "/subscriptions/" },
   { label: "آموزش", href: "/education/" },
-  { label: "درباره ما", href: "/about-us/" },
   { label: "تماس با ما", href: "/contact-us/" },
 ];
 
@@ -360,7 +360,6 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     links: [
       { label: "محصول", href: "/product/" },
       { label: "اشتراک‌ها", href: "/subscriptions/" },
-      { label: "درباره ما", href: "/about-us/" },
       { label: "تماس با ما", href: "/contact-us/" },
       { label: "سوالات متداول", href: "#faq" },
       { label: "آموزش", href: "/education/" },
@@ -391,7 +390,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 
 export const utilityLinks: LinkItem[] = [
   { label: "قوانین و مقررات", href: "/rules/" },
-  { label: "نقشه پروژه‌ها", href: "/projects/" },
+  { label: "شهرهای تحت پوشش", href: "/projects/" },
   { label: "فیلتر مرحله ساخت", href: "/construction-stages/" },
   { label: "CRM سبک فروش پروژه‌ای", href: "/product/#features" },
   { label: "AI تصمیم‌یار", href: "/product/" },
