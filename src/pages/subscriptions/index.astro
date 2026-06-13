@@ -154,13 +154,11 @@ const structuredData = [
 
     <section id="plans" class="section">
       <div class="container">
-        <div class="duration-tabs" role="tablist" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
+        <div class="duration-tabs" role="group" aria-label="مدت اشتراک" data-active-duration={defaultDuration}>
           {pricing.durations.map((duration) => (
             <button
               class={duration.id === defaultDuration ? "active" : ""}
               type="button"
-              role="tab"
-              aria-selected={duration.id === defaultDuration ? "true" : "false"}
               aria-pressed={duration.id === defaultDuration ? "true" : "false"}
               data-plan-duration={duration.id}
             >
@@ -223,6 +221,34 @@ const structuredData = [
         (() => {
           const plansSection = document.getElementById("plans");
           if (!plansSection) return;
+
+          const startWhenSectionIsNearViewport = (callback) => {
+            let started = false;
+            const start = () => {
+              if (started) return;
+              started = true;
+              callback();
+            };
+
+            if (!("IntersectionObserver" in window)) {
+              start();
+              return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+              if (!entries.some((entry) => entry.isIntersecting)) return;
+              observer.disconnect();
+              start();
+            }, { rootMargin: "360px 0px", threshold: 0.01 });
+
+            observer.observe(plansSection);
+          };
+
+          let durationTabsInitialized = false;
+          const initializeDurationTabs = () => {
+            if (durationTabsInitialized) return;
+            durationTabsInitialized = true;
+
           const durationTabs = plansSection.querySelector(".duration-tabs");
           const buttons = Array.from(plansSection.querySelectorAll("[data-plan-duration]"));
           const priceNodes = Array.from(plansSection.querySelectorAll("[data-plan-price]"));
@@ -233,7 +259,6 @@ const structuredData = [
             buttons.forEach((button) => {
               const isActive = button.getAttribute("data-plan-duration") === duration;
               button.classList.toggle("active", isActive);
-              button.setAttribute("aria-selected", String(isActive));
               button.setAttribute("aria-pressed", String(isActive));
             });
             priceNodes.forEach((node) => {
@@ -260,6 +285,11 @@ const structuredData = [
           });
 
           setDuration(durationTabs?.getAttribute("data-active-duration") || "3", false);
+          };
+
+          plansSection.addEventListener("pointerdown", initializeDurationTabs, { once: true, capture: true });
+          plansSection.addEventListener("focusin", initializeDurationTabs, { once: true });
+          startWhenSectionIsNearViewport(initializeDurationTabs);
         })();
       </script>
     </section>
