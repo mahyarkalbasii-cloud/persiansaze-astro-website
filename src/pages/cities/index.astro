@@ -3,10 +3,16 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { cityProfiles } from "@/content/cities";
+import { getProjectNeighborhoodsByCoverageCity } from "@/content/neighborhoods";
 
 const title = "شهرهای پوشش پرشین‌سازه | تهران، کرج و لواسان";
 const description =
   "صفحات شهری پرشین‌سازه برای تحلیل ساخت‌وساز تهران، کرج و لواسان: جمعیت، مسکن، پروانه ساخت، زیرساخت، ریسک شهری و فرصت فروش پروژه‌محور.";
+const cityCards = cityProfiles.map((city) => ({
+  ...city,
+  projectNeighborhoods: getProjectNeighborhoodsByCoverageCity(city.slug),
+}));
+const projectNeighborhoodCount = cityCards.reduce((total, city) => total + city.projectNeighborhoods.length, 0);
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -21,7 +27,7 @@ const structuredData = [
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "فهرست شهرهای پوشش پرشین‌سازه",
-    itemListElement: cityProfiles.map((city, index) => ({
+    itemListElement: cityCards.map((city, index) => ({
       "@type": "ListItem",
       position: index + 1,
       name: city.title,
@@ -50,9 +56,9 @@ const structuredData = [
           </div>
         </div>
         <aside class="content-summary-card city-index-summary">
-          <strong>{cityProfiles.length}</strong>
-          <span>بازار شهری تحلیل‌شده</span>
-          <p>تهران، کرج و لواسان با ساختار جمعیتی و کالبدی متفاوت</p>
+          <strong>{projectNeighborhoodCount}</strong>
+          <span>محله و محدوده پروژه‌محور</span>
+          <p>تهران، کرج و لواسان با اتصال مستقیم به خوشه‌های محله‌ای و صفحه‌های پروژه</p>
         </aside>
       </div>
     </section>
@@ -60,7 +66,7 @@ const structuredData = [
     <section class="section">
       <div class="container">
         <div class="content-card-grid city-file-card-grid">
-          {cityProfiles.map((city) => (
+          {cityCards.map((city) => (
             <article class="content-card city-file-card">
               <span class="city-card-pin" aria-hidden="true"></span>
               <p class="content-eyebrow">{city.province}</p>
@@ -74,6 +80,10 @@ const structuredData = [
                     <dd><strong>{metric.value}</strong><span>{metric.note}</span></dd>
                   </div>
                 ))}
+                <div>
+                  <dt>خوشه محله‌ای</dt>
+                  <dd><strong>{city.projectNeighborhoods.length}</strong><span>صفحه پروژه‌محور متصل به این شهر</span></dd>
+                </div>
               </dl>
               <a class="text-link" href={`/cities/${city.slug}/`}>مشاهده صفحه شهر ←</a>
             </article>

@@ -1,0 +1,241 @@
+---
+const desktopNodes = [
+  [180, 162, 0],
+  [512, 172, 0.45],
+  [841, 179, 0.9],
+  [1165, 169, 1.35],
+  [1451, 172, 1.8],
+  [268, 359, 2.25],
+  [638, 372, 2.7],
+  [1036, 396, 3.15],
+  [1390, 363, 3.6],
+  [1342, 511, 4.05],
+  [398, 540, 4.5],
+  [776, 579, 4.95],
+  [1084, 585, 5.4],
+  [267, 767, 5.85],
+  [706, 782, 6.3],
+  [1165, 790, 6.75],
+  [1394, 633, 7.2],
+];
+
+const mobileNodes = [
+  [210, 162, 0],
+  [710, 174, 0.45],
+  [190, 390, 0.9],
+  [733, 402, 1.35],
+  [142, 595, 1.8],
+  [414, 599, 2.25],
+  [767, 600, 2.7],
+  [167, 819, 3.15],
+  [454, 917, 3.6],
+  [755, 778, 4.05],
+  [164, 1070, 4.5],
+  [463, 1139, 4.95],
+  [764, 982, 5.4],
+  [183, 1281, 5.85],
+  [754, 1185, 6.3],
+  [719, 1350, 6.75],
+  [452, 1512, 7.2],
+];
+
+const desktopPaths = [
+  "M 242 224 L 567 234 L 859 261 L 1084 225 L 1395 249",
+  "M 242 224 L 344 344 L 459 363 L 751 394 L 1035 396 L 1390 363",
+  "M 344 344 L 320 477 L 399 622 L 627 783 L 1117 785 L 1260 709 L 1398 642",
+  "M 567 234 L 637 364 L 459 363 L 320 477 L 277 697",
+  "M 1035 396 L 1029 520 L 1122 632 L 1117 785",
+  "M 399 622 L 735 625 L 1035 396 L 1289 510 L 1398 642",
+];
+
+const mobilePaths = [
+  "M 296 182 L 514 263 L 629 209",
+  "M 276 389 L 457 399 L 514 263 L 650 435",
+  "M 221 613 L 356 690 L 520 920 L 633 759 L 682 606",
+  "M 243 824 L 356 690 L 276 389 L 296 182",
+  "M 257 1074 L 385 1132 L 520 920 L 672 978 L 638 1155",
+  "M 283 1325 L 385 1132 L 526 1515 L 596 1326 L 638 1155",
+];
+---
+
+<div class="wfa-stage">
+  <picture>
+    <source
+      media="(max-width: 767px)"
+      srcset="/images/work-fields/work-fields-atlas-mobile.webp"
+      width="941"
+      height="1672"
+    />
+    <img
+      src="/images/work-fields/work-fields-atlas-desktop.webp"
+      alt="اطلس تصویری ۱۷ زمینه کاری ساختمان با شبکه ارتباطی طلایی"
+      width="1672"
+      height="941"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </picture>
+
+  <svg class="wfa-fx wfa-fx-desktop" viewBox="0 0 1672 941" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="wfa-d-soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" /></filter>
+      <filter id="wfa-d-wide" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="13" /></filter>
+    </defs>
+    <g class="wfa-screen">
+      {desktopPaths.map((path, index) => (
+        <>
+          <path class="wfa-trace wfa-trace-glow" d={path} pathLength="1000" style={`--delay: ${index * 0.72}s`} />
+          <path class="wfa-trace wfa-trace-core" d={path} pathLength="1000" style={`--delay: ${index * 0.72}s`} />
+        </>
+      ))}
+      {desktopNodes.map(([x, y, delay]) => (
+        <g>
+          <ellipse class="wfa-bloom" cx={x} cy={y} rx="72" ry="72" style={`--delay: ${delay}s`} filter="url(#wfa-d-wide)" />
+          <circle class="wfa-ping" cx={x} cy={y} r="22" style={`--delay: ${delay}s`} filter="url(#wfa-d-soft)" />
+        </g>
+      ))}
+    </g>
+  </svg>
+
+  <svg class="wfa-fx wfa-fx-mobile" viewBox="0 0 941 1672" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="wfa-m-soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" /></filter>
+      <filter id="wfa-m-wide" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="12" /></filter>
+    </defs>
+    <g class="wfa-screen">
+      {mobilePaths.map((path, index) => (
+        <>
+          <path class="wfa-trace wfa-trace-glow" d={path} pathLength="1000" style={`--delay: ${index * 0.78}s`} />
+          <path class="wfa-trace wfa-trace-core" d={path} pathLength="1000" style={`--delay: ${index * 0.78}s`} />
+        </>
+      ))}
+      {mobileNodes.map(([x, y, delay]) => (
+        <g>
+          <ellipse class="wfa-bloom" cx={x} cy={y} rx="64" ry="64" style={`--delay: ${delay}s`} filter="url(#wfa-m-wide)" />
+          <circle class="wfa-ping" cx={x} cy={y} r="20" style={`--delay: ${delay}s`} filter="url(#wfa-m-soft)" />
+        </g>
+      ))}
+    </g>
+  </svg>
+</div>
+
+<style>
+  .wfa-stage {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1672 / 941;
+    background: #11100f;
+  }
+
+  .wfa-stage picture,
+  .wfa-stage img {
+    display: block;
+  }
+
+  .wfa-stage img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .wfa-fx {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    pointer-events: none;
+  }
+
+  .wfa-fx-mobile {
+    display: none;
+  }
+
+  .wfa-screen {
+    mix-blend-mode: screen;
+  }
+
+  .wfa-trace {
+    fill: none;
+    stroke-linecap: round;
+    stroke-dasharray: 86 1000;
+    animation: wfa-trace 10.5s linear infinite;
+    animation-delay: var(--delay);
+  }
+
+  .wfa-trace-glow {
+    stroke: #ffad6f;
+    stroke-width: 13;
+    opacity: 0.45;
+    filter: blur(6px);
+  }
+
+  .wfa-trace-core {
+    stroke: #fff0d8;
+    stroke-width: 2.8;
+    opacity: 0.82;
+    filter: blur(0.5px);
+  }
+
+  @keyframes wfa-trace {
+    0% { stroke-dashoffset: 1086; opacity: 0; }
+    7% { opacity: 1; }
+    58% { stroke-dashoffset: -86; opacity: 1; }
+    68%,
+    100% { stroke-dashoffset: -86; opacity: 0; }
+  }
+
+  .wfa-bloom {
+    fill: #ffb879;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wfa-bloom 8.4s ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes wfa-bloom {
+    0% { opacity: 0; transform: scale(0.7); }
+    5% { opacity: 0.28; transform: scale(1); }
+    14% { opacity: 0; transform: scale(1.14); }
+    100% { opacity: 0; transform: scale(1.14); }
+  }
+
+  .wfa-ping {
+    fill: none;
+    stroke: #ffd29c;
+    stroke-width: 4;
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: wfa-ping 8.4s ease-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes wfa-ping {
+    0% { opacity: 0; transform: scale(0.38); }
+    4% { opacity: 0.95; transform: scale(0.72); }
+    12% { opacity: 0; transform: scale(1.95); }
+    100% { opacity: 0; transform: scale(1.95); }
+  }
+
+  @media (max-width: 767px) {
+    .wfa-stage {
+      aspect-ratio: 941 / 1672;
+    }
+
+    .wfa-fx-desktop {
+      display: none;
+    }
+
+    .wfa-fx-mobile {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wfa-fx {
+      display: none !important;
+    }
+  }
+</style>

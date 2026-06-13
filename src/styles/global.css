@@ -3042,7 +3042,10 @@ details p {
 }
 
 .subscription-table-wrap {
+  max-inline-size: 100%;
   border-radius: var(--radius-lg);
+  contain: paint;
+  overscroll-behavior-inline: contain;
 }
 
 .subscription-comparison-table {
@@ -3970,6 +3973,115 @@ details p {
 
 .stage-cycle-list .stage-row {
   border-color: color-mix(in srgb, var(--claude-orange-soft) 42%, var(--border));
+}
+
+/* جدول مقایسه اشتراک‌ها — سرستون آیکون‌دار و تیک/ضربدر رنگی */
+body.home-color-anthropic > main:not(.home-page) .subscription-comparison-table thead th {
+  vertical-align: middle;
+  background: color-mix(in srgb, var(--home-panel) 82%, var(--home-plan-surface));
+  padding: 1rem 0.9rem;
+}
+
+body.home-color-anthropic > main:not(.home-page) .subscription-comparison-table thead th:first-child {
+  min-width: 9rem;
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 900;
+  line-height: var(--leading-normal);
+  text-align: center;
+}
+
+.subx-th-link {
+  display: grid;
+  min-block-size: 5.95rem;
+  grid-template-rows: 3rem 1.25rem 2rem;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  gap: 0.25rem;
+  color: var(--foreground);
+  text-align: center;
+}
+
+.subx-th-icon {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 3rem;
+  block-size: 3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--home-brass) 34%, var(--border));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--home-panel) 76%, var(--home-plan-surface)),
+    color-mix(in srgb, var(--home-plan-surface) 76%, var(--home-panel-soft))
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 46%),
+    0 0.65rem 1.25rem -1.05rem rgb(65 47 32 / 20%);
+}
+
+.subx-th-icon img {
+  display: block;
+  inline-size: 2.05rem;
+  block-size: 2.05rem;
+  object-fit: contain;
+  opacity: 0.92;
+  filter: contrast(1.18) brightness(0.76) sepia(0.18) saturate(1.18);
+}
+
+.subx-th-link > span:not(.subx-th-icon) {
+  display: flex;
+  min-block-size: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
+  display: flex;
+  max-inline-size: 8.5rem;
+  min-block-size: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  color: var(--home-plan-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.subx-yes,
+.subx-no {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full);
+  margin-inline: auto;
+}
+
+.subx-yes {
+  background: color-mix(in srgb, #2f7d52 16%, var(--surface));
+  color: #2f7d52;
+}
+
+.subx-no {
+  background: color-mix(in srgb, var(--claude-orange) 14%, var(--surface));
+  color: color-mix(in srgb, var(--claude-orange) 70%, var(--foreground));
+}
+
+.subx-yes svg,
+.subx-no svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* ریل عمودی مراحل — ستون‌فقرات مسی متصل‌کننده ۹ مرحله */
@@ -4975,6 +5087,83 @@ details p {
 .work-item-hero {
   background:
     linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface-subtle) 84%, var(--background)));
+}
+
+.work-index-hero .content-hero-grid {
+  align-items: center;
+}
+
+.work-index-visual {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1672 / 941;
+  max-inline-size: min(100%, 42vh);
+  margin-inline: auto;
+  border: 1px solid color-mix(in srgb, var(--claude-orange) 18%, var(--border));
+  border-radius: 1.125rem;
+  background: #11100f;
+  padding: 0;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--surface) 12%, transparent),
+    0 1.5rem 3rem -2.15rem color-mix(in srgb, var(--foreground) 48%, transparent);
+}
+
+.work-index-visual .wfa-stage {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+@media (max-width: 767px) {
+  .work-index-hero .content-hero-grid {
+    gap: var(--space-5);
+  }
+
+  .work-index-hero .content-hero-grid > div:first-child {
+    display: contents;
+  }
+
+  .work-index-hero .content-eyebrow {
+    order: 1;
+  }
+
+  .work-index-hero h1 {
+    order: 2;
+  }
+
+  .work-index-visual {
+    order: 3;
+    aspect-ratio: 941 / 1250;
+    border-radius: var(--radius-lg);
+  }
+
+  .work-index-visual .wfa-stage {
+    inset: -8% 0 auto;
+    block-size: auto;
+    aspect-ratio: 941 / 1672;
+  }
+
+  .work-index-hero .content-hero-grid > div:first-child > p:not(.content-eyebrow) {
+    order: 4;
+  }
+
+  .work-index-hero .action-row {
+    order: 5;
+  }
+}
+
+@media (min-width: 768px) {
+  .work-index-hero .content-hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    column-gap: 3rem;
+  }
+
+  .work-index-visual {
+    max-inline-size: 100%;
+    margin-inline: 0;
+  }
 }
 
 .work-fit-hero .content-hero-grid,
