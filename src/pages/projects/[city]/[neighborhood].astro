@@ -21,8 +21,12 @@ export async function getStaticPaths() {
       throw new Error(`Missing route metadata for neighborhood markdown: ${entry.data.slug}`);
     }
 
+    if (route.city !== entry.data.city) {
+      throw new Error(`Neighborhood city mismatch for ${entry.data.slug}: frontmatter=${entry.data.city}, route=${route.city}`);
+    }
+
     return {
-      params: { city: route.city, neighborhood: route.neighborhood },
+      params: { city: entry.data.city, neighborhood: entry.data.slug },
       props: { route, entry },
     };
   });
@@ -90,6 +94,8 @@ const structuredData = [
         <div class="city-file-hero-copy">
           <nav class="breadcrumb" aria-label="مسیر صفحه">
             <a href="/">پرشین‌سازه</a>
+            <span aria-hidden="true">›</span>
+            <a href="/projects/">شهرها</a>
             <span aria-hidden="true">›</span>
             <a href={cityPath}>{route.cityName}</a>
             <span aria-hidden="true">›</span>

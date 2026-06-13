@@ -182,6 +182,82 @@ export const projectCities: ProjectCity[] = [
   },
 ];
 
+export type ProjectHubCity = {
+  slug: "tehran" | "karaj" | "lavasan";
+  name: string;
+  cardName: string;
+  province: string;
+  summary: string;
+  seoFocus: string;
+};
+
+export const projectHubCities: ProjectHubCity[] = [
+  {
+    slug: "tehran",
+    name: "تهران",
+    cardName: "تهران",
+    province: "استان تهران",
+    summary:
+      "هاب اصلی پروژه‌های مسکونی، اداری، تجاری، صنعتی و بازسازی شهری تهران برای فروش پروژه‌محور تامین‌کنندگان ساختمانی.",
+    seoFocus: "پروژه‌های در حال ساخت تهران، محله‌های فعال تهران، فروش B2B ساختمانی در تهران",
+  },
+  {
+    slug: "karaj",
+    name: "کرج",
+    cardName: "کرج",
+    province: "استان البرز",
+    summary:
+      "هاب کرج و حومه البرز؛ از نوسازی پرتراکم شهری تا ویلاسازی، انبوه‌سازی و پروژه‌های صنعتی نزدیک به بازار کرج.",
+    seoFocus: "پروژه‌های در حال ساخت کرج، پروژه‌های ساختمانی البرز، تامین مصالح و تجهیزات در کرج",
+  },
+  {
+    slug: "lavasan",
+    name: "لواسان",
+    cardName: "لواسان",
+    province: "استان تهران",
+    summary:
+      "هاب لواسانات و محدوده‌های شمال‌شرقی تهران؛ از ویلاهای لوکس لواسان و شمیرانات تا پردیس، دماوند، رودهن و بومهن.",
+    seoFocus: "پروژه‌های ویلایی لواسانات، ساخت‌وساز شمال‌شرق تهران، دماوند، رودهن، پردیس و شمیرانات",
+  },
+];
+
+export const projectHubCitySlugs = projectHubCities.map((city) => city.slug);
+
+export const projectHubCityBySlug: ReadonlyMap<string, ProjectHubCity> = new Map(
+  projectHubCities.map((city) => [city.slug, city]),
+);
+
+const projectHubCitySlugByProjectCitySlug: Record<string, ProjectHubCity["slug"]> = {
+  tehran: "tehran",
+  pardis: "lavasan",
+  parand: "tehran",
+  eslamshahr: "tehran",
+  pakdasht: "tehran",
+  kahrizak: "tehran",
+  shamsabad: "tehran",
+  safadasht: "tehran",
+  andisheh: "tehran",
+  "shahr-e-rey": "tehran",
+  chahardangeh: "tehran",
+  karaj: "karaj",
+  hashtgerd: "karaj",
+  kordan: "karaj",
+  chaharbagh: "karaj",
+  tehrandasht: "karaj",
+  lavasan: "lavasan",
+  shemiranat: "lavasan",
+  damavand: "lavasan",
+  "roudhen-bomehen": "lavasan",
+};
+
+export function getProjectHubCityBySlug(slug: string) {
+  return projectHubCityBySlug.get(slug);
+}
+
+export function getProjectHubCitySlug(projectCitySlug: string) {
+  return projectHubCitySlugByProjectCitySlug[projectCitySlug] ?? "tehran";
+}
+
 export const projectNeighborhoods: ProjectNeighborhood[] = [
   {
     slug: "abbas-abad-argentina",

@@ -1,43 +1,32 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { site } from "@/content/home";
-import { projectCities, projectNeighborhoodBySlug } from "@/content/neighborhoods";
+import { projectHubCities, projectNeighborhoodBySlug, type ProjectHubCity } from "@/content/neighborhoods";
 import { getCollection, type CollectionEntry } from "astro:content";
 
-const title = "پروژه‌های در حال ساخت بر اساس شهر و محله | پرشین‌سازه";
+const title = "شهرهای تحت پوشش پروژه‌های در حال ساخت | پرشین‌سازه";
 const description =
-  "فهرست شهرها، محله‌ها و محدوده‌های پروژه‌محور پرشین‌سازه برای تامین‌کنندگان ساختمانی که می‌خواهند فرصت‌های فعال را بر اساس موقعیت و مرحله ساخت رصد کنند.";
+  "هاب شهرهای پرشین‌سازه برای دسترسی به محله‌ها و محدوده‌های پروژه‌محور تهران، کرج و لواسان.";
 const canonicalPath = "/projects/";
 type NeighborhoodEntry = CollectionEntry<"neighborhoods">;
-type DirectoryNeighborhood = {
-  entry: NeighborhoodEntry;
-  route: NonNullable<ReturnType<typeof projectNeighborhoodBySlug.get>>;
+type HubCityCard = ProjectHubCity & {
+  neighborhoods: NeighborhoodEntry[];
+  sampleNames: string[];
 };
 
 const neighborhoodEntries = await getCollection("neighborhoods");
-const directoryNeighborhoods = neighborhoodEntries
-  .map((entry): DirectoryNeighborhood | null => {
-    const route = projectNeighborhoodBySlug.get(entry.data.slug);
-    return route ? { entry, route } : null;
-  })
-  .filter((item): item is DirectoryNeighborhood => item !== null)
-  .sort((a, b) => a.route.name.localeCompare(b.route.name, "fa"));
+const cityCards: HubCityCard[] = projectHubCities.map((city) => {
+  const neighborhoods = neighborhoodEntries
+    .filter((entry) => entry.data.city === city.slug && projectNeighborhoodBySlug.has(entry.data.slug))
+    .sort((a, b) => a.data.neighborhood.localeCompare(b.data.neighborhood, "fa"));
 
-const cityCards = projectCities
-  .map((city) => ({
+  return {
     ...city,
-    neighborhoods: directoryNeighborhoods.filter((item) => item.route.projectCitySlug === city.slug),
-  }))
-  .filter((city) => city.neighborhoods.length > 0);
+    neighborhoods,
+    sampleNames: neighborhoods.slice(0, 4).map((entry) => entry.data.neighborhood),
+  };
+});
 const totalNeighborhoods = cityCards.reduce((total, city) => total + city.neighborhoods.length, 0);
-const neighborhoodListItems = cityCards.flatMap((city) =>
-  city.neighborhoods.map(({ entry, route }) => ({
-    city,
-    entry,
-    route,
-    href: `/projects/${city.slug}/${route.slug}/`,
-  })),
-);
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -48,13 +37,13 @@ const structuredData = {
   isPartOf: { "@id": `${site.url}/#website` },
   mainEntity: {
     "@type": "ItemList",
-    name: "PersianSaze project location directory",
-    itemListElement: neighborhoodListItems.map((item, index) => ({
+    name: "PersianSaze city project hubs",
+    itemListElement: cityCards.map((city, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: `${item.entry.data.neighborhood} - ${item.city.name}`,
-      url: new URL(item.href, Astro.site).toString(),
-      description: item.entry.data.focus,
+      name: city.name,
+      url: new URL(`/projects/${city.slug}/`, Astro.site).toString(),
+      description: city.seoFocus,
     })),
   },
   hasPart: cityCards.map((city) => ({
@@ -71,83 +60,56 @@ const structuredData = {
     <section class="content-hero city-index-hero">
       <div class="container content-hero-grid">
         <div>
-          <p class="content-eyebrow">پروژه‌ها</p>
-          <h1>پروژه‌های ساختمانی را شهر و محله به محله دنبال کنید</h1>
+          <p class="content-eyebrow">City Hubs</p>
+          <h1>شهر را انتخاب کنید، بعد محله‌های فعال همان شهر را ببینید</h1>
           <p>
-            این نقشه محتوایی، شهرها و محدوده‌های پروژه‌محور پرشین‌سازه را به صفحه‌های محله‌ای متصل می‌کند تا تامین‌کننده بتواند بازار هدف را دقیق‌تر انتخاب کند.
+            ساختار جدید پروژه‌ها به مدل هاب و اسپوک وصل شده است: اول شهر، بعد محله. این مسیر هم برای کاربر شفاف‌تر است، هم برای گوگل و موتورهای GEO قابل‌فهم‌تر.
           </p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
-            <a class="button button-secondary" href="/cities/">پرونده‌های شهری</a>
+            <a class="button button-secondary" href="/product/">مشاهده محصول</a>
           </div>
         </div>
         <aside class="content-summary-card city-index-summary">
-          <strong>{totalNeighborhoods}</strong>
-          <span>صفحه محله‌ای</span>
-          <p>خوشه‌بندی شده بر اساس شهر، کریدور ساختمانی و تقاضای فنی تامین‌کنندگان</p>
+          <strong>{cityCards.length}</strong>
+          <span>هاب شهری اصلی</span>
+          <p>{totalNeighborhoods} صفحه محله‌ای زیر این سه مسیر شهری سازمان‌دهی شده‌اند.</p>
         </aside>
       </div>
     </section>
 
-    <section class="section project-index-section">
-      <div class="container project-directory-layout">
-        <aside class="project-directory-summary">
+    <section class="section project-index-section" aria-labelledby="project-city-hub-title">
+      <div class="container">
+        <div class="section-heading project-hub-heading">
           <p class="content-eyebrow">HTML Sitemap</p>
-          <h2>فهرست کامل شهرهای تحت پوشش</h2>
+          <h2 id="project-city-hub-title">شهرهای تحت پوشش پرشین‌سازه</h2>
           <p>
-            این صفحه همه مسیرهای محله‌ای را از یک نقطه به هم وصل می‌کند؛ هم برای کاربر انسانی، هم برای خزنده‌های گوگل و موتورهای GEO.
+            هر کارت یک مسیر مادر است و کاربر را به فهرست محله‌ها و محدوده‌های پروژه‌محور همان شهر می‌برد.
           </p>
-          <dl class="project-city-meta">
-            <div>
-              <dt>شهر و کریدور</dt>
-              <dd class="project-city-count"><strong>{cityCards.length}</strong><span>خوشه فعال</span></dd>
-            </div>
-            <div>
-              <dt>صفحه محله‌ای</dt>
-              <dd class="project-city-count"><strong>{totalNeighborhoods}</strong><span>لینک مستقیم</span></dd>
-            </div>
-          </dl>
-          <nav class="project-directory-city-nav" aria-label="پرش به خوشه‌های شهری">
-            {cityCards.map((city) => (
-              <a href={`#projects-${city.slug}`}>
-                <span>{city.name}</span>
-                <strong>{city.neighborhoods.length}</strong>
-              </a>
-            ))}
-          </nav>
-        </aside>
+        </div>
 
-        <div class="project-directory-main">
+        <div class="project-city-grid project-hub-grid">
           {cityCards.map((city) => (
-            <section class="project-directory-panel" id={`projects-${city.slug}`} aria-labelledby={`projects-${city.slug}-title`}>
-              <p class="content-eyebrow">{city.province}</p>
-              <h2 id={`projects-${city.slug}-title`}>{city.name}</h2>
-              <p>{city.summary}</p>
-              <a class="text-link project-city-direct-link" href={`/projects/${city.slug}/`}>
-                مشاهده صفحه خوشه {city.name}
-              </a>
-              <div class="project-neighborhood-grid">
-                {city.neighborhoods.map(({ entry, route }) => (
-                  <article class="project-neighborhood-card">
-                    <div class="project-neighborhood-card-copy">
-                      <p class="content-eyebrow">{city.name}</p>
-                      <h3>
-                        <a href={`/projects/${city.slug}/${route.slug}/`}>{entry.data.neighborhood}</a>
-                      </h3>
-                      <p><strong>{entry.data.focus}</strong></p>
-                    </div>
-                    <ul class="project-signal-list">
-                      {route.demandSignals.slice(0, 3).map((signal) => (
-                        <li>{signal}</li>
-                      ))}
-                    </ul>
-                    <a class="text-link" href={`/projects/${city.slug}/${route.slug}/`}>
-                      تحلیل پروژه‌های {entry.data.neighborhood}
-                    </a>
-                  </article>
-                ))}
+            <a class="project-city-card project-hub-card" href={`/projects/${city.slug}/`}>
+              <div class="project-hub-card-top">
+                <p class="content-eyebrow">{city.province}</p>
+                <span>{city.neighborhoods.length} محدوده</span>
               </div>
-            </section>
+              <h2>{city.cardName}</h2>
+              <p>{city.summary}</p>
+              <dl class="project-city-meta">
+                <div>
+                  <dt>تمرکز بازار</dt>
+                  <dd class="project-city-focus"><strong>{city.seoFocus}</strong></dd>
+                </div>
+              </dl>
+              <ul class="project-city-preview-list">
+                {city.sampleNames.map((name) => (
+                  <li><span>{name}</span></li>
+                ))}
+              </ul>
+              <span class="text-link">مشاهده محله‌های {city.cardName} →</span>
+            </a>
           ))}
         </div>
       </div>

@@ -523,7 +523,6 @@ li + li {
 }
 
 .nav > a,
-.nav-mega-trigger,
 .header-phone {
   color: var(--muted-foreground);
   font-size: var(--text-sm);
@@ -553,137 +552,16 @@ li + li {
   white-space: nowrap;
 }
 
-.nav > a,
-.nav-mega-trigger {
+.nav > a {
   border-radius: var(--radius-md);
   padding: 0.45rem 0.6rem;
   white-space: nowrap;
 }
 
 .nav > a:hover,
-.nav-mega:hover .nav-mega-trigger,
-.nav-mega:focus-within .nav-mega-trigger,
 .header-phone:hover {
   background: var(--accent);
   color: var(--foreground);
-}
-
-.nav-mega {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.nav-mega-trigger {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.2rem;
-  text-decoration: none;
-}
-
-.nav-mega-panel {
-  position: absolute;
-  inset-block-start: calc(100% + 0.75rem);
-  left: 50%;
-  z-index: 90;
-  display: grid;
-  width: min(54rem, calc(100vw - 2rem));
-  grid-template-columns: minmax(15rem, 0.85fr) minmax(0, 1.55fr);
-  gap: var(--space-3);
-  border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
-  border-radius: var(--radius-lg);
-  background: color-mix(in srgb, var(--background) 94%, transparent);
-  padding: var(--space-3);
-  box-shadow: 0 1.4rem 3.4rem -2.2rem rgb(20 20 20 / 44%);
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, 0.35rem);
-  transition:
-    opacity 160ms ease,
-    transform 160ms ease;
-  backdrop-filter: blur(18px) saturate(1.08);
-  -webkit-backdrop-filter: blur(18px) saturate(1.08);
-}
-
-.nav-mega:hover .nav-mega-panel,
-.nav-mega:focus-within .nav-mega-panel {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, 0);
-}
-
-.nav-mega-intro,
-.nav-mega-column {
-  border: 1px solid color-mix(in srgb, var(--home-brass) 22%, var(--border));
-  border-radius: var(--radius-md);
-  background: var(--surface);
-  padding: var(--space-4);
-}
-
-.nav-mega-intro {
-  display: grid;
-  align-content: start;
-  gap: var(--space-3);
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--claude-orange-soft) 24%, var(--surface)), var(--surface));
-}
-
-.nav-mega-intro span,
-.nav-mega-column h3 {
-  color: color-mix(in srgb, var(--claude-orange) 68%, var(--home-brass));
-  font-size: var(--text-xs);
-  font-weight: 900;
-}
-
-.nav-mega-intro strong {
-  color: var(--foreground);
-  font-size: var(--text-md);
-  line-height: var(--leading-normal);
-}
-
-.nav-mega-intro p {
-  margin: 0;
-  color: var(--muted-foreground);
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
-}
-
-.nav-mega-intro .button {
-  justify-self: start;
-}
-
-.nav-mega-columns {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-2);
-}
-
-.nav-mega-column {
-  display: grid;
-  align-content: start;
-  gap: var(--space-2);
-}
-
-.nav-mega-column h3 {
-  margin: 0;
-}
-
-.nav-mega-column div {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.nav-mega-column a {
-  border-radius: var(--radius-sm);
-  padding: 0.48rem 0.55rem;
-  color: var(--foreground);
-  font-size: var(--text-sm);
-  font-weight: 750;
-  text-decoration: none;
-}
-
-.nav-mega-column a:hover {
-  background: color-mix(in srgb, var(--claude-orange-soft) 18%, var(--surface-subtle));
 }
 
 .header-actions {
@@ -5571,11 +5449,13 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   text-align: right;
 }
 
+.project-neighborhood-card h2 a,
 .project-neighborhood-card h3 a {
   color: inherit;
   text-decoration: none;
 }
 
+.project-neighborhood-card h2 a:hover,
 .project-neighborhood-card h3 a:hover {
   color: var(--primary);
 }
@@ -5747,6 +5627,55 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   border-top: 1px solid color-mix(in srgb, var(--home-brass) 22%, var(--border));
   padding-top: var(--space-3);
   font-size: var(--text-sm);
+}
+
+.project-hub-heading {
+  margin-bottom: var(--space-6);
+}
+
+.project-hub-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.project-hub-card {
+  position: relative;
+  min-height: 24rem;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.project-hub-card:hover {
+  border-color: color-mix(in srgb, var(--claude-orange) 42%, var(--border));
+  box-shadow: 0 1.25rem 3rem -2.35rem rgb(20 20 20 / 44%);
+  transform: translateY(-2px);
+}
+
+.project-hub-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.project-hub-card-top .content-eyebrow {
+  margin: 0;
+}
+
+.project-hub-card-top span {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--claude-orange) 28%, var(--border));
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--claude-orange-soft) 22%, var(--surface));
+  color: var(--foreground);
+  padding: 0.32rem 0.7rem;
+  font-size: var(--text-xs);
+  font-weight: 850;
 }
 
 .city-project-cluster-grid {
@@ -6119,7 +6048,8 @@ body .persian-number {
   }
 
   .city-metric-grid,
-  .city-note-grid {
+  .city-note-grid,
+  .project-hub-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -6247,6 +6177,14 @@ body .persian-number {
   .about-values-grid,
   .about-team-gallery {
     grid-template-columns: 1fr;
+  }
+
+  .project-hub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-hub-card {
+    min-height: 0;
   }
 
   .about-events-grid .about-photo-card img {
@@ -6765,8 +6703,7 @@ body.home-color-anthropic .site-header .nav {
   gap: 0.08rem;
 }
 
-body.home-color-anthropic .site-header .nav > a,
-body.home-color-anthropic .site-header .nav-mega-trigger {
+body.home-color-anthropic .site-header .nav > a {
   border-radius: 0.72rem;
   padding: 0.52rem 0.46rem;
   color: color-mix(in srgb, var(--muted-foreground) 82%, var(--primary));
@@ -6778,9 +6715,7 @@ body.home-color-anthropic .site-header .nav-mega-trigger {
     transform 160ms ease;
 }
 
-body.home-color-anthropic .site-header .nav > a:hover,
-body.home-color-anthropic .site-header .nav-mega:hover .nav-mega-trigger,
-body.home-color-anthropic .site-header .nav-mega:focus-within .nav-mega-trigger {
+body.home-color-anthropic .site-header .nav > a:hover {
   background: rgb(255 250 243 / 54%);
   color: var(--primary);
   transform: translateY(-1px);
@@ -8799,7 +8734,6 @@ body.home-color-anthropic .field select:focus {
   body.home-color-anthropic .site-header,
   body.home-color-anthropic .site-header-inner,
   body.home-color-anthropic .site-header .nav > a,
-  body.home-color-anthropic .site-header .nav-mega-trigger,
   body.home-color-anthropic .site-header .header-phone,
   body.home-color-anthropic .button,
   body.home-color-anthropic .feature-strip article,

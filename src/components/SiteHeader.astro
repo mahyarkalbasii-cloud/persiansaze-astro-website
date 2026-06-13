@@ -1,17 +1,9 @@
 ---
-import CoverageMegaMenu from "@/components/CoverageMegaMenu.astro";
 import { footer, navigation, site } from "@/content/home";
 
 const { home = false } = Astro.props;
 const primaryContact = site.contacts[0];
 const loginHref = "https://my.persiansaze.com/";
-const coverageHref = "/projects/";
-const coverageMobileLinks = [
-  { label: "زعفرانیه", href: "/projects/tehran/zaferanieh/" },
-  { label: "چیتگر", href: "/projects/tehran/chitgar/" },
-  { label: "عظیمیه", href: "/projects/karaj/azimiyeh/" },
-  { label: "شمس‌آباد", href: "/projects/shamsabad/shamsabad-industrial-estate/" },
-];
 const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${href}`);
 ---
 
@@ -26,7 +18,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
 
     <nav class="nav" aria-label="ناوبری اصلی">
       {navigation.map((item) => (
-        item.href === coverageHref ? <CoverageMegaMenu /> : <a href={hrefFor(item.href)}>{item.label}</a>
+        <a href={hrefFor(item.href)}>{item.label}</a>
       ))}
     </nav>
 
@@ -59,21 +51,9 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
       </button>
     </div>
     <div class="mobile-nav-links">
-      {navigation.map((item) =>
-        item.href === coverageHref ? (
-          <div class="mobile-nav-group">
-            <a class="mobile-nav-primary-link" href={coverageHref}>مناطق تحت پوشش</a>
-            <div class="mobile-nav-sublinks" aria-label="لینک‌های منتخب مناطق تحت پوشش">
-              {coverageMobileLinks.map((link) => (
-                <a href={link.href}>{link.label}</a>
-              ))}
-            </div>
-            <a class="mobile-nav-all-link" href="/projects/">مشاهده همه مناطق</a>
-          </div>
-        ) : (
-          <a href={hrefFor(item.href)}>{item.label}</a>
-        )
-      )}
+      {navigation.map((item) => (
+        <a href={hrefFor(item.href)}>{item.label}</a>
+      ))}
     </div>
     <div class="mobile-nav-actions">
       <a class="mobile-nav-phone" href={primaryContact.href} dir="ltr">{primaryContact.phone}</a>
