@@ -784,6 +784,59 @@ body.home-color-anthropic .hero-placeholder .placeholder-label {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.answer-brief-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.answer-brief-card {
+  display: grid;
+  min-height: 17rem;
+  align-content: start;
+  gap: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  padding: var(--card-padding-compact);
+}
+
+.answer-brief-card h3 {
+  font-size: var(--text-lg);
+  line-height: 1.45;
+}
+
+.answer-brief-card p {
+  color: var(--muted-foreground);
+  font-size: var(--text-base);
+  line-height: 1.85;
+}
+
+.answer-brief-card .text-link {
+  align-self: end;
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 850;
+}
+
+.answer-brief-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-start: var(--space-8);
+  border-top: 1px solid var(--border);
+  padding-block-start: var(--space-6);
+}
+
+.answer-brief-cta p {
+  max-width: 42rem;
+  color: var(--muted-foreground);
+  font-weight: 750;
+  line-height: 1.85;
+}
+
 .problem-copy {
   justify-items: center;
   justify-self: center;
@@ -9261,6 +9314,58 @@ body.home-color-anthropic .home-page .route-map img {
 
 body.home-color-anthropic #demo {
   scroll-margin-top: calc(var(--site-header-offset) + var(--space-4));
+}
+
+body.home-color-anthropic .answer-brief-card {
+  border-color: color-mix(in srgb, var(--home-brass) 28%, var(--border));
+  background: color-mix(in srgb, var(--home-panel) 72%, var(--surface));
+  box-shadow: none;
+}
+
+body.home-color-anthropic .answer-brief-card h3 {
+  color: var(--primary);
+}
+
+body.home-color-anthropic .answer-brief-card .text-link {
+  color: color-mix(in srgb, var(--primary) 72%, var(--claude-orange));
+}
+
+body.home-color-anthropic .answer-brief-cta {
+  border-color: color-mix(in srgb, var(--home-brass) 28%, var(--border));
+}
+
+@media (max-width: 980px) {
+  .answer-brief-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .answer-brief-section .section-heading {
+    justify-items: stretch;
+    text-align: right;
+  }
+
+  .answer-brief-section .section-heading h2,
+  .answer-brief-card h3,
+  .answer-brief-card p,
+  .answer-brief-cta p {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .answer-brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .answer-brief-card {
+    min-height: auto;
+  }
+
+  .answer-brief-cta {
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 720px) {

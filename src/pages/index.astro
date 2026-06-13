@@ -2,6 +2,7 @@
 import HeroRouteMap from "@/components/HeroRouteMap.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import {
+  answerability,
   audiences,
   demo,
   faqSection,
@@ -149,17 +150,49 @@ const salesPipelineStages = salesFlow.stages.map((stage, index) => ({
   count: salesPipelineCardSets[index]?.count ?? "",
   cards: salesPipelineCardSets[index]?.cards ?? [],
 }));
+const toQuestionSchema = (item: { question: string; answer: string }) => ({
+  "@type": "Question",
+  name: item.question,
+  acceptedAnswer: {
+    "@type": "Answer",
+    text: item.answer,
+  },
+});
 const faqPageSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: orderedFaqs.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
+  mainEntity: [...answerability.items, ...orderedFaqs].map(toQuestionSchema),
+};
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": ids.service,
+  name: "زیرساخت داده و فروش پروژه‌محور پرشین‌سازه",
+  alternateName: "PersianSaze Construction Intelligence",
+  serviceType: "B2B construction intelligence and project sales enablement",
+  provider: { "@id": ids.organization },
+  url: site.url,
+  description: metadata.pageDescription,
+  areaServed: site.areaServed.map((name) => ({
+    "@type": "City",
+    name,
   })),
+  audience: [
+    {
+      "@type": "BusinessAudience",
+      audienceType: "تأمین‌کنندگان محصولات و خدمات ساختمانی",
+    },
+    {
+      "@type": "BusinessAudience",
+      audienceType: "تیم‌های فروش پروژه‌محور در بازار ساختمان",
+    },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "اشتراک‌های پرشین‌سازه",
+    itemListElement: subscriptionOfferSchemas,
+  },
+  mainEntityOfPage: site.url,
 };
 const schemaGraph = [
   {
@@ -243,11 +276,13 @@ const schemaGraph = [
     isPartOf: { "@id": ids.website },
     publisher: { "@id": ids.organization },
     description: metadata.pageDescription,
+    mainEntity: { "@id": ids.service },
     about: ["پروژه‌های ساختمانی", "نقشه پروژه‌ها", "مرحله ساخت", "فروش پروژه‌محور", "پیگیری فروش"].map((name) => ({
       "@type": "Thing",
       name,
     })),
   },
+  serviceSchema,
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -292,6 +327,31 @@ const schemaGraph = [
             <div class="hero-bento-scene" data-anim-scope>
               <HeroRouteMap alt={hero.placeholder} />
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="what-is-persiansaze" class="section answer-brief-section" aria-labelledby="answer-brief-title">
+        <div class="container">
+          <div class="section-heading">
+            <span class="placeholder-label">{answerability.eyebrow}</span>
+            <h2 id="answer-brief-title">{answerability.title}</h2>
+            <p>{answerability.description}</p>
+          </div>
+
+          <div class="answer-brief-grid">
+            {answerability.items.map((item) => (
+              <article class="answer-brief-card">
+                <h3>{item.question}</h3>
+                <p>{item.answer}</p>
+                <a class="text-link" href={item.href}>{item.linkLabel} →</a>
+              </article>
+            ))}
+          </div>
+
+          <div class="answer-brief-cta">
+            <p>اگر می‌خواهید تناسب پرشین‌سازه با بازار و محصول خودتان را بسنجید، مسیر درست از یک دمو شروع می‌شود.</p>
+            <a class="button button-primary" href={answerability.cta.href}>{answerability.cta.label}</a>
           </div>
         </div>
       </section>
