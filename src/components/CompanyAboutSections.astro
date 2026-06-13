@@ -9,6 +9,7 @@ import teamSalesImage from "@/assets/company/about/team-sales.webp";
 import teamSupportImage from "@/assets/company/about/team-support.webp";
 import teamTechImage from "@/assets/company/about/team-tech.webp";
 import teamWideImage from "@/assets/company/about/team-wide.webp";
+import homeAcademySessionImage from "@/assets/company/home-academy-session.webp";
 import valueBalanceImage from "@/assets/company/about/value-balance.webp";
 import valueCreativityImage from "@/assets/company/about/value-creativity.webp";
 import valueEmpathyImage from "@/assets/company/about/value-empathy.webp";
@@ -20,9 +21,23 @@ import valueProcessImage from "@/assets/company/about/value-process.webp";
 import valueSupportImage from "@/assets/company/about/value-support.webp";
 import { Image } from "astro:assets";
 
+interface Props {
+  showTeamGallery?: boolean;
+}
+
+const { showTeamGallery = true } = Astro.props;
+
 const heroImage = {
   src: aboutHeroImage,
   alt: "عکس گروهی پرشین سازه",
+};
+const storyImage = {
+  src: eventBirthdayImage,
+  alt: "اعضای تیم پرشین سازه در فضای کاری شرکت",
+};
+const solutionImage = {
+  src: teamSalesImage,
+  alt: "تیم فروش پرشین سازه در حال پاسخگویی به مشتریان",
 };
 
 const storyParagraphs = [
@@ -46,11 +61,6 @@ const eventGallery = [
     title: "جشن نوروز",
     src: eventNowruzImage,
     alt: "عکس گروهی نوروز ۱۴۰۲ پرشین سازه",
-  },
-  {
-    title: "تولد همکاران",
-    src: eventBirthdayImage,
-    alt: "تولد اعضای تیم پرشین سازه",
   },
   {
     title: "کارگاه تجربه مشتری",
@@ -101,12 +111,12 @@ const teamGallery = [
     alt: "تیم پشتیبانی پرشین سازه",
   },
   {
-    src: teamSalesImage,
-    alt: "تیم فروش پرشین سازه",
-  },
-  {
     src: teamTechImage,
     alt: "تیم فنی پرشین سازه",
+  },
+  {
+    src: homeAcademySessionImage,
+    alt: "کارگاه آموزشی پرشین سازه",
   },
 ];
 ---
@@ -142,10 +152,10 @@ const teamGallery = [
     </div>
     <figure class="image-panel about-real-photo-panel">
       <Image
-        src={teamWideImage}
-        alt="تیم پرشین سازه"
+        src={storyImage.src}
+        alt={storyImage.alt}
         width="800"
-        height="400"
+        height="600"
         loading="lazy"
         decoding="async"
       />
@@ -157,8 +167,8 @@ const teamGallery = [
   <div class="container about-story-grid about-story-grid-reverse">
     <figure class="image-panel about-real-photo-panel">
       <Image
-        src={teamSalesImage}
-        alt="تیم فروش پرشین سازه"
+        src={solutionImage.src}
+        alt={solutionImage.alt}
         width="600"
         height="600"
         loading="lazy"
@@ -217,18 +227,22 @@ const teamGallery = [
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-heading">
-      <p class="content-eyebrow">تیم پرشین سازه</p>
-      <h2>تیم پرشین سازه</h2>
-    </div>
-    <div class="about-team-gallery">
-      {teamGallery.map((item) => (
-        <article class="about-photo-card">
-          <Image src={item.src} alt={item.alt} loading="lazy" decoding="async" />
-        </article>
-      ))}
-    </div>
-  </div>
-</section>
+{
+  showTeamGallery && (
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="content-eyebrow">تیم پرشین سازه</p>
+          <h2>تیم پرشین سازه</h2>
+        </div>
+        <div class="about-team-gallery">
+          {teamGallery.map((item) => (
+            <article class="about-photo-card">
+              <Image src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

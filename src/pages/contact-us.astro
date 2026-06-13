@@ -3,7 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import CompanyAboutSections from "@/components/CompanyAboutSections.astro";
 import { absoluteUrl, site, socialLinks } from "@/content/home";
-import contactHeroImage from "@/assets/company/contact/contact-hero.webp";
+import contactHeroImage from "@/assets/company/home-team.webp";
 import { Image } from "astro:assets";
 
 const title = "تماس با ما | شرکت ارتباطات ماندگار پرشین | پرشین‌سازه";
@@ -34,6 +34,7 @@ const socialIconKeyFor = (href: string, label: string) => {
   if (source.includes("linkedin")) return "linkedin";
   return "youtube";
 };
+const socialIconPathFor = (href: string, label: string) => `/assets/social/${socialIconKeyFor(href, label)}.svg`;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -69,7 +70,7 @@ const structuredData = {
   title={title}
   description={description}
   canonicalPath="/contact-us/"
-  ogImage="/assets/company/contact/contact-hero.webp"
+  ogImage="/assets/company/home-team.webp"
   structuredData={structuredData}
 >
   <BreadcrumbSchema items={[{ name: "تماس با ما", path: "/contact-us/" }]} />
@@ -131,7 +132,16 @@ const structuredData = {
                   aria-label={link.label}
                   title={link.label}
                 >
-                  <span class={`contact-social-icon contact-social-icon-${socialIconKeyFor(link.href, link.label)}`} aria-hidden="true"></span>
+                  <img
+                    class="contact-social-icon"
+                    src={socialIconPathFor(link.href, link.label)}
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                    decoding="async"
+                    aria-hidden="true"
+                  />
                 </a>
               ))}
             </div>
@@ -151,6 +161,6 @@ const structuredData = {
       </div>
     </section>
 
-    <CompanyAboutSections />
+    <CompanyAboutSections showTeamGallery={false} />
   </main>
 </BaseLayout>

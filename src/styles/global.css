@@ -2048,15 +2048,14 @@ details p {
   width: 2.35rem;
   height: 2.35rem;
   place-items: center;
-  border: 1px solid var(--ps-ink-800);
+  border: 1px solid color-mix(in srgb, var(--social-color, var(--ps-ink-300)) 38%, var(--ps-ink-800));
   border-radius: var(--radius-md);
-  background: var(--social-bg, var(--ps-ink-900));
-  color: var(--social-color, var(--ps-ink-300));
+  background: var(--social-bg, #fff);
 }
 
 .social-row a:hover {
   border-color: color-mix(in srgb, var(--social-color, var(--claude-orange)) 52%, var(--ps-ink-800));
-  background: color-mix(in srgb, var(--social-bg, var(--ps-ink-900)) 82%, var(--social-color, var(--claude-orange)));
+  background: color-mix(in srgb, var(--social-bg, #fff) 88%, var(--social-color, var(--claude-orange)));
 }
 
 .social-icon,
@@ -2064,52 +2063,43 @@ details p {
   display: block;
   width: 1.15rem;
   height: 1.15rem;
-  background: currentColor;
-  -webkit-mask: var(--social-icon) center / contain no-repeat;
-  mask: var(--social-icon) center / contain no-repeat;
+  object-fit: contain;
 }
 
 .social-link-instagram,
 .contact-social-link-instagram {
   --social-color: #e4405f;
-  --social-icon: url("/assets/social/instagram.svg");
 }
 
 .social-link-linkedin,
 .contact-social-link-linkedin {
   --social-color: #0a66c2;
-  --social-icon: url("/assets/social/linkedin.svg");
 }
 
 .social-link-youtube,
 .contact-social-link-youtube {
   --social-color: #ff0000;
-  --social-icon: url("/assets/social/youtube.svg");
 }
 
 .social-link-facebook,
 .contact-social-link-facebook {
   --social-color: #0866ff;
-  --social-icon: url("/assets/social/facebook.svg");
 }
 
 .social-link-flipboard,
 .contact-social-link-flipboard {
   --social-color: #f52828;
-  --social-icon: url("/assets/social/flipboard.svg");
 }
 
 .social-link-substack,
 .contact-social-link-substack {
   --social-color: #ff6719;
-  --social-icon: url("/assets/social/substack.svg");
 }
 
 .social-link-medium,
 .contact-social-link-medium {
   --social-color: #000000;
   --social-bg: #ffffff;
-  --social-icon: url("/assets/social/medium.svg");
 }
 
 .footer-trust-badge {
@@ -4743,20 +4733,44 @@ body.home-color-anthropic > main:not(.home-page) .subx-th-link small {
   min-height: 2.35rem;
   border: 1px solid color-mix(in srgb, var(--social-color, var(--claude-orange)) 34%, var(--border));
   border-radius: var(--radius-full);
-  background: color-mix(in srgb, var(--social-color, var(--claude-orange)) 10%, var(--surface));
-  color: var(--social-color, var(--foreground));
+  background: #fff;
   padding: 0;
   text-decoration: none;
 }
 
 .contact-social-row a:hover {
   border-color: color-mix(in srgb, var(--social-color, var(--claude-orange)) 58%, var(--border));
-  background: color-mix(in srgb, var(--social-color, var(--claude-orange)) 16%, var(--surface));
+  background: color-mix(in srgb, #fff 88%, var(--social-color, var(--claude-orange)));
 }
 
 .contact-social-icon {
   width: 1.2rem;
   height: 1.2rem;
+}
+
+.contact-source-page .contact-hero-image img,
+.contact-source-page .about-real-photo-panel img,
+.contact-source-page .about-photo-card img,
+.contact-source-page .about-team-gallery .about-photo-card img {
+  object-fit: contain;
+  background: color-mix(in srgb, var(--surface) 88%, var(--background));
+}
+
+.contact-source-page .about-real-photo-panel {
+  min-height: 0;
+}
+
+.contact-source-page .about-photo-card img {
+  height: clamp(13rem, 18vw, 17.5rem);
+  aspect-ratio: auto;
+}
+
+.contact-source-page .about-team-gallery .about-photo-card {
+  aspect-ratio: 1 / 1;
+}
+
+.contact-source-page .about-team-gallery .about-photo-card img {
+  height: 100%;
 }
 
 @media (min-width: 1101px) {

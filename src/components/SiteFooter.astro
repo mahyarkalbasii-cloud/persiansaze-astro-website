@@ -46,6 +46,7 @@ const socialIconKeyFor = (href: string, label: string) => {
   if (source.includes("medium")) return "medium";
   return "link";
 };
+const socialIconPathFor = (href: string, label: string) => `/assets/social/${socialIconKeyFor(href, label)}.svg`;
 ---
 
 <footer class="site-footer">
@@ -86,7 +87,16 @@ const socialIconKeyFor = (href: string, label: string) => {
             aria-label={item.label}
             title={item.label}
           >
-            <span class={`social-icon social-icon-${socialIconKeyFor(item.href, item.label)}`} aria-hidden="true"></span>
+            <img
+              class="social-icon"
+              src={socialIconPathFor(item.href, item.label)}
+              alt=""
+              width="24"
+              height="24"
+              loading="lazy"
+              decoding="async"
+              aria-hidden="true"
+            />
           </a>
         ))}
       </div>
