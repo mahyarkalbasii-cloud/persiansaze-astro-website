@@ -1,18 +1,33 @@
 ---
 import coverageMapImage from "@/assets/images/subscriptions/subscription-coverage-map.png";
 import { Image } from "astro:assets";
+
+const beacons = [
+  { x: 66.8, y: 46.4, delay: "0s" },
+  { x: 64.1, y: 25.7, delay: "1.25s" },
+  { x: 53.4, y: 34.7, delay: "2.4s" },
+  { x: 75.7, y: 41.6, delay: "3.55s" },
+  { x: 68.6, y: 61.3, delay: "4.7s" },
+];
 ---
 
 <div class="scm-stage" aria-label="نمای پوشش اشتراک‌های پرشین‌سازه روی نقشه پروژه‌ها">
-  <Image
-    src={coverageMapImage}
-    alt="نمای تصویری پوشش اشتراک‌های پرشین‌سازه روی نقشه پروژه‌های ساختمانی و سطح دسترسی پلن‌ها"
-    width="1792"
-    height="1024"
-    loading="eager"
-    fetchpriority="high"
-    decoding="async"
-  />
+  <div class="scm-artwork">
+    <Image
+      src={coverageMapImage}
+      alt="نمای تصویری پوشش اشتراک‌های پرشین‌سازه روی نقشه پروژه‌های ساختمانی و سطح دسترسی پلن‌ها"
+      width="1586"
+      height="992"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="scm-beacon-layer" aria-hidden="true">
+      {beacons.map((beacon) => (
+        <span class="scm-beacon" style={`--x: ${beacon.x}%; --y: ${beacon.y}%; --delay: ${beacon.delay}`}></span>
+      ))}
+    </div>
+  </div>
 </div>
 
 <style>
@@ -26,7 +41,16 @@ import { Image } from "astro:assets";
     isolation: isolate;
   }
 
-  .scm-stage img {
+  .scm-artwork {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    inline-size: 100%;
+    aspect-ratio: 1586 / 992;
+    transform: translate(-50%, -50%);
+  }
+
+  .scm-artwork img {
     display: block;
     inline-size: 100%;
     block-size: 100%;
@@ -34,9 +58,94 @@ import { Image } from "astro:assets";
     object-position: 50% 50%;
   }
 
-  @media (max-width: 767px) {
-    .scm-stage img {
-      object-position: 62% 50%;
+  .scm-beacon-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .scm-beacon {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    inline-size: clamp(1.05rem, 2.15vw, 2.35rem);
+    block-size: clamp(1.05rem, 2.15vw, 2.35rem);
+    border-radius: 999px;
+    transform: translate(-50%, -50%);
+  }
+
+  .scm-beacon::before,
+  .scm-beacon::after {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    content: "";
+    opacity: 0;
+    transform: scale(0.38);
+    transform-origin: center;
+    animation: scm-beacon 7s ease-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  .scm-beacon::before {
+    border: 2px solid rgb(255 216 174 / 88%);
+    box-shadow:
+      0 0 0.85rem rgb(255 145 71 / 58%),
+      inset 0 0 0.4rem rgb(255 226 194 / 58%);
+    mix-blend-mode: screen;
+  }
+
+  .scm-beacon::after {
+    inset: 39%;
+    background: #ffe2bd;
+    box-shadow: 0 0 1.15rem rgb(255 152 76 / 82%);
+    animation-name: scm-beacon-core;
+  }
+
+  @keyframes scm-beacon {
+    0% {
+      opacity: 0;
+      transform: scale(0.42);
+    }
+
+    4% {
+      opacity: 0.95;
+      transform: scale(0.72);
+    }
+
+    14% {
+      opacity: 0;
+      transform: scale(2.1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(2.1);
+    }
+  }
+
+  @keyframes scm-beacon-core {
+    0% {
+      opacity: 0;
+      transform: scale(0.65);
+    }
+
+    4% {
+      opacity: 0.9;
+      transform: scale(1);
+    }
+
+    12%,
+    100% {
+      opacity: 0;
+      transform: scale(1.25);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scm-beacon-layer {
+      display: none;
     }
   }
 </style>

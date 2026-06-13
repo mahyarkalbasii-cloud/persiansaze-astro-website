@@ -3563,6 +3563,7 @@ details p {
 
 .subscription-hero-stage {
   position: relative;
+  inline-size: 100%;
   aspect-ratio: 1672 / 941;
 }
 
@@ -3611,12 +3612,8 @@ details p {
   }
 
   .subscription-hero-stage {
-    aspect-ratio: 941 / 1250;
+    aspect-ratio: 1586 / 992;
     border-radius: var(--radius-lg);
-  }
-
-  .subscription-hero-stage .scm-stage img {
-    object-position: 62% 50%;
   }
 }
 
