@@ -594,16 +594,16 @@ const schemaGraph = [
             <p>{salesFlow.subtitle}</p>
           </div>
 
-          <div class="sales-pipeline" role="list" aria-label={salesFlow.ariaLabel} data-anim-scope>
-            <div class="pipeline-route-layer" aria-hidden="true">
+          <ul class="sales-pipeline" aria-label={salesFlow.ariaLabel} data-anim-scope>
+            <li class="pipeline-route-layer" aria-hidden="true">
               <span class="pipeline-route-line"></span>
               <span class="pipeline-route-signal"></span>
               {salesPipelineStages.map((_, index) => (
                 <span class="pipeline-route-node" style={`--node-index: ${index}`}></span>
               ))}
-            </div>
+            </li>
             {salesPipelineStages.map((stage, index) => (
-              <article class="pipeline-stage-card" role="listitem">
+              <li class="pipeline-stage-card">
                 <header class="pipeline-stage-head">
                   <span class="pipeline-stage-number" aria-hidden="true">{toPersianDigits(index + 1)}</span>
                   <div>
@@ -621,9 +621,9 @@ const schemaGraph = [
                   ))}
                 </ul>
                 <p class="pipeline-stage-outcome"><strong>خروجی:</strong> {stage.outcome}</p>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 

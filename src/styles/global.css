@@ -1255,6 +1255,9 @@ details {
   align-items: start;
   gap: var(--pipeline-gap);
   direction: rtl;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .pipeline-route-layer {
