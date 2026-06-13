@@ -1,4 +1,8 @@
 ---
+import workFieldsAtlasDesktopImage from "@/assets/images/work-fields/work-fields-atlas-desktop.webp";
+import workFieldsAtlasMobileImage from "@/assets/images/work-fields/work-fields-atlas-mobile.webp";
+import { Image, getImage } from "astro:assets";
+
 const desktopNodes = [
   [180, 162, 0],
   [512, 172, 0.45],
@@ -56,18 +60,25 @@ const mobilePaths = [
   "M 257 1074 L 385 1132 L 520 920 L 672 978 L 638 1155",
   "M 283 1325 L 385 1132 L 526 1515 L 596 1326 L 638 1155",
 ];
+
+const mobileWorkFieldsAtlas = await getImage({
+  src: workFieldsAtlasMobileImage,
+  width: 941,
+  height: 1672,
+  format: "webp",
+});
 ---
 
 <div class="wfa-stage">
   <picture>
     <source
       media="(max-width: 767px)"
-      srcset="/images/work-fields/work-fields-atlas-mobile.webp"
+      srcset={mobileWorkFieldsAtlas.src}
       width="941"
       height="1672"
     />
-    <img
-      src="/images/work-fields/work-fields-atlas-desktop.webp"
+    <Image
+      src={workFieldsAtlasDesktopImage}
       alt="اطلس تصویری ۱۷ زمینه کاری ساختمان با شبکه ارتباطی طلایی"
       width="1672"
       height="941"

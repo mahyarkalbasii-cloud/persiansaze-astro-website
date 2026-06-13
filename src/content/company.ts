@@ -1,5 +1,15 @@
+import type { ImageMetadata } from "astro";
+import aboutHeroImage from "@/assets/company/about-hero.webp";
+import aboutTeamImage from "@/assets/company/about-team.webp";
+import academyCoverImage from "@/assets/company/academy-cover.webp";
+import academyHeroImage from "@/assets/company/academy-hero.webp";
+import contactHeroImage from "@/assets/company/contact-hero.webp";
+import homeAcademySessionImage from "@/assets/company/home-academy-session.webp";
+import homeOfficeImage from "@/assets/company/home-office.webp";
+import homeTeamImage from "@/assets/company/home-team.webp";
+
 export type ImageAsset = {
-  src: string;
+  src: ImageMetadata;
   alt: string;
 };
 
@@ -10,35 +20,35 @@ export type InfoCard = {
 
 export const assets = {
   aboutHero: {
-    src: "/assets/company/about-hero.webp",
+    src: aboutHeroImage,
     alt: "عکس گروهی تیم پرشین‌سازه",
   },
   aboutTeam: {
-    src: "/assets/company/about-team.webp",
+    src: aboutTeamImage,
     alt: "تیم پرشین‌سازه در دفتر شرکت",
   },
   academyHero: {
-    src: "/assets/company/academy-hero.webp",
+    src: academyHeroImage,
     alt: "کلاس آموزشی آکادمی پرشین‌سازه",
   },
   academyCover: {
-    src: "/assets/company/academy-cover.webp",
+    src: academyCoverImage,
     alt: "کارگاه آموزشی فروش پروژه‌محور پرشین‌سازه",
   },
   contactHero: {
-    src: "/assets/company/contact-hero.webp",
+    src: contactHeroImage,
     alt: "دفتر و تیم پاسخگویی پرشین‌سازه",
   },
   homeOffice: {
-    src: "/assets/company/home-office.webp",
+    src: homeOfficeImage,
     alt: "دفتر کاری پرشین‌سازه",
   },
   homeTeam: {
-    src: "/assets/company/home-team.webp",
+    src: homeTeamImage,
     alt: "تیم پرشین‌سازه",
   },
   homeAcademySession: {
-    src: "/assets/company/home-academy-session.webp",
+    src: homeAcademySessionImage,
     alt: "رویداد آموزشی پرشین‌سازه",
   },
 };

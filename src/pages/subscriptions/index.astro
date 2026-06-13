@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
+import { Image } from "astro:assets";
 
 const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
 const description =
@@ -144,7 +145,7 @@ const structuredData = [
               {plan.slug === "taban" && <span class="plan-badge">پیشنهاد اصلی</span>}
               <header class="plan-card-head">
                 <div class="plan-icon-shell">
-                  <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+                  <Image src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
                 </div>
                 <h2>{plan.name}</h2>
               </header>
@@ -243,7 +244,7 @@ const structuredData = [
                 {subscriptionPlans.map((plan) => (
                   <th>
                     <a href={`/subscriptions/${plan.slug}/`} class="subx-th-link">
-                      <span class="subx-th-icon"><img src={plan.iconSrc} alt="" loading="lazy" decoding="async" /></span>
+                      <span class="subx-th-icon"><Image src={plan.iconSrc} alt="" loading="lazy" decoding="async" /></span>
                       <span>{plan.name}</span>
                       <small>{plan.subtitle}</small>
                     </a>

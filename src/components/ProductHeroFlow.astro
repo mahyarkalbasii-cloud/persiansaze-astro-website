@@ -4,18 +4,28 @@
 // دسکتاپ: viewBox 1672x941 | چرخه 12s | مکث 0.9s | پینگ: 0 / 15.38 / 42.84 / 68.12 / 87.26 ٪
 // موبایل:  viewBox 941x1672 | چرخه 14s | مکث 0.9s | پینگ: 0 / 40.25 / 54.83 / 73.74 / 88.27 ٪
 // سوییچ: 768px — تصویر با <picture> آرت‌دایرکشن، لایه SVG با کلاس CSS.
+import productHeroFlowImage from "@/assets/images/product/product-hero-flow.webp";
+import productHeroFlowMobileImage from "@/assets/images/product/product-hero-flow-mobile.webp";
+import { Image, getImage } from "astro:assets";
+
+const mobileHeroFlow = await getImage({
+  src: productHeroFlowMobileImage,
+  width: 941,
+  height: 1672,
+  format: "webp",
+});
 ---
 
 <div class="phf-stage">
   <picture>
     <source
       media="(max-width: 767px)"
-      srcset="/images/product/product-hero-flow-mobile.webp"
+      srcset={mobileHeroFlow.src}
       width="941"
       height="1672"
     />
-    <img
-      src="/images/product/product-hero-flow.webp"
+    <Image
+      src={productHeroFlowImage}
       alt="جریان داده پرشین‌سازه: از پروژه روی نقشه تا داشبورد تحلیل و کارت CRM"
       width="1672"
       height="941"

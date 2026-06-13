@@ -5,15 +5,16 @@
  * اعداد دش/سینک قفل هستند — تغییر ممنوع.
  * ظرف بیرونی فقط اندازه و گوشه‌گرد می‌دهد؛ این کامپوننت نسبت ۱:۱ و border-radius:inherit دارد.
  */
-const desktopSrc = '/images/flow/product-flow-desktop.webp';
-const mobileSrc  = '/images/flow/product-flow-mobile.webp';
+import desktopSrc from "@/assets/images/flow/product-flow-desktop.webp";
+import mobileSrc from "@/assets/images/flow/product-flow-mobile.webp";
+import { Image } from "astro:assets";
 const altText = 'جریان عملیاتی پرشین‌سازه: از نقشه پروژه‌های در حال ساخت تا صفحه پروژه، تماس و پیگیری در CRM';
 ---
 
 <div class="pf-root" aria-label={altText}>
   <!-- دسکتاپ / تبلت -->
   <figure class="pf-variant pf-desktop">
-    <img src={desktopSrc} alt={altText} width="1672" height="941" loading="lazy" decoding="async" />
+    <Image src={desktopSrc} alt={altText} width="1672" height="941" loading="lazy" decoding="async" />
     <svg class="fx" viewBox="0 0 1672 941" aria-hidden="true">
     <defs>
       <linearGradient id="cometGrad"><stop offset="0%" stop-color="#FFE8CF"/><stop offset="100%" stop-color="#C0573B"/></linearGradient>
@@ -60,7 +61,7 @@ const altText = 'جریان عملیاتی پرشین‌سازه: از نقشه 
 
   <!-- موبایل -->
   <figure class="pf-variant pf-mobile">
-    <img src={mobileSrc} alt={altText} width="941" height="1672" loading="lazy" decoding="async" />
+    <Image src={mobileSrc} alt={altText} width="941" height="1672" loading="lazy" decoding="async" />
     <svg class="fx" viewBox="0 0 941 1672" aria-hidden="true"><defs>
 <linearGradient id="cometGradM"><stop offset="0%" stop-color="#FFE8CF"/><stop offset="100%" stop-color="#C0573B"/></linearGradient>
 <filter id="glowM" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>

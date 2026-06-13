@@ -1,0 +1,75 @@
+---
+import type { ProjectNeighborhoodRoute } from "@/content/growthSilos";
+
+type Props = {
+  route: ProjectNeighborhoodRoute;
+};
+
+const { route } = Astro.props as Props;
+const teaserProjects = [
+  {
+    title: "پروژه مسکونی ۱۰ واحدی",
+    stage: "نازک‌کاری",
+    type: "مسکونی میان‌متراژ",
+    address: `${route.cityName}، ${route.neighborhoodName}، پلاک دقیق محفوظ`,
+    phone: "۰۹۱۲ xxx xx xx",
+  },
+  {
+    title: "ساختمان اداری ۶ طبقه",
+    stage: "اجرای تاسیسات",
+    type: "اداری / تجاری",
+    address: `${route.cityName}، ${route.neighborhoodName}، خیابان اصلی محفوظ`,
+    phone: "۰۲۱ xxxx xxxx",
+  },
+  {
+    title: "پروژه بازسازی و تکمیل",
+    stage: "فینیشینگ داخلی",
+    type: "بازسازی فعال",
+    address: `${route.cityName}، ${route.neighborhoodName}، نشانی دقیق محفوظ`,
+    phone: "۰۹۳۵ xxx xx xx",
+  },
+];
+---
+
+<section class="project-teaser-section" aria-labelledby="project-teaser-title">
+  <div class="project-teaser-head">
+    <p class="content-eyebrow">Active Projects Preview</p>
+    <h2 id="project-teaser-title">نمونه پروژه‌های فعال {route.neighborhoodName}</h2>
+    <p>
+      این پیش‌نمایش نشان می‌دهد دیتابیس پرشین‌سازه در این محدوده چه نوع فرصت‌هایی را برای تیم فروش قابل پیگیری می‌کند.
+    </p>
+  </div>
+
+  <div class="project-teaser-shell">
+    <div class="project-teaser-grid" aria-hidden="true">
+      {teaserProjects.map((project) => (
+        <article class="project-teaser-card">
+          <div class="project-teaser-card-head">
+            <span>{project.type}</span>
+            <strong>{project.title}</strong>
+          </div>
+          <dl>
+            <div>
+              <dt>مرحله</dt>
+              <dd>{project.stage}</dd>
+            </div>
+            <div>
+              <dt>آدرس دقیق</dt>
+              <dd class="teaser-blurred">{project.address}</dd>
+            </div>
+            <div>
+              <dt>شماره سازنده</dt>
+              <dd class="teaser-blurred" dir="ltr">{project.phone}</dd>
+            </div>
+          </dl>
+        </article>
+      ))}
+    </div>
+
+    <div class="project-teaser-overlay">
+      <span>قفل اطلاعات پروژه</span>
+      <strong>برای مشاهده آدرس دقیق و شماره تماس سازندگان این محله، اشتراک تابان را فعال کنید</strong>
+      <a class="button button-primary" href="/subscriptions/taban/">فعال‌سازی اشتراک تابان</a>
+    </div>
+  </div>
+</section>

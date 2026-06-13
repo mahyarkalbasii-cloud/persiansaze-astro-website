@@ -1,22 +1,41 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { site } from "@/content/home";
-import { getProjectNeighborhoodsByProjectCity, projectCities } from "@/content/neighborhoods";
+import { projectCities, projectNeighborhoodBySlug } from "@/content/neighborhoods";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 const title = "پروژه‌های در حال ساخت بر اساس شهر و محله | پرشین‌سازه";
 const description =
   "فهرست شهرها، محله‌ها و محدوده‌های پروژه‌محور پرشین‌سازه برای تامین‌کنندگان ساختمانی که می‌خواهند فرصت‌های فعال را بر اساس موقعیت و مرحله ساخت رصد کنند.";
 const canonicalPath = "/projects/";
-const cityCards = projectCities.map((city) => ({
-  ...city,
-  neighborhoods: getProjectNeighborhoodsByProjectCity(city.slug),
-})).filter((city) => city.neighborhoods.length > 0);
+type NeighborhoodEntry = CollectionEntry<"neighborhoods">;
+type DirectoryNeighborhood = {
+  entry: NeighborhoodEntry;
+  route: NonNullable<ReturnType<typeof projectNeighborhoodBySlug.get>>;
+};
+
+const neighborhoodEntries = await getCollection("neighborhoods");
+const directoryNeighborhoods = neighborhoodEntries
+  .map((entry): DirectoryNeighborhood | null => {
+    const route = projectNeighborhoodBySlug.get(entry.data.slug);
+    return route ? { entry, route } : null;
+  })
+  .filter((item): item is DirectoryNeighborhood => item !== null)
+  .sort((a, b) => a.route.name.localeCompare(b.route.name, "fa"));
+
+const cityCards = projectCities
+  .map((city) => ({
+    ...city,
+    neighborhoods: directoryNeighborhoods.filter((item) => item.route.projectCitySlug === city.slug),
+  }))
+  .filter((city) => city.neighborhoods.length > 0);
 const totalNeighborhoods = cityCards.reduce((total, city) => total + city.neighborhoods.length, 0);
 const neighborhoodListItems = cityCards.flatMap((city) =>
-  city.neighborhoods.map((neighborhood) => ({
+  city.neighborhoods.map(({ entry, route }) => ({
     city,
-    neighborhood,
-    href: `/projects/${city.slug}/${neighborhood.slug}/`,
+    entry,
+    route,
+    href: `/projects/${city.slug}/${route.slug}/`,
   })),
 );
 const structuredData = {
@@ -33,9 +52,9 @@ const structuredData = {
     itemListElement: neighborhoodListItems.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: `${item.neighborhood.name} - ${item.city.name}`,
+      name: `${item.entry.data.neighborhood} - ${item.city.name}`,
       url: new URL(item.href, Astro.site).toString(),
-      description: item.neighborhood.focus,
+      description: item.entry.data.focus,
     })),
   },
   hasPart: cityCards.map((city) => ({
@@ -108,22 +127,22 @@ const structuredData = {
                 مشاهده صفحه خوشه {city.name}
               </a>
               <div class="project-neighborhood-grid">
-                {city.neighborhoods.map((neighborhood) => (
+                {city.neighborhoods.map(({ entry, route }) => (
                   <article class="project-neighborhood-card">
                     <div class="project-neighborhood-card-copy">
                       <p class="content-eyebrow">{city.name}</p>
                       <h3>
-                        <a href={`/projects/${city.slug}/${neighborhood.slug}/`}>{neighborhood.name}</a>
+                        <a href={`/projects/${city.slug}/${route.slug}/`}>{entry.data.neighborhood}</a>
                       </h3>
-                      <p><strong>{neighborhood.focus}</strong></p>
+                      <p><strong>{entry.data.focus}</strong></p>
                     </div>
                     <ul class="project-signal-list">
-                      {neighborhood.demandSignals.slice(0, 3).map((signal) => (
+                      {route.demandSignals.slice(0, 3).map((signal) => (
                         <li>{signal}</li>
                       ))}
                     </ul>
-                    <a class="text-link" href={`/projects/${city.slug}/${neighborhood.slug}/`}>
-                      تحلیل پروژه‌های {neighborhood.name}
+                    <a class="text-link" href={`/projects/${city.slug}/${route.slug}/`}>
+                      تحلیل پروژه‌های {entry.data.neighborhood}
                     </a>
                   </article>
                 ))}
