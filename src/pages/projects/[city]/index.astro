@@ -1,23 +1,39 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { site } from "@/content/home";
-import {
-  getProjectNeighborhoodsByProjectCity,
-  projectCities,
-  type ProjectCity,
-} from "@/content/neighborhoods";
+import { projectHubCities, projectNeighborhoodBySlug, type ProjectHubCity } from "@/content/neighborhoods";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type NeighborhoodEntry = CollectionEntry<"neighborhoods">;
+type CityNeighborhood = {
+  entry: NeighborhoodEntry;
+  route: NonNullable<ReturnType<typeof projectNeighborhoodBySlug.get>>;
+};
 
 export function getStaticPaths() {
-  return projectCities.map((city) => ({
+  return projectHubCities.map((city) => ({
     params: { city: city.slug },
     props: { city },
   }));
 }
 
-const { city } = Astro.props as { city: ProjectCity };
-const neighborhoods = getProjectNeighborhoodsByProjectCity(city.slug);
+const { city } = Astro.props as { city: ProjectHubCity };
+const neighborhoodEntries = await getCollection("neighborhoods");
+const neighborhoods = neighborhoodEntries
+  .filter((entry) => entry.data.city === city.slug)
+  .map((entry): CityNeighborhood => {
+    const route = projectNeighborhoodBySlug.get(entry.data.slug);
+
+    if (!route) {
+      throw new Error(`Missing route metadata for neighborhood markdown: ${entry.data.slug}`);
+    }
+
+    return { entry, route };
+  })
+  .sort((a, b) => a.entry.data.neighborhood.localeCompare(b.entry.data.neighborhood, "fa"));
+
 const canonicalPath = `/projects/${city.slug}/`;
-const title = `پروژه‌های در حال ساخت ${city.name} | محله‌ها و محدوده‌های فعال | پرشین‌سازه`;
+const title = `لیست پروژه‌های در حال ساخت ${city.name} | محله‌ها و محدوده‌های فعال | پرشین‌سازه`;
 const description = `فهرست محله‌ها و محدوده‌های پروژه‌محور ${city.name} برای تامین‌کنندگان ساختمانی؛ مناسب رصد مرحله ساخت، اولویت‌بندی فروش و تشخیص زمان ورود به پروژه.`;
 const structuredData = [
   {
@@ -35,12 +51,12 @@ const structuredData = [
     ],
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: neighborhoods.map((neighborhood, index) => ({
+      itemListElement: neighborhoods.map(({ entry, route }, index) => ({
         "@type": "ListItem",
         position: index + 1,
-        name: neighborhood.name,
-        url: new URL(`/projects/${city.slug}/${neighborhood.slug}/`, Astro.site).toString(),
-        description: neighborhood.focus,
+        name: entry.data.neighborhood,
+        url: new URL(`/projects/${city.slug}/${entry.data.slug}/`, Astro.site).toString(),
+        description: route.focus,
       })),
     },
   },
@@ -77,24 +93,24 @@ const structuredData = [
           <nav class="breadcrumb" aria-label="مسیر صفحه">
             <a href="/">پرشین‌سازه</a>
             <span aria-hidden="true">›</span>
-            <a href="/cities/">شهرها</a>
+            <a href="/projects/">شهرها</a>
             <span aria-hidden="true">›</span>
             <span>{city.name}</span>
           </nav>
           <p class="content-eyebrow">{city.province}</p>
-          <h1>پروژه‌های در حال ساخت {city.name}</h1>
+          <h1>لیست پروژه‌های در حال ساخت {city.name}</h1>
           <p>{city.summary}</p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
-            <a class="button button-secondary" href="/projects/">همه پروژه‌ها</a>
+            <a class="button button-secondary" href="/projects/">همه شهرها</a>
           </div>
         </div>
         <aside class="content-summary-card city-pin-card">
           <span class="city-pin" aria-hidden="true">
-            <span>{city.name}</span>
+            <span>{city.cardName}</span>
           </span>
           <strong>{neighborhoods.length}</strong>
-          <span>محدوده پروژه‌محور</span>
+          <span>محله و محدوده پروژه‌محور</span>
           <p>{city.seoFocus}</p>
         </aside>
       </div>
@@ -103,14 +119,14 @@ const structuredData = [
     <section class="section project-directory-section">
       <div class="container project-directory-layout">
         <aside class="project-directory-summary">
-          <h2>منطق خوشه شهری</h2>
+          <h2>هاب شهری {city.name}</h2>
           <p>
-            این صفحه رابطه شهر، کریدور و محله را برای موتورهای جست‌وجو و تیم فروش روشن می‌کند؛ هر محدوده مسیر مستقل، متن هدفمند و لینک برگشتی به شهر مادر دارد.
+            این صفحه محله‌های زیرمجموعه {city.name} را از collection محتوایی پرشین‌سازه می‌خواند و هر محله را به صفحه اختصاصی خودش وصل می‌کند.
           </p>
           <dl class="compact-facts">
             <div>
               <dt>{city.name}</dt>
-              <dd>شهر یا کریدور پروژه‌ای</dd>
+              <dd>شهر مادر</dd>
             </div>
             <div>
               <dt>{neighborhoods.length}</dt>
@@ -126,19 +142,21 @@ const structuredData = [
               هر کارت به یک صفحه محله‌ای وصل است که برای تامین‌کنندگان، پیمانکاران و تولیدکنندگان ساختمانی نوشته شده و تیپ ساخت‌وساز، تقاضای فنی و زمان ورود فروش را روشن می‌کند.
             </p>
             <div class="project-neighborhood-grid">
-              {neighborhoods.map((neighborhood) => (
+              {neighborhoods.map(({ entry, route }) => (
                 <article class="project-neighborhood-card">
                   <div class="project-neighborhood-card-copy">
                     <p class="content-eyebrow">{city.name}</p>
-                    <h2>{neighborhood.name}</h2>
-                    <p><strong>{neighborhood.focus}</strong></p>
+                    <h2>
+                      <a href={`/projects/${city.slug}/${entry.data.slug}/`}>{entry.data.neighborhood}</a>
+                    </h2>
+                    <p><strong>{entry.data.focus}</strong></p>
                   </div>
                   <ul class="project-signal-list">
-                    {neighborhood.demandSignals.map((signal) => (
+                    {route.demandSignals.slice(0, 4).map((signal) => (
                       <li>{signal}</li>
                     ))}
                   </ul>
-                  <a class="text-link" href={`/projects/${city.slug}/${neighborhood.slug}/`}>
+                  <a class="text-link" href={`/projects/${city.slug}/${entry.data.slug}/`}>
                     مشاهده صفحه محله →
                   </a>
                 </article>

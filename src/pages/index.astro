@@ -17,6 +17,7 @@ import {
 } from "@/content/home";
 import { constructionStages, workFields } from "@/content/construction";
 import { saleTypes } from "@/content/sales";
+import { Image } from "astro:assets";
 
 const primaryContact = site.contacts[0];
 const defaultDuration = "3" as const;
@@ -611,7 +612,7 @@ const schemaGraph = [
                 {plan.slug === "taban" && <span class="plan-badge">پیشنهاد اصلی</span>}
                 <header class="plan-card-head">
                   <div class="plan-icon-shell">
-                    <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+                    <Image src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
                   </div>
                   <h3>{plan.name}</h3>
                 </header>

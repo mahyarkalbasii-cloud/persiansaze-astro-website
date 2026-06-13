@@ -1,13 +1,17 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import CompanyAboutSections from "@/components/CompanyAboutSections.astro";
 import { absoluteUrl, site, socialLinks } from "@/content/home";
+import contactHeroImage from "@/assets/company/home-team.webp";
+import { Image } from "astro:assets";
 
 const title = "تماس با ما | شرکت ارتباطات ماندگار پرشین | پرشین‌سازه";
-const description = "راه‌های ارتباط با پرشین‌سازه، شماره‌های تماس، آدرس شرکت، ایمیل و ساعت پاسخگویی.";
+const description =
+  "راه‌های ارتباط با پرشین‌سازه، شماره‌های تماس، آدرس شرکت، ایمیل، ساعت پاسخگویی و معرفی تیم و مسیر شکل‌گیری پرشین‌سازه.";
 
 const heroImage = {
-  src: "/assets/company/contact/contact-hero.webp",
+  src: contactHeroImage,
   alt: "تیم پرشین سازه در فضای کاری شرکت",
 };
 
@@ -30,6 +34,7 @@ const socialIconKeyFor = (href: string, label: string) => {
   if (source.includes("linkedin")) return "linkedin";
   return "youtube";
 };
+const socialIconPathFor = (href: string, label: string) => `/assets/social/${socialIconKeyFor(href, label)}.svg`;
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -65,11 +70,11 @@ const structuredData = {
   title={title}
   description={description}
   canonicalPath="/contact-us/"
-  ogImage="/assets/company/contact/contact-hero.webp"
+  ogImage="/assets/company/home-team.webp"
   structuredData={structuredData}
 >
   <BreadcrumbSchema items={[{ name: "تماس با ما", path: "/contact-us/" }]} />
-  <main class="contact-system-page contact-source-page">
+  <main class="contact-system-page contact-source-page about-source-page">
     <section class="content-hero contact-operations-hero contact-hero">
       <div class="container contact-hero-grid">
         <div class="contact-hero-copy">
@@ -85,7 +90,7 @@ const structuredData = {
         </div>
 
         <figure class="image-panel contact-hero-image">
-          <img src={heroImage.src} alt={heroImage.alt} width="800" height="400" loading="eager" decoding="async" />
+          <Image src={heroImage.src} alt={heroImage.alt} width="800" height="400" loading="eager" decoding="async" />
         </figure>
       </div>
     </section>
@@ -127,7 +132,16 @@ const structuredData = {
                   aria-label={link.label}
                   title={link.label}
                 >
-                  <span class={`contact-social-icon contact-social-icon-${socialIconKeyFor(link.href, link.label)}`} aria-hidden="true"></span>
+                  <img
+                    class="contact-social-icon"
+                    src={socialIconPathFor(link.href, link.label)}
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                    decoding="async"
+                    aria-hidden="true"
+                  />
                 </a>
               ))}
             </div>
@@ -146,5 +160,7 @@ const structuredData = {
         </div>
       </div>
     </section>
+
+    <CompanyAboutSections showTeamGallery={false} />
   </main>
 </BaseLayout>

@@ -1,4 +1,4 @@
-import { projectCityBySlug, projectNeighborhoods } from "@/content/neighborhoods";
+import { getProjectHubCitySlug, projectHubCityBySlug, projectNeighborhoods } from "@/content/neighborhoods";
 
 export type ProjectListItem = {
   title: string;
@@ -35,10 +35,11 @@ export type GrowthStageRoute = {
 const upgradeCta = "قفل / ارتقا";
 
 export const projectNeighborhoodRoutes: ProjectNeighborhoodRoute[] = projectNeighborhoods.map((neighborhood) => {
-  const city = projectCityBySlug.get(neighborhood.projectCitySlug);
+  const hubCitySlug = getProjectHubCitySlug(neighborhood.projectCitySlug);
+  const city = projectHubCityBySlug.get(hubCitySlug);
 
   if (!city) {
-    throw new Error(`Missing project city for neighborhood: ${neighborhood.slug}`);
+    throw new Error(`Missing project hub city for neighborhood: ${neighborhood.slug}`);
   }
 
   return {

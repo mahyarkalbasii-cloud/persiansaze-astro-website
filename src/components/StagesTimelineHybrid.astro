@@ -1,13 +1,26 @@
+---
+import stageTimelineDesktopImage from "@/assets/images/construction-stages/stage-timeline-desktop.webp";
+import stageTimelineMobileImage from "@/assets/images/construction-stages/stage-timeline-mobile.webp";
+import { Image, getImage } from "astro:assets";
+
+const mobileStageTimeline = await getImage({
+  src: stageTimelineMobileImage,
+  width: 941,
+  height: 820,
+  format: "webp",
+});
+---
+
 <div class="sthy-stage">
   <picture>
     <source
       media="(max-width: 767px)"
-      srcset="/images/construction-stages/stage-timeline-mobile.webp"
+      srcset={mobileStageTimeline.src}
       width="941"
       height="820"
     />
-    <img
-      src="/images/construction-stages/stage-timeline-desktop.webp"
+    <Image
+      src={stageTimelineDesktopImage}
       alt="تایم‌لاین تصویری ۹ مرحله ساخت در دو ردیف از طراحی و اخذ جواز تا ظریف کاری و پایان کار"
       width="1672"
       height="941"

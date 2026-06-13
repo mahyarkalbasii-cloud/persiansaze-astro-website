@@ -4,7 +4,7 @@ import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
 import { cityProfiles, type CityProfile } from "@/content/cities";
 import { constructionStages, workFields } from "@/content/construction";
 import { site } from "@/content/home";
-import { getProjectCitiesByCoverageCity, getProjectNeighborhoodsByCoverageCity } from "@/content/neighborhoods";
+import { getProjectHubCitySlug, getProjectNeighborhoodsByCoverageCity, projectHubCityBySlug } from "@/content/neighborhoods";
 
 export function getStaticPaths() {
   return cityProfiles.map((city) => ({
@@ -18,9 +18,24 @@ const relatedStages = constructionStages.filter((stage) => city.relatedStageIds.
 const relatedFields = workFields.filter((field) => city.relatedWorkFieldSlugs.includes(field.slug));
 const relatedStageIdSet = new Set(city.relatedStageIds);
 const projectNeighborhoods = getProjectNeighborhoodsByCoverageCity(city.slug);
-const projectCityGroups = getProjectCitiesByCoverageCity(city.slug).map((projectCity) => ({
+const projectCityGroups = Array.from(
+  new Map(
+    projectNeighborhoods.map((neighborhood) => {
+      const hubCitySlug = getProjectHubCitySlug(neighborhood.projectCitySlug);
+      const hubCity = projectHubCityBySlug.get(hubCitySlug);
+
+      if (!hubCity) {
+        throw new Error(`Missing project hub city for ${neighborhood.slug}`);
+      }
+
+      return [hubCity.slug, hubCity] as const;
+    }),
+  ).values(),
+).map((projectCity) => ({
   ...projectCity,
-  neighborhoods: projectNeighborhoods.filter((neighborhood) => neighborhood.projectCitySlug === projectCity.slug),
+  neighborhoods: projectNeighborhoods.filter(
+    (neighborhood) => getProjectHubCitySlug(neighborhood.projectCitySlug) === projectCity.slug,
+  ),
 }));
 const title = `ساخت‌وساز ${city.title} | آمار، پروانه ساخت و فرصت فروش | پرشین‌سازه`;
 const description = `${city.title}: تحلیل ساخت‌وساز، جمعیت، مسکن، پروانه‌های ساختمانی، ریسک زیرساختی، نکات فروش پروژه‌محور و لینک به مراحل ساخت و زمینه‌های کاری.`;
@@ -56,7 +71,7 @@ const neighborhoodItemListSchema = {
     "@type": "ListItem",
     position: index + 1,
     name: neighborhood.name,
-    url: `${site.url}/projects/${neighborhood.projectCitySlug}/${neighborhood.slug}/`,
+    url: `${site.url}/projects/${getProjectHubCitySlug(neighborhood.projectCitySlug)}/${neighborhood.slug}/`,
     description: neighborhood.focus,
   })),
 };

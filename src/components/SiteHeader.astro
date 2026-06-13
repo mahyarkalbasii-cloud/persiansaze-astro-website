@@ -1,6 +1,4 @@
 ---
-import CoverageMegaMenu from "@/components/CoverageMegaMenu.astro";
-import { coverageMenuLinks } from "@/content/coverageAreas";
 import { footer, navigation, site } from "@/content/home";
 
 const { home = false } = Astro.props;
@@ -19,11 +17,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
     </a>
 
     <nav class="nav" aria-label="ناوبری اصلی">
-      {navigation.slice(0, 3).map((item) => (
-        <a href={hrefFor(item.href)}>{item.label}</a>
-      ))}
-      <CoverageMegaMenu />
-      {navigation.slice(3).map((item) => (
+      {navigation.map((item) => (
         <a href={hrefFor(item.href)}>{item.label}</a>
       ))}
     </nav>
@@ -57,21 +51,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
       </button>
     </div>
     <div class="mobile-nav-links">
-      {navigation.slice(0, 3).map((item) => (
-        <a href={hrefFor(item.href)}>{item.label}</a>
-      ))}
-      <div class="mobile-nav-group">
-        <a class="mobile-nav-primary-link" href="/projects/">مناطق تحت پوشش</a>
-        <div class="mobile-nav-sublinks" aria-label="لینک‌های منتخب مناطق تحت پوشش">
-          {coverageMenuLinks.map((link) => (
-            <a href={link.href}>
-              <span>{link.cityName}</span>
-              <strong>{link.label}</strong>
-            </a>
-          ))}
-        </div>
-      </div>
-      {navigation.slice(3).map((item) => (
+      {navigation.map((item) => (
         <a href={hrefFor(item.href)}>{item.label}</a>
       ))}
     </div>

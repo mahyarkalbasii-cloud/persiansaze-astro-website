@@ -1,3 +1,9 @@
+import type { ImageMetadata } from "astro";
+import bonyanIcon from "@/assets/subscriptions/bonyan.webp";
+import rouyanIcon from "@/assets/subscriptions/rouyan.webp";
+import tabanIcon from "@/assets/subscriptions/taban.webp";
+import tabanPlusIcon from "@/assets/subscriptions/tabanplus.webp";
+
 export type SubscriptionDuration = "3" | "6" | "12";
 
 export type SubscriptionPlan = {
@@ -8,7 +14,7 @@ export type SubscriptionPlan = {
   headline: string;
   metaTitle: string;
   metaDescription: string;
-  iconSrc: string;
+  iconSrc: ImageMetadata;
   iconAlt: string;
   landLine: string;
   highlights: string[];
@@ -43,7 +49,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     metaTitle: "اشتراک بنیان برای شروع فروش پروژه‌محور | پرشین‌سازه",
     metaDescription:
       "اشتراک بنیان برای تیم‌هایی است که می‌خواهند با هزینه کنترل‌شده وارد فروش پروژه‌محور شوند و با داده، CRM، پیامک و آموزش مسیر فروش را منظم کنند.",
-    iconSrc: "/assets/subscriptions/bonyan.webp",
+    iconSrc: bonyanIcon,
     iconAlt: "آیکون اشتراک بنیان",
     landLine: "زمین تا ۳۰۰ متر",
     highlights: [
@@ -85,7 +91,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     metaTitle: "اشتراک رویان برای رشد فروش ساختمانی | پرشین‌سازه",
     metaDescription:
       "اشتراک رویان برای تیم‌هایی است که از تست بازار عبور کرده‌اند و می‌خواهند پروژه‌های بیشتری ببینند، پیگیری منظم‌تری داشته باشند و با هزینه منطقی رشد کنند.",
-    iconSrc: "/assets/subscriptions/rouyan.webp",
+    iconSrc: rouyanIcon,
     iconAlt: "آیکون اشتراک رویان",
     landLine: "زمین تا ۵۰۰ متر",
     highlights: [
@@ -127,7 +133,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     metaTitle: "اشتراک تابان برای پروژه‌های خاص | پرشین‌سازه",
     metaDescription:
       "اشتراک تابان برای تیم‌هایی است که به پروژه‌های بزرگ‌تر، خاص‌تر و فرصت‌های حومه نیاز دارند و می‌خواهند فروش پروژه‌محور را جدی‌تر پیش ببرند.",
-    iconSrc: "/assets/subscriptions/taban.webp",
+    iconSrc: tabanIcon,
     iconAlt: "آیکون اشتراک تابان",
     landLine: "زمین تا ۷۰۰ متر",
     highlights: [
@@ -169,7 +175,7 @@ export const subscriptionPlans: SubscriptionPlan[] = [
     metaTitle: "اشتراک تابان پلاس برای تسلط بر بازار | پرشین‌سازه",
     metaDescription:
       "اشتراک تابان پلاس برای تیم‌هایی است که پوشش کامل‌تر، پروژه‌های بیشتر، متراژ بدون محدودیت و مشاوره فروش و مارکتینگ جدی‌تر می‌خواهند.",
-    iconSrc: "/assets/subscriptions/tabanplus.webp",
+    iconSrc: tabanPlusIcon,
     iconAlt: "آیکون اشتراک تابان پلاس",
     landLine: "بدون محدودیت متراژ",
     highlights: [

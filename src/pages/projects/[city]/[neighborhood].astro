@@ -1,22 +1,44 @@
 ---
+import ProjectTeaserList from "@/components/ProjectTeaserList.astro";
 import RelatedAreas from "@/components/RelatedAreas.astro";
 import { projectNeighborhoodRoutes, type ProjectNeighborhoodRoute } from "@/content/growthSilos";
+import { projectNeighborhoodBySlug } from "@/content/neighborhoods";
 import { site } from "@/content/home";
 import Layout from "@/layouts/Layout.astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 
-export function getStaticPaths() {
-  return projectNeighborhoodRoutes.map((route) => ({
-    params: { city: route.city, neighborhood: route.neighborhood },
-    props: { route },
-  }));
+type NeighborhoodEntry = CollectionEntry<"neighborhoods">;
+
+export async function getStaticPaths() {
+  const entries = await getCollection("neighborhoods");
+  const routeBySlug = new Map(projectNeighborhoodRoutes.map((route) => [route.neighborhood, route]));
+
+  return entries.map((entry) => {
+    const route = routeBySlug.get(entry.data.slug);
+    const neighborhood = projectNeighborhoodBySlug.get(entry.data.slug);
+
+    if (!route || !neighborhood) {
+      throw new Error(`Missing route metadata for neighborhood markdown: ${entry.data.slug}`);
+    }
+
+    if (route.city !== entry.data.city) {
+      throw new Error(`Neighborhood city mismatch for ${entry.data.slug}: frontmatter=${entry.data.city}, route=${route.city}`);
+    }
+
+    return {
+      params: { city: entry.data.city, neighborhood: entry.data.slug },
+      props: { route, entry },
+    };
+  });
 }
 
-const { route } = Astro.props as { route: ProjectNeighborhoodRoute };
+const { route, entry } = Astro.props as { route: ProjectNeighborhoodRoute; entry: NeighborhoodEntry };
+const { Content } = await render(entry);
 const canonicalPath = `/projects/${route.city}/${route.neighborhood}/`;
 const cityPath = `/projects/${route.city}/`;
 const canonicalURL = new URL(canonicalPath, Astro.site).toString();
-const title = `پروژه‌های در حال ساخت ${route.neighborhoodName} | ${route.cityName} | پرشین‌سازه`;
-const description = `${route.headline}: ${route.description}`;
+const title = entry.data.title;
+const description = entry.data.description;
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -44,6 +66,15 @@ const structuredData = [
   },
   {
     "@context": "https://schema.org",
+    "@type": "Article",
+    headline: entry.data.title,
+    description: entry.data.description,
+    inLanguage: "fa-IR",
+    url: canonicalURL,
+    isPartOf: { "@id": `${site.url}/#website` },
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "Place",
     name: route.neighborhoodName,
     containedInPlace: {
@@ -52,28 +83,6 @@ const structuredData = [
     },
     description: route.focus,
     url: canonicalURL,
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `چه تامین‌کنندگانی باید ${route.neighborhoodName} را رصد کنند؟`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `تامین‌کنندگانی که با ${route.focus} مرتبط هستند باید پروژه‌های ${route.neighborhoodName} را بر اساس مرحله ساخت و زمان خرید رصد کنند.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `پرشین‌سازه برای فروش در ${route.neighborhoodName} چه کمکی می‌کند؟`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "پرشین‌سازه مرحله واقعی پروژه، موقعیت و سیگنال‌های اجرایی را به تیم فروش نشان می‌دهد تا تماس قبل از بسته شدن خرید انجام شود.",
-        },
-      },
-    ],
   },
 ];
 ---
@@ -86,13 +95,15 @@ const structuredData = [
           <nav class="breadcrumb" aria-label="مسیر صفحه">
             <a href="/">پرشین‌سازه</a>
             <span aria-hidden="true">›</span>
+            <a href="/projects/">شهرها</a>
+            <span aria-hidden="true">›</span>
             <a href={cityPath}>{route.cityName}</a>
             <span aria-hidden="true">›</span>
             <span>{route.neighborhoodName}</span>
           </nav>
           <p class="content-eyebrow">پروژه‌های محله‌ای</p>
           <h1>{route.headline}</h1>
-          <p>{route.description}</p>
+          <p>{entry.data.description}</p>
           <div class="action-row">
             <a class="button button-primary" href="/#demo">درخواست دمو</a>
             <a class="button button-secondary" href={cityPath}>همه محدوده‌های {route.cityName}</a>
@@ -137,36 +148,13 @@ const structuredData = [
         </aside>
 
         <article class="detail-main">
-          <section>
-            <h2>آناتومی فروش پروژه‌ای در {route.neighborhoodName}</h2>
-            <p>
-              {route.neighborhoodName} در خوشه {route.cityName} با تمرکز روی {route.focus} تعریف می‌شود. برای تامین‌کننده، ارزش این صفحه در تشخیص نوع پروژه، جنس تقاضای فنی و زمان مناسب ورود به مذاکره است.
-            </p>
-            <ul class="template-chip-list">
-              {route.demandSignals.map((signal) => (
-                <li>{signal}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section class="city-narrative-panel">
-            <h2>چرا زمان‌بندی فروش در {route.neighborhoodName} مهم است؟</h2>
-            <p>
-              در بازار پروژه‌محور، یک تامین‌کننده زمانی برنده می‌شود که قبل از نهایی شدن خرید وارد شود. پرشین‌سازه با رصد مرحله ساخت، تیم فروش را از تماس عمومی جدا می‌کند و به سمت پروژه‌هایی می‌برد که همین حالا به محصول یا خدمت مرتبط نزدیک شده‌اند.
-            </p>
-          </section>
-
-          <section class="city-file-cta">
-            <h2>پروژه‌های فعال {route.neighborhoodName} را مرحله‌به‌مرحله ببینید</h2>
-            <p>
-              اگر محصول شما به مرحله ساخت، موقعیت پروژه و تصمیم سازنده وابسته است، صفحه محله‌ای فقط landing page نیست؛ نقطه شروع اولویت‌بندی فروش در {route.cityName} است.
-            </p>
-            <div class="action-row">
-              <a class="button button-primary" href="/#demo">درخواست دمو</a>
-              <a class="button button-secondary" href={cityPath}>بازگشت به خوشه {route.cityName}</a>
+          <section class="neighborhood-article-card">
+            <div class="prose prose-fa neighborhood-prose">
+              <Content />
             </div>
           </section>
 
+          <ProjectTeaserList route={route} />
           <RelatedAreas current={route} routes={projectNeighborhoodRoutes} />
         </article>
       </div>

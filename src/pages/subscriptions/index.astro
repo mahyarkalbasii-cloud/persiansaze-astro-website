@@ -1,8 +1,10 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import SubscriptionCoverageMap from "@/components/SubscriptionCoverageMap.astro";
 import { absoluteUrl, site } from "@/content/home";
 import { pricing, subscriptionComparisonRows, subscriptionPlans } from "@/content/subscriptions";
+import { Image } from "astro:assets";
 
 const title = "اشتراک‌های پروژه‌های ساختمانی | پرشین‌سازه";
 const description =
@@ -83,26 +85,22 @@ const structuredData = [
 
 <BaseLayout title={title} description={description} canonicalPath="/subscriptions/" structuredData={structuredData}>
   <BreadcrumbSchema items={[{ name: "اشتراک‌ها", path: "/subscriptions/" }]} />
-  <main>
+  <main class="subscription-system-page">
     <section class="content-hero subscription-hero subscription-index-hero">
-      <div class="container content-hero-grid">
-        <div>
-          <p class="content-eyebrow">اشتراک‌ها</p>
-          <h1>اشتراک‌ها معماری تجاری دسترسی به بازار پروژه‌ها هستند</h1>
-          <p>
-            هر پلن فقط قیمت یا تعداد پروژه نیست؛ محدوده‌ای از بازار، سطحی از فرصت و میزان ورود تیم فروش شما به جریان
-            پروژه‌های ساختمانی را تعریف می‌کند.
-          </p>
-          <div class="action-row">
-            <a class="button button-primary" href="/#demo">درخواست دمو</a>
-            <a class="button button-secondary" href="#comparison">مقایسه ویژگی‌ها</a>
-          </div>
+      <div class="container content-hero-grid stage-hero-grid subscription-hero-grid">
+        <p class="content-eyebrow">اشتراک‌ها</p>
+        <h1>اشتراک‌ها معماری تجاری دسترسی به بازار پروژه‌ها هستند</h1>
+        <div class="stage-hero-visual subscription-hero-stage" aria-label="نمای پوشش اشتراک‌های پرشین‌سازه روی نقشه پروژه‌ها">
+          <SubscriptionCoverageMap />
         </div>
-        <aside class="content-summary-card subscription-summary-card">
-          <strong>{subscriptionPlans.length}</strong>
-          <span>مسیر دسترسی به بازار پروژه‌ها</span>
-          <p>قیمت‌ها بر اساس اشتراک سه‌ماهه نمایش داده شده‌اند و هر پلن به صفحه جزئیات خودش وصل است.</p>
-        </aside>
+        <p class="stage-hero-lede subscription-hero-lede">
+          هر پلن فقط قیمت یا تعداد پروژه نیست؛ محدوده‌ای از بازار، سطحی از فرصت و میزان ورود تیم فروش شما به جریان
+          پروژه‌های ساختمانی را تعریف می‌کند.
+        </p>
+        <div class="action-row">
+          <a class="button button-primary" href="/#demo">درخواست دمو</a>
+          <a class="button button-secondary" href="#comparison">مقایسه ویژگی‌ها</a>
+        </div>
       </div>
     </section>
 
@@ -144,7 +142,7 @@ const structuredData = [
               {plan.slug === "taban" && <span class="plan-badge">پیشنهاد اصلی</span>}
               <header class="plan-card-head">
                 <div class="plan-icon-shell">
-                  <img src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
+                  <Image src={plan.iconSrc} alt={plan.iconAlt} loading="lazy" decoding="async" />
                 </div>
                 <h2>{plan.name}</h2>
               </header>
@@ -243,7 +241,7 @@ const structuredData = [
                 {subscriptionPlans.map((plan) => (
                   <th>
                     <a href={`/subscriptions/${plan.slug}/`} class="subx-th-link">
-                      <span class="subx-th-icon"><img src={plan.iconSrc} alt="" loading="lazy" decoding="async" /></span>
+                      <span class="subx-th-icon"><Image src={plan.iconSrc} alt="" loading="lazy" decoding="async" /></span>
                       <span>{plan.name}</span>
                       <small>{plan.subtitle}</small>
                     </a>
