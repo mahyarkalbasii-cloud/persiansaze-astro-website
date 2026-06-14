@@ -7837,6 +7837,7 @@ body.home-color-anthropic .stage-rail {
 
 body.home-color-anthropic .stage-rail > li {
   height: 5.1rem;
+  margin-top: 0;
 }
 
 body.home-color-anthropic .stage-tile {
