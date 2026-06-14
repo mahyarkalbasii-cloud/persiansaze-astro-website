@@ -92,7 +92,7 @@ const hrefFor = (href: string) => (home || !href.startsWith("#") ? href : `/${hr
       };
 
       window.addEventListener("scroll", requestHeaderSync, { passive: true });
-      syncScrollHeader();
+      requestHeaderSync();
 
       const toggle = document.querySelector("[data-mobile-menu-toggle]");
       const menu = document.querySelector("[data-mobile-menu]");
