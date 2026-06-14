@@ -7954,10 +7954,16 @@ body.home-color-anthropic .stage-info-card.is-changing {
 
 body.home-color-anthropic .stage-info-copy p {
   min-height: 6.2rem;
+  color: var(--home-plan-readable);
 }
 
 body.home-color-anthropic .stage-info-side {
   border-inline-start-color: color-mix(in srgb, var(--border) 76%, var(--home-brass));
+}
+
+body.home-color-anthropic .stage-info-side span,
+body.home-color-anthropic .stage-info-side p {
+  color: var(--home-plan-readable);
 }
 
 body.home-color-anthropic .sales-pipeline {
