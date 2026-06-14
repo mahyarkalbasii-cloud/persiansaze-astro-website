@@ -110,6 +110,8 @@ export const navigation: LinkItem[] = [
 
 export const hero = {
   titleLines: ["پروژه‌های ساختمانی فعال", "را زودتر پیدا کنید"],
+  answerFirst:
+    "پرشین‌سازه چیست؟ پرشین‌سازه یک پلتفرم هوش ساختمانی B2B است که پروژه‌های در حال ساخت تهران، کرج و لواسان را به‌صورت میدانی جمع‌آوری و دسته‌بندی می‌کند و آن‌ها را همراه با موقعیت، مرحله ساخت و ابزار پیگیری در اختیار تأمین‌کنندگان مصالح و خدمات ساختمانی می‌گذارد تا فروش پروژه‌محور را دقیق‌تر و زودتر شروع کنند.",
   body: "فروش موفق در بازار ساختمان، از رسیدن به پروژه مناسب در زمان درست شروع می‌شود. پرشین‌سازه پروژه‌های در حال ساخت تهران، کرج و لواسان را جمع‌آوری و دسته‌بندی می‌کند تا تأمین‌کنندگان سریع‌تر به فرصت‌های مرتبط برسند.",
   demoCta: "درخواست دمو",
   secondaryCta: "مشاهده پروژه‌ها",
@@ -360,6 +362,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
     links: [
       { label: "محصول", href: "/product/" },
       { label: "اشتراک‌ها", href: "/subscriptions/" },
+      { label: "بازار پروژه‌ها", href: "/market/" },
       { label: "تماس با ما", href: "/contact-us/" },
       { label: "سوالات متداول", href: "#faq" },
       { label: "آموزش", href: "/education/" },
@@ -391,6 +394,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 export const utilityLinks: LinkItem[] = [
   { label: "قوانین و مقررات", href: "/rules/" },
   { label: "شهرها", href: "/projects/" },
+  { label: "آمار بازار پروژه‌ها", href: "/market/" },
   { label: "فیلتر مرحله ساخت", href: "/construction-stages/" },
   { label: "CRM سبک فروش پروژه‌ای", href: "/product/#features" },
   { label: "AI تصمیم‌یار", href: "/product/" },

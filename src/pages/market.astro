@@ -1,0 +1,184 @@
+---
+import BreadcrumbSchema from "@/components/BreadcrumbSchema.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { absoluteUrl, site } from "@/content/home";
+import { marketFaqs, marketMethodology, marketPage, marketSnapshot } from "@/content/market";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: marketPage.title,
+    description: marketPage.description,
+    url: absoluteUrl(marketPage.canonicalPath),
+    inLanguage: "fa-IR",
+    isPartOf: { "@id": `${site.url}/#website` },
+    about: [
+      { "@type": "Thing", name: "Active construction projects" },
+      { "@type": "Thing", name: "Construction market intelligence" },
+      { "@type": "Thing", name: "B2B construction sales" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: marketSnapshot.datasetName,
+    description: marketSnapshot.datasetDescription,
+    url: absoluteUrl(marketPage.canonicalPath),
+    inLanguage: "fa-IR",
+    dateModified: marketSnapshot.isoDateModified,
+    creator: { "@id": `${site.url}/#organization` },
+    publisher: { "@id": `${site.url}/#organization` },
+    spatialCoverage: marketSnapshot.cityRows.map((row) => ({
+      "@type": "Place",
+      name: row.city,
+    })),
+    variableMeasured: [
+      "activeProjectCountByCity",
+      "activeProjectCountByConstructionStage",
+      "constructionSalesWindow",
+      "projectNeighborhoodCoverage",
+    ],
+    measurementTechnique: "Public content-module snapshot; prepared for API-backed market data.",
+    distribution: {
+      "@type": "DataDownload",
+      encodingFormat: "text/html",
+      contentUrl: absoluteUrl(marketPage.canonicalPath),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: marketFaqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={marketPage.title}
+  description={marketPage.description}
+  canonicalPath={marketPage.canonicalPath}
+  structuredData={structuredData}
+>
+  <BreadcrumbSchema items={[{ name: marketPage.breadcrumb, path: marketPage.canonicalPath }]} />
+  <main>
+    <section class="content-hero">
+      <div class="container content-hero-grid">
+        <div>
+          <p class="content-eyebrow">{marketPage.eyebrow}</p>
+          <h1>{marketPage.headline}</h1>
+          <p>{marketPage.lede}</p>
+          <p>{marketPage.sourceNote}</p>
+          <div class="action-row">
+            {marketPage.actions.map((action) => (
+              <a class={`button button-${action.variant}`} href={action.href}>{action.label}</a>
+            ))}
+          </div>
+        </div>
+        <aside class="content-summary-card">
+          <strong>{marketSnapshot.totalActiveProjects}</strong>
+          <span>{marketPage.summaryLabel}</span>
+          <p>{marketPage.summaryText}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{marketSnapshot.citySectionTitle}</h2>
+          <p>{marketSnapshot.citySectionLede}</p>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                {marketSnapshot.cityTableHeaders.map((header) => <th>{header}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {marketSnapshot.cityRows.map((row) => (
+                <tr>
+                  <td><a href={row.href}>{row.city}</a></td>
+                  <td><strong>{row.activeProjects}</strong></td>
+                  <td>{row.neighborhoods}</td>
+                  <td>{row.strongestSignals}</td>
+                  <td>{row.bestUse}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{marketSnapshot.stageSectionTitle}</h2>
+          <p>{marketSnapshot.stageSectionLede}</p>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                {marketSnapshot.stageTableHeaders.map((header) => <th>{header}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {marketSnapshot.stageRows.map((row) => (
+                <tr>
+                  <td><a href={row.href}>{row.stage}</a></td>
+                  <td><strong>{row.activeProjects}</strong></td>
+                  <td>{row.salesWindow}</td>
+                  <td>{row.likelyNeeds}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{marketMethodology.title}</h2>
+          <p>{marketMethodology.lede}</p>
+        </div>
+        <div class="content-card-grid">
+          {marketMethodology.cards.map((card) => (
+            <article class="content-card">
+              <h2>{card.title}</h2>
+              <p>{card.body}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="market-faq">
+      <div class="container">
+        <div class="section-heading">
+          <h2>{marketSnapshot.faqSectionTitle}</h2>
+          <p>{marketSnapshot.faqSectionLede}</p>
+        </div>
+        <div class="faq-list">
+          {marketFaqs.map((item) => (
+            <details>
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
