@@ -30,8 +30,8 @@ const {
   <Image
     src={src}
     alt={alt}
-    width="1254"
-    height="1254"
+    widths={[320, 480, 640, 960]}
+    sizes="(max-width: 720px) min(84vw, 24rem), (max-width: 1100px) min(100vw - 2rem, 32rem), 32rem"
     loading={eager ? 'eager' : 'lazy'}
     fetchpriority={eager ? 'high' : 'auto'}
     decoding="async"
